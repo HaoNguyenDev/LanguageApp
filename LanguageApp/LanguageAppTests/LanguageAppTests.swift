@@ -236,21 +236,32 @@ final class ContentImporterTests: XCTestCase {
         XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, 144)
         XCTAssertTrue(word.isLearned)
 
-        // Content update (version 3) → texts refresh, progress kept.
+        // Content update (higher version): text changes, a learned word moves to another
+        // lesson, another word is removed → progress kept, removed word deleted.
         let url = try XCTUnwrap(Bundle.main.url(forResource: "course_ja", withExtension: "json"))
         var json = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
-        json["version"] = 3
+        json["version"] = (json["version"] as? Int ?? 0) + 1
         var units = try XCTUnwrap(json["units"] as? [[String: Any]])
         var lessons = try XCTUnwrap(units[0]["lessons"] as? [[String: Any]])
-        var items = try XCTUnwrap(lessons[0]["items"] as? [[String: Any]])
-        items[0]["term"] = "こんにちは!"
-        lessons[0]["items"] = items
+        var firstItems = try XCTUnwrap(lessons[0]["items"] as? [[String: Any]])
+        var secondItems = try XCTUnwrap(lessons[1]["items"] as? [[String: Any]])
+        var moved = firstItems.removeFirst()          // the learned word
+        moved["term"] = "こんにちは!"
+        secondItems.append(moved)
+        let removed = firstItems.removeLast()
+        let removedId = try XCTUnwrap(removed["id"] as? String)
+        lessons[0]["items"] = firstItems
+        lessons[1]["items"] = secondItems
         units[0]["lessons"] = lessons
         json["units"] = units
         try importer.importCourse(from: JSONSerialization.data(withJSONObject: json), order: 2)
+        try context.save()
 
         XCTAssertEqual(word.term, "こんにちは!")
-        XCTAssertTrue(word.isLearned)
-        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, 144)
+        XCTAssertTrue(word.isLearned, "Moving a word to another lesson keeps its SRS state")
+        XCTAssertEqual(word.lesson?.remoteId, lessons[1]["id"] as? String)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, 143)
+        let removedLeft = try context.fetch(FetchDescriptor<VocabItem>(predicate: #Predicate { $0.remoteId == removedId }))
+        XCTAssertTrue(removedLeft.isEmpty, "Words removed from the content are deleted")
     }
 }

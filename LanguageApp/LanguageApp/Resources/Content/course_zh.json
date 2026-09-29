@@ -1,6 +1,6 @@
 {
   "id": "zh",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "Chinese",
     "vi": "Tiếng Trung",
@@ -50,14 +50,14 @@
                 "es": "hola"
               },
               "reading": "nǐ hǎo",
-              "example": "你好，我是安娜。",
+              "example": "你好，你好吗？",
               "exampleMeaning": {
-                "en": "Hello, I'm Anna.",
-                "vi": "Xin chào, tôi là Anna.",
-                "zh": "你好，我是安娜。",
-                "ja": "こんにちは、アンナです。",
-                "ko": "안녕하세요, 저는 안나예요.",
-                "es": "Hola, soy Anna."
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
               }
             },
             {
@@ -177,7 +177,16 @@
                 "ko": "물",
                 "es": "agua"
               },
-              "reading": "shuǐ"
+              "reading": "shuǐ",
+              "example": "请给我水。",
+              "exampleMeaning": {
+                "en": "Water, please.",
+                "vi": "Cho tôi nước.",
+                "zh": "请给我水。",
+                "ja": "水をください。",
+                "ko": "물 주세요.",
+                "es": "Agua, por favor."
+              }
             },
             {
               "id": "zh-0010",
@@ -216,7 +225,16 @@
                 "ko": "이름",
                 "es": "nombre"
               },
-              "reading": "míngzi"
+              "reading": "míngzi",
+              "example": "我叫安娜。",
+              "exampleMeaning": {
+                "en": "My name is Anna.",
+                "vi": "Tên tôi là Anna.",
+                "zh": "我叫安娜。",
+                "ja": "私の名前はアンナです。",
+                "ko": "제 이름은 안나예요.",
+                "es": "Me llamo Anna."
+              }
             }
           ]
         }
@@ -376,7 +394,16 @@
                 "ko": "커피",
                 "es": "café"
               },
-              "reading": "kāfēi"
+              "reading": "kāfēi",
+              "example": "请来一杯咖啡。",
+              "exampleMeaning": {
+                "en": "A coffee, please.",
+                "vi": "Cho tôi một ly cà phê.",
+                "zh": "请来一杯咖啡。",
+                "ja": "コーヒーを一つください。",
+                "ko": "커피 한 잔 주세요.",
+                "es": "Un café, por favor."
+              }
             },
             {
               "id": "zh-0022",

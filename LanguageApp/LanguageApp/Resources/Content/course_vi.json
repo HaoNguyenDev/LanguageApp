@@ -1,6 +1,6 @@
 {
   "id": "vi",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "Vietnamese",
     "vi": "Tiếng Việt",
@@ -48,6 +48,15 @@
                 "ja": "こんにちは",
                 "ko": "안녕하세요",
                 "es": "hola"
+              },
+              "example": "Xin chào, bạn khỏe không?",
+              "exampleMeaning": {
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
               }
             },
             {
@@ -159,6 +168,15 @@
                 "ja": "水",
                 "ko": "물",
                 "es": "agua"
+              },
+              "example": "Cho tôi nước.",
+              "exampleMeaning": {
+                "en": "Water, please.",
+                "vi": "Cho tôi nước.",
+                "zh": "请给我水。",
+                "ja": "水をください。",
+                "ko": "물 주세요.",
+                "es": "Agua, por favor."
               }
             },
             {
@@ -196,7 +214,7 @@
                 "ko": "이름",
                 "es": "nombre"
               },
-              "example": "Tôi tên là Anna.",
+              "example": "Tên tôi là Anna.",
               "exampleMeaning": {
                 "en": "My name is Anna.",
                 "vi": "Tên tôi là Anna.",
@@ -359,7 +377,7 @@
               "example": "Cho tôi một ly cà phê.",
               "exampleMeaning": {
                 "en": "A coffee, please.",
-                "vi": "Một ly cà phê, làm ơn.",
+                "vi": "Cho tôi một ly cà phê.",
                 "zh": "请来一杯咖啡。",
                 "ja": "コーヒーを一つください。",
                 "ko": "커피 한 잔 주세요.",
@@ -376,6 +394,15 @@
                 "ja": "お茶",
                 "ko": "차",
                 "es": "té"
+              },
+              "example": "Tôi uống trà.",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
               }
             },
             {

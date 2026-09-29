@@ -4,6 +4,7 @@
 //
 //  Imports course JSON into SwiftData. Upserts by `remoteId` so that a content update
 //  (higher `version`) refreshes texts while keeping the learner's progress & SRS state.
+//  Units / lessons / words that are no longer in the content are deleted.
 //
 
 import Foundation
@@ -68,57 +69,75 @@ struct ContentImporter {
         course.speechLocale = dto.speechLocale
         course.readingLabel = dto.readingLabel
 
-        let existingUnits = Dictionary((course.units ?? []).map { ($0.remoteId, $0) },
-                                       uniquingKeysWith: { first, _ in first })
+        // Look up existing content across the whole course so a lesson or word that moved
+        // to another unit/lesson keeps its identity (and the learner's SRS progress).
+        let oldUnits = course.units ?? []
+        let oldLessons = oldUnits.flatMap { $0.lessons ?? [] }
+        let oldItems = oldLessons.flatMap { $0.items ?? [] }
+        var index = ExistingContent(
+            units: Dictionary(oldUnits.map { ($0.remoteId, $0) }, uniquingKeysWith: { first, _ in first }),
+            lessons: Dictionary(oldLessons.map { ($0.remoteId, $0) }, uniquingKeysWith: { first, _ in first }),
+            items: Dictionary(oldItems.map { ($0.remoteId, $0) }, uniquingKeysWith: { first, _ in first })
+        )
 
         for (unitIndex, unitDTO) in dto.units.enumerated() {
             let unit: CourseUnit
-            if let found = existingUnits[unitDTO.id] {
+            if let found = index.units.removeValue(forKey: unitDTO.id) {
                 unit = found
             } else {
                 unit = CourseUnit(remoteId: unitDTO.id)
                 context.insert(unit)
-                unit.course = course
             }
+            unit.course = course
             unit.order = unitIndex
             unit.title = unitDTO.title
-            upsertLessons(unitDTO.lessons, into: unit, courseId: dto.id)
+            upsertLessons(unitDTO.lessons, into: unit, courseId: dto.id, index: &index)
+        }
+
+        // Whatever is left was removed from the content → delete it.
+        index.items.values.forEach { context.delete($0) }
+        index.lessons.values.forEach { context.delete($0) }
+        index.units.values.forEach { context.delete($0) }
+        if !(index.items.isEmpty && index.lessons.isEmpty && index.units.isEmpty) {
+            Logger.shared.info("Removed from \(dto.id): \(index.units.count) units, \(index.lessons.count) lessons, \(index.items.count) words")
         }
 
         Logger.shared.info("Imported course \(dto.id) v\(dto.version)")
         return course
     }
 
-    private func upsertLessons(_ lessons: [LessonDTO], into unit: CourseUnit, courseId: String) {
-        let existingLessons = Dictionary((unit.lessons ?? []).map { ($0.remoteId, $0) },
-                                         uniquingKeysWith: { first, _ in first })
+    /// Existing objects of a course that haven't been matched to the new content yet.
+    private struct ExistingContent {
+        var units: [String: CourseUnit]
+        var lessons: [String: Lesson]
+        var items: [String: VocabItem]
+    }
 
+    private func upsertLessons(_ lessons: [LessonDTO], into unit: CourseUnit, courseId: String, index: inout ExistingContent) {
         for (lessonIndex, lessonDTO) in lessons.enumerated() {
             let lesson: Lesson
-            if let found = existingLessons[lessonDTO.id] {
+            if let found = index.lessons.removeValue(forKey: lessonDTO.id) {
                 lesson = found
             } else {
                 lesson = Lesson(remoteId: lessonDTO.id)
                 context.insert(lesson)
-                lesson.unit = unit
             }
+            lesson.unit = unit
             lesson.order = lessonIndex
             lesson.title = lessonDTO.title
             lesson.icon = lessonDTO.icon ?? "star.fill"
             lesson.xpReward = lessonDTO.xp ?? 10
 
-            let existingItems = Dictionary((lesson.items ?? []).map { ($0.remoteId, $0) },
-                                           uniquingKeysWith: { first, _ in first })
             for (itemIndex, itemDTO) in lessonDTO.items.enumerated() {
                 let item: VocabItem
-                if let found = existingItems[itemDTO.id] {
+                if let found = index.items.removeValue(forKey: itemDTO.id) {
                     item = found
                 } else {
                     item = VocabItem(remoteId: itemDTO.id, courseId: courseId)
                     context.insert(item)
-                    item.lesson = lesson
                 }
                 // Content only – SRS fields are intentionally untouched.
+                item.lesson = lesson
                 item.order = itemIndex
                 item.courseId = courseId
                 item.term = itemDTO.term

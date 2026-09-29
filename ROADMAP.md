@@ -61,7 +61,7 @@ Legend: ✅ done · 🟡 in progress · ⚪ planned
 - [ ] `feature/remote-content` – download courses from a server/CDN via `ContentImporter.importCourse(from:)`, versioned updates without an App Store release
 - [ ] `feature/more-units` – grow each course to ~10 units (travel, shopping, time & dates, work, directions…)
 - [ ] `feature/native-audio` – recorded native-speaker audio, fall back to TTS
-- [ ] Content tooling: spreadsheet/CSV → course JSON generator with validation (all 6 meanings, stable ids)
+- [x] Content tooling: Google Sheet → course JSON generator with validation (`Tools/content/build_courses.py`)
 
 ---
 
