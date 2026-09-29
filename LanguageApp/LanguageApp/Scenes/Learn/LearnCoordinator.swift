@@ -1,0 +1,38 @@
+//
+//  LearnCoordinator.swift
+//  LanguageApp
+//
+
+import SwiftUI
+
+struct LearnCoordinator: View {
+    var navRouter: any NavRouterProtocol
+    @Environment(AppState.self) private var appState
+    @Environment(GamificationManager.self) private var gamification
+    @Environment(PremiumManager.self) private var premium
+
+    var body: some View {
+        LearnView(
+            onStartLesson: { lesson in
+                gamification.refreshHearts()
+                guard gamification.hasHearts(isPremium: premium.isPremium) else {
+                    appState.showToast(item: UserMessageItem(title: "out_of_hearts_title".localized(),
+                                                             message: "out_of_hearts_message".localized()))
+                    navRouter.showSheet(RouterView(routable: Router.Study.paywall))
+                    return
+                }
+                navRouter.showFullScreenCover(RouterView(routable: Router.Study.lesson(lessonId: lesson.remoteId)))
+            },
+            onLockedLesson: {
+                appState.showToast(item: UserMessageItem(message: "lesson_locked_message".localized()))
+            },
+            onChangeCourse: {
+                navRouter.push(Router.MainTab.courseSelection, animate: true)
+            },
+            onOpenPaywall: {
+                navRouter.showSheet(RouterView(routable: Router.Study.paywall))
+            }
+        )
+        .toolbar(.hidden, for: .navigationBar)
+    }
+}

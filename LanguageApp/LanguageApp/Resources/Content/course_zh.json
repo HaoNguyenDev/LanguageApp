@@ -1,0 +1,434 @@
+{
+  "id": "zh",
+  "version": 2,
+  "name": {
+    "en": "Chinese",
+    "vi": "Tiếng Trung",
+    "zh": "中文",
+    "ja": "中国語",
+    "ko": "중국어",
+    "es": "Chino"
+  },
+  "nativeName": "中文",
+  "flag": "🇨🇳",
+  "speechLocale": "zh-CN",
+  "readingLabel": "Pinyin",
+  "units": [
+    {
+      "id": "zh-u1",
+      "title": {
+        "en": "Basics 1",
+        "vi": "Cơ bản 1",
+        "zh": "基础 1",
+        "ja": "基礎 1",
+        "ko": "기초 1",
+        "es": "Básico 1"
+      },
+      "lessons": [
+        {
+          "id": "zh-u1-l1",
+          "title": {
+            "en": "Greetings",
+            "vi": "Chào hỏi",
+            "zh": "问候",
+            "ja": "あいさつ",
+            "ko": "인사",
+            "es": "Saludos"
+          },
+          "icon": "hand.wave.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0001",
+              "term": "你好",
+              "meaning": {
+                "en": "hello",
+                "vi": "xin chào",
+                "zh": "你好",
+                "ja": "こんにちは",
+                "ko": "안녕하세요",
+                "es": "hola"
+              },
+              "reading": "nǐ hǎo",
+              "example": "你好，我是安娜。",
+              "exampleMeaning": {
+                "en": "Hello, I'm Anna.",
+                "vi": "Xin chào, tôi là Anna.",
+                "zh": "你好，我是安娜。",
+                "ja": "こんにちは、アンナです。",
+                "ko": "안녕하세요, 저는 안나예요.",
+                "es": "Hola, soy Anna."
+              }
+            },
+            {
+              "id": "zh-0002",
+              "term": "再见",
+              "meaning": {
+                "en": "goodbye",
+                "vi": "tạm biệt",
+                "zh": "再见",
+                "ja": "さようなら",
+                "ko": "안녕히 가세요",
+                "es": "adiós"
+              },
+              "reading": "zàijiàn"
+            },
+            {
+              "id": "zh-0003",
+              "term": "谢谢",
+              "meaning": {
+                "en": "thank you",
+                "vi": "cảm ơn",
+                "zh": "谢谢",
+                "ja": "ありがとう",
+                "ko": "감사합니다",
+                "es": "gracias"
+              },
+              "reading": "xièxie"
+            },
+            {
+              "id": "zh-0004",
+              "term": "请",
+              "meaning": {
+                "en": "please",
+                "vi": "làm ơn",
+                "zh": "请",
+                "ja": "お願いします",
+                "ko": "부탁합니다",
+                "es": "por favor"
+              },
+              "reading": "qǐng"
+            },
+            {
+              "id": "zh-0005",
+              "term": "对不起",
+              "meaning": {
+                "en": "sorry",
+                "vi": "xin lỗi",
+                "zh": "对不起",
+                "ja": "ごめんなさい",
+                "ko": "미안합니다",
+                "es": "lo siento"
+              },
+              "reading": "duìbuqǐ"
+            },
+            {
+              "id": "zh-0006",
+              "term": "早上好",
+              "meaning": {
+                "en": "good morning",
+                "vi": "chào buổi sáng",
+                "zh": "早上好",
+                "ja": "おはよう",
+                "ko": "좋은 아침",
+                "es": "buenos días"
+              },
+              "reading": "zǎoshang hǎo"
+            }
+          ]
+        },
+        {
+          "id": "zh-u1-l2",
+          "title": {
+            "en": "Essentials",
+            "vi": "Từ thiết yếu",
+            "zh": "常用词",
+            "ja": "基本の言葉",
+            "ko": "기본 단어",
+            "es": "Palabras básicas"
+          },
+          "icon": "star.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0007",
+              "term": "是",
+              "meaning": {
+                "en": "yes",
+                "vi": "vâng / có",
+                "zh": "是",
+                "ja": "はい",
+                "ko": "네",
+                "es": "sí"
+              },
+              "reading": "shì"
+            },
+            {
+              "id": "zh-0008",
+              "term": "不",
+              "meaning": {
+                "en": "no",
+                "vi": "không",
+                "zh": "不",
+                "ja": "いいえ",
+                "ko": "아니요",
+                "es": "no"
+              },
+              "reading": "bù"
+            },
+            {
+              "id": "zh-0009",
+              "term": "水",
+              "meaning": {
+                "en": "water",
+                "vi": "nước",
+                "zh": "水",
+                "ja": "水",
+                "ko": "물",
+                "es": "agua"
+              },
+              "reading": "shuǐ"
+            },
+            {
+              "id": "zh-0010",
+              "term": "朋友",
+              "meaning": {
+                "en": "friend",
+                "vi": "bạn bè",
+                "zh": "朋友",
+                "ja": "友達",
+                "ko": "친구",
+                "es": "amigo"
+              },
+              "reading": "péngyou"
+            },
+            {
+              "id": "zh-0011",
+              "term": "家人",
+              "meaning": {
+                "en": "family",
+                "vi": "gia đình",
+                "zh": "家人",
+                "ja": "家族",
+                "ko": "가족",
+                "es": "familia"
+              },
+              "reading": "jiārén"
+            },
+            {
+              "id": "zh-0012",
+              "term": "名字",
+              "meaning": {
+                "en": "name",
+                "vi": "tên",
+                "zh": "名字",
+                "ja": "名前",
+                "ko": "이름",
+                "es": "nombre"
+              },
+              "reading": "míngzi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u2",
+      "title": {
+        "en": "Everyday life",
+        "vi": "Đời sống hằng ngày",
+        "zh": "日常生活",
+        "ja": "日常生活",
+        "ko": "일상생활",
+        "es": "Vida diaria"
+      },
+      "lessons": [
+        {
+          "id": "zh-u2-l1",
+          "title": {
+            "en": "Numbers",
+            "vi": "Số đếm",
+            "zh": "数字",
+            "ja": "数字",
+            "ko": "숫자",
+            "es": "Números"
+          },
+          "icon": "number",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0013",
+              "term": "一",
+              "meaning": {
+                "en": "one",
+                "vi": "một",
+                "zh": "一",
+                "ja": "いち",
+                "ko": "하나",
+                "es": "uno"
+              },
+              "reading": "yī"
+            },
+            {
+              "id": "zh-0014",
+              "term": "二",
+              "meaning": {
+                "en": "two",
+                "vi": "hai",
+                "zh": "二",
+                "ja": "に",
+                "ko": "둘",
+                "es": "dos"
+              },
+              "reading": "èr"
+            },
+            {
+              "id": "zh-0015",
+              "term": "三",
+              "meaning": {
+                "en": "three",
+                "vi": "ba",
+                "zh": "三",
+                "ja": "さん",
+                "ko": "셋",
+                "es": "tres"
+              },
+              "reading": "sān"
+            },
+            {
+              "id": "zh-0016",
+              "term": "四",
+              "meaning": {
+                "en": "four",
+                "vi": "bốn",
+                "zh": "四",
+                "ja": "よん",
+                "ko": "넷",
+                "es": "cuatro"
+              },
+              "reading": "sì"
+            },
+            {
+              "id": "zh-0017",
+              "term": "五",
+              "meaning": {
+                "en": "five",
+                "vi": "năm",
+                "zh": "五",
+                "ja": "ご",
+                "ko": "다섯",
+                "es": "cinco"
+              },
+              "reading": "wǔ"
+            },
+            {
+              "id": "zh-0018",
+              "term": "十",
+              "meaning": {
+                "en": "ten",
+                "vi": "mười",
+                "zh": "十",
+                "ja": "じゅう",
+                "ko": "열",
+                "es": "diez"
+              },
+              "reading": "shí"
+            }
+          ]
+        },
+        {
+          "id": "zh-u2-l2",
+          "title": {
+            "en": "Food & drink",
+            "vi": "Đồ ăn & thức uống",
+            "zh": "饮食",
+            "ja": "食べ物と飲み物",
+            "ko": "음식과 음료",
+            "es": "Comida y bebida"
+          },
+          "icon": "fork.knife",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0019",
+              "term": "米饭",
+              "meaning": {
+                "en": "rice (cooked)",
+                "vi": "cơm",
+                "zh": "米饭",
+                "ja": "ご飯",
+                "ko": "밥",
+                "es": "arroz"
+              },
+              "reading": "mǐfàn"
+            },
+            {
+              "id": "zh-0020",
+              "term": "面包",
+              "meaning": {
+                "en": "bread",
+                "vi": "bánh mì",
+                "zh": "面包",
+                "ja": "パン",
+                "ko": "빵",
+                "es": "pan"
+              },
+              "reading": "miànbāo"
+            },
+            {
+              "id": "zh-0021",
+              "term": "咖啡",
+              "meaning": {
+                "en": "coffee",
+                "vi": "cà phê",
+                "zh": "咖啡",
+                "ja": "コーヒー",
+                "ko": "커피",
+                "es": "café"
+              },
+              "reading": "kāfēi"
+            },
+            {
+              "id": "zh-0022",
+              "term": "茶",
+              "meaning": {
+                "en": "tea",
+                "vi": "trà",
+                "zh": "茶",
+                "ja": "お茶",
+                "ko": "차",
+                "es": "té"
+              },
+              "reading": "chá",
+              "example": "我喝茶。",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
+              }
+            },
+            {
+              "id": "zh-0023",
+              "term": "苹果",
+              "meaning": {
+                "en": "apple",
+                "vi": "táo",
+                "zh": "苹果",
+                "ja": "りんご",
+                "ko": "사과",
+                "es": "manzana"
+              },
+              "reading": "píngguǒ"
+            },
+            {
+              "id": "zh-0024",
+              "term": "鸡蛋",
+              "meaning": {
+                "en": "egg",
+                "vi": "trứng",
+                "zh": "鸡蛋",
+                "ja": "卵",
+                "ko": "계란",
+                "es": "huevo"
+              },
+              "reading": "jīdàn"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "id": "en",
+  "version": 2,
+  "name": {
+    "en": "English",
+    "vi": "Tiếng Anh",
+    "zh": "英语",
+    "ja": "英語",
+    "ko": "영어",
+    "es": "Inglés"
+  },
+  "nativeName": "English",
+  "flag": "🇺🇸",
+  "speechLocale": "en-US",
+  "readingLabel": "IPA",
+  "units": [
+    {
+      "id": "en-u1",
+      "title": {
+        "en": "Basics 1",
+        "vi": "Cơ bản 1",
+        "zh": "基础 1",
+        "ja": "基礎 1",
+        "ko": "기초 1",
+        "es": "Básico 1"
+      },
+      "lessons": [
+        {
+          "id": "en-u1-l1",
+          "title": {
+            "en": "Greetings",
+            "vi": "Chào hỏi",
+            "zh": "问候",
+            "ja": "あいさつ",
+            "ko": "인사",
+            "es": "Saludos"
+          },
+          "icon": "hand.wave.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "en-0001",
+              "term": "hello",
+              "meaning": {
+                "en": "hello",
+                "vi": "xin chào",
+                "zh": "你好",
+                "ja": "こんにちは",
+                "ko": "안녕하세요",
+                "es": "hola"
+              },
+              "reading": "/həˈloʊ/",
+              "example": "Hello, how are you?",
+              "exampleMeaning": {
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
+              }
+            },
+            {
+              "id": "en-0002",
+              "term": "goodbye",
+              "meaning": {
+                "en": "goodbye",
+                "vi": "tạm biệt",
+                "zh": "再见",
+                "ja": "さようなら",
+                "ko": "안녕히 가세요",
+                "es": "adiós"
+              },
+              "reading": "/ɡʊdˈbaɪ/"
+            },
+            {
+              "id": "en-0003",
+              "term": "thank you",
+              "meaning": {
+                "en": "thank you",
+                "vi": "cảm ơn",
+                "zh": "谢谢",
+                "ja": "ありがとう",
+                "ko": "감사합니다",
+                "es": "gracias"
+              },
+              "reading": "/ˈθæŋk juː/"
+            },
+            {
+              "id": "en-0004",
+              "term": "please",
+              "meaning": {
+                "en": "please",
+                "vi": "làm ơn",
+                "zh": "请",
+                "ja": "お願いします",
+                "ko": "부탁합니다",
+                "es": "por favor"
+              },
+              "reading": "/pliːz/"
+            },
+            {
+              "id": "en-0005",
+              "term": "sorry",
+              "meaning": {
+                "en": "sorry",
+                "vi": "xin lỗi",
+                "zh": "对不起",
+                "ja": "ごめんなさい",
+                "ko": "미안합니다",
+                "es": "lo siento"
+              },
+              "reading": "/ˈsɑːri/"
+            },
+            {
+              "id": "en-0006",
+              "term": "good morning",
+              "meaning": {
+                "en": "good morning",
+                "vi": "chào buổi sáng",
+                "zh": "早上好",
+                "ja": "おはよう",
+                "ko": "좋은 아침",
+                "es": "buenos días"
+              },
+              "reading": "/ɡʊd ˈmɔːrnɪŋ/"
+            }
+          ]
+        },
+        {
+          "id": "en-u1-l2",
+          "title": {
+            "en": "Essentials",
+            "vi": "Từ thiết yếu",
+            "zh": "常用词",
+            "ja": "基本の言葉",
+            "ko": "기본 단어",
+            "es": "Palabras básicas"
+          },
+          "icon": "star.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "en-0007",
+              "term": "yes",
+              "meaning": {
+                "en": "yes",
+                "vi": "vâng / có",
+                "zh": "是",
+                "ja": "はい",
+                "ko": "네",
+                "es": "sí"
+              },
+              "reading": "/jɛs/"
+            },
+            {
+              "id": "en-0008",
+              "term": "no",
+              "meaning": {
+                "en": "no",
+                "vi": "không",
+                "zh": "不",
+                "ja": "いいえ",
+                "ko": "아니요",
+                "es": "no"
+              },
+              "reading": "/noʊ/"
+            },
+            {
+              "id": "en-0009",
+              "term": "water",
+              "meaning": {
+                "en": "water",
+                "vi": "nước",
+                "zh": "水",
+                "ja": "水",
+                "ko": "물",
+                "es": "agua"
+              },
+              "reading": "/ˈwɔːtər/"
+            },
+            {
+              "id": "en-0010",
+              "term": "friend",
+              "meaning": {
+                "en": "friend",
+                "vi": "bạn bè",
+                "zh": "朋友",
+                "ja": "友達",
+                "ko": "친구",
+                "es": "amigo"
+              },
+              "reading": "/frɛnd/"
+            },
+            {
+              "id": "en-0011",
+              "term": "family",
+              "meaning": {
+                "en": "family",
+                "vi": "gia đình",
+                "zh": "家人",
+                "ja": "家族",
+                "ko": "가족",
+                "es": "familia"
+              },
+              "reading": "/ˈfæməli/"
+            },
+            {
+              "id": "en-0012",
+              "term": "name",
+              "meaning": {
+                "en": "name",
+                "vi": "tên",
+                "zh": "名字",
+                "ja": "名前",
+                "ko": "이름",
+                "es": "nombre"
+              },
+              "reading": "/neɪm/",
+              "example": "My name is Anna.",
+              "exampleMeaning": {
+                "en": "My name is Anna.",
+                "vi": "Tên tôi là Anna.",
+                "zh": "我叫安娜。",
+                "ja": "私の名前はアンナです。",
+                "ko": "제 이름은 안나예요.",
+                "es": "Me llamo Anna."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "en-u2",
+      "title": {
+        "en": "Everyday life",
+        "vi": "Đời sống hằng ngày",
+        "zh": "日常生活",
+        "ja": "日常生活",
+        "ko": "일상생활",
+        "es": "Vida diaria"
+      },
+      "lessons": [
+        {
+          "id": "en-u2-l1",
+          "title": {
+            "en": "Numbers",
+            "vi": "Số đếm",
+            "zh": "数字",
+            "ja": "数字",
+            "ko": "숫자",
+            "es": "Números"
+          },
+          "icon": "number",
+          "xp": 10,
+          "items": [
+            {
+              "id": "en-0013",
+              "term": "one",
+              "meaning": {
+                "en": "one",
+                "vi": "một",
+                "zh": "一",
+                "ja": "いち",
+                "ko": "하나",
+                "es": "uno"
+              },
+              "reading": "/wʌn/"
+            },
+            {
+              "id": "en-0014",
+              "term": "two",
+              "meaning": {
+                "en": "two",
+                "vi": "hai",
+                "zh": "二",
+                "ja": "に",
+                "ko": "둘",
+                "es": "dos"
+              },
+              "reading": "/tuː/"
+            },
+            {
+              "id": "en-0015",
+              "term": "three",
+              "meaning": {
+                "en": "three",
+                "vi": "ba",
+                "zh": "三",
+                "ja": "さん",
+                "ko": "셋",
+                "es": "tres"
+              },
+              "reading": "/θriː/"
+            },
+            {
+              "id": "en-0016",
+              "term": "four",
+              "meaning": {
+                "en": "four",
+                "vi": "bốn",
+                "zh": "四",
+                "ja": "よん",
+                "ko": "넷",
+                "es": "cuatro"
+              },
+              "reading": "/fɔːr/"
+            },
+            {
+              "id": "en-0017",
+              "term": "five",
+              "meaning": {
+                "en": "five",
+                "vi": "năm",
+                "zh": "五",
+                "ja": "ご",
+                "ko": "다섯",
+                "es": "cinco"
+              },
+              "reading": "/faɪv/"
+            },
+            {
+              "id": "en-0018",
+              "term": "ten",
+              "meaning": {
+                "en": "ten",
+                "vi": "mười",
+                "zh": "十",
+                "ja": "じゅう",
+                "ko": "열",
+                "es": "diez"
+              },
+              "reading": "/tɛn/"
+            }
+          ]
+        },
+        {
+          "id": "en-u2-l2",
+          "title": {
+            "en": "Food & drink",
+            "vi": "Đồ ăn & thức uống",
+            "zh": "饮食",
+            "ja": "食べ物と飲み物",
+            "ko": "음식과 음료",
+            "es": "Comida y bebida"
+          },
+          "icon": "fork.knife",
+          "xp": 10,
+          "items": [
+            {
+              "id": "en-0019",
+              "term": "rice",
+              "meaning": {
+                "en": "rice (cooked)",
+                "vi": "cơm",
+                "zh": "米饭",
+                "ja": "ご飯",
+                "ko": "밥",
+                "es": "arroz"
+              },
+              "reading": "/raɪs/"
+            },
+            {
+              "id": "en-0020",
+              "term": "bread",
+              "meaning": {
+                "en": "bread",
+                "vi": "bánh mì",
+                "zh": "面包",
+                "ja": "パン",
+                "ko": "빵",
+                "es": "pan"
+              },
+              "reading": "/brɛd/"
+            },
+            {
+              "id": "en-0021",
+              "term": "coffee",
+              "meaning": {
+                "en": "coffee",
+                "vi": "cà phê",
+                "zh": "咖啡",
+                "ja": "コーヒー",
+                "ko": "커피",
+                "es": "café"
+              },
+              "reading": "/ˈkɔːfi/"
+            },
+            {
+              "id": "en-0022",
+              "term": "tea",
+              "meaning": {
+                "en": "tea",
+                "vi": "trà",
+                "zh": "茶",
+                "ja": "お茶",
+                "ko": "차",
+                "es": "té"
+              },
+              "reading": "/tiː/"
+            },
+            {
+              "id": "en-0023",
+              "term": "apple",
+              "meaning": {
+                "en": "apple",
+                "vi": "táo",
+                "zh": "苹果",
+                "ja": "りんご",
+                "ko": "사과",
+                "es": "manzana"
+              },
+              "reading": "/ˈæpəl/"
+            },
+            {
+              "id": "en-0024",
+              "term": "egg",
+              "meaning": {
+                "en": "egg",
+                "vi": "trứng",
+                "zh": "鸡蛋",
+                "ja": "卵",
+                "ko": "계란",
+                "es": "huevo"
+              },
+              "reading": "/ɛɡ/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

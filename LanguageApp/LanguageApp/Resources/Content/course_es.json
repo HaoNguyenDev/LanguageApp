@@ -1,0 +1,410 @@
+{
+  "id": "es",
+  "version": 2,
+  "name": {
+    "en": "Spanish",
+    "vi": "Tiếng Tây Ban Nha",
+    "zh": "西班牙语",
+    "ja": "スペイン語",
+    "ko": "스페인어",
+    "es": "Español"
+  },
+  "nativeName": "Español",
+  "flag": "🇪🇸",
+  "speechLocale": "es-ES",
+  "readingLabel": null,
+  "units": [
+    {
+      "id": "es-u1",
+      "title": {
+        "en": "Basics 1",
+        "vi": "Cơ bản 1",
+        "zh": "基础 1",
+        "ja": "基礎 1",
+        "ko": "기초 1",
+        "es": "Básico 1"
+      },
+      "lessons": [
+        {
+          "id": "es-u1-l1",
+          "title": {
+            "en": "Greetings",
+            "vi": "Chào hỏi",
+            "zh": "问候",
+            "ja": "あいさつ",
+            "ko": "인사",
+            "es": "Saludos"
+          },
+          "icon": "hand.wave.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "es-0001",
+              "term": "hola",
+              "meaning": {
+                "en": "hello",
+                "vi": "xin chào",
+                "zh": "你好",
+                "ja": "こんにちは",
+                "ko": "안녕하세요",
+                "es": "hola"
+              }
+            },
+            {
+              "id": "es-0002",
+              "term": "adiós",
+              "meaning": {
+                "en": "goodbye",
+                "vi": "tạm biệt",
+                "zh": "再见",
+                "ja": "さようなら",
+                "ko": "안녕히 가세요",
+                "es": "adiós"
+              }
+            },
+            {
+              "id": "es-0003",
+              "term": "gracias",
+              "meaning": {
+                "en": "thank you",
+                "vi": "cảm ơn",
+                "zh": "谢谢",
+                "ja": "ありがとう",
+                "ko": "감사합니다",
+                "es": "gracias"
+              }
+            },
+            {
+              "id": "es-0004",
+              "term": "por favor",
+              "meaning": {
+                "en": "please",
+                "vi": "làm ơn",
+                "zh": "请",
+                "ja": "お願いします",
+                "ko": "부탁합니다",
+                "es": "por favor"
+              }
+            },
+            {
+              "id": "es-0005",
+              "term": "lo siento",
+              "meaning": {
+                "en": "sorry",
+                "vi": "xin lỗi",
+                "zh": "对不起",
+                "ja": "ごめんなさい",
+                "ko": "미안합니다",
+                "es": "lo siento"
+              }
+            },
+            {
+              "id": "es-0006",
+              "term": "buenos días",
+              "meaning": {
+                "en": "good morning",
+                "vi": "chào buổi sáng",
+                "zh": "早上好",
+                "ja": "おはよう",
+                "ko": "좋은 아침",
+                "es": "buenos días"
+              }
+            }
+          ]
+        },
+        {
+          "id": "es-u1-l2",
+          "title": {
+            "en": "Essentials",
+            "vi": "Từ thiết yếu",
+            "zh": "常用词",
+            "ja": "基本の言葉",
+            "ko": "기본 단어",
+            "es": "Palabras básicas"
+          },
+          "icon": "star.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "es-0007",
+              "term": "sí",
+              "meaning": {
+                "en": "yes",
+                "vi": "vâng / có",
+                "zh": "是",
+                "ja": "はい",
+                "ko": "네",
+                "es": "sí"
+              }
+            },
+            {
+              "id": "es-0008",
+              "term": "no",
+              "meaning": {
+                "en": "no",
+                "vi": "không",
+                "zh": "不",
+                "ja": "いいえ",
+                "ko": "아니요",
+                "es": "no"
+              }
+            },
+            {
+              "id": "es-0009",
+              "term": "agua",
+              "meaning": {
+                "en": "water",
+                "vi": "nước",
+                "zh": "水",
+                "ja": "水",
+                "ko": "물",
+                "es": "agua"
+              }
+            },
+            {
+              "id": "es-0010",
+              "term": "amigo",
+              "meaning": {
+                "en": "friend",
+                "vi": "bạn bè",
+                "zh": "朋友",
+                "ja": "友達",
+                "ko": "친구",
+                "es": "amigo"
+              }
+            },
+            {
+              "id": "es-0011",
+              "term": "familia",
+              "meaning": {
+                "en": "family",
+                "vi": "gia đình",
+                "zh": "家人",
+                "ja": "家族",
+                "ko": "가족",
+                "es": "familia"
+              }
+            },
+            {
+              "id": "es-0012",
+              "term": "nombre",
+              "meaning": {
+                "en": "name",
+                "vi": "tên",
+                "zh": "名字",
+                "ja": "名前",
+                "ko": "이름",
+                "es": "nombre"
+              },
+              "example": "Me llamo Ana.",
+              "exampleMeaning": {
+                "en": "My name is Ana.",
+                "vi": "Tên tôi là Ana.",
+                "zh": "我叫安娜。",
+                "ja": "私の名前はアナです。",
+                "ko": "제 이름은 아나예요.",
+                "es": "Me llamo Ana."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-u2",
+      "title": {
+        "en": "Everyday life",
+        "vi": "Đời sống hằng ngày",
+        "zh": "日常生活",
+        "ja": "日常生活",
+        "ko": "일상생활",
+        "es": "Vida diaria"
+      },
+      "lessons": [
+        {
+          "id": "es-u2-l1",
+          "title": {
+            "en": "Numbers",
+            "vi": "Số đếm",
+            "zh": "数字",
+            "ja": "数字",
+            "ko": "숫자",
+            "es": "Números"
+          },
+          "icon": "number",
+          "xp": 10,
+          "items": [
+            {
+              "id": "es-0013",
+              "term": "uno",
+              "meaning": {
+                "en": "one",
+                "vi": "một",
+                "zh": "一",
+                "ja": "いち",
+                "ko": "하나",
+                "es": "uno"
+              }
+            },
+            {
+              "id": "es-0014",
+              "term": "dos",
+              "meaning": {
+                "en": "two",
+                "vi": "hai",
+                "zh": "二",
+                "ja": "に",
+                "ko": "둘",
+                "es": "dos"
+              }
+            },
+            {
+              "id": "es-0015",
+              "term": "tres",
+              "meaning": {
+                "en": "three",
+                "vi": "ba",
+                "zh": "三",
+                "ja": "さん",
+                "ko": "셋",
+                "es": "tres"
+              }
+            },
+            {
+              "id": "es-0016",
+              "term": "cuatro",
+              "meaning": {
+                "en": "four",
+                "vi": "bốn",
+                "zh": "四",
+                "ja": "よん",
+                "ko": "넷",
+                "es": "cuatro"
+              }
+            },
+            {
+              "id": "es-0017",
+              "term": "cinco",
+              "meaning": {
+                "en": "five",
+                "vi": "năm",
+                "zh": "五",
+                "ja": "ご",
+                "ko": "다섯",
+                "es": "cinco"
+              }
+            },
+            {
+              "id": "es-0018",
+              "term": "diez",
+              "meaning": {
+                "en": "ten",
+                "vi": "mười",
+                "zh": "十",
+                "ja": "じゅう",
+                "ko": "열",
+                "es": "diez"
+              }
+            }
+          ]
+        },
+        {
+          "id": "es-u2-l2",
+          "title": {
+            "en": "Food & drink",
+            "vi": "Đồ ăn & thức uống",
+            "zh": "饮食",
+            "ja": "食べ物と飲み物",
+            "ko": "음식과 음료",
+            "es": "Comida y bebida"
+          },
+          "icon": "fork.knife",
+          "xp": 10,
+          "items": [
+            {
+              "id": "es-0019",
+              "term": "arroz",
+              "meaning": {
+                "en": "rice (cooked)",
+                "vi": "cơm",
+                "zh": "米饭",
+                "ja": "ご飯",
+                "ko": "밥",
+                "es": "arroz"
+              }
+            },
+            {
+              "id": "es-0020",
+              "term": "pan",
+              "meaning": {
+                "en": "bread",
+                "vi": "bánh mì",
+                "zh": "面包",
+                "ja": "パン",
+                "ko": "빵",
+                "es": "pan"
+              }
+            },
+            {
+              "id": "es-0021",
+              "term": "café",
+              "meaning": {
+                "en": "coffee",
+                "vi": "cà phê",
+                "zh": "咖啡",
+                "ja": "コーヒー",
+                "ko": "커피",
+                "es": "café"
+              },
+              "example": "Un café, por favor.",
+              "exampleMeaning": {
+                "en": "A coffee, please.",
+                "vi": "Một ly cà phê, làm ơn.",
+                "zh": "请来一杯咖啡。",
+                "ja": "コーヒーを一つください。",
+                "ko": "커피 한 잔 주세요.",
+                "es": "Un café, por favor."
+              }
+            },
+            {
+              "id": "es-0022",
+              "term": "té",
+              "meaning": {
+                "en": "tea",
+                "vi": "trà",
+                "zh": "茶",
+                "ja": "お茶",
+                "ko": "차",
+                "es": "té"
+              }
+            },
+            {
+              "id": "es-0023",
+              "term": "manzana",
+              "meaning": {
+                "en": "apple",
+                "vi": "táo",
+                "zh": "苹果",
+                "ja": "りんご",
+                "ko": "사과",
+                "es": "manzana"
+              }
+            },
+            {
+              "id": "es-0024",
+              "term": "huevo",
+              "meaning": {
+                "en": "egg",
+                "vi": "trứng",
+                "zh": "鸡蛋",
+                "ja": "卵",
+                "ko": "계란",
+                "es": "huevo"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
