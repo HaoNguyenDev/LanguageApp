@@ -1,0 +1,122 @@
+//
+//  LessonSessionViewModel.swift
+//  LanguageApp
+//
+//  State machine of a lesson: answer → check → feedback → next … → finished.
+//  Wrong answers are re-queued once at the end (like Duolingo).
+//
+
+import Foundation
+import Observation
+
+@Observable final class LessonSessionViewModel {
+    enum Phase: Equatable {
+        case answering
+        case feedback(isCorrect: Bool)
+        case outOfHearts
+        case finished
+    }
+
+    let lessonTitle: String
+    private(set) var exercises: [Exercise]
+    private(set) var currentIndex = 0
+    private(set) var phase: Phase = .answering
+    var selectedOptionId: String?
+
+    private(set) var gradedCount = 0
+    private(set) var correctCount = 0
+    private var requeuedIds = Set<String>()
+
+    /// Called on each mistake (hearts); return false when no hearts are left.
+    @ObservationIgnored var onMistake: (() -> Bool)?
+
+    init(lessonTitle: String, exercises: [Exercise]) {
+        self.lessonTitle = lessonTitle
+        self.exercises = exercises
+        if exercises.isEmpty { phase = .finished }
+    }
+
+    var current: Exercise? {
+        exercises.indices.contains(currentIndex) ? exercises[currentIndex] : nil
+    }
+
+    var progress: Double {
+        guard !exercises.isEmpty else { return 1 }
+        let done = Double(currentIndex) + (isShowingFeedback ? 1 : 0)
+        return done / Double(exercises.count)
+    }
+
+    var isShowingFeedback: Bool {
+        if case .feedback = phase { return true }
+        return false
+    }
+
+    var accuracy: Double {
+        guard gradedCount > 0 else { return 1 }
+        return Double(correctCount) / Double(gradedCount)
+    }
+
+    var canCheck: Bool {
+        phase == .answering && selectedOptionId != nil
+    }
+
+    // MARK: - Actions
+
+    func select(_ optionId: String) {
+        guard phase == .answering else { return }
+        selectedOptionId = optionId
+    }
+
+    /// Grades the selected option of a choice exercise.
+    @discardableResult
+    func check() -> Bool {
+        guard canCheck, let current, let correctId = current.correctOptionId else { return false }
+        let isCorrect = selectedOptionId == correctId
+        grade(current, isCorrect: isCorrect)
+        return isCorrect
+    }
+
+    /// Match-pairs exercise reports its own result.
+    func completeMatch(mistakes: Int) {
+        guard phase == .answering, current != nil else { return }
+        gradedCount += 1
+        if mistakes == 0 { correctCount += 1 }
+        // Mistakes inside matching don't cost hearts – they are corrected on the spot.
+        phase = .feedback(isCorrect: mistakes == 0)
+    }
+
+    /// Continue after an intro card or the feedback banner.
+    func next() {
+        if phase == .outOfHearts || phase == .finished { return }
+        selectedOptionId = nil
+        if currentIndex + 1 < exercises.count {
+            currentIndex += 1
+            phase = .answering
+        } else {
+            currentIndex = exercises.count
+            phase = .finished
+        }
+    }
+
+    /// Lets the user continue after refilling hearts (e.g. purchased premium).
+    func resumeAfterRefill() {
+        guard phase == .outOfHearts else { return }
+        phase = .feedback(isCorrect: false)
+    }
+
+    private func grade(_ exercise: Exercise, isCorrect: Bool) {
+        gradedCount += 1
+        if isCorrect {
+            correctCount += 1
+            phase = .feedback(isCorrect: true)
+            return
+        }
+
+        if !requeuedIds.contains(exercise.id) {
+            requeuedIds.insert(exercise.id)
+            exercises.append(exercise)
+        }
+        let hasHeartsLeft = onMistake?() ?? true
+        phase = hasHeartsLeft ? .feedback(isCorrect: false) : .outOfHearts
+    }
+}
