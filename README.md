@@ -60,6 +60,7 @@ Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices fo
 ## Project structure
 
 ```
+Tools/content/              build_courses.py – Google Sheet → course JSON (see its README)
 LanguageApp/
 ├── App/                    LanguageAppApp (entry point, DI, ModelContainer)
 ├── AppCoordinator/         Root NavigationStack + sheet/full-screen routing (Router.Study)
@@ -78,7 +79,7 @@ LanguageApp/
 ├── CustomUI/               BaseApp components + FilledButtonStyle, OptionButtonStyle,
 │                           LanguageBadge, LessonProgressBar, StatPill, SpeakerButton…
 └── Resources/
-    ├── Content/            course_{vi,en,zh,ja,ko,es}.json
+    ├── Content/            course_{vi,en,zh,ja,ko,es}.json (generated – see Tools/content)
     ├── Languages/          lang_{vi,en,cn,ja,ko,es}.json (UI strings)
     ├── Animation/          Lottie
     └── Font/               Nunito
@@ -86,14 +87,22 @@ LanguageApp/
 
 ## Course content
 
-Each course currently has 2 units × 2 lessons × 6 words (24 words per course, 144 in total), content `version` 2:
+Each course currently has 2 units × 2 lessons × 6 words (24 words per course, 144 in total), content `version` 3:
 
 - Unit 1 "Basics 1": Greetings, Essentials
 - Unit 2 "Everyday life": Numbers, Food & drink
 
 Readings: IPA (English), Pinyin (Chinese), kana + Romaji (Japanese), Romanization (Korean); none for Spanish and Vietnamese.
 
-To change content, edit `Resources/Content/course_xx.json` and **bump `version`**. On the next launch, `ContentImporter` updates the text by `id` while keeping the learner's progress and SRS schedule. Item `id`s must stay stable and must never change.
+Content is edited in the **Google Sheet "LinguaPath – Course Content"** (one row per word, all six languages side by side) and converted with the content tool:
+
+```bash
+python3 Tools/content/build_courses.py --sheet-id <SHEET_ID>     # or --xlsx <downloaded.xlsx>
+```
+
+The script validates the sheet (missing translations/readings, duplicate ids, broken references…), writes the six `course_xx.json` files and bumps each course's `version` when its content changed. On the next launch, `ContentImporter` updates the texts by `id`, keeps the learner's progress and SRS schedule (also when a word moves to another lesson) and deletes words/lessons/units that were removed from the sheet. Word ids must stay stable and must never be reused. See [`Tools/content/README.md`](Tools/content/README.md) for the sheet format and all checks.
+
+Generated item format:
 
 ```json
 { "id": "ja-0007", "term": "はい", "reading": "hai",
@@ -119,20 +128,7 @@ Add a **lowercase** key to all six `lang_*.json` files, then use `"key".localize
 
 ## Roadmap
 
-**Phase 1 (MVP, current):** offline lessons, SRS, gamification, paywall, 6 languages.
-
-**Phase 2:**
-- iCloud sync: enable the iCloud + CloudKit capability and switch to `cloudKitDatabase: .automatic`
-- Sign in with Apple (when leaderboards/friends are needed)
-- Download courses from a server/CDN (reuse `ContentImporter.importCourse(from:)`)
-- Native-speaker audio instead of TTS
-- More units per course
-
-**Phase 3:**
-- Weekly leaderboards (leagues), streak freeze, daily quests
-- Typing/speaking exercises (Speech framework), writing practice for Hanzi/Kana/Hangul
-- Streak widget, Live Activity, Apple Watch review reminders
-- AI conversation practice
+See [ROADMAP.md](ROADMAP.md). Current focus: make the app complete before publishing – stabilize (v0.9), more content (v0.10), new exercise types (v0.11), engagement features (v0.12), polish (v0.13), then release (v1.0.0).
 
 ## Technical notes
 
