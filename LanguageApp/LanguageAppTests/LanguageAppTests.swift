@@ -11,9 +11,10 @@ import SwiftData
 
 @MainActor
 final class SRSSchedulerTests: XCTestCase {
-    private let scheduler = SRSScheduler()
-    private let now = Date(timeIntervalSince1970: 1_800_000_000)
-    private let day: TimeInterval = 86_400
+    // Fixtures as computed properties so every test gets fresh values.
+    private var scheduler: SRSScheduler { SRSScheduler() }
+    private var now: Date { Date(timeIntervalSince1970: 1_800_000_000) }
+    private var day: TimeInterval { 86_400 }
 
     func testIntroduceSchedulesTomorrow() {
         let state = scheduler.introduce(now: now)
@@ -114,8 +115,8 @@ final class ExerciseGeneratorTests: XCTestCase {
 
 @MainActor
 final class LessonSessionViewModelTests: XCTestCase {
-    private let word = StudyItem(id: "a", term: "hola", reading: nil, meaning: "hello",
-                                 example: nil, exampleMeaning: nil, speechLocale: "es-ES")
+    private var word: StudyItem { StudyItem(id: "a", term: "hola", reading: nil, meaning: "hello",
+                                 example: nil, exampleMeaning: nil, speechLocale: "es-ES") }
 
     private func choice() -> Exercise {
         .chooseMeaning(word, options: [ChoiceOption(id: "a", text: "hello", subtitle: nil),
