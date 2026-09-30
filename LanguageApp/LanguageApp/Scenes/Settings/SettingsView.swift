@@ -33,6 +33,9 @@ struct SettingsView: View {
     @State private var showThemePicker = false
     @State private var showLanguagePicker = false
     @State private var showResetConfirm = false
+    /// UI language picked in the sheet that equals the language being learned; confirmed after the sheet closes.
+    @State private var pendingLanguage: LanguageCode?
+    @State private var showSameLanguageAlert = false
 
     private var course: Course? {
         courses.first { $0.remoteId == userSettings.selectedCourseId } ?? courses.first
@@ -124,23 +127,34 @@ struct SettingsView: View {
                 .presentationDetents([.height(410)])
                 .presentationBackground(.clear)
         }
-        .sheet(isPresented: $showLanguagePicker) {
+        .sheet(isPresented: $showLanguagePicker, onDismiss: {
+            if pendingLanguage != nil { showSameLanguageAlert = true }
+        }) {
             TitleListView(title: "change_language_title".localized(),
                           items: LanguageCode.allCases,
                           onDismiss: { showLanguagePicker = false },
                           onSelectItem: { _, item in
-                if let code = item as? LanguageCode {
-                    LanguageManager.shared.setLanguage(language: code.getLanguage())
-                    userSettings.languageCode = code.rawValue
-                    if userSettings.reminderEnabled {
-                        NotificationManager.scheduleDailyReminder(hour: userSettings.reminderHour,
-                                                                  minute: userSettings.reminderMinute)
+                if let code = item as? LanguageCode, code.rawValue != userSettings.languageCode {
+                    if course?.isSameLanguage(asUILanguage: code.rawValue) == true {
+                        pendingLanguage = code
+                    } else {
+                        applyLanguage(code)
                     }
                 }
                 showLanguagePicker = false
             })
             .presentationDetents([.height(520)])
             .presentationBackground(.clear)
+        }
+        .alert("same_language_title".localized(), isPresented: $showSameLanguageAlert, presenting: pendingLanguage) { code in
+            Button("continue_anyway".localized()) {
+                applyLanguage(code)
+                pendingLanguage = nil
+            }
+            Button("cancel".localized(), role: .cancel) { pendingLanguage = nil }
+        } message: { _ in
+            let name = course?.name.text ?? ""
+            Text("same_language_message".localizedFormat(name, name))
         }
         .confirmationDialog("reset_course_progress".localized(), isPresented: $showResetConfirm, titleVisibility: .visible) {
             Button("reset".localized(), role: .destructive) {
@@ -183,6 +197,17 @@ struct SettingsView: View {
                         in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: - App language
+
+    private func applyLanguage(_ code: LanguageCode) {
+        LanguageManager.shared.setLanguage(language: code.getLanguage())
+        userSettings.languageCode = code.rawValue
+        if userSettings.reminderEnabled {
+            NotificationManager.scheduleDailyReminder(hour: userSettings.reminderHour,
+                                                      minute: userSettings.reminderMinute)
+        }
     }
 
     // MARK: - Reminder

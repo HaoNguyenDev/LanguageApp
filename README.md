@@ -46,6 +46,7 @@ Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices fo
 - UI languages (`LanguageCode`) and courses must stay the **same set**; a unit test enforces this.
 - The default UI language comes from the device's preferred language (falls back to English).
 - A course in the same language as the UI is hidden during onboarding (e.g. a Japanese UI doesn't offer the Japanese course).
+- In Settings, picking a course in the UI language (or switching the UI to the language being learned) shows a confirmation alert, because meanings and hints would then be in the language being learned. The course list marks such a course with "Same as app language".
 - Missing UI keys fall back to English; missing `LocalizedText` translations also fall back to English.
 - The Japanese, Korean and Spanish UI strings are first drafts and should be reviewed by native speakers before release.
 

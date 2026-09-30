@@ -10,6 +10,12 @@ import SwiftUI
 import Foundation
 
 @Observable final class NavRouter: NavRouterProtocol {
+    // Keep deinit nonisolated. With MainActor default isolation the compiler emits an
+    // isolated (MainActor) deinit; on an iOS 17 deployment target it goes through the
+    // swift_task_deinitOnExecutor back-deploy shim, which crashes on iOS 26 with
+    // "malloc: pointer being freed was not allocated" (seen in LessonSessionViewModelTests).
+    nonisolated deinit {}
+
     var path: NavigationPath = NavigationPath() {
         didSet {
             // System back button / swipe-back shrink `path` directly → drop stale children.
@@ -25,8 +31,12 @@ import Foundation
 
 // MARK: - Methods
 extension NavRouter {
-    func setRoot(to view: AnyHashable) {
+    // Values must be appended to `path` with their concrete type. `NavigationPath` keys
+    // `navigationDestination(for:)` by the static type of the appended value, so appending an
+    // `AnyHashable` finds no destination and SwiftUI shows a blank screen with a yellow warning icon.
+    func setRoot<T: Hashable>(to view: T) {
         path = .init()
+        children.removeAll()
         path.append(view)
         children.append(view)
     }
@@ -81,7 +91,7 @@ extension NavRouter {
         }
     }
     
-    func replaceLast(with view: AnyHashable) {
+    func replaceLast<T: Hashable>(with view: T) {
         guard !children.isEmpty else {
             path.append(view)
             children.append(view)
@@ -89,7 +99,7 @@ extension NavRouter {
         }
         children.removeLast()
         path.removeLast()
-        
+
         path.append(view)
         children.append(view)
     }

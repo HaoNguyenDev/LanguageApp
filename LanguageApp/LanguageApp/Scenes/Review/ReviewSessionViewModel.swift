@@ -9,6 +9,12 @@ import Foundation
 import Observation
 
 @Observable final class ReviewSessionViewModel {
+    // Keep deinit nonisolated. With MainActor default isolation the compiler emits an
+    // isolated (MainActor) deinit; on an iOS 17 deployment target it goes through the
+    // swift_task_deinitOnExecutor back-deploy shim, which crashes on iOS 26 with
+    // "malloc: pointer being freed was not allocated" (seen in LessonSessionViewModelTests).
+    nonisolated deinit {}
+
     /// Free users review up to this many cards per session.
     static let freeSessionLimit = 20
 
