@@ -46,11 +46,13 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 **Goal:** the app builds, every test passes, and one full learning loop works on a real iPhone.
 
 - [ ] First full build on iOS 17 and iOS 26 simulators, fix compile/runtime issues
-- [ ] Fix failing unit test `testCorrectAnswerFlow`, run all tests (`⌘U`)
+- [x] Fix failing unit test `testCorrectAnswerFlow`, run all tests (`⌘U`)
 - [ ] Manual pass: onboarding → lesson (right/wrong/match) → result → review → profile → settings
+- [x] Fix blank screen after onboarding (routes appended to `NavigationPath` as `AnyHashable`)
 - [ ] Test on a real iPhone: TTS voices for 6 languages, notifications, haptics, silent mode
 - [ ] `fix/translation-review` – native-speaker review of ja / ko / es UI strings and course meanings
-- [ ] Add `.DS_Store` to `.gitignore`
+- [x] Add `.DS_Store` to `.gitignore`
+- [x] Warn when the app language and the language being learned are the same (course picker + app language in Settings)
 
 ## ⚪ v0.10 – Content
 

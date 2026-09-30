@@ -19,6 +19,9 @@ struct CourseSelectionView: View {
     @Query(sort: \Course.order) private var courses: [Course]
     var onSelected: VoidResult?
 
+    /// Course waiting for confirmation because it teaches the app's own UI language.
+    @State private var pendingCourse: Course?
+
     var body: some View {
         let theme = userSettings.theme
         ScrollView {
@@ -27,10 +30,14 @@ struct CourseSelectionView: View {
                     .padding(.bottom, 8)
                 ForEach(courses) { course in
                     let isSelected = course.remoteId == userSettings.selectedCourseId
+                    let isSameAsUI = course.isSameLanguage(asUILanguage: userSettings.languageCode)
                     Button {
                         FeedbackService.tap()
-                        userSettings.selectedCourseId = course.remoteId
-                        onSelected?()
+                        if isSameAsUI && !isSelected {
+                            pendingCourse = course
+                        } else {
+                            select(course)
+                        }
                     } label: {
                         HStack(spacing: 16) {
                             LanguageBadge(courseId: course.remoteId, size: 48)
@@ -44,6 +51,11 @@ struct CourseSelectionView: View {
                                 LessonProgressBar(progress: course.progress, height: 10, color: theme.xpColor)
                                 Text("lessons_progress".localizedFormat(course.completedLessonCount, course.orderedLessons.count))
                                     .setFont(.regular, size: 12, color: theme.secondaryTextColor)
+                                if isSameAsUI {
+                                    Label("same_as_app_language".localized(), systemImage: "exclamationmark.triangle.fill")
+                                        .font(mainFont.semibold(12))
+                                        .foregroundStyle(theme.wrongColor)
+                                }
                             }
                             if isSelected {
                                 Image(systemName: "checkmark.circle.fill")
@@ -60,6 +72,19 @@ struct CourseSelectionView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .setDefaultBackground()
+        .alert("same_language_title".localized(),
+               isPresented: Binding(get: { pendingCourse != nil }, set: { if !$0 { pendingCourse = nil } }),
+               presenting: pendingCourse) { course in
+            Button("continue_anyway".localized()) { select(course) }
+            Button("cancel".localized(), role: .cancel) {}
+        } message: { course in
+            Text("same_language_message".localizedFormat(course.name.text, course.name.text))
+        }
+    }
+
+    private func select(_ course: Course) {
+        userSettings.selectedCourseId = course.remoteId
+        onSelected?()
     }
 }
 
