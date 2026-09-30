@@ -1,6 +1,6 @@
 {
   "id": "en",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "English",
     "vi": "Tiếng Anh",
@@ -177,7 +177,16 @@
                 "ko": "물",
                 "es": "agua"
               },
-              "reading": "/ˈwɔːtər/"
+              "reading": "/ˈwɔːtər/",
+              "example": "Water, please.",
+              "exampleMeaning": {
+                "en": "Water, please.",
+                "vi": "Cho tôi nước.",
+                "zh": "请给我水。",
+                "ja": "水をください。",
+                "ko": "물 주세요.",
+                "es": "Agua, por favor."
+              }
             },
             {
               "id": "en-0010",
@@ -385,7 +394,16 @@
                 "ko": "커피",
                 "es": "café"
               },
-              "reading": "/ˈkɔːfi/"
+              "reading": "/ˈkɔːfi/",
+              "example": "A coffee, please.",
+              "exampleMeaning": {
+                "en": "A coffee, please.",
+                "vi": "Cho tôi một ly cà phê.",
+                "zh": "请来一杯咖啡。",
+                "ja": "コーヒーを一つください。",
+                "ko": "커피 한 잔 주세요.",
+                "es": "Un café, por favor."
+              }
             },
             {
               "id": "en-0022",
@@ -398,7 +416,16 @@
                 "ko": "차",
                 "es": "té"
               },
-              "reading": "/tiː/"
+              "reading": "/tiː/",
+              "example": "I drink tea.",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
+              }
             },
             {
               "id": "en-0023",

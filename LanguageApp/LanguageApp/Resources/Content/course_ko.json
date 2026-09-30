@@ -1,6 +1,6 @@
 {
   "id": "ko",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "Korean",
     "vi": "Tiếng Hàn",
@@ -49,7 +49,16 @@
                 "ko": "안녕하세요",
                 "es": "hola"
               },
-              "reading": "annyeonghaseyo"
+              "reading": "annyeonghaseyo",
+              "example": "안녕하세요, 잘 지내세요?",
+              "exampleMeaning": {
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
+              }
             },
             {
               "id": "ko-0002",
@@ -81,12 +90,12 @@
               "id": "ko-0004",
               "term": "주세요",
               "meaning": {
-                "en": "please (give me)",
-                "vi": "làm ơn cho tôi",
-                "zh": "请给我",
-                "ja": "〜ください",
-                "ko": "주세요",
-                "es": "por favor (deme)"
+                "en": "please",
+                "vi": "làm ơn",
+                "zh": "请",
+                "ja": "お願いします",
+                "ko": "부탁합니다",
+                "es": "por favor"
               },
               "reading": "juseyo"
             },
@@ -385,7 +394,16 @@
                 "ko": "커피",
                 "es": "café"
               },
-              "reading": "keopi"
+              "reading": "keopi",
+              "example": "커피 한 잔 주세요.",
+              "exampleMeaning": {
+                "en": "A coffee, please.",
+                "vi": "Cho tôi một ly cà phê.",
+                "zh": "请来一杯咖啡。",
+                "ja": "コーヒーを一つください。",
+                "ko": "커피 한 잔 주세요.",
+                "es": "Un café, por favor."
+              }
             },
             {
               "id": "ko-0022",
@@ -398,7 +416,16 @@
                 "ko": "차",
                 "es": "té"
               },
-              "reading": "cha"
+              "reading": "cha",
+              "example": "저는 차를 마셔요.",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
+              }
             },
             {
               "id": "ko-0023",

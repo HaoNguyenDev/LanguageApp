@@ -1,6 +1,6 @@
 {
   "id": "es",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "Spanish",
     "vi": "Tiếng Tây Ban Nha",
@@ -48,6 +48,15 @@
                 "ja": "こんにちは",
                 "ko": "안녕하세요",
                 "es": "hola"
+              },
+              "example": "Hola, ¿cómo estás?",
+              "exampleMeaning": {
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
               }
             },
             {
@@ -159,6 +168,15 @@
                 "ja": "水",
                 "ko": "물",
                 "es": "agua"
+              },
+              "example": "Agua, por favor.",
+              "exampleMeaning": {
+                "en": "Water, please.",
+                "vi": "Cho tôi nước.",
+                "zh": "请给我水。",
+                "ja": "水をください。",
+                "ko": "물 주세요.",
+                "es": "Agua, por favor."
               }
             },
             {
@@ -196,14 +214,14 @@
                 "ko": "이름",
                 "es": "nombre"
               },
-              "example": "Me llamo Ana.",
+              "example": "Me llamo Anna.",
               "exampleMeaning": {
-                "en": "My name is Ana.",
-                "vi": "Tên tôi là Ana.",
+                "en": "My name is Anna.",
+                "vi": "Tên tôi là Anna.",
                 "zh": "我叫安娜。",
-                "ja": "私の名前はアナです。",
-                "ko": "제 이름은 아나예요.",
-                "es": "Me llamo Ana."
+                "ja": "私の名前はアンナです。",
+                "ko": "제 이름은 안나예요.",
+                "es": "Me llamo Anna."
               }
             }
           ]
@@ -359,7 +377,7 @@
               "example": "Un café, por favor.",
               "exampleMeaning": {
                 "en": "A coffee, please.",
-                "vi": "Một ly cà phê, làm ơn.",
+                "vi": "Cho tôi một ly cà phê.",
                 "zh": "请来一杯咖啡。",
                 "ja": "コーヒーを一つください。",
                 "ko": "커피 한 잔 주세요.",
@@ -376,6 +394,15 @@
                 "ja": "お茶",
                 "ko": "차",
                 "es": "té"
+              },
+              "example": "Bebo té.",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
               }
             },
             {

@@ -1,11 +1,11 @@
 # LinguaPath (LanguageApp)
 
-An iOS language-learning app for **English, Chinese, Japanese, Korean and Spanish**. It combines **Duolingo-style gamified lessons** with **Anki-style spaced-repetition (SRS) flashcard reviews**.
+An iOS language-learning app for **Vietnamese, English, Chinese, Japanese, Korean and Spanish**. It combines **Duolingo-style gamified lessons** with **Anki-style spaced-repetition (SRS) flashcard reviews**.
 
 - SwiftUI + SwiftData, **iOS 17+** (the first iOS version with SwiftData), iPhone only
 - Architecture based on `SwiftUI-BaseApp`: Coordinator + `NavRouter`, `@Observable` managers injected via `.environment`, Theme, `LanguageManager` (JSON strings), toast/alert/inform messages
-- No backend required yet. The data model is CloudKit-compatible so iCloud sync can be enabled in phase 2
-- Localized UI: Vietnamese / English / Chinese
+- No backend required yet. The data model is CloudKit-compatible, so iCloud sync can be enabled in phase 2
+- **The same 6 languages are offered for the UI and for learning**
 
 > "LinguaPath" is a placeholder name. Change it in `INFOPLIST_KEY_CFBundleDisplayName` and the `app_name` key in `lang_*.json`.
 
@@ -15,22 +15,47 @@ An iOS language-learning app for **English, Chinese, Japanese, Korean and Spanis
 2. Xcode resolves the **Lottie** package (`lottie-spm`) automatically.
 3. Select an iPhone simulator and run.
 
-Unit tests: `⌘U` (SRS scheduler, exercise generator, lesson state machine, streaks, content import).
+Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, lesson state machine, streaks, content import/upsert, and localization (UI languages match courses, every UI language has a strings file, English fallback).
 
 ## MVP features
 
 | Screen | What it does |
 |---|---|
-| Onboarding | Asks for the **app language** (vi/en/中文, the UI switches immediately) → the **language to learn** (the course matching the app language is hidden) → daily XP goal → daily reminder |
-| Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows streak 🔥 · XP ⚡ · hearts ❤️ |
+| Onboarding | Asks for the **app language** (the UI switches immediately) → the **language to learn** (the course in the app language is hidden) → daily XP goal → daily reminder |
+| Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows the course badge, streak 🔥, XP ⚡ and hearts ❤️ |
 | Lesson | New-word card → choose the meaning → choose the word → listen & choose → match pairs. A wrong answer costs a heart and the question comes back at the end of the lesson |
 | Lesson result | XP (+5 bonus for a perfect lesson), accuracy, streak, daily goal |
-| Review | Flashcards with a 3D flip, graded Again/Hard/Good/Easy; SM-2 schedules the next review; word list with memory strength |
-| Profile | Daily goal, stats, 7-day XP chart (Swift Charts), achievements |
-| Settings | Course, daily goal, sound effects, auto-play pronunciation, reminder, app language, theme, reset progress, restore purchases |
+| Review | Flashcards with a 3D flip, graded Again/Hard/Good/Easy; SM-2 schedules the next review; word list with memory strength and search |
+| Profile | Daily goal ring, stats, 7-day XP chart (Swift Charts), achievements, editable display name |
+| Settings | Course, daily goal, sound effects, auto-play pronunciation, reminder + time, app language, theme, reset course progress, restore purchases |
 | Plus (paywall) | StoreKit 2: unlimited hearts and unlimited reviews (free tier: 20 cards per session) |
 
-Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices for all 5 languages.
+Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices for all 6 languages.
+
+## Languages
+
+| Language | `LanguageCode` (UI) | Course id | UI strings | Speech locale | Badge |
+|---|---|---|---|---|---|
+| Vietnamese | `vi` | `vi` | `lang_vi.json` | `vi-VN` | VI |
+| English | `eng` | `en` | `lang_en.json` | `en-US` | EN |
+| Chinese | `chs` | `zh` | `lang_cn.json` | `zh-CN` | 中 |
+| Japanese | `ja` | `ja` | `lang_ja.json` | `ja-JP` | あ |
+| Korean | `ko` | `ko` | `lang_ko.json` | `ko-KR` | 한 |
+| Spanish | `es` | `es` | `lang_es.json` | `es-ES` | ES |
+
+- UI languages (`LanguageCode`) and courses must stay the **same set**; a unit test enforces this.
+- The default UI language comes from the device's preferred language (falls back to English).
+- A course in the same language as the UI is hidden during onboarding (e.g. a Japanese UI doesn't offer the Japanese course).
+- Missing UI keys fall back to English; missing `LocalizedText` translations also fall back to English.
+- The Japanese, Korean and Spanish UI strings are first drafts and should be reviewed by native speakers before release.
+
+### Adding a language
+
+1. Add a case to `LanguageCode` (title, `courseId`, strings file name, device-locale detection).
+2. Add `lang_xx.json` with every UI key.
+3. Add the language to the `LocalizedText` struct and to every `LocalizedText` in the course JSON files (`meaning`, `exampleMeaning`, unit/lesson titles, course names).
+4. Add `course_xx.json` and list it in `ContentImporter.bundledCourseFiles`.
+5. Add a badge style in `LanguageBadge.style(for:)`.
 
 ## Project structure
 
@@ -39,38 +64,48 @@ LanguageApp/
 ├── App/                    LanguageAppApp (entry point, DI, ModelContainer)
 ├── AppCoordinator/         Root NavigationStack + sheet/full-screen routing (Router.Study)
 ├── Router/                 NavRouter, Routable, ScreenCoordinator   (from BaseApp)
-├── Managers/               UserSettings, AppState, AppSettings, LanguageManager
+├── Managers/               UserSettings, AppState, AppSettings, LanguageManager, LanguageCode
 ├── Theme/                  Light/Dark themes + gamification color tokens
 ├── Data/
-│   ├── Models/             Course, CourseUnit, Lesson, VocabItem (+SRS state), DailyActivity
+│   ├── Models/             Course, CourseUnit, Lesson, VocabItem (+SRS state), DailyActivity, LocalizedText
 │   ├── Content/            CourseDTO + ContentImporter (upsert by remoteId)
 │   └── PersistenceController.swift
 ├── Services/               SRSScheduler, ExerciseGenerator, ProgressService,
 │                           GamificationManager (hearts), SpeechService, PremiumManager,
 │                           NotificationManager, FeedbackService
-├── Scenes/                 Splash, Onboarding, MainTab, Learn, Lesson, Review,
-│                           Profile, Settings, CourseSelection, WordList, Paywall, ThemeChange
-├── CustomUI/               BaseApp components + FilledButtonStyle, OptionButtonStyle, LanguageBadge…
+├── Scenes/                 Splash, Onboarding, MainTab, Learn, Lesson, Review, Profile,
+│                           Settings, CourseSelection, WordList, Paywall, ThemeChange
+├── CustomUI/               BaseApp components + FilledButtonStyle, OptionButtonStyle,
+│                           LanguageBadge, LessonProgressBar, StatPill, SpeakerButton…
 └── Resources/
-    ├── Content/            course_{en,zh,ja,ko,es}.json
-    ├── Languages/          lang_{en,vi,cn}.json (UI strings)
+    ├── Content/            course_{vi,en,zh,ja,ko,es}.json
+    ├── Languages/          lang_{vi,en,cn,ja,ko,es}.json (UI strings)
     ├── Animation/          Lottie
     └── Font/               Nunito
 ```
 
-### Adding course content
+## Course content
 
-Edit `Resources/Content/course_xx.json` and **bump `version`**. On the next launch, `ContentImporter` updates the text by `id` while keeping the learner's progress and SRS schedule. Item `id`s must stay stable and must never change.
+Each course currently has 2 units × 2 lessons × 6 words (24 words per course, 144 in total), content `version` 2:
+
+- Unit 1 "Basics 1": Greetings, Essentials
+- Unit 2 "Everyday life": Numbers, Food & drink
+
+Readings: IPA (English), Pinyin (Chinese), kana + Romaji (Japanese), Romanization (Korean); none for Spanish and Vietnamese.
+
+To change content, edit `Resources/Content/course_xx.json` and **bump `version`**. On the next launch, `ContentImporter` updates the text by `id` while keeping the learner's progress and SRS schedule. Item `id`s must stay stable and must never change.
 
 ```json
 { "id": "ja-0007", "term": "はい", "reading": "hai",
-  "meaning": { "en": "yes", "vi": "vâng / có", "zh": "是" },
-  "example": "…", "exampleMeaning": { "en": "…" } }
+  "meaning": { "en": "yes", "vi": "vâng / có", "zh": "是", "ja": "はい", "ko": "네", "es": "sí" },
+  "example": "…", "exampleMeaning": { "en": "…", "vi": "…" } }
 ```
+
+Lesson icons are SF Symbol names in the lesson's `icon` field.
 
 ### Adding UI strings
 
-Add a **lowercase** key to all three files `lang_en.json`, `lang_vi.json` and `lang_cn.json`, then use `"key".localized()` or `"key".localizedFormat(n)` (with `%ld` placeholders).
+Add a **lowercase** key to all six `lang_*.json` files, then use `"key".localized()` or `"key".localizedFormat(n)` (with `%ld` placeholders).
 
 ## Monetization (App Store)
 
@@ -84,13 +119,14 @@ Add a **lowercase** key to all three files `lang_en.json`, `lang_vi.json` and `l
 
 ## Roadmap
 
-**Phase 1 (MVP, current):** offline lessons, SRS, gamification, paywall.
+**Phase 1 (MVP, current):** offline lessons, SRS, gamification, paywall, 6 languages.
 
 **Phase 2:**
 - iCloud sync: enable the iCloud + CloudKit capability and switch to `cloudKitDatabase: .automatic`
 - Sign in with Apple (when leaderboards/friends are needed)
 - Download courses from a server/CDN (reuse `ContentImporter.importCourse(from:)`)
 - Native-speaker audio instead of TTS
+- More units per course
 
 **Phase 3:**
 - Weekly leaderboards (leagues), streak freeze, daily quests
@@ -100,9 +136,9 @@ Add a **lowercase** key to all three files `lang_en.json`, `lang_vi.json` and `l
 
 ## Technical notes
 
-- **Icons:** every icon in the app is an **SF Symbol** (`Image(systemName:)`); there are no image icons in Assets. Lesson icons are SF Symbol names declared in the course JSON (`icon` field). Languages are shown with `LanguageBadge` (a colored circle with "EN", "中", "あ", "한", "ES") instead of flag emoji, because flag emoji can render as "?" boxes. The launch screen uses a background color only.
+- **Icons:** every icon in the app is an **SF Symbol** (`Image(systemName:)`); there are no image icons in Assets. Languages are shown with `LanguageBadge` (a colored circle with "VI", "EN", "中", "あ", "한", "ES") instead of flag emoji, because flag emoji can render as "?" boxes. The launch screen uses a background color only. The App Store icon (`AppIcon`, 1024×1024) still needs to be designed.
 - **Buttons:** primary actions use the flat `FilledButtonStyle` (`.filled(color)`); answer and choice cards use `OptionButtonStyle(state:)`; secondary actions use `TextButtonStyle`. Lesson nodes on the Learn path are simple flat circles.
-- **Navigation:** pushed screens use the system back button (tinted with the primary color) and support swipe-back. `NavRouter` keeps its internal stack in sync when the system pops `path`.
+- **Navigation:** pushed screens use the system back button (tinted with the primary color) and support swipe-back. `NavRouter` keeps its internal stack in sync when the system pops `path`. Lessons, reviews and the paywall are presented modally via `Router.Study`.
 - **Tab bar:** the main screen uses a custom container (`ZStack`) plus a custom tab bar instead of `TabView`, so the system tab bar never shows placeholder icons on iOS 26.
 - The project was originally created as a **macOS app** and was converted to iOS (`SDKROOT = iphoneos`, `IPHONEOS_DEPLOYMENT_TARGET = 17.0`, iPhone only).
 - `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` (the Xcode 26 default), so every type runs on the main actor. Unit tests are marked `@MainActor`.

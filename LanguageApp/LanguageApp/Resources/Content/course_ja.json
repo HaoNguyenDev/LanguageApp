@@ -1,6 +1,6 @@
 {
   "id": "ja",
-  "version": 2,
+  "version": 3,
   "name": {
     "en": "Japanese",
     "vi": "Tiếng Nhật",
@@ -49,7 +49,16 @@
                 "ko": "안녕하세요",
                 "es": "hola"
               },
-              "reading": "konnichiwa"
+              "reading": "konnichiwa",
+              "example": "こんにちは、お元気ですか？",
+              "exampleMeaning": {
+                "en": "Hello, how are you?",
+                "vi": "Xin chào, bạn khỏe không?",
+                "zh": "你好，你好吗？",
+                "ja": "こんにちは、お元気ですか？",
+                "ko": "안녕하세요, 잘 지내세요?",
+                "es": "Hola, ¿cómo estás?"
+              }
             },
             {
               "id": "ja-0002",
@@ -217,7 +226,7 @@
                 "es": "nombre"
               },
               "reading": "なまえ · namae",
-              "example": "わたしの名前はアンナです。",
+              "example": "私の名前はアンナです。",
               "exampleMeaning": {
                 "en": "My name is Anna.",
                 "vi": "Tên tôi là Anna.",
@@ -385,7 +394,16 @@
                 "ko": "커피",
                 "es": "café"
               },
-              "reading": "kōhī"
+              "reading": "kōhī",
+              "example": "コーヒーを一つください。",
+              "exampleMeaning": {
+                "en": "A coffee, please.",
+                "vi": "Cho tôi một ly cà phê.",
+                "zh": "请来一杯咖啡。",
+                "ja": "コーヒーを一つください。",
+                "ko": "커피 한 잔 주세요.",
+                "es": "Un café, por favor."
+              }
             },
             {
               "id": "ja-0022",
@@ -398,7 +416,16 @@
                 "ko": "차",
                 "es": "té"
               },
-              "reading": "おちゃ · ocha"
+              "reading": "おちゃ · ocha",
+              "example": "お茶を飲みます。",
+              "exampleMeaning": {
+                "en": "I drink tea.",
+                "vi": "Tôi uống trà.",
+                "zh": "我喝茶。",
+                "ja": "お茶を飲みます。",
+                "ko": "저는 차를 마셔요.",
+                "es": "Bebo té."
+              }
             },
             {
               "id": "ja-0023",
