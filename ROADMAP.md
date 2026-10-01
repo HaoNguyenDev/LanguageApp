@@ -4,14 +4,14 @@ iOS language-learning app (SwiftUI + SwiftData, iOS 17+) for **Vietnamese, Engli
 
 **Direction:** make the app complete and worth using every day *before* publishing. App Store work is grouped into the release milestone (v1.0.0).
 
-_Last updated: 2026-09-30_
+_Last updated: 2026-10-01_
 
 ## Overview
 
 | Version | Theme | Status | Branches |
 |---|---|---|---|
 | **0.8** | MVP foundation | ✅ Done | `feature/app-scaffold`, `feature/content-tooling` (merged) |
-| **0.9** | Stabilize | 🟡 Next | `fix/first-build`, `fix/translation-review` |
+| **0.9** | Stabilize | ✅ Done | `fix/first-build`, `fix/translation-review` |
 | **0.10** | Content | 🟡 In progress | `feature/more-units` |
 | **0.11** | New exercise types | ⚪ Planned | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
 | **0.12** | Engagement | ⚪ Planned | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
@@ -41,16 +41,16 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Content tooling: Google Sheet → course JSON with validation (`Tools/content/build_courses.py`)
 - [x] Unit tests, README, roadmap
 
-## 🟡 v0.9 – Stabilize (next)
+## ✅ v0.9 – Stabilize (done)
 
 **Goal:** the app builds, every test passes, and one full learning loop works on a real iPhone.
 
-- [ ] First full build on iOS 17 and iOS 26 simulators, fix compile/runtime issues
+- [x] First full build on iOS 17 and iOS 26 simulators, fix compile/runtime issues
 - [x] Fix failing unit test `testCorrectAnswerFlow`, run all tests (`⌘U`)
-- [ ] Manual pass: onboarding → lesson (right/wrong/match) → result → review → profile → settings
+- [x] Manual pass: onboarding → lesson (right/wrong/match) → result → review → profile → settings
 - [x] Fix blank screen after onboarding (routes appended to `NavigationPath` as `AnyHashable`)
-- [ ] Test on a real iPhone: TTS voices for 6 languages, notifications, haptics, silent mode
-- [ ] `fix/translation-review` – native-speaker review of ja / ko / es UI strings and course meanings
+- [x] Test on a real iPhone: TTS voices for 6 languages, notifications, haptics, silent mode
+- [x] `fix/translation-review` – first-pass review of ja / ko / es UI strings (native-speaker review moved to v1.0.0)
 - [x] Add `.DS_Store` to `.gitignore`
 - [x] Warn when the app language and the language being learned are the same (course picker + app language in Settings)
 
@@ -99,6 +99,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Subscription products in App Store Connect (`…plus.monthly`, `…plus.yearly`), tested with a StoreKit configuration file
 - [ ] Privacy policy & terms of use URLs (required for subscriptions)
 - [ ] App Store metadata in 6 languages: name, subtitle, description, keywords, screenshots
+- [ ] Native-speaker review of ja / ko / es / zh UI strings, course meanings and example sentences
 - [ ] TestFlight beta with a few learners per language
 - [ ] `release/1.0.0` → merge into `main`, tag `v1.0.0`, submit for review
 
