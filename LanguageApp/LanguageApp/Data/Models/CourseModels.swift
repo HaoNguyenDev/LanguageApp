@@ -58,6 +58,7 @@ final class Course {
 
     /// A lesson is unlocked if it is the first one or the previous lesson is completed.
     func isUnlocked(_ lesson: Lesson) -> Bool {
+        if DebugSettings.shared.unlocksAllLessons { return true }
         let lessons = orderedLessons
         guard let index = lessons.firstIndex(where: { $0.remoteId == lesson.remoteId }) else { return false }
         return index == 0 || lessons[index - 1].isCompleted

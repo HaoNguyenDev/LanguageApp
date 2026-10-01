@@ -54,6 +54,12 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Add `.DS_Store` to `.gitignore`
 - [x] Warn when the app language and the language being learned are the same (course picker + app language in Settings)
 
+## ✅ Developer tools (done)
+
+- [x] Debug / Release environments: "LinguaPath Dev" app name, Settings ▸ Developer menu in Debug only
+- [x] Developer switches: unlock all lessons, unlimited hearts, force Free / Plus, force question type, skip intro / match, short lessons, show answers
+- [x] Developer actions: complete unit / all lessons, make words due, mark words weak, add XP, build streak, replay onboarding
+
 ## 🟡 v0.10 – Content (in progress)
 
 **Goal:** enough content to learn for weeks, not minutes.

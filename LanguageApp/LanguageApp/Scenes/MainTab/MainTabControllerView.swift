@@ -50,11 +50,13 @@ extension Router {
     enum MainTab: Routable {
         case courseSelection
         case wordList(courseId: String)
+        case developerMenu
 
         var id: String {
             switch self {
             case .courseSelection: return "courseSelection"
             case .wordList(let courseId): return "wordList-\(courseId)"
+            case .developerMenu: return "developerMenu"
             }
         }
     }
@@ -158,6 +160,8 @@ struct MainTabControllerView: View {
             CourseSelectionCoordinator(navRouter: navRouter)
         case .wordList(let courseId):
             WordListCoordinator(navRouter: navRouter, courseId: courseId)
+        case .developerMenu:
+            DeveloperMenuView()
         }
     }
 }

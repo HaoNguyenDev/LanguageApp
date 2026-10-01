@@ -14,6 +14,7 @@ struct SettingsCoordinator: View {
     var body: some View {
         SettingsView(
             onChangeCourse: { navRouter.push(Router.MainTab.courseSelection, animate: true) },
+            onOpenDeveloperMenu: { navRouter.push(Router.MainTab.developerMenu, animate: true) },
             onOpenPaywall: { navRouter.showSheet(RouterView(routable: Router.Study.paywall)) }
         )
         .toolbar(.hidden, for: .navigationBar)
@@ -28,6 +29,7 @@ struct SettingsView: View {
     @Query(sort: \Course.order) private var courses: [Course]
 
     var onChangeCourse: VoidResult?
+    var onOpenDeveloperMenu: VoidResult?
     var onOpenPaywall: VoidResult?
 
     @State private var showThemePicker = false
@@ -112,7 +114,17 @@ struct SettingsView: View {
                     }
                 }
 
-                Text("\("app_name".localized()) v\(Env.shared.getVersionApp())")
+                if DebugSettings.isAvailable {
+                    section("Developer") {
+                        row(icon: "hammer.fill",
+                            title: "Developer menu",
+                            value: DebugSettings.shared.activeCount > 0 ? "\(DebugSettings.shared.activeCount) on" : nil) {
+                            onOpenDeveloperMenu?()
+                        }
+                    }
+                }
+
+                Text(versionText)
                     .setFont(.regular, size: 13, color: theme.secondaryTextColor)
                     .frame(maxWidth: .infinity)
             }
@@ -167,6 +179,11 @@ struct SettingsView: View {
         } message: {
             Text("reset_course_message".localized())
         }
+    }
+
+    private var versionText: String {
+        let base = "\("app_name".localized()) v\(Env.shared.getVersionApp())"
+        return Env.shared.isDebugBuild ? "\(base) (\(Env.shared.getBuildNumber())) · Debug" : base
     }
 
     // MARK: - Premium

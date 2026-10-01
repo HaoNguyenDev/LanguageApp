@@ -59,12 +59,13 @@ struct LessonCoordinator: View {
         }
 
         let locale = course.speechLocale
-        let items = found.sortedItems.map { StudyItem(item: $0, speechLocale: locale) }
+        let debug = DebugSettings.shared
+        let items = debug.limitLessonWords(found.sortedItems).map { StudyItem(item: $0, speechLocale: locale) }
         let pool = course.allItems.map { StudyItem(item: $0, speechLocale: locale) }
         let newIds = Set(found.sortedItems.filter { !$0.isLearned }.map(\.remoteId))
 
         var rng = SystemRandomNumberGenerator()
-        let exercises = ExerciseGenerator().makeLesson(items: items,
+        let exercises = debug.lessonGenerator().makeLesson(items: items,
                                                        distractorPool: pool,
                                                        newWordIds: newIds,
                                                        using: &rng)

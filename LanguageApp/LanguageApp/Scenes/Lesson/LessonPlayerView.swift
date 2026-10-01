@@ -26,6 +26,16 @@ struct LessonPlayerView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
+            if DebugSettings.shared.showsAnswers, let hint = debugAnswerHint {
+                Text(hint)
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(Color.orange, in: Capsule())
+                    .padding(.top, 6)
+            }
+
             ScrollView {
                 exerciseContent
                     .id(viewModel.currentIndex)
@@ -195,6 +205,20 @@ struct LessonPlayerView: View {
             }
         default:
             break
+        }
+    }
+
+    /// Developer overlay: question type + correct answer.
+    private var debugAnswerHint: String? {
+        guard let current = viewModel.current else { return nil }
+        switch current {
+        case .introduce(let item): return "intro · \(item.term)"
+        case .chooseMeaning(let item, _): return "chooseMeaning → \(item.meaning)"
+        case .chooseTerm: return "chooseTerm → \(correctAnswerText ?? "")"
+        case .listen: return "listen → \(correctAnswerText ?? "")"
+        case .typeTerm: return "typeTerm → \(correctAnswerText ?? "")"
+        case .typeListening: return "typeListening → \(correctAnswerText ?? "")"
+        case .matchPairs(let items): return "matchPairs · \(items.count) pairs"
         }
     }
 

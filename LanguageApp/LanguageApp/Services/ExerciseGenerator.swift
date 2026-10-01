@@ -104,6 +104,12 @@ struct ExerciseGenerator {
     var maxMatchPairs = 5
     /// Include typing exercises in the second pass.
     var allowsTyping = true
+    /// Question type of the second pass.
+    enum SecondPassKind { case chooseTerm, listen, typeTerm, typeListening }
+    /// Developer option: every second-pass question uses this type (nil = random mix).
+    var forcedSecondPass: SecondPassKind?
+    var includesIntroCards = true
+    var includesMatchPairs = true
 
     /// - Parameters:
     ///   - items: words of the lesson.
@@ -120,7 +126,7 @@ struct ExerciseGenerator {
 
         // Pass 1: meet each word (intro if new) + an easy recognition question.
         for item in items {
-            if newWordIds.contains(item.id) {
+            if includesIntroCards, newWordIds.contains(item.id) {
                 exercises.append(.introduce(item))
             }
             exercises.append(.chooseMeaning(item, options: meaningOptions(for: item, pool: pool, using: &rng)))
@@ -131,7 +137,16 @@ struct ExerciseGenerator {
         var second: [Exercise] = []
         for item in items {
             let kinds = !allowsTyping ? 2 : (newWordIds.contains(item.id) ? 3 : 4)
-            switch Int.random(in: 0..<kinds, using: &rng) {
+            let roll = Int.random(in: 0..<kinds, using: &rng)
+            let forced: Int? = forcedSecondPass.map {
+                switch $0 {
+                case .chooseTerm: return 0
+                case .listen: return 1
+                case .typeTerm: return 2
+                case .typeListening: return 3
+                }
+            }
+            switch forced ?? roll {
             case 0:
                 second.append(.chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng)))
             case 1:
@@ -146,7 +161,7 @@ struct ExerciseGenerator {
         exercises.append(contentsOf: second)
 
         // Finale: matching pairs.
-        if items.count >= 3 {
+        if includesMatchPairs, items.count >= 3 {
             let pairs = Array(items.shuffled(using: &rng).prefix(maxMatchPairs))
             exercises.append(.matchPairs(pairs))
         }

@@ -24,7 +24,12 @@ import StoreKit
     ]
 
     private(set) var products: [Product] = []
-    private(set) var isPremium = false
+    /// Real StoreKit entitlement.
+    private(set) var hasActiveSubscription = false
+    /// Entitlement used by the app; a Debug build can force Free / Plus in Settings ▸ Developer.
+    var isPremium: Bool {
+        DebugSettings.shared.forcedPremium ?? hasActiveSubscription
+    }
     private(set) var isLoadingProducts = false
     @ObservationIgnored private var updatesTask: Task<Void, Never>?
 
@@ -78,7 +83,7 @@ import StoreKit
                 active = true
             }
         }
-        isPremium = active
+        hasActiveSubscription = active
     }
 
     private func listenForTransactions() {

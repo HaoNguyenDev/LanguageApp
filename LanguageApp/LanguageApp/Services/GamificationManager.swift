@@ -43,7 +43,7 @@ import Observation
     var isFull: Bool { hearts >= Self.maxHearts }
 
     func hasHearts(isPremium: Bool) -> Bool {
-        isPremium || hearts > 0
+        isPremium || DebugSettings.shared.hasUnlimitedHearts || hearts > 0
     }
 
     /// Adds hearts earned by elapsed time.
@@ -60,10 +60,16 @@ import Observation
     }
 
     func loseHeart(isPremium: Bool, now: Date = .now) {
-        guard !isPremium else { return }
+        guard !isPremium, !DebugSettings.shared.hasUnlimitedHearts else { return }
         refreshHearts(now: now)
         if hearts >= Self.maxHearts { lastRefill = now }
         hearts = max(0, hearts - 1)
+    }
+
+    /// Developer menu: set hearts directly (e.g. 0 to test the out-of-hearts screen).
+    func debugSetHearts(_ value: Int) {
+        hearts = min(max(0, value), Self.maxHearts)
+        lastRefill = .now
     }
 
     func refillAll() {

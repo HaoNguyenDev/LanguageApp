@@ -61,11 +61,12 @@ struct PracticeCoordinator: View {
         }
 
         let locale = course.speechLocale
-        let studyItems = picked.map { StudyItem(item: $0, speechLocale: locale) }
+        let debug = DebugSettings.shared
+        let studyItems = debug.limitLessonWords(picked).map { StudyItem(item: $0, speechLocale: locale) }
         let pool = course.allItems.map { StudyItem(item: $0, speechLocale: locale) }
         var rng = SystemRandomNumberGenerator()
         // All words are known → no intro cards; typing and listening are included.
-        let exercises = ExerciseGenerator().makeLesson(items: studyItems, distractorPool: pool,
+        let exercises = debug.lessonGenerator().makeLesson(items: studyItems, distractorPool: pool,
                                                        newWordIds: [], using: &rng)
         let vm = LessonSessionViewModel(lessonTitle: "practice_weak_words".localized(), exercises: exercises)
         vm.onMistake = { true }   // practice never costs hearts
