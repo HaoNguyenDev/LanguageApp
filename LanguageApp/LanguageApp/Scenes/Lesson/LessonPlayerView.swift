@@ -125,6 +125,11 @@ struct LessonPlayerView: View {
                                onSubmit: submitTyped)
         case .buildSentence(let item, let tiles):
             SentenceBuilderView(item: item, tiles: tiles, viewModel: viewModel)
+        case .fillBlank(let item, let before, let after, let options):
+            ChoiceExerciseView(instruction: "exercise_fill_blank".localized(),
+                               prompt: .sentence(before: before, after: after, meaning: item.exampleMeaning),
+                               options: options,
+                               viewModel: viewModel)
         case .matchPairs(let items):
             MatchPairsView(items: items) { mistakes in
                 viewModel.completeMatch(mistakes: mistakes)
@@ -174,7 +179,8 @@ struct LessonPlayerView: View {
             return item.meaning
         case .buildSentence(let item, _):
             return item.example
-        case .chooseTerm(let item, _), .listen(let item, _), .typeTerm(let item), .typeListening(let item):
+        case .chooseTerm(let item, _), .listen(let item, _), .typeTerm(let item), .typeListening(let item),
+             .fillBlank(let item, _, _, _):
             if let reading = item.reading, !reading.isEmpty { return "\(item.term) · \(reading)" }
             return item.term
         default:
@@ -194,7 +200,10 @@ struct LessonPlayerView: View {
             if userSettings.autoPlayAudio, let item = viewModel.current?.studyItem {
                 // Sentence builder: read the whole sentence, otherwise the word.
                 var text = item.term
-                if case .buildSentence = viewModel.current { text = item.example ?? item.term }
+                switch viewModel.current {
+                case .buildSentence, .fillBlank: text = item.example ?? item.term
+                default: break
+                }
                 speech.speak(text, locale: speechLocale)
             }
         } else {
@@ -226,6 +235,7 @@ struct LessonPlayerView: View {
         case .typeTerm: return "typeTerm → \(correctAnswerText ?? "")"
         case .typeListening: return "typeListening → \(correctAnswerText ?? "")"
         case .buildSentence(let item, _): return "buildSentence → \((item.exampleTokens ?? []).joined(separator: " | "))"
+        case .fillBlank(let item, _, _, _): return "fillBlank → \(item.term)"
         case .matchPairs(let items): return "matchPairs · \(items.count) pairs"
         }
     }

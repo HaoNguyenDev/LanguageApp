@@ -159,6 +159,72 @@ final class ExerciseGeneratorTests: XCTestCase {
         if case .matchPairs = exercises.last {} else { XCTFail("Match pairs should stay last") }
     }
 
+    private func exampleItem(_ id: String, term: String, example: String) -> StudyItem {
+        StudyItem(id: id, term: term, reading: nil, meaning: "m", example: example, exampleMeaning: "meaning",
+                  speechLocale: "en-US", exampleTokens: example.split(separator: " ").map(String.init))
+    }
+
+    func testBlankPartsMatchWholeWordsInLatinScripts() throws {
+        let car = try XCTUnwrap(ExerciseGenerator.blankParts(of: exampleItem("a", term: "car", example: "My card and my car.")))
+        XCTAssertEqual(car.before, "My card and my ")
+        XCTAssertEqual(car.after, ".")
+        let young = try XCTUnwrap(ExerciseGenerator.blankParts(of: exampleItem("b", term: "trẻ", example: "Giáo viên của tôi còn trẻ.")))
+        XCTAssertEqual(young.after, ".")
+        // Case-insensitive, at the start of the sentence.
+        XCTAssertEqual(ExerciseGenerator.blankParts(of: exampleItem("c", term: "hola", example: "Hola, ¿cómo estás?"))?.after, ", ¿cómo estás?")
+        // Japanese: no word boundaries.
+        let cat = try XCTUnwrap(ExerciseGenerator.blankParts(of: exampleItem("d", term: "猫", example: "猫が好きです。")))
+        XCTAssertEqual(cat.before, "")
+        XCTAssertEqual(cat.after, "が好きです。")
+        // Conjugated form → the word isn't in the sentence as written.
+        XCTAssertNil(ExerciseGenerator.blankParts(of: exampleItem("e", term: "먹다", example: "밥을 먹어요.")))
+    }
+
+    func testThirdPassMixesSentenceBuilderAndFillInTheBlank() {
+        let items = [
+            exampleItem("w1", term: "student", example: "I am a student."),
+            exampleItem("w2", term: "cat", example: "The cat is black."),
+            exampleItem("w3", term: "tea", example: "I drink tea."),
+            exampleItem("w4", term: "bread", example: "I eat bread."),
+        ]
+        for difficulty in [ExerciseGenerator.Difficulty.firstTime, .replay] {
+            var generator = ExerciseGenerator()
+            generator.difficulty = difficulty
+            var rng = SeededGenerator(seed: 21)
+            let exercises = generator.makeLesson(items: items, distractorPool: [], newWordIds: [], using: &rng)
+            var sentenceIds: [String] = [], blankIds: [String] = []
+            for exercise in exercises {
+                if case .buildSentence(let item, _) = exercise { sentenceIds.append(item.id) }
+                if case .fillBlank(let item, let before, let after, let options) = exercise {
+                    blankIds.append(item.id)
+                    XCTAssertEqual(before + item.term + after, item.example)
+                    XCTAssertTrue(options.contains { $0.id == item.id })
+                }
+            }
+            let expected = difficulty == .replay ? 2 : 1
+            XCTAssertEqual(sentenceIds.count, expected, "\(difficulty)")
+            XCTAssertEqual(blankIds.count, expected, "\(difficulty)")
+            XCTAssertTrue(Set(sentenceIds).isDisjoint(with: blankIds), "the same sentence isn't asked twice")
+        }
+    }
+
+    func testReplayAsksMoreTypingThanFirstTime() {
+        let items = (1...6).map(item)
+        func typingCount(_ difficulty: ExerciseGenerator.Difficulty, newWords: Bool) -> Int {
+            var generator = ExerciseGenerator()
+            generator.difficulty = difficulty
+            var rng = SeededGenerator(seed: 99)
+            return (0..<200).reduce(0) { total, _ in
+                total + generator.makeLesson(items: items, distractorPool: [],
+                                             newWordIds: newWords ? Set(items.map(\.id)) : [], using: &rng)
+                    .filter(\.isTyping).count
+            }
+        }
+        XCTAssertGreaterThan(typingCount(.replay, newWords: false), typingCount(.firstTime, newWords: false))
+        XCTAssertGreaterThan(typingCount(.replay, newWords: true), typingCount(.firstTime, newWords: true))
+        XCTAssertEqual(ExerciseGenerator().secondPassKinds(isNew: true).filter { $0 == .typeListening }.count, 0)
+    }
+
     func testDeveloperGeneratorOptions() {
         let items = (1...6).map(item)
         var rng = SeededGenerator(seed: 5)

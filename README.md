@@ -23,7 +23,7 @@ Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer ma
 |---|---|
 | Onboarding | Asks for the **app language** (the UI switches immediately) → the **language to learn** (the course in the app language is hidden) → daily XP goal → daily reminder |
 | Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows the course badge, streak 🔥, XP ⚡ and hearts ❤️ |
-| Lesson | New-word card → choose the meaning → choose the word / listen & choose / type the word / type what you hear → **build the sentence** (2 example sentences: tap the chunks in order, plus 2 distractor chunks) → match pairs. Typed answers are graded leniently (`AnswerMatcher`: case, punctuation and spaces ignored; kana or kanji; Pinyin / Romaji / Korean romanization without tones; a missing accent or one typo is accepted and the correct spelling is shown). A wrong answer costs a heart and the question comes back at the end of the lesson |
+| Lesson | New-word card → choose the meaning → choose the word / listen & choose / type the word / type what you hear → **example sentences**: build the sentence (tap the chunks in order, plus 2 distractor chunks) and **fill in the blank** (pick the missing word; only examples that contain the word as written) → match pairs. **Difficulty:** the first time through a lesson uses more multiple choice and 1 + 1 sentence questions; replaying a finished lesson (and *Practice weak words*) uses more typing / listening and 2 + 2. Typed answers are graded leniently (`AnswerMatcher`: case, punctuation and spaces ignored; kana or kanji; Pinyin / Romaji / Korean romanization without tones; a missing accent or one typo is accepted and the correct spelling is shown). A wrong answer costs a heart and the question comes back at the end of the lesson |
 | Lesson result | XP (+5 bonus for a perfect lesson), accuracy, streak, daily goal |
 | Review | Flashcards with a 3D flip, graded Again/Hard/Good/Easy; SM-2 schedules the next review; **Practice weak words** (a lesson of up to 8 words ranked by mistakes, SRS lapses, low ease and short interval – no hearts lost); word list with memory strength and search |
 | Profile | Daily goal ring, stats, 7-day XP chart (Swift Charts), achievements, editable display name |
@@ -47,7 +47,7 @@ Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product 
 **Settings ▸ Developer** (no code changes needed):
 
 - **Access:** unlock all lessons, unlimited hearts, force Free / Plus (overrides StoreKit)
-- **Lessons:** force one question type (choose, listen, type, type what you hear, build the sentence), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
+- **Lessons:** force one question type (choose, listen, type, type what you hear, build the sentence, fill in the blank), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
 - **Hearts:** refill / empty
 - **Progress:** complete the current unit or all lessons, reset course progress
 - **Review & practice:** make all learned words due now, mark 8 random words weak

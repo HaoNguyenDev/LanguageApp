@@ -13,7 +13,7 @@ _Last updated: 2026-10-01_
 | **0.8** | MVP foundation | ✅ Done | `feature/app-scaffold`, `feature/content-tooling` (merged) |
 | **0.9** | Stabilize | ✅ Done | `fix/first-build`, `fix/translation-review` |
 | **0.10** | Content | 🟡 In progress | `feature/more-units` |
-| **0.11** | New exercise types | 🟡 In progress | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
+| **0.11** | New exercise types | ✅ Done | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
 | **0.12** | Engagement | ⚪ Planned | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
 | **0.13** | Polish | ⚪ Planned | `feature/native-audio`, `feature/accessibility` |
 | **1.0.0** | Release on the App Store | ⚪ Planned | `release/1.0.0` |
@@ -71,15 +71,15 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Review readings (Pinyin, kana/Romaji, Romanization, IPA) and meanings per language
 - [ ] Keep word ids stable; run `build_courses.py --check` before every commit
 
-## 🟡 v0.11 – New exercise types (in progress)
+## ✅ v0.11 – New exercise types (done)
 
 **Goal:** varied practice beyond multiple choice.
 
 - [x] Sentence builder – tap words in the right order (uses example sentences)
 - [x] Typing – listen and type / translate and type (with lenient matching for accents and kana)
-- [ ] Fill in the blank – choose the missing word in an example sentence
+- [x] Fill in the blank – choose the missing word in an example sentence
 - [x] Practice mistakes – a lesson built from the learner's weakest / most-missed words
-- [ ] Exercise mix tuned by difficulty (new lesson vs. replay)
+- [x] Exercise mix tuned by difficulty (new lesson vs. replay)
 
 ## ⚪ v0.12 – Engagement
 
