@@ -103,6 +103,8 @@
         "plus_subtitle": "学得更快，不被打断。",
         "plus_title": "LinguaPath Plus",
         "practice_anyway": "仍然练习",
+        "practice_weak_words": "练习薄弱词",
+        "practice_weak_words_message": "%ld 个词，最薄弱的优先 · 不扣红心",
         "products_unavailable": "暂时无法获取订阅。",
         "progress_reset_done": "课程进度已重置。",
         "quit_lesson_confirm": "退出课程",

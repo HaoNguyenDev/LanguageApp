@@ -103,6 +103,7 @@ enum LessonCompletionService {
     static func complete(lesson: Lesson,
                          accuracy: Double,
                          dailyGoalXP: Int,
+                         mistakes: [String: Int] = [:],
                          in context: ModelContext,
                          scheduler: SRSScheduler = SRSScheduler(),
                          now: Date = .now) -> LessonResult {
@@ -121,6 +122,7 @@ enum LessonCompletionService {
             newWords += 1
         }
 
+        PracticeService.recordMistakes(mistakes, for: lesson.sortedItems, forgiveCorrect: false, now: now)
         ProgressService.record(xp: xp, lessons: 1, in: context, now: now)
         try? context.save()
 

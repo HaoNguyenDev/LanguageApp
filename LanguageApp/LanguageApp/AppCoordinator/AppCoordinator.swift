@@ -13,12 +13,14 @@ extension Router {
     enum Study: Routable {
         case lesson(lessonId: String)
         case review(courseId: String, practice: Bool)
+        case practiceWeakWords(courseId: String)
         case paywall
 
         var id: String {
             switch self {
             case .lesson(let lessonId): return "lesson-\(lessonId)"
             case .review(let courseId, let practice): return "review-\(courseId)-\(practice)"
+            case .practiceWeakWords(let courseId): return "practice-\(courseId)"
             case .paywall: return "paywall"
             }
         }
@@ -135,6 +137,8 @@ extension AppCoordinator {
             LessonCoordinator(navRouter: rootRouter, lessonId: lessonId)
         case Router.Study.review(let courseId, let practice):
             ReviewSessionCoordinator(navRouter: rootRouter, courseId: courseId, practiceMode: practice)
+        case Router.Study.practiceWeakWords(let courseId):
+            PracticeCoordinator(navRouter: rootRouter, courseId: courseId)
         case Router.Study.paywall:
             PaywallCoordinator(navRouter: rootRouter)
         default:

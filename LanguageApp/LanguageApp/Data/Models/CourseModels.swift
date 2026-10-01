@@ -151,6 +151,10 @@ final class VocabItem {
     var srsLapses: Int = 0
     var lastReviewedAt: Date?
 
+    // MARK: Mistakes in lessons / practice (drives "Practice weak words")
+    var mistakeCount: Int = 0
+    var lastMistakeAt: Date?
+
     init(remoteId: String, courseId: String) {
         self.remoteId = remoteId
         self.courseId = courseId
@@ -181,6 +185,8 @@ final class VocabItem {
     func resetProgress() {
         srsState = SRSState()
         lastReviewedAt = nil
+        mistakeCount = 0
+        lastMistakeAt = nil
     }
 }
 

@@ -84,6 +84,7 @@ struct LessonCoordinator: View {
         let outcome = LessonCompletionService.complete(lesson: lesson,
                                                        accuracy: viewModel.accuracy,
                                                        dailyGoalXP: userSettings.dailyGoalXP,
+                                                       mistakes: viewModel.mistakesByItemId,
                                                        in: modelContext)
         FeedbackService.celebrate(sound: userSettings.soundEnabled)
         withAnimation { result = outcome }

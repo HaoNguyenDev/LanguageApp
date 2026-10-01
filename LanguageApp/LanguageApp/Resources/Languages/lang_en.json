@@ -103,6 +103,8 @@
         "plus_subtitle": "Learn faster with no interruptions.",
         "plus_title": "LinguaPath Plus",
         "practice_anyway": "Practice anyway",
+        "practice_weak_words": "Practice weak words",
+        "practice_weak_words_message": "%ld words, weakest first · no hearts lost",
         "products_unavailable": "Subscriptions are not available right now.",
         "progress_reset_done": "Course progress has been reset.",
         "quit_lesson_confirm": "Quit lesson",

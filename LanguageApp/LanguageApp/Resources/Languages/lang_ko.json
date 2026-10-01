@@ -103,6 +103,8 @@
         "plus_subtitle": "방해 없이 더 빠르게 배우세요.",
         "plus_title": "LinguaPath Plus",
         "practice_anyway": "그래도 연습하기",
+        "practice_weak_words": "약한 단어 연습",
+        "practice_weak_words_message": "%ld개 단어, 약한 순서대로 · 하트가 줄지 않아요",
         "products_unavailable": "현재 구독을 이용할 수 없어요.",
         "progress_reset_done": "코스 진행 상황을 초기화했어요.",
         "quit_lesson_confirm": "레슨 종료",
