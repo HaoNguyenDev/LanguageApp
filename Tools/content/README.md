@@ -76,7 +76,8 @@ Four tabs (names must match). Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko
 | `term_xx` | `こんにちは` | The word in language xx – the term of course xx. Required for all 6 |
 | `reading_xx` | `konnichiwa` | Required for zh (Pinyin), ja (kana · Romaji), ko (Romanization); recommended for en (IPA) |
 | `meaning_xx` | `xin chào` | Meaning shown when the **app language** is xx. Empty → uses `term_xx` |
-| `example_xx` | `こんにちは、お元気ですか？` | Optional. The same sentence in every language: fill all 6 or none |
+| `example_xx` | `こんにちは、お元気ですか？` | Optional. The same sentence in every language: fill all 6 or none. Use the term as written when possible – fill-in-the-blank skips examples that don't contain it |
+| `tokens_xx` | `こんにちは、 / お元気ですか？` | Chunks of `example_xx` for the sentence builder, separated by ` / ` (punctuation stays on the chunk before it). **Required for zh and ja**, optional for the others (they are split on spaces). The chunks must rebuild the example exactly |
 
 Example: for the Japanese course with the app in Vietnamese, the word shows `term_ja` + `reading_ja`, its meaning is `meaning_vi` (or `term_vi`), the example is `example_ja` and its translation is `example_vi`.
 
@@ -89,6 +90,7 @@ Example: for the Japanese course with the app in Vietnamese, the word shows `ter
 - Lesson → unknown unit, word → unknown lesson; unit without lessons; lesson without words
 - Missing `term_xx` in any language, missing `reading_zh` / `reading_ja` / `reading_ko`
 - Example filled for some languages but not all
+- `tokens_zh` / `tokens_ja` missing for an example, chunks that don't rebuild the example, empty chunks
 - `icon` that doesn't look like an SF Symbol name, `xp` not a positive number
 - A UI language without a course row
 
@@ -99,6 +101,8 @@ Example: for the Japanese course with the app in Vietnamese, the word shows `ter
 - Lessons with fewer than 4 or more than 10 words
 - Two words with the same term or meaning in one language (answer options would look identical)
 - A course that isn't listed in `ContentImporter.bundledCourseFiles`
+- Examples that don't contain the term as written (normal for conjugated verbs / adjectives; fill-in-the-blank skips them)
+- `tokens_xx` with a single chunk
 
 ## Tips
 

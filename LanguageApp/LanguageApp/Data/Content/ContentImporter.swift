@@ -144,6 +144,7 @@ struct ContentImporter {
                 item.reading = itemDTO.reading
                 item.meaning = itemDTO.meaning
                 item.example = itemDTO.example
+                item.exampleTokens = itemDTO.exampleTokens
                 item.exampleMeaning = itemDTO.exampleMeaning
             }
         }

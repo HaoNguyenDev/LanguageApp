@@ -38,5 +38,7 @@ struct VocabItemDTO: Decodable {
     let reading: String?
     let meaning: LocalizedText
     let example: String?
+    /// Chunks of `example` for the sentence builder (always present when `example` is).
+    let exampleTokens: [String]?
     let exampleMeaning: LocalizedText?
 }
