@@ -118,11 +118,11 @@ struct UserInformView: View {
 }
 
 #Preview {
-//    UserInformView(message: UserMessageItem(message: "welcome_message".localized()),
+//    UserInformView(message: UserMessageItem(message: "onboarding_welcome_title".localized()),
 //                   primaryAction: InformAction(title: "test", callback: {}))
 //    .environmentObject(ThemeManager())
     
-    UserInformView(message: UserMessageItem(message: "welcome_message".localized()),
+    UserInformView(message: UserMessageItem(message: "onboarding_welcome_title".localized()),
                    primaryAction: InformAction(title: "test", callback: {}))
     .environment(UserSettings())
 }
