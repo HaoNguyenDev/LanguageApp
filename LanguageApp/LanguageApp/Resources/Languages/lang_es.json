@@ -103,6 +103,8 @@
         "plus_subtitle": "Aprende más rápido y sin interrupciones.",
         "plus_title": "LinguaPath Plus",
         "practice_anyway": "Practicar de todos modos",
+        "practice_weak_words": "Practicar palabras débiles",
+        "practice_weak_words_message": "%ld palabras, las más débiles primero · sin perder vidas",
         "products_unavailable": "Las suscripciones no están disponibles ahora.",
         "progress_reset_done": "Se ha restablecido el progreso del curso.",
         "quit_lesson_confirm": "Salir de la lección",

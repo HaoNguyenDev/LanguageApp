@@ -197,6 +197,56 @@ final class AnswerMatcherTests: XCTestCase {
 }
 
 @MainActor
+final class PracticeServiceTests: XCTestCase {
+    private typealias Candidate = PracticeService.Candidate
+
+    func testWeakness() {
+        let solid = Candidate(id: "a", interval: 20)
+        XCTAssertEqual(PracticeService.weakness(solid), 0)
+        XCTAssertGreaterThan(PracticeService.weakness(Candidate(id: "b", mistakes: 1, interval: 20)), 0)
+        XCTAssertGreaterThan(PracticeService.weakness(Candidate(id: "c", lapses: 2, ease: 1.8, interval: 20)),
+                             PracticeService.weakness(Candidate(id: "d", lapses: 1, interval: 20)))
+        // A recently learned word (short interval) counts as weak, like `WordStrength.weak`.
+        XCTAssertEqual(PracticeService.weakness(Candidate(id: "e", interval: 1)), 1)
+    }
+
+    func testPickWordsWeakestFirstAndTopsUp() {
+        let words = [
+            Candidate(id: "solid1", interval: 30),
+            Candidate(id: "mistakes", mistakes: 3, interval: 10),
+            Candidate(id: "lapsed", lapses: 1, ease: 2.2, interval: 5),
+            Candidate(id: "solid2", interval: 8),
+            Candidate(id: "new", interval: 1),
+        ]
+        XCTAssertEqual(PracticeService.pickWords(words, limit: 4), ["mistakes", "lapsed", "new", "solid2"])
+        XCTAssertEqual(PracticeService.weakCount(words), 3)
+    }
+
+    func testNoPracticeWithTooFewWords() {
+        let words = (0..<(PracticeService.minimumWords - 1)).map { Candidate(id: "w\($0)", mistakes: 2) }
+        XCTAssertTrue(PracticeService.pickWords(words).isEmpty)
+    }
+
+    func testRecordMistakes() {
+        // SwiftData models need a container in the process before they can be created.
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let missed = VocabItem(remoteId: "a", courseId: "en")
+        let correct = VocabItem(remoteId: "b", courseId: "en")
+        container.mainContext.insert(missed)
+        container.mainContext.insert(correct)
+        correct.mistakeCount = 2
+        PracticeService.recordMistakes(["a": 2], for: [missed, correct], forgiveCorrect: false)
+        XCTAssertEqual(missed.mistakeCount, 2)
+        XCTAssertNotNil(missed.lastMistakeAt)
+        XCTAssertEqual(correct.mistakeCount, 2, "Lessons don't forgive mistakes")
+
+        PracticeService.recordMistakes([:], for: [missed, correct], forgiveCorrect: true)
+        XCTAssertEqual(missed.mistakeCount, 1)
+        XCTAssertEqual(correct.mistakeCount, 1)
+    }
+}
+
+@MainActor
 final class LessonSessionViewModelTests: XCTestCase {
     private var word: StudyItem { StudyItem(id: "a", term: "hola", reading: nil, meaning: "hello",
                                  example: nil, exampleMeaning: nil, speechLocale: "es-ES") }
@@ -229,6 +279,16 @@ final class LessonSessionViewModelTests: XCTestCase {
         vm.typedAnswer = "adios"
         XCTAssertFalse(vm.check())
         XCTAssertEqual(vm.exercises.count, 3, "A wrong typed answer is re-queued")
+    }
+
+    func testMistakesAreCountedPerWord() {
+        let vm = LessonSessionViewModel(lessonTitle: "t", exercises: [choice()])
+        vm.select("b")
+        vm.check()
+        vm.next()
+        vm.select("b")
+        vm.check()
+        XCTAssertEqual(vm.mistakesByItemId, ["a": 2])
     }
 
     func testWrongAnswerIsRequeuedOnce() {

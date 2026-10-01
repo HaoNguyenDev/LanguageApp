@@ -35,6 +35,8 @@ import Observation
 
     private(set) var gradedCount = 0
     private(set) var correctCount = 0
+    /// Wrong answers per word id (choice and typing questions; match pairs are corrected on the spot).
+    private(set) var mistakesByItemId: [String: Int] = [:]
     private var requeuedIds = Set<String>()
 
     /// Called on each mistake (hearts); return false when no hearts are left.
@@ -137,6 +139,9 @@ import Observation
             return
         }
 
+        if let itemId = exercise.studyItem?.id {
+            mistakesByItemId[itemId, default: 0] += 1
+        }
         if !requeuedIds.contains(exercise.id) {
             requeuedIds.insert(exercise.id)
             exercises.append(exercise)

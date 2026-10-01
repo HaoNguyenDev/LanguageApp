@@ -72,7 +72,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Sentence builder – tap words in the right order (uses example sentences)
 - [x] Typing – listen and type / translate and type (with lenient matching for accents and kana)
 - [ ] Fill in the blank – choose the missing word in an example sentence
-- [ ] Practice mistakes – a lesson built from the learner's weakest / most-missed words
+- [x] Practice mistakes – a lesson built from the learner's weakest / most-missed words
 - [ ] Exercise mix tuned by difficulty (new lesson vs. replay)
 
 ## ⚪ v0.12 – Engagement

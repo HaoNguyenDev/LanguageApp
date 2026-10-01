@@ -13,6 +13,9 @@ struct ReviewCoordinator: View {
             onStartReview: { courseId, practice in
                 navRouter.showFullScreenCover(RouterView(routable: Router.Study.review(courseId: courseId, practice: practice)))
             },
+            onPracticeWeakWords: { courseId in
+                navRouter.showFullScreenCover(RouterView(routable: Router.Study.practiceWeakWords(courseId: courseId)))
+            },
             onShowWords: { courseId in
                 navRouter.push(Router.MainTab.wordList(courseId: courseId), animate: true)
             }

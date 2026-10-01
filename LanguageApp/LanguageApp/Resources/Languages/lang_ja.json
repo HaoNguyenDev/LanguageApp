@@ -103,6 +103,8 @@
         "plus_subtitle": "中断なしで、もっと速く学ぼう。",
         "plus_title": "LinguaPath Plus",
         "practice_anyway": "それでも練習する",
+        "practice_weak_words": "苦手な単語を練習",
+        "practice_weak_words_message": "%ld 語・苦手な順に出題・ハートは減りません",
         "products_unavailable": "現在サブスクリプションを利用できません。",
         "progress_reset_done": "コースの進捗をリセットしました。",
         "quit_lesson_confirm": "レッスンをやめる",

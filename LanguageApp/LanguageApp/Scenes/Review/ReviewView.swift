@@ -14,6 +14,7 @@ struct ReviewView: View {
     @Query(filter: #Predicate<VocabItem> { $0.srsDue != nil }) private var learnedItems: [VocabItem]
 
     var onStartReview: ((_ courseId: String, _ practice: Bool) -> Void)?
+    var onPracticeWeakWords: SingleResult<String>?
     var onShowWords: SingleResult<String>?
 
     private var course: Course? {
@@ -72,6 +73,10 @@ struct ReviewView: View {
 
                 strengthBreakdown
 
+                if let course, courseItems.count >= PracticeService.minimumWords {
+                    practiceWeakWordsCard(courseId: course.remoteId)
+                }
+
                 if let course, !courseItems.isEmpty {
                     Button {
                         onShowWords?(course.remoteId)
@@ -117,6 +122,36 @@ struct ReviewView: View {
                 .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
         }
+    }
+
+    private func practiceWeakWordsCard(courseId: String) -> some View {
+        let theme = userSettings.theme
+        let wordCount = min(courseItems.count, PracticeService.sessionSize)
+        return Button {
+            onPracticeWeakWords?(courseId)
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "dumbbell.fill")
+                    .font(.system(size: 24))
+                    .foregroundStyle(theme.wrongColor)
+                    .frame(width: 48, height: 48)
+                    .background(theme.wrongColor.opacity(0.12), in: Circle())
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("practice_weak_words".localized())
+                        .font(mainFont.bold(16))
+                        .foregroundStyle(theme.textColor)
+                    Text("practice_weak_words_message".localizedFormat(wordCount))
+                        .font(mainFont.regular(13))
+                        .foregroundStyle(theme.secondaryTextColor)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(theme.secondaryTextColor)
+            }
+            .padding(16)
+            .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     private var howItWorks: some View {
