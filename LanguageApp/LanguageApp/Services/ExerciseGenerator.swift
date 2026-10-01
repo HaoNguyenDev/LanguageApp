@@ -48,6 +48,10 @@ enum Exercise: Identifiable, Hashable {
     case listen(StudyItem, options: [ChoiceOption])
     /// Tap matching pairs (term ↔ meaning).
     case matchPairs([StudyItem])
+    /// Show meaning → type the term (graded by `AnswerMatcher`).
+    case typeTerm(StudyItem)
+    /// Play audio → type what you hear.
+    case typeListening(StudyItem)
 
     var id: String {
         switch self {
@@ -56,6 +60,16 @@ enum Exercise: Identifiable, Hashable {
         case .chooseTerm(let item, _): return "term-\(item.id)"
         case .listen(let item, _): return "listen-\(item.id)"
         case .matchPairs(let items): return "match-" + items.map(\.id).joined(separator: "-")
+        case .typeTerm(let item): return "type-\(item.id)"
+        case .typeListening(let item): return "typelisten-\(item.id)"
+        }
+    }
+
+    /// Free-text answer instead of options.
+    var isTyping: Bool {
+        switch self {
+        case .typeTerm, .typeListening: return true
+        default: return false
         }
     }
 
@@ -76,7 +90,8 @@ enum Exercise: Identifiable, Hashable {
 
     var studyItem: StudyItem? {
         switch self {
-        case .introduce(let item), .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _):
+        case .introduce(let item), .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _),
+             .typeTerm(let item), .typeListening(let item):
             return item
         case .matchPairs:
             return nil
@@ -87,6 +102,8 @@ enum Exercise: Identifiable, Hashable {
 struct ExerciseGenerator {
     var optionCount = 4
     var maxMatchPairs = 5
+    /// Include typing exercises in the second pass.
+    var allowsTyping = true
 
     /// - Parameters:
     ///   - items: words of the lesson.
@@ -109,14 +126,20 @@ struct ExerciseGenerator {
             exercises.append(.chooseMeaning(item, options: meaningOptions(for: item, pool: pool, using: &rng)))
         }
 
-        // Pass 2: harder questions in random order.
+        // Pass 2: harder questions in random order. Typing what you hear is only asked for words
+        // the learner has met before; a brand-new word can still be typed from its meaning.
         var second: [Exercise] = []
         for item in items {
-            let kind = Int.random(in: 0..<2, using: &rng)
-            if kind == 0 {
+            let kinds = !allowsTyping ? 2 : (newWordIds.contains(item.id) ? 3 : 4)
+            switch Int.random(in: 0..<kinds, using: &rng) {
+            case 0:
                 second.append(.chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng)))
-            } else {
+            case 1:
                 second.append(.listen(item, options: termOptions(for: item, pool: pool, using: &rng)))
+            case 2:
+                second.append(.typeTerm(item))
+            default:
+                second.append(.typeListening(item))
             }
         }
         second.shuffle(using: &rng)

@@ -15,7 +15,7 @@ An iOS language-learning app for **Vietnamese, English, Chinese, Japanese, Korea
 2. Xcode resolves the **Lottie** package (`lottie-spm`) automatically.
 3. Select an iPhone simulator and run.
 
-Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, lesson state machine, streaks, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
+Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer matching, lesson state machine, streaks, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
 
 ## MVP features
 
@@ -23,7 +23,7 @@ Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, lesson state ma
 |---|---|
 | Onboarding | Asks for the **app language** (the UI switches immediately) → the **language to learn** (the course in the app language is hidden) → daily XP goal → daily reminder |
 | Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows the course badge, streak 🔥, XP ⚡ and hearts ❤️ |
-| Lesson | New-word card → choose the meaning → choose the word → listen & choose → match pairs. A wrong answer costs a heart and the question comes back at the end of the lesson |
+| Lesson | New-word card → choose the meaning → choose the word / listen & choose / type the word / type what you hear → match pairs. Typed answers are graded leniently (`AnswerMatcher`: case, punctuation and spaces ignored; kana or kanji; Pinyin / Romaji / Korean romanization without tones; a missing accent or one typo is accepted and the correct spelling is shown). A wrong answer costs a heart and the question comes back at the end of the lesson |
 | Lesson result | XP (+5 bonus for a perfect lesson), accuracy, streak, daily goal |
 | Review | Flashcards with a 3D flip, graded Again/Hard/Good/Easy; SM-2 schedules the next review; word list with memory strength and search |
 | Profile | Daily goal ring, stats, 7-day XP chart (Swift Charts), achievements, editable display name |

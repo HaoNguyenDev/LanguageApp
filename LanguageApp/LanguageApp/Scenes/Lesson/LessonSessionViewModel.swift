@@ -28,6 +28,10 @@ import Observation
     private(set) var currentIndex = 0
     private(set) var phase: Phase = .answering
     var selectedOptionId: String?
+    /// Text typed for typing exercises.
+    var typedAnswer = ""
+    /// The last typed answer was accepted with a spelling slip (missing accent / one typo).
+    private(set) var lastAnswerWasAlmost = false
 
     private(set) var gradedCount = 0
     private(set) var correctCount = 0
@@ -63,7 +67,11 @@ import Observation
     }
 
     var canCheck: Bool {
-        phase == .answering && selectedOptionId != nil
+        guard phase == .answering, let current else { return false }
+        if current.isTyping {
+            return !typedAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+        return selectedOptionId != nil
     }
 
     // MARK: - Actions
@@ -73,11 +81,20 @@ import Observation
         selectedOptionId = optionId
     }
 
-    /// Grades the selected option of a choice exercise.
+    /// Grades the selected option of a choice exercise, or the typed answer of a typing exercise.
     @discardableResult
     func check() -> Bool {
-        guard canCheck, let current, let correctId = current.correctOptionId else { return false }
-        let isCorrect = selectedOptionId == correctId
+        guard canCheck, let current else { return false }
+        let isCorrect: Bool
+        if current.isTyping, let item = current.studyItem {
+            let result = AnswerMatcher.grade(typedAnswer, for: item)
+            lastAnswerWasAlmost = result == .almost
+            isCorrect = result != .wrong
+        } else if let correctId = current.correctOptionId {
+            isCorrect = selectedOptionId == correctId
+        } else {
+            return false
+        }
         grade(current, isCorrect: isCorrect)
         return isCorrect
     }
@@ -95,6 +112,8 @@ import Observation
     func next() {
         if phase == .outOfHearts || phase == .finished { return }
         selectedOptionId = nil
+        typedAnswer = ""
+        lastAnswerWasAlmost = false
         if currentIndex + 1 < exercises.count {
             currentIndex += 1
             phase = .answering

@@ -157,6 +157,108 @@ struct ChoiceExerciseView: View {
     }
 }
 
+// MARK: - Typing
+
+struct TypingExerciseView: View {
+    enum Prompt {
+        case meaning(StudyItem)
+        case audio(StudyItem)
+    }
+
+    @Environment(UserSettings.self) private var userSettings
+    let instruction: String
+    let prompt: Prompt
+    @Bindable var viewModel: LessonSessionViewModel
+    var onSubmit: VoidResult?
+
+    @FocusState private var isFocused: Bool
+
+    private var item: StudyItem {
+        switch prompt {
+        case .meaning(let item), .audio(let item): return item
+        }
+    }
+
+    var body: some View {
+        let theme = userSettings.theme
+        VStack(alignment: .leading, spacing: 24) {
+            Text(instruction)
+                .setFont(.bold, size: 22, color: theme.textColor)
+
+            promptView
+                .frame(maxWidth: .infinity)
+
+            VStack(alignment: .leading, spacing: 10) {
+                TextField("typing_placeholder".localized(), text: $viewModel.typedAnswer)
+                    .font(mainFont.semibold(20))
+                    .foregroundStyle(theme.textColor)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .submitLabel(.done)
+                    .focused($isFocused)
+                    .disabled(viewModel.phase != .answering)
+                    .padding(16)
+                    .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(borderColor, lineWidth: 2)
+                    }
+                    .onSubmit { onSubmit?() }
+
+                if showsRomanizedHint {
+                    Label("typing_hint_romanized".localized(), systemImage: "lightbulb")
+                        .font(mainFont.regular(13))
+                        .foregroundStyle(theme.secondaryTextColor)
+                }
+            }
+        }
+        .task {
+            // Let the slide-in transition finish before the keyboard appears.
+            try? await Task.sleep(for: .milliseconds(400))
+            isFocused = true
+        }
+        .onChange(of: viewModel.phase) { _, phase in
+            if phase != .answering { isFocused = false }
+        }
+    }
+
+    @ViewBuilder
+    private var promptView: some View {
+        let theme = userSettings.theme
+        switch prompt {
+        case .meaning(let item):
+            Text("“\(item.meaning)”")
+                .setFont(.bold, size: 28, color: theme.textColor, alignment: .center)
+                .padding(24)
+                .frame(maxWidth: .infinity)
+                .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        case .audio(let item):
+            HStack(spacing: 20) {
+                SpeakerButton(text: item.term, locale: item.speechLocale, size: 96)
+                SpeakerButton(text: item.term, locale: item.speechLocale, size: 60, slow: true)
+            }
+            .padding(.vertical, 12)
+        }
+    }
+
+    private var borderColor: Color {
+        let theme = userSettings.theme
+        switch viewModel.phase {
+        case .feedback(let isCorrect):
+            return isCorrect ? theme.correctColor : theme.wrongColor
+        default:
+            return isFocused ? theme.primaryColor : theme.secondaryTextColor.opacity(0.25)
+        }
+    }
+
+    /// Chinese, Japanese and Korean words can also be typed in Latin letters (Pinyin, Romaji, Romanization).
+    private var showsRomanizedHint: Bool {
+        guard let reading = item.reading, !reading.isEmpty else { return false }
+        let language = item.speechLocale.prefix(2)
+        return ["zh", "ja", "ko"].contains(String(language))
+    }
+}
+
 // MARK: - Match pairs
 
 struct MatchPairsView: View {

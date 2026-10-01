@@ -103,6 +103,33 @@ final class ExerciseGeneratorTests: XCTestCase {
         }
     }
 
+    func testTypingExercises() {
+        let items = (1...6).map(item)
+        var rng = SeededGenerator(seed: 3)
+        // Seen words: every pass-2 kind is possible, including typing what you hear.
+        var kinds = Set<String>()
+        for _ in 0..<20 {
+            for exercise in ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [], using: &rng) {
+                if case .typeTerm = exercise { kinds.insert("typeTerm") }
+                if case .typeListening = exercise { kinds.insert("typeListening") }
+            }
+        }
+        XCTAssertEqual(kinds, ["typeTerm", "typeListening"])
+
+        // New words are never asked as "type what you hear".
+        let newIds = Set(items.map(\.id))
+        for _ in 0..<20 {
+            let exercises = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: newIds, using: &rng)
+            XCTAssertFalse(exercises.contains { if case .typeListening = $0 { return true } else { return false } })
+        }
+
+        // Typing can be switched off.
+        var noTyping = ExerciseGenerator()
+        noTyping.allowsTyping = false
+        let exercises = noTyping.makeLesson(items: items, distractorPool: [], newWordIds: [], using: &rng)
+        XCTAssertFalse(exercises.contains(where: \.isTyping))
+    }
+
     func testSeededGeneratorIsDeterministic() {
         let items = (1...5).map(item)
         var a = SeededGenerator(seed: 1)
@@ -110,6 +137,62 @@ final class ExerciseGeneratorTests: XCTestCase {
         let first = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [], using: &a)
         let second = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [], using: &b)
         XCTAssertEqual(first, second)
+    }
+}
+
+@MainActor
+final class AnswerMatcherTests: XCTestCase {
+    private func word(_ term: String, _ reading: String? = nil, locale: String = "en-US") -> StudyItem {
+        StudyItem(id: term, term: term, reading: reading, meaning: "m", example: nil, exampleMeaning: nil, speechLocale: locale)
+    }
+
+    func testExactAnswerIgnoresCasePunctuationAndSpaces() {
+        XCTAssertEqual(AnswerMatcher.grade("  Hello! ", for: word("hello")), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("¿Cuánto cuesta?", for: word("cuánto cuesta", locale: "es-ES")), .correct)
+    }
+
+    func testMissingAccentOrToneIsAlmost() {
+        XCTAssertEqual(AnswerMatcher.grade("xin chao", for: word("xin chào", locale: "vi-VN")), .almost)
+        XCTAssertEqual(AnswerMatcher.grade("adios", for: word("adiós", locale: "es-ES")), .almost)
+        XCTAssertEqual(AnswerMatcher.grade("trung", for: word("trứng", locale: "vi-VN")), .almost)
+    }
+
+    func testOneTypoInLongLatinWordIsAlmost() {
+        XCTAssertEqual(AnswerMatcher.grade("famly", for: word("family")), .almost)
+        XCTAssertEqual(AnswerMatcher.grade("fmly", for: word("family")), .wrong)
+        // Short words need the exact letters.
+        XCTAssertEqual(AnswerMatcher.grade("cat", for: word("car")), .wrong)
+    }
+
+    func testJapaneseAcceptsKanjiKanaAndRomaji() {
+        let mizu = word("水", "みず · mizu", locale: "ja-JP")
+        XCTAssertEqual(AnswerMatcher.grade("水", for: mizu), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("みず", for: mizu), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("ミズ", for: mizu), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("Mizu", for: mizu), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("みそ", for: mizu), .wrong)
+
+        let kyou = word("今日", "きょう · kyō", locale: "ja-JP")
+        XCTAssertEqual(AnswerMatcher.grade("kyo", for: kyou), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("kyou", for: kyou), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("kyoo", for: kyou), .correct)
+    }
+
+    func testChineseAndKoreanAcceptRomanizationWithoutTones() {
+        let nihao = word("你好", "nǐ hǎo", locale: "zh-CN")
+        XCTAssertEqual(AnswerMatcher.grade("你好", for: nihao), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("ni hao", for: nihao), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("nihao", for: nihao), .correct)
+
+        let mul = word("물", "mul", locale: "ko-KR")
+        XCTAssertEqual(AnswerMatcher.grade("물", for: mul), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("mul", for: mul), .correct)
+        XCTAssertEqual(AnswerMatcher.grade("불", for: mul), .wrong)
+    }
+
+    func testIPAIsNotAcceptedAsAnswer() {
+        XCTAssertEqual(AnswerMatcher.grade("wɔːtər", for: word("water", "/ˈwɔːtər/")), .wrong)
+        XCTAssertEqual(AnswerMatcher.grade("", for: word("water")), .wrong)
     }
 }
 
@@ -131,6 +214,21 @@ final class LessonSessionViewModelTests: XCTestCase {
         vm.next()
         XCTAssertEqual(vm.phase, .finished)
         XCTAssertEqual(vm.accuracy, 1)
+    }
+
+    func testTypingAnswerFlow() {
+        let vm = LessonSessionViewModel(lessonTitle: "t", exercises: [.typeTerm(word), .typeTerm(word)])
+        XCTAssertFalse(vm.canCheck)
+        vm.typedAnswer = "  "
+        XCTAssertFalse(vm.canCheck)
+        vm.typedAnswer = "Hola"
+        XCTAssertTrue(vm.check())
+        XCTAssertFalse(vm.lastAnswerWasAlmost)
+        vm.next()
+        XCTAssertEqual(vm.typedAnswer, "")
+        vm.typedAnswer = "adios"
+        XCTAssertFalse(vm.check())
+        XCTAssertEqual(vm.exercises.count, 3, "A wrong typed answer is re-queued")
     }
 
     func testWrongAnswerIsRequeuedOnce() {
