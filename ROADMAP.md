@@ -106,6 +106,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Privacy policy & terms of use URLs (required for subscriptions)
 - [ ] App Store metadata in 6 languages: name, subtitle, description, keywords, screenshots
 - [ ] Native-speaker review of ja / ko / es / zh UI strings, course meanings and example sentences
+- [ ] "Beta" build configuration + scheme for TestFlight: Release optimizations with `DEVELOPER_MENU` on
 - [ ] TestFlight beta with a few learners per language
 - [ ] `release/1.0.0` → merge into `main`, tag `v1.0.0`, submit for review
 

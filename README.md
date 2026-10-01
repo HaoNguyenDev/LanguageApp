@@ -37,9 +37,10 @@ Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices fo
 | | Debug | Release |
 |---|---|---|
 | Home-screen name | **LinguaPath Dev** | LinguaPath |
-| `#if DEBUG` | ✅ | – |
+| `DEBUG` flag (`#if DEBUG`) | ✅ | – |
+| `DEVELOPER_MENU` flag | ✅ | – |
 | Settings ▸ **Developer** | ✅ | hidden |
-| Developer switches | editable, saved in `UserDefaults` (`debug.*`) | always off (compiled out) |
+| Developer switches | editable, saved in `UserDefaults` (`debug.*`) | always off |
 
 Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product ▸ Scheme ▸ Edit Scheme ▸ Run ▸ Build Configuration ▸ Release. Archives / TestFlight use Release.
 
@@ -53,7 +54,7 @@ Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product 
 - **Stats:** +100 XP today, build a 7-day streak
 - **App:** show onboarding on next launch, reset all switches; build info
 
-App code only reads the *effective* values (`DebugSettings.shared.unlocksAllLessons`, `forcedPremium`, …), which are `false`/`nil` in Release builds and while unit tests run.
+The developer menu is gated by the `DEVELOPER_MENU` compilation condition (set for Debug in *Active Compilation Conditions*), not by `DEBUG`, so a future **Beta** configuration for TestFlight can enable it in an optimized build. App code only reads the *effective* values (`DebugSettings.shared.unlocksAllLessons`, `forcedPremium`, …), which are `false`/`nil` in Release builds and while unit tests run.
 
 ## Languages
 

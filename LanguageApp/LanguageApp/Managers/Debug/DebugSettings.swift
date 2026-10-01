@@ -2,9 +2,10 @@
 //  DebugSettings.swift
 //  LanguageApp
 //
-//  Developer switches for testing without changing code. Edited in Settings ▸ Developer
-//  (Debug builds only). In Release builds – and while unit tests run – every switch reads as
-//  off, so nothing here can leak into an App Store build.
+//  Developer switches for testing without changing code. Edited in Settings ▸ Developer.
+//  Available only when the `DEVELOPER_MENU` compilation condition is set (Debug today; a future
+//  "Beta" configuration for TestFlight can turn it on without `DEBUG`). In Release builds – and
+//  while unit tests run – every switch reads as off, so nothing here can leak into an App Store build.
 //
 
 import Foundation
@@ -16,9 +17,9 @@ import Observation
 
     static let shared = DebugSettings()
 
-    /// True in Debug builds, false in Release and during unit tests.
+    /// True when built with `DEVELOPER_MENU` (Debug), false in Release and during unit tests.
     static let isAvailable: Bool = {
-        #if DEBUG
+        #if DEVELOPER_MENU
         return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
         #else
         return false
