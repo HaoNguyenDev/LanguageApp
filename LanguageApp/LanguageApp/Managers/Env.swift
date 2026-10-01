@@ -14,6 +14,27 @@ class Env {
     func getVersionApp() -> String {
         return (infoDict["CFBundleShortVersionString"] as? String).orEmpty
     }
+
+    func getBuildNumber() -> String {
+        return (infoDict["CFBundleVersion"] as? String).orEmpty
+    }
+
+    /// Build configuration: "Debug" or "Release".
+    var buildConfiguration: String {
+        #if DEBUG
+        return "Debug"
+        #else
+        return "Release"
+        #endif
+    }
+
+    var isDebugBuild: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
     
     private let infoDict: [String: Any] = {
         guard let dict = Bundle.main.infoDictionary else {

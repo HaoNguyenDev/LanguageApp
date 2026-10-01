@@ -32,6 +32,30 @@ Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer ma
 
 Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices for all 6 languages.
 
+## Build configurations & developer menu
+
+| | Debug | Release |
+|---|---|---|
+| Home-screen name | **LinguaPath Dev** | LinguaPath |
+| `DEBUG` flag (`#if DEBUG`) | ✅ | – |
+| `DEVELOPER_MENU` flag | ✅ | – |
+| Settings ▸ **Developer** | ✅ | hidden |
+| Developer switches | editable, saved in `UserDefaults` (`debug.*`) | always off |
+
+Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product ▸ Scheme ▸ Edit Scheme ▸ Run ▸ Build Configuration ▸ Release. Archives / TestFlight use Release.
+
+**Settings ▸ Developer** (no code changes needed):
+
+- **Access:** unlock all lessons, unlimited hearts, force Free / Plus (overrides StoreKit)
+- **Lessons:** force one question type (choose, listen, type, type what you hear), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
+- **Hearts:** refill / empty
+- **Progress:** complete the current unit or all lessons, reset course progress
+- **Review & practice:** make all learned words due now, mark 8 random words weak
+- **Stats:** +100 XP today, build a 7-day streak
+- **App:** show onboarding on next launch, reset all switches; build info
+
+The developer menu is gated by the `DEVELOPER_MENU` compilation condition (set for Debug in *Active Compilation Conditions*), not by `DEBUG`, so a future **Beta** configuration for TestFlight can enable it in an optimized build. App code only reads the *effective* values (`DebugSettings.shared.unlocksAllLessons`, `forcedPremium`, …), which are `false`/`nil` in Release builds and while unit tests run.
+
 ## Languages
 
 | Language | `LanguageCode` (UI) | Course id | UI strings | Speech locale | Badge |

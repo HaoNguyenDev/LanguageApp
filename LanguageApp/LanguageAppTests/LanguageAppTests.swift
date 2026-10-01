@@ -130,6 +130,18 @@ final class ExerciseGeneratorTests: XCTestCase {
         XCTAssertFalse(exercises.contains(where: \.isTyping))
     }
 
+    func testDeveloperGeneratorOptions() {
+        let items = (1...6).map(item)
+        var rng = SeededGenerator(seed: 5)
+        var generator = ExerciseGenerator()
+        generator.includesIntroCards = false
+        generator.includesMatchPairs = false
+        generator.forcedSecondPass = .typeListening
+        let exercises = generator.makeLesson(items: items, distractorPool: [], newWordIds: Set(items.map(\.id)), using: &rng)
+        XCTAssertEqual(exercises.count, 12, "6 recognition + 6 forced questions, no intros, no match pairs")
+        XCTAssertEqual(exercises.suffix(6).filter { if case .typeListening = $0 { return true } else { return false } }.count, 6)
+    }
+
     func testSeededGeneratorIsDeterministic() {
         let items = (1...5).map(item)
         var a = SeededGenerator(seed: 1)
@@ -243,6 +255,28 @@ final class PracticeServiceTests: XCTestCase {
         PracticeService.recordMistakes([:], for: [missed, correct], forgiveCorrect: true)
         XCTAssertEqual(missed.mistakeCount, 1)
         XCTAssertEqual(correct.mistakeCount, 1)
+    }
+}
+
+@MainActor
+final class DebugSettingsTests: XCTestCase {
+    /// Developer switches never take effect while unit tests run (same as Release builds).
+    func testSwitchesAreOffOutsideTheDeveloperMenuEnvironment() throws {
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: "DebugSettingsTests"))
+        defaults.removePersistentDomain(forName: "DebugSettingsTests")
+        let debug = DebugSettings(defaults: defaults)
+        debug.unlockAllLessons = true
+        debug.premiumOverride = .plus
+        debug.shortLessons = true
+        XCTAssertFalse(DebugSettings.isAvailable)
+        XCTAssertFalse(debug.unlocksAllLessons)
+        XCTAssertNil(debug.forcedPremium)
+        XCTAssertNil(debug.lessonWordLimit)
+        XCTAssertEqual(debug.activeCount, 0)
+
+        // Stored values persist for the developer menu.
+        XCTAssertTrue(DebugSettings(defaults: defaults).unlockAllLessons)
+        defaults.removePersistentDomain(forName: "DebugSettingsTests")
     }
 }
 
