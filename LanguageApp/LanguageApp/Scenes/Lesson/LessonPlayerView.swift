@@ -103,6 +103,16 @@ struct LessonPlayerView: View {
                                prompt: .audio(item),
                                options: options,
                                viewModel: viewModel)
+        case .typeTerm(let item):
+            TypingExerciseView(instruction: "exercise_type_term".localized(),
+                               prompt: .meaning(item),
+                               viewModel: viewModel,
+                               onSubmit: submitTyped)
+        case .typeListening(let item):
+            TypingExerciseView(instruction: "exercise_type_listening".localized(),
+                               prompt: .audio(item),
+                               viewModel: viewModel,
+                               onSubmit: submitTyped)
         case .matchPairs(let items):
             MatchPairsView(items: items) { mistakes in
                 viewModel.completeMatch(mistakes: mistakes)
@@ -122,6 +132,7 @@ struct LessonPlayerView: View {
         switch viewModel.phase {
         case .feedback(let isCorrect):
             FeedbackBanner(isCorrect: isCorrect,
+                           isAlmost: viewModel.lastAnswerWasAlmost,
                            correctAnswer: correctAnswerText,
                            onContinue: { viewModel.next() })
                 .transition(.move(edge: .bottom))
@@ -149,12 +160,17 @@ struct LessonPlayerView: View {
         switch viewModel.current {
         case .chooseMeaning(let item, _):
             return item.meaning
-        case .chooseTerm(let item, _), .listen(let item, _):
+        case .chooseTerm(let item, _), .listen(let item, _), .typeTerm(let item), .typeListening(let item):
             if let reading = item.reading, !reading.isEmpty { return "\(item.term) · \(reading)" }
             return item.term
         default:
             return nil
         }
+    }
+
+    /// Return key on the keyboard = Check.
+    private func submitTyped() {
+        if viewModel.canCheck { checkAnswer() }
     }
 
     private func checkAnswer() {
@@ -172,7 +188,7 @@ struct LessonPlayerView: View {
     private func autoPlayIfNeeded() {
         guard userSettings.autoPlayAudio || isListenExercise else { return }
         switch viewModel.current {
-        case .introduce(let item), .chooseMeaning(let item, _), .listen(let item, _):
+        case .introduce(let item), .chooseMeaning(let item, _), .listen(let item, _), .typeListening(let item):
             Task {
                 try? await Task.sleep(for: .milliseconds(350))
                 speech.speak(item.term, locale: speechLocale)
@@ -183,8 +199,10 @@ struct LessonPlayerView: View {
     }
 
     private var isListenExercise: Bool {
-        if case .listen = viewModel.current { return true }
-        return false
+        switch viewModel.current {
+        case .listen, .typeListening: return true
+        default: return false
+        }
     }
 }
 
@@ -193,6 +211,8 @@ struct LessonPlayerView: View {
 private struct FeedbackBanner: View {
     @Environment(UserSettings.self) private var userSettings
     let isCorrect: Bool
+    /// Accepted with a spelling slip → show the correct spelling.
+    var isAlmost = false
     let correctAnswer: String?
     var onContinue: VoidResult?
 
@@ -208,9 +228,9 @@ private struct FeedbackBanner: View {
             }
             .foregroundStyle(color)
 
-            if !isCorrect, let correctAnswer {
+            if !isCorrect || isAlmost, let correctAnswer {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("correct_answer".localized())
+                    Text((isAlmost ? "typo_note" : "correct_answer").localized())
                         .setFont(.bold, size: 15, color: color)
                     Text(correctAnswer)
                         .setFont(.regular, size: 17, color: color)
