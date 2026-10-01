@@ -1,6 +1,6 @@
 {
   "id": "es",
-  "version": 5,
+  "version": 6,
   "name": {
     "en": "Spanish",
     "vi": "Tiếng Tây Ban Nha",
@@ -130,8 +130,7 @@
               "exampleTokens": [
                 "Dos",
                 "cafés,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Two coffees, please.",
@@ -155,8 +154,7 @@
               },
               "example": "Lo siento, llego tarde.",
               "exampleTokens": [
-                "Lo",
-                "siento,",
+                "Lo siento,",
                 "llego",
                 "tarde."
               ],
@@ -182,8 +180,7 @@
               },
               "example": "¡Buenos días, mamá!",
               "exampleTokens": [
-                "¡Buenos",
-                "días,",
+                "¡Buenos días,",
                 "mamá!"
               ],
               "exampleMeaning": {
@@ -275,8 +272,7 @@
               "example": "Agua, por favor.",
               "exampleTokens": [
                 "Agua,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Water, please.",
@@ -474,8 +470,7 @@
               },
               "example": "¿Por qué estás cansado?",
               "exampleTokens": [
-                "¿Por",
-                "qué",
+                "¿Por qué",
                 "estás",
                 "cansado?"
               ],
@@ -693,8 +688,7 @@
               "exampleTokens": [
                 "Cinco",
                 "manzanas,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Five apples, please.",
@@ -761,9 +755,7 @@
               "exampleTokens": [
                 "Como",
                 "arroz",
-                "todos",
-                "los",
-                "días."
+                "todos los días."
               ],
               "exampleMeaning": {
                 "en": "I eat rice every day.",
@@ -817,8 +809,7 @@
               "exampleTokens": [
                 "Un",
                 "café,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "A coffee, please.",
@@ -1949,9 +1940,7 @@
                 "¿Cuál",
                 "es",
                 "tu",
-                "número",
-                "de",
-                "teléfono?"
+                "número de teléfono?"
               ],
               "exampleMeaning": {
                 "en": "What is your phone number?",
@@ -2136,8 +2125,7 @@
                 "Tomo",
                 "café",
                 "por",
-                "la",
-                "mañana."
+                "la mañana."
               ],
               "exampleMeaning": {
                 "en": "I drink coffee in the morning.",
@@ -2163,8 +2151,7 @@
               "exampleTokens": [
                 "Estudio",
                 "por",
-                "la",
-                "noche."
+                "la noche."
               ],
               "exampleMeaning": {
                 "en": "I study at night.",
@@ -2544,9 +2531,7 @@
                 "¿Qué",
                 "haces",
                 "el",
-                "fin",
-                "de",
-                "semana?"
+                "fin de semana?"
               ],
               "exampleMeaning": {
                 "en": "What do you do on the weekend?",
@@ -2590,8 +2575,7 @@
                 "a",
                 "las",
                 "seis",
-                "cada",
-                "mañana."
+                "cada mañana."
               ],
               "exampleMeaning": {
                 "en": "I wake up at six every morning.",
@@ -2671,8 +2655,7 @@
               "exampleTokens": [
                 "Ven",
                 "aquí,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Please come here.",
@@ -2699,9 +2682,7 @@
                 "Es",
                 "hora",
                 "de",
-                "volver",
-                "a",
-                "casa."
+                "volver a casa."
               ],
               "exampleMeaning": {
                 "en": "It's time to go home.",
@@ -2912,8 +2893,7 @@
               },
               "example": "¿Cuánto cuesta esto?",
               "exampleTokens": [
-                "¿Cuánto",
-                "cuesta",
+                "¿Cuánto cuesta",
                 "esto?"
               ],
               "exampleMeaning": {
@@ -3390,8 +3370,7 @@
               "exampleTokens": [
                 "El",
                 "recibo,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "A receipt, please.",
@@ -3734,8 +3713,7 @@
               "example": "Sigue todo recto.",
               "exampleTokens": [
                 "Sigue",
-                "todo",
-                "recto."
+                "todo recto."
               ],
               "exampleMeaning": {
                 "en": "Go straight ahead.",
@@ -3991,8 +3969,7 @@
               "exampleTokens": [
                 "Un",
                 "billete,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "One ticket, please.",
@@ -4087,8 +4064,7 @@
               "exampleTokens": [
                 "Su",
                 "pasaporte,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Your passport, please.",
@@ -4510,8 +4486,7 @@
               "exampleTokens": [
                 "Escribo",
                 "un",
-                "correo",
-                "electrónico."
+                "correo electrónico."
               ],
               "exampleMeaning": {
                 "en": "I write an email.",
@@ -4663,8 +4638,7 @@
                 "los",
                 "deberes",
                 "por",
-                "la",
-                "noche."
+                "la noche."
               ],
               "exampleMeaning": {
                 "en": "I do my homework at night.",
@@ -4787,8 +4761,7 @@
                 "Escribe",
                 "tu",
                 "nombre,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Please write your name.",
@@ -4814,8 +4787,7 @@
               "exampleTokens": [
                 "Habla",
                 "despacio,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Please speak slowly.",
@@ -4865,9 +4837,7 @@
               "example": "Estudio todos los días.",
               "exampleTokens": [
                 "Estudio",
-                "todos",
-                "los",
-                "días."
+                "todos los días."
               ],
               "exampleMeaning": {
                 "en": "I study every day.",
@@ -5028,8 +4998,7 @@
                 "Haz",
                 "una",
                 "foto,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Please take a photo.",
@@ -5081,9 +5050,7 @@
               "exampleTokens": [
                 "Vamos",
                 "a",
-                "ir",
-                "de",
-                "compras."
+                "ir de compras."
               ],
               "exampleMeaning": {
                 "en": "Let's go shopping.",
@@ -5179,8 +5146,7 @@
                 "Salgo",
                 "a",
                 "correr",
-                "cada",
-                "mañana."
+                "cada mañana."
               ],
               "exampleMeaning": {
                 "en": "I go running every morning.",
@@ -5259,9 +5225,7 @@
               "exampleTokens": [
                 "Hago",
                 "ejercicio",
-                "todos",
-                "los",
-                "días."
+                "todos los días."
               ],
               "exampleMeaning": {
                 "en": "I exercise every day.",
@@ -5979,8 +5943,7 @@
               "example": "Por la mañana hace fresco.",
               "exampleTokens": [
                 "Por",
-                "la",
-                "mañana",
+                "la mañana",
                 "hace",
                 "fresco."
               ],
@@ -6659,8 +6622,7 @@
                 "Abre",
                 "la",
                 "boca,",
-                "por",
-                "favor."
+                "por favor."
               ],
               "exampleMeaning": {
                 "en": "Please open your mouth.",
@@ -6688,8 +6650,7 @@
                 "lavo",
                 "los",
                 "dientes",
-                "cada",
-                "mañana."
+                "cada mañana."
               ],
               "exampleMeaning": {
                 "en": "I brush my teeth every morning.",

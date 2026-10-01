@@ -40,7 +40,7 @@ import Observation
 
     /// Question type for the second pass of a lesson.
     enum QuestionKind: String, CaseIterable, Identifiable {
-        case mixed, chooseTerm, listen, typeTerm, typeListening
+        case mixed, chooseTerm, listen, typeTerm, typeListening, buildSentence
         var id: String { rawValue }
         var title: String {
             switch self {
@@ -49,6 +49,7 @@ import Observation
             case .listen: return "Listen & choose"
             case .typeTerm: return "Type the word"
             case .typeListening: return "Type what you hear"
+            case .buildSentence: return "Build the sentence"
             }
         }
     }

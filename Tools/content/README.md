@@ -77,7 +77,7 @@ Four tabs (names must match). Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko
 | `reading_xx` | `konnichiwa` | Required for zh (Pinyin), ja (kana · Romaji), ko (Romanization); recommended for en (IPA) |
 | `meaning_xx` | `xin chào` | Meaning shown when the **app language** is xx. Empty → uses `term_xx` |
 | `example_xx` | `こんにちは、お元気ですか？` | Optional. The same sentence in every language: fill all 6 or none. Use the term as written when possible – fill-in-the-blank skips examples that don't contain it |
-| `tokens_xx` | `こんにちは、 / お元気ですか？` | Chunks of `example_xx` for the sentence builder, separated by ` / ` (punctuation stays on the chunk before it). **Required for zh and ja**, optional for the others (they are split on spaces). The chunks must rebuild the example exactly |
+| `tokens_xx` | `こんにちは、 / お元気ですか？` | Chunks of `example_xx` for the sentence builder, separated by ` / ` (punctuation stays on the chunk before it). **Required for zh and ja**. Optional for the others: they are split on spaces, but multi-word terms of the course (`sân bay`, `phone number`, `fin de semana`) and the phrases in `EXTRA_PHRASES` in the script stay together. Fill it to override the automatic split. The chunks must rebuild the example exactly |
 
 Example: for the Japanese course with the app in Vietnamese, the word shows `term_ja` + `reading_ja`, its meaning is `meaning_vi` (or `term_vi`), the example is `example_ja` and its translation is `example_vi`.
 

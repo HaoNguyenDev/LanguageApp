@@ -1,6 +1,6 @@
 {
   "id": "ko",
-  "version": 5,
+  "version": 6,
   "name": {
     "en": "Korean",
     "vi": "Tiếng Hàn",
@@ -79,8 +79,7 @@
               "reading": "annyeonghi gaseyo",
               "example": "안녕히 가세요, 또 만나요.",
               "exampleTokens": [
-                "안녕히",
-                "가세요,",
+                "안녕히 가세요,",
                 "또",
                 "만나요."
               ],
@@ -188,8 +187,7 @@
               "example": "엄마, 좋은 아침이에요!",
               "exampleTokens": [
                 "엄마,",
-                "좋은",
-                "아침이에요!"
+                "좋은 아침이에요!"
               ],
               "exampleMeaning": {
                 "en": "Good morning, Mom!",
@@ -5487,8 +5485,7 @@
               "exampleTokens": [
                 "빨간색은",
                 "제가",
-                "제일",
-                "좋아하는",
+                "제일 좋아하는",
                 "색이에요."
               ],
               "exampleMeaning": {

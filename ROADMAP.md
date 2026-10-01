@@ -75,7 +75,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 
 **Goal:** varied practice beyond multiple choice.
 
-- [ ] Sentence builder – tap words in the right order (uses example sentences)
+- [x] Sentence builder – tap words in the right order (uses example sentences)
 - [x] Typing – listen and type / translate and type (with lenient matching for accents and kana)
 - [ ] Fill in the blank – choose the missing word in an example sentence
 - [x] Practice mistakes – a lesson built from the learner's weakest / most-missed words

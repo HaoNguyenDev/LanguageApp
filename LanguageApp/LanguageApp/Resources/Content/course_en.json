@@ -1,6 +1,6 @@
 {
   "id": "en",
-  "version": 5,
+  "version": 6,
   "name": {
     "en": "English",
     "vi": "Tiếng Anh",
@@ -81,8 +81,7 @@
               "example": "Goodbye, see you later!",
               "exampleTokens": [
                 "Goodbye,",
-                "see",
-                "you",
+                "see you",
                 "later!"
               ],
               "exampleMeaning": {
@@ -108,8 +107,7 @@
               "reading": "/ˈθæŋk juː/",
               "example": "Thank you very much.",
               "exampleTokens": [
-                "Thank",
-                "you",
+                "Thank you",
                 "very",
                 "much."
               ],
@@ -190,8 +188,7 @@
               "reading": "/ɡʊd ˈmɔːrnɪŋ/",
               "example": "Good morning, Mom!",
               "exampleTokens": [
-                "Good",
-                "morning,",
+                "Good morning,",
                 "Mom!"
               ],
               "exampleMeaning": {
@@ -262,8 +259,7 @@
               "example": "No, thank you.",
               "exampleTokens": [
                 "No,",
-                "thank",
-                "you."
+                "thank you."
               ],
               "exampleMeaning": {
                 "en": "No, thank you.",
@@ -800,8 +796,7 @@
                 "I",
                 "eat",
                 "rice",
-                "every",
-                "day."
+                "every day."
               ],
               "exampleMeaning": {
                 "en": "I eat rice every day.",
@@ -1097,8 +1092,7 @@
               "exampleTokens": [
                 "This",
                 "costs",
-                "one",
-                "hundred",
+                "one hundred",
                 "yen."
               ],
               "exampleMeaning": {
@@ -1127,8 +1121,7 @@
                 "The",
                 "ticket",
                 "is",
-                "one",
-                "thousand",
+                "one thousand",
                 "yen."
               ],
               "exampleMeaning": {
@@ -2043,8 +2036,7 @@
                 "What",
                 "is",
                 "your",
-                "phone",
-                "number?"
+                "phone number?"
               ],
               "exampleMeaning": {
                 "en": "What is your phone number?",
@@ -2154,8 +2146,7 @@
               "reading": "/təˈmɑːroʊ/",
               "example": "See you tomorrow!",
               "exampleTokens": [
-                "See",
-                "you",
+                "See you",
                 "tomorrow!"
               ],
               "exampleMeaning": {
@@ -2394,8 +2385,7 @@
               "reading": "/ˈθɜːrzdeɪ/",
               "example": "See you on Thursday!",
               "exampleTokens": [
-                "See",
-                "you",
+                "See you",
                 "on",
                 "Thursday!"
               ],
@@ -2711,12 +2701,10 @@
               "example": "I wake up at six every morning.",
               "exampleTokens": [
                 "I",
-                "wake",
-                "up",
+                "wake up",
                 "at",
                 "six",
-                "every",
-                "morning."
+                "every morning."
               ],
               "exampleMeaning": {
                 "en": "I wake up at six every morning.",
@@ -2829,8 +2817,7 @@
                 "It's",
                 "time",
                 "to",
-                "go",
-                "home."
+                "go home."
               ],
               "exampleMeaning": {
                 "en": "It's time to go home.",
@@ -3052,8 +3039,7 @@
               "reading": "/haʊ mʌtʃ/",
               "example": "How much is this?",
               "exampleTokens": [
-                "How",
-                "much",
+                "How much",
                 "is",
                 "this?"
               ],
@@ -3905,8 +3891,7 @@
               "example": "Go straight ahead.",
               "exampleTokens": [
                 "Go",
-                "straight",
-                "ahead."
+                "straight ahead."
               ],
               "exampleMeaning": {
                 "en": "Go straight ahead.",
@@ -4328,9 +4313,7 @@
               "exampleTokens": [
                 "I",
                 "have",
-                "a",
-                "lot",
-                "of",
+                "a lot of",
                 "luggage."
               ],
               "exampleMeaning": {
@@ -4530,8 +4513,7 @@
               "exampleTokens": [
                 "Ask",
                 "a",
-                "police",
-                "officer."
+                "police officer."
               ],
               "exampleMeaning": {
                 "en": "Ask a police officer.",
@@ -4560,8 +4542,7 @@
                 "father",
                 "is",
                 "an",
-                "office",
-                "worker."
+                "office worker."
               ],
               "exampleMeaning": {
                 "en": "My father is an office worker.",
@@ -5091,8 +5072,7 @@
               "exampleTokens": [
                 "I",
                 "study",
-                "every",
-                "day."
+                "every day."
               ],
               "exampleMeaning": {
                 "en": "I study every day.",
@@ -5410,8 +5390,7 @@
                 "I",
                 "go",
                 "running",
-                "every",
-                "morning."
+                "every morning."
               ],
               "exampleMeaning": {
                 "en": "I go running every morning.",
@@ -5493,8 +5472,7 @@
               "exampleTokens": [
                 "I",
                 "exercise",
-                "every",
-                "day."
+                "every day."
               ],
               "exampleMeaning": {
                 "en": "I exercise every day.",
@@ -6956,8 +6934,7 @@
                 "brush",
                 "my",
                 "teeth",
-                "every",
-                "morning."
+                "every morning."
               ],
               "exampleMeaning": {
                 "en": "I brush my teeth every morning.",
