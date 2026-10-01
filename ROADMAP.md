@@ -12,7 +12,7 @@ _Last updated: 2026-09-30_
 |---|---|---|---|
 | **0.8** | MVP foundation | ✅ Done | `feature/app-scaffold`, `feature/content-tooling` (merged) |
 | **0.9** | Stabilize | 🟡 Next | `fix/first-build`, `fix/translation-review` |
-| **0.10** | Content | ⚪ Planned | `feature/more-units` |
+| **0.10** | Content | 🟡 In progress | `feature/more-units` |
 | **0.11** | New exercise types | ⚪ Planned | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
 | **0.12** | Engagement | ⚪ Planned | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
 | **0.13** | Polish | ⚪ Planned | `feature/native-audio`, `feature/accessibility` |
@@ -54,13 +54,14 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Add `.DS_Store` to `.gitignore`
 - [x] Warn when the app language and the language being learned are the same (course picker + app language in Settings)
 
-## ⚪ v0.10 – Content
+## 🟡 v0.10 – Content (in progress)
 
 **Goal:** enough content to learn for weeks, not minutes.
 
-- [ ] Plan the curriculum: ~8–10 units per course (greetings, family, numbers & time, food, shopping, travel & directions, work, hobbies, weather, health)
-- [ ] ~20–30 words per unit, 4–8 words per lesson (all edited in the Google Sheet)
-- [ ] Example sentence for every word (all 6 languages)
+- [x] Plan the curriculum: 10 units per course (greetings, family, numbers & time, food, shopping, travel & directions, work, hobbies, weather, health)
+- [x] Units 3–10 added, 3–4 lessons per unit (39 lessons, 235 words per course)
+- [ ] ~20–30 words per unit, 4–8 words per lesson (all edited in the Google Sheet) – currently 18–25 per unit
+- [ ] Example sentence for every word (all 6 languages) – currently 1–2 per lesson
 - [ ] Review readings (Pinyin, kana/Romaji, Romanization, IPA) and meanings per language
 - [ ] Keep word ids stable; run `build_courses.py --check` before every commit
 
