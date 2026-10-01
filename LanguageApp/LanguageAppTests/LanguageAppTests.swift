@@ -208,6 +208,23 @@ final class LocalizationTests: XCTestCase {
         }
     }
 
+    /// Every strings file must have exactly the same keys as English (no missing or stale keys).
+    func testStringsFilesHaveSameKeysAsEnglish() throws {
+        func keys(_ fileName: String) throws -> Set<String> {
+            let url = try XCTUnwrap(Bundle.main.url(forResource: fileName, withExtension: "json"), fileName)
+            let json = try XCTUnwrap(try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+            let data = try XCTUnwrap(json["data"] as? [String: String], fileName)
+            return Set(data.keys)
+        }
+        let english = try keys(LanguageCode.eng.getLanguage().fileName)
+        for code in LanguageCode.allCases {
+            let fileName = code.getLanguage().fileName
+            let other = try keys(fileName)
+            XCTAssertEqual(english.subtracting(other).sorted(), [], "missing in \(fileName)")
+            XCTAssertEqual(other.subtracting(english).sorted(), [], "extra in \(fileName)")
+        }
+    }
+
     func testLocalizedTextFallsBackToEnglish() {
         let text = LocalizedText(en: "hello", ja: "こんにちは")
         XCTAssertEqual(text.resolved(for: LanguageCode.ja.rawValue), "こんにちは")
