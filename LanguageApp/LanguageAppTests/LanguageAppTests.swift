@@ -130,6 +130,35 @@ final class ExerciseGeneratorTests: XCTestCase {
         XCTAssertFalse(exercises.contains(where: \.isTyping))
     }
 
+    private func sentenceItem(_ i: Int, tokens: [String]) -> StudyItem {
+        StudyItem(id: "s\(i)", term: tokens[0], reading: nil, meaning: "m\(i)",
+                  example: tokens.joined(separator: " "), exampleMeaning: "meaning of sentence \(i)",
+                  speechLocale: "en-US", exampleTokens: tokens)
+    }
+
+    func testSentenceBuilderExercises() throws {
+        let items = [
+            sentenceItem(1, tokens: ["I", "am", "a", "student."]),
+            sentenceItem(2, tokens: ["The", "cat", "is", "black."]),
+            sentenceItem(3, tokens: ["Hello!"]),                       // single chunk → not buildable
+        ] + (4...6).map(item)
+        var rng = SeededGenerator(seed: 11)
+        let exercises = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [], using: &rng)
+        let sentences = exercises.compactMap { exercise -> (StudyItem, [SentenceTile])? in
+            if case .buildSentence(let item, let tiles) = exercise { return (item, tiles) }
+            return nil
+        }
+        XCTAssertEqual(Set(sentences.map { $0.0.id }), ["s1", "s2"], "Two buildable sentences per lesson")
+        for (item, tiles) in sentences {
+            let answer = try XCTUnwrap(item.exampleTokens)
+            XCTAssertEqual(tiles.count, answer.count + 2, "answer chunks + 2 distractors")
+            XCTAssertEqual(Set(tiles.map(\.id)).count, tiles.count, "tile ids are unique")
+            XCTAssertTrue(Set(answer).isSubset(of: Set(tiles.map(\.text))))
+        }
+        // Sentence questions come before the final match pairs.
+        if case .matchPairs = exercises.last {} else { XCTFail("Match pairs should stay last") }
+    }
+
     func testDeveloperGeneratorOptions() {
         let items = (1...6).map(item)
         var rng = SeededGenerator(seed: 5)
@@ -325,6 +354,32 @@ final class LessonSessionViewModelTests: XCTestCase {
         XCTAssertEqual(vm.mistakesByItemId, ["a": 2])
     }
 
+    func testSentenceBuilderFlow() {
+        let item = StudyItem(id: "s", term: "猫", reading: nil, meaning: "cat", example: "猫が好きです。",
+                             exampleMeaning: "I like cats.", speechLocale: "ja-JP", exampleTokens: ["猫が", "好きです。"])
+        let tiles = [SentenceTile(id: "b", text: "好きです。"), SentenceTile(id: "x", text: "犬が"), SentenceTile(id: "a", text: "猫が")]
+        let vm = LessonSessionViewModel(lessonTitle: "t", exercises: [.buildSentence(item, tiles: tiles), .buildSentence(item, tiles: tiles)])
+        XCTAssertFalse(vm.canCheck)
+        vm.toggleTile("a")
+        vm.toggleTile("x")
+        vm.toggleTile("x")            // tapping again removes it
+        vm.toggleTile("b")
+        XCTAssertEqual(vm.arrangedTileIds, ["a", "b"])
+        XCTAssertTrue(vm.check())
+        vm.next()
+        XCTAssertTrue(vm.arrangedTileIds.isEmpty)
+        vm.toggleTile("b")
+        vm.toggleTile("a")
+        XCTAssertFalse(vm.check(), "Wrong order")
+        XCTAssertEqual(vm.mistakesByItemId, ["s": 1])
+    }
+
+    func testSentenceCheckComparesTextsNotIds() {
+        let tiles = [SentenceTile(id: "1", text: "a"), SentenceTile(id: "2", text: "b"), SentenceTile(id: "3", text: "a")]
+        XCTAssertTrue(LessonSessionViewModel.isSentenceCorrect(arranged: ["3", "2", "1"], tiles: tiles, answer: ["a", "b", "a"]))
+        XCTAssertFalse(LessonSessionViewModel.isSentenceCorrect(arranged: ["1", "2"], tiles: tiles, answer: ["a", "b", "a"]))
+    }
+
     func testWrongAnswerIsRequeuedOnce() {
         let vm = LessonSessionViewModel(lessonTitle: "t", exercises: [choice()])
         vm.select("b")
@@ -448,6 +503,14 @@ final class ContentImporterTests: XCTestCase {
             let tokens = try XCTUnwrap(item.exampleTokens, item.remoteId)
             XCTAssertGreaterThanOrEqual(tokens.count, 2, item.remoteId)
             XCTAssertEqual(tokens.joined(), example, item.remoteId)
+        }
+
+        // Vietnamese is spaced by syllable: multi-syllable words must stay in one chunk.
+        let vietnamese = try XCTUnwrap(courses.first { $0.remoteId == "vi" })
+        let airport = try XCTUnwrap(vietnamese.allItems.first { $0.remoteId == "vi-0081" })
+        XCTAssertEqual(airport.exampleTokens, ["Tôi", "đi", "taxi", "đến", "sân bay."])
+        for item in vietnamese.allItems {
+            XCTAssertEqual(item.exampleTokens?.joined(separator: " "), item.example, item.remoteId)
         }
 
         // Learn a word, then re-import → SRS state must be kept, no duplicates.

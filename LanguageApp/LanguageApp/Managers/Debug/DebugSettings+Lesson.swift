@@ -18,6 +18,7 @@ extension DebugSettings {
         case .listen: generator.forcedSecondPass = .listen
         case .typeTerm: generator.forcedSecondPass = .typeTerm
         case .typeListening: generator.forcedSecondPass = .typeListening
+        case .buildSentence: generator.forcedSecondPass = .buildSentence
         case .mixed, .none: generator.forcedSecondPass = nil
         }
         return generator

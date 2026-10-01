@@ -33,6 +33,19 @@ READING_REQUIRED = {"zh", "ja", "ko"}
 # Languages written without spaces: their example sentences need `tokens_xx` (chunks separated
 # by " / ") for the sentence-builder exercise. Other languages are split on spaces.
 TOKENS_REQUIRED = {"zh", "ja"}
+# Space-separated languages without `tokens_xx` are split on spaces, but multi-word phrases stay
+# together: every multi-word term of the course (e.g. "sân bay", "phone number", "fin de semana")
+# plus these common phrases. Vietnamese needs this most – it puts spaces between syllables.
+EXTRA_PHRASES = {
+    "vi": ["chúng ta", "chúng tôi", "anh ấy", "cô ấy", "em gái", "cái này", "cái nào", "hẹn gặp lại",
+           "đi học", "đi làm", "mỗi sáng", "mỗi tháng", "một lần", "đánh răng", "rửa tay", "rửa mặt",
+           "lớp học", "trường học", "bạn bè", "bông hoa", "ngọn núi", "con sông", "bộ phim", "cuốn sách",
+           "quyển sách", "trò chơi", "nhà ga", "nhà hàng", "nhật bản", "hà nội", "con số", "đất nước",
+           "bị ốm", "bị sốt", "bị ho", "bị lạc", "gần đây", "đến đây", "cứu với", "mỗi ngày", "mở cửa",
+           "mười một", "vui lòng", "đứa trẻ", "mát mẻ", "ấm áp"],
+    "en": ["thank you", "good morning", "see you", "a lot of", "every day", "every morning"],
+    "es": ["por favor", "todos los días", "cada mañana", "de compras", "lo siento"],
+}
 READING_RECOMMENDED = {"en"}
 TABS = ["courses", "units", "lessons", "words"]
 
@@ -341,6 +354,18 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
                 examples_without_term[lang].append(wid)
         lessons[r["lesson_id"]]["words"].append(word)
 
+    # Auto-chunk examples without tokens_xx, keeping multi-word terms / phrases together.
+    for lang in LANGS:
+        phrases = {p.casefold() for p in EXTRA_PHRASES.get(lang, [])}
+        for lesson in lessons.values():
+            for w in lesson["words"]:
+                if " " in w["term"][lang]:
+                    phrases.add(w["term"][lang].casefold())
+        for lesson in lessons.values():
+            for w in lesson["words"]:
+                if w["tokens"][lang] is None:
+                    w["tokens"][lang] = group_words(w["example"][lang], phrases)
+
     for lang, ids in examples_without_term.items():
         report.warn(f"words (example_{lang})",
                     f"{len(ids)} example(s) don't contain term_{lang} as written – fill-in-the-blank skips them: "
@@ -400,7 +425,23 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
     return output
 
 
-def check_tokens(where: str, lang: str, example: str, tokens: str, report: "Report") -> list[str]:
+def group_words(example: str, phrases: set[str], max_words: int = 5) -> list[str]:
+    """Splits on spaces but keeps known phrases together (longest match first, punctuation and case
+    ignored for matching): "Tôi đi taxi đến sân bay." → ["Tôi", "đi", "taxi", "đến", "sân bay."]."""
+    words = example.split()
+    def key(chunk: list[str]) -> str:
+        return " ".join(w.strip(".,!?¡¿;:…\"'“”«»") for w in chunk).casefold()
+    chunks, i = [], 0
+    while i < len(words):
+        for size in range(min(max_words, len(words) - i), 0, -1):
+            if size == 1 or key(words[i:i + size]) in phrases:
+                chunks.append(" ".join(words[i:i + size]))
+                i += size
+                break
+    return chunks
+
+
+def check_tokens(where: str, lang: str, example: str, tokens: str, report: "Report") -> list[str] | None:
     """Validates `tokens_xx` ("私 / は / 学生 / です。") against the example and returns the chunks.
     Without tokens, space-separated languages are split on spaces."""
     if not example:
@@ -411,7 +452,7 @@ def check_tokens(where: str, lang: str, example: str, tokens: str, report: "Repo
         if lang in TOKENS_REQUIRED:
             report.error(where, f"tokens_{lang} is empty (required for {lang} examples, e.g. 私 / は / 学生 / です。)")
             return []
-        return example.split()
+        return None  # split on spaces later, keeping known phrases together (see group_words)
     parts = [p.strip() for p in tokens.split("/")]
     if any(not p for p in parts):
         report.error(where, f"tokens_{lang} has an empty chunk: '{tokens}'")

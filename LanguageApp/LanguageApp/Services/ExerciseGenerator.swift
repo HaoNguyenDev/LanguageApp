@@ -17,6 +17,8 @@ struct StudyItem: Identifiable, Hashable {
     let example: String?
     let exampleMeaning: String?
     let speechLocale: String
+    /// `example` split into chunks for the sentence builder.
+    var exampleTokens: [String]? = nil
 }
 
 extension StudyItem {
@@ -27,8 +29,15 @@ extension StudyItem {
                   meaning: item.meaning.text,
                   example: item.example,
                   exampleMeaning: item.exampleMeaning?.text,
-                  speechLocale: speechLocale)
+                  speechLocale: speechLocale,
+                  exampleTokens: item.exampleTokens)
     }
+}
+
+/// One chunk in the sentence builder. `id` is unique even when two chunks have the same text.
+struct SentenceTile: Identifiable, Hashable {
+    let id: String
+    let text: String
 }
 
 struct ChoiceOption: Identifiable, Hashable {
@@ -52,6 +61,8 @@ enum Exercise: Identifiable, Hashable {
     case typeTerm(StudyItem)
     /// Play audio → type what you hear.
     case typeListening(StudyItem)
+    /// Show the example's meaning → tap the chunks of the example in the right order.
+    case buildSentence(StudyItem, tiles: [SentenceTile])
 
     var id: String {
         switch self {
@@ -62,6 +73,7 @@ enum Exercise: Identifiable, Hashable {
         case .matchPairs(let items): return "match-" + items.map(\.id).joined(separator: "-")
         case .typeTerm(let item): return "type-\(item.id)"
         case .typeListening(let item): return "typelisten-\(item.id)"
+        case .buildSentence(let item, _): return "sentence-\(item.id)"
         }
     }
 
@@ -91,7 +103,7 @@ enum Exercise: Identifiable, Hashable {
     var studyItem: StudyItem? {
         switch self {
         case .introduce(let item), .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _),
-             .typeTerm(let item), .typeListening(let item):
+             .typeTerm(let item), .typeListening(let item), .buildSentence(let item, _):
             return item
         case .matchPairs:
             return nil
@@ -105,11 +117,17 @@ struct ExerciseGenerator {
     /// Include typing exercises in the second pass.
     var allowsTyping = true
     /// Question type of the second pass.
-    enum SecondPassKind { case chooseTerm, listen, typeTerm, typeListening }
+    enum SecondPassKind { case chooseTerm, listen, typeTerm, typeListening, buildSentence }
     /// Developer option: every second-pass question uses this type (nil = random mix).
     var forcedSecondPass: SecondPassKind?
     var includesIntroCards = true
     var includesMatchPairs = true
+    /// Sentence-builder questions added after the second pass (words with an example sentence).
+    var sentenceCount = 2
+    /// Wrong chunks mixed into the sentence builder.
+    var sentenceDistractors = 2
+    /// Sentences with more chunks than this are too long for the builder.
+    static let maxSentenceTokens = 8
 
     /// - Parameters:
     ///   - items: words of the lesson.
@@ -144,6 +162,7 @@ struct ExerciseGenerator {
                 case .listen: return 1
                 case .typeTerm: return 2
                 case .typeListening: return 3
+                case .buildSentence: return 4
                 }
             }
             switch forced ?? roll {
@@ -153,12 +172,29 @@ struct ExerciseGenerator {
                 second.append(.listen(item, options: termOptions(for: item, pool: pool, using: &rng)))
             case 2:
                 second.append(.typeTerm(item))
-            default:
+            case 3:
                 second.append(.typeListening(item))
+            default:
+                // Developer option "only sentence builder": words without a usable example fall back.
+                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) {
+                    second.append(sentence)
+                } else {
+                    second.append(.chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng)))
+                }
             }
         }
         second.shuffle(using: &rng)
         exercises.append(contentsOf: second)
+
+        // Pass 3: build a few example sentences from chunks.
+        if forcedSecondPass != .buildSentence, sentenceCount > 0 {
+            let candidates = items.filter(Self.hasBuildableSentence).shuffled(using: &rng)
+            for item in candidates.prefix(sentenceCount) {
+                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) {
+                    exercises.append(sentence)
+                }
+            }
+        }
 
         // Finale: matching pairs.
         if includesMatchPairs, items.count >= 3 {
@@ -166,6 +202,30 @@ struct ExerciseGenerator {
             exercises.append(.matchPairs(pairs))
         }
         return exercises
+    }
+
+    // MARK: - Sentence builder
+
+    static func hasBuildableSentence(_ item: StudyItem) -> Bool {
+        guard let tokens = item.exampleTokens, item.exampleMeaning?.isEmpty == false else { return false }
+        return (2...maxSentenceTokens).contains(tokens.count)
+    }
+
+    /// The example's chunks plus a few chunks from other sentences, shuffled.
+    func sentenceExercise(for item: StudyItem, pool: [StudyItem],
+                          using rng: inout some RandomNumberGenerator) -> Exercise? {
+        guard Self.hasBuildableSentence(item), let tokens = item.exampleTokens else { return nil }
+        var tiles = tokens.enumerated().map { SentenceTile(id: "\(item.id)-\($0.offset)", text: $0.element) }
+        var used = Set(tokens)
+        let others = pool
+            .filter { $0.id != item.id }
+            .flatMap { $0.exampleTokens ?? [] }
+            .shuffled(using: &rng)
+        for (index, token) in others.enumerated() where tiles.count < tokens.count + sentenceDistractors {
+            guard used.insert(token).inserted else { continue }
+            tiles.append(SentenceTile(id: "\(item.id)-x\(index)", text: token))
+        }
+        return .buildSentence(item, tiles: tiles.shuffled(using: &rng))
     }
 
     // MARK: - Options

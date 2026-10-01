@@ -30,6 +30,8 @@ import Observation
     var selectedOptionId: String?
     /// Text typed for typing exercises.
     var typedAnswer = ""
+    /// Sentence builder: tile ids in the order the learner tapped them.
+    private(set) var arrangedTileIds: [String] = []
     /// The last typed answer was accepted with a spelling slip (missing accent / one typo).
     private(set) var lastAnswerWasAlmost = false
 
@@ -73,6 +75,9 @@ import Observation
         if current.isTyping {
             return !typedAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
+        if case .buildSentence = current {
+            return !arrangedTileIds.isEmpty
+        }
         return selectedOptionId != nil
     }
 
@@ -92,6 +97,8 @@ import Observation
             let result = AnswerMatcher.grade(typedAnswer, for: item)
             lastAnswerWasAlmost = result == .almost
             isCorrect = result != .wrong
+        } else if case .buildSentence(let item, let tiles) = current {
+            isCorrect = Self.isSentenceCorrect(arranged: arrangedTileIds, tiles: tiles, answer: item.exampleTokens ?? [])
         } else if let correctId = current.correctOptionId {
             isCorrect = selectedOptionId == correctId
         } else {
@@ -99,6 +106,22 @@ import Observation
         }
         grade(current, isCorrect: isCorrect)
         return isCorrect
+    }
+
+    /// Sentence builder: tap a chunk in the bank to append it, tap it in the answer line to remove it.
+    func toggleTile(_ id: String) {
+        guard phase == .answering else { return }
+        if let index = arrangedTileIds.firstIndex(of: id) {
+            arrangedTileIds.remove(at: index)
+        } else {
+            arrangedTileIds.append(id)
+        }
+    }
+
+    /// Compares chunk texts, so two chunks with the same text are interchangeable.
+    static func isSentenceCorrect(arranged: [String], tiles: [SentenceTile], answer: [String]) -> Bool {
+        let textById = Dictionary(uniqueKeysWithValues: tiles.map { ($0.id, $0.text) })
+        return arranged.compactMap { textById[$0] } == answer
     }
 
     /// Match-pairs exercise reports its own result.
@@ -115,6 +138,7 @@ import Observation
         if phase == .outOfHearts || phase == .finished { return }
         selectedOptionId = nil
         typedAnswer = ""
+        arrangedTileIds = []
         lastAnswerWasAlmost = false
         if currentIndex + 1 < exercises.count {
             currentIndex += 1

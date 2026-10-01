@@ -123,6 +123,8 @@ struct LessonPlayerView: View {
                                prompt: .audio(item),
                                viewModel: viewModel,
                                onSubmit: submitTyped)
+        case .buildSentence(let item, let tiles):
+            SentenceBuilderView(item: item, tiles: tiles, viewModel: viewModel)
         case .matchPairs(let items):
             MatchPairsView(items: items) { mistakes in
                 viewModel.completeMatch(mistakes: mistakes)
@@ -170,6 +172,8 @@ struct LessonPlayerView: View {
         switch viewModel.current {
         case .chooseMeaning(let item, _):
             return item.meaning
+        case .buildSentence(let item, _):
+            return item.example
         case .chooseTerm(let item, _), .listen(let item, _), .typeTerm(let item), .typeListening(let item):
             if let reading = item.reading, !reading.isEmpty { return "\(item.term) · \(reading)" }
             return item.term
@@ -188,7 +192,10 @@ struct LessonPlayerView: View {
         if isCorrect {
             FeedbackService.correct(sound: userSettings.soundEnabled)
             if userSettings.autoPlayAudio, let item = viewModel.current?.studyItem {
-                speech.speak(item.term, locale: speechLocale)
+                // Sentence builder: read the whole sentence, otherwise the word.
+                var text = item.term
+                if case .buildSentence = viewModel.current { text = item.example ?? item.term }
+                speech.speak(text, locale: speechLocale)
             }
         } else {
             FeedbackService.wrong(sound: userSettings.soundEnabled)
@@ -218,6 +225,7 @@ struct LessonPlayerView: View {
         case .listen: return "listen → \(correctAnswerText ?? "")"
         case .typeTerm: return "typeTerm → \(correctAnswerText ?? "")"
         case .typeListening: return "typeListening → \(correctAnswerText ?? "")"
+        case .buildSentence(let item, _): return "buildSentence → \((item.exampleTokens ?? []).joined(separator: " | "))"
         case .matchPairs(let items): return "matchPairs · \(items.count) pairs"
         }
     }

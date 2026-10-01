@@ -1,6 +1,6 @@
 {
   "id": "vi",
-  "version": 5,
+  "version": 6,
   "name": {
     "en": "Vietnamese",
     "vi": "Tiếng Việt",
@@ -51,8 +51,7 @@
               },
               "example": "Xin chào, bạn khỏe không?",
               "exampleTokens": [
-                "Xin",
-                "chào,",
+                "Xin chào,",
                 "bạn",
                 "khỏe",
                 "không?"
@@ -79,11 +78,8 @@
               },
               "example": "Tạm biệt, hẹn gặp lại!",
               "exampleTokens": [
-                "Tạm",
-                "biệt,",
-                "hẹn",
-                "gặp",
-                "lại!"
+                "Tạm biệt,",
+                "hẹn gặp lại!"
               ],
               "exampleMeaning": {
                 "en": "Goodbye, see you later!",
@@ -107,8 +103,7 @@
               },
               "example": "Cảm ơn bạn rất nhiều.",
               "exampleTokens": [
-                "Cảm",
-                "ơn",
+                "Cảm ơn",
                 "bạn",
                 "rất",
                 "nhiều."
@@ -135,14 +130,12 @@
               },
               "example": "Làm ơn cho tôi hai ly cà phê.",
               "exampleTokens": [
-                "Làm",
-                "ơn",
+                "Làm ơn",
                 "cho",
                 "tôi",
                 "hai",
                 "ly",
-                "cà",
-                "phê."
+                "cà phê."
               ],
               "exampleMeaning": {
                 "en": "Two coffees, please.",
@@ -166,8 +159,7 @@
               },
               "example": "Xin lỗi, tôi đến muộn.",
               "exampleTokens": [
-                "Xin",
-                "lỗi,",
+                "Xin lỗi,",
                 "tôi",
                 "đến",
                 "muộn."
@@ -194,9 +186,7 @@
               },
               "example": "Chào buổi sáng, mẹ!",
               "exampleTokens": [
-                "Chào",
-                "buổi",
-                "sáng,",
+                "Chào buổi sáng,",
                 "mẹ!"
               ],
               "exampleMeaning": {
@@ -239,8 +229,7 @@
                 "Vâng,",
                 "tôi",
                 "là",
-                "học",
-                "sinh."
+                "học sinh."
               ],
               "exampleMeaning": {
                 "en": "Yes, I am a student.",
@@ -265,8 +254,7 @@
               "example": "Không, cảm ơn.",
               "exampleTokens": [
                 "Không,",
-                "cảm",
-                "ơn."
+                "cảm ơn."
               ],
               "exampleMeaning": {
                 "en": "No, thank you.",
@@ -316,8 +304,7 @@
               },
               "example": "Anh ấy là bạn của tôi.",
               "exampleTokens": [
-                "Anh",
-                "ấy",
+                "Anh ấy",
                 "là",
                 "bạn",
                 "của",
@@ -347,8 +334,7 @@
               "exampleTokens": [
                 "Tôi",
                 "yêu",
-                "gia",
-                "đình",
+                "gia đình",
                 "tôi."
               ],
               "exampleMeaning": {
@@ -417,8 +403,7 @@
               "exampleTokens": [
                 "Đây",
                 "là",
-                "cái",
-                "gì?"
+                "cái gì?"
               ],
               "exampleMeaning": {
                 "en": "What is this?",
@@ -442,8 +427,7 @@
               },
               "example": "Anh ấy là ai?",
               "exampleTokens": [
-                "Anh",
-                "ấy",
+                "Anh ấy",
                 "là",
                 "ai?"
               ],
@@ -469,10 +453,8 @@
               },
               "example": "Cuộc họp khi nào?",
               "exampleTokens": [
-                "Cuộc",
-                "họp",
-                "khi",
-                "nào?"
+                "Cuộc họp",
+                "khi nào?"
               ],
               "exampleMeaning": {
                 "en": "When is the meeting?",
@@ -496,8 +478,7 @@
               },
               "example": "Tại sao bạn mệt?",
               "exampleTokens": [
-                "Tại",
-                "sao",
+                "Tại sao",
                 "bạn",
                 "mệt?"
               ],
@@ -525,11 +506,8 @@
               "exampleTokens": [
                 "Đi",
                 "đến",
-                "nhà",
-                "ga",
-                "như",
-                "thế",
-                "nào?"
+                "nhà ga",
+                "như thế nào?"
               ],
               "exampleMeaning": {
                 "en": "How do I get to the station?",
@@ -555,8 +533,7 @@
               "exampleTokens": [
                 "Bạn",
                 "thích",
-                "cái",
-                "nào?"
+                "cái nào?"
               ],
               "exampleMeaning": {
                 "en": "Which one do you like?",
@@ -665,8 +642,7 @@
                 "Tôi",
                 "có",
                 "ba",
-                "quyển",
-                "sách."
+                "quyển sách."
               ],
               "exampleMeaning": {
                 "en": "I have three books.",
@@ -790,8 +766,7 @@
                 "Tôi",
                 "ăn",
                 "cơm",
-                "mỗi",
-                "ngày."
+                "mỗi ngày."
               ],
               "exampleMeaning": {
                 "en": "I eat rice every day.",
@@ -817,11 +792,9 @@
               "exampleTokens": [
                 "Tôi",
                 "ăn",
-                "bánh",
-                "mì",
+                "bánh mì",
                 "vào",
-                "bữa",
-                "sáng."
+                "bữa sáng."
               ],
               "exampleMeaning": {
                 "en": "I eat bread for breakfast.",
@@ -849,8 +822,7 @@
                 "tôi",
                 "một",
                 "ly",
-                "cà",
-                "phê."
+                "cà phê."
               ],
               "exampleMeaning": {
                 "en": "A coffee, please.",
@@ -1054,10 +1026,8 @@
               },
               "example": "Cửa hàng mở cửa lúc chín giờ.",
               "exampleTokens": [
-                "Cửa",
-                "hàng",
-                "mở",
-                "cửa",
+                "Cửa hàng",
+                "mở cửa",
                 "lúc",
                 "chín",
                 "giờ."
@@ -1084,11 +1054,9 @@
               },
               "example": "Cái này giá một trăm yên.",
               "exampleTokens": [
-                "Cái",
-                "này",
+                "Cái này",
                 "giá",
-                "một",
-                "trăm",
+                "một trăm",
                 "yên."
               ],
               "exampleMeaning": {
@@ -1115,8 +1083,7 @@
               "exampleTokens": [
                 "Vé",
                 "giá",
-                "một",
-                "nghìn",
+                "một nghìn",
                 "yên."
               ],
               "exampleMeaning": {
@@ -1158,8 +1125,7 @@
               "exampleTokens": [
                 "Tôi",
                 "ăn",
-                "bữa",
-                "sáng",
+                "bữa sáng",
                 "lúc",
                 "bảy",
                 "giờ."
@@ -1188,8 +1154,7 @@
               "exampleTokens": [
                 "Cùng",
                 "ăn",
-                "bữa",
-                "trưa",
+                "bữa trưa",
                 "nhé."
               ],
               "exampleMeaning": {
@@ -1214,8 +1179,7 @@
               },
               "example": "Bữa tối rất ngon.",
               "exampleTokens": [
-                "Bữa",
-                "tối",
+                "Bữa tối",
                 "rất",
                 "ngon."
               ],
@@ -1353,8 +1317,7 @@
                 "Mẹ",
                 "tôi",
                 "là",
-                "giáo",
-                "viên."
+                "giáo viên."
               ],
               "exampleMeaning": {
                 "en": "My mother is a teacher.",
@@ -1381,8 +1344,7 @@
                 "Bố",
                 "tôi",
                 "là",
-                "bác",
-                "sĩ."
+                "bác sĩ."
               ],
               "exampleMeaning": {
                 "en": "My father is a doctor.",
@@ -1406,8 +1368,7 @@
               },
               "example": "Trẻ em thích chơi.",
               "exampleTokens": [
-                "Trẻ",
-                "em",
+                "Trẻ em",
                 "thích",
                 "chơi."
               ],
@@ -1435,11 +1396,9 @@
               "exampleTokens": [
                 "Chồng",
                 "tôi",
-                "làm",
-                "việc",
+                "làm việc",
                 "ở",
-                "công",
-                "ty."
+                "công ty."
               ],
               "exampleMeaning": {
                 "en": "My husband works at a company.",
@@ -1466,8 +1425,7 @@
                 "Vợ",
                 "tôi",
                 "là",
-                "y",
-                "tá."
+                "y tá."
               ],
               "exampleMeaning": {
                 "en": "My wife is a nurse.",
@@ -1491,8 +1449,7 @@
               },
               "example": "Em bé đang ngủ.",
               "exampleTokens": [
-                "Em",
-                "bé",
+                "Em bé",
                 "đang",
                 "ngủ."
               ],
@@ -1534,12 +1491,10 @@
               "example": "Người đàn ông đó là giáo viên.",
               "exampleTokens": [
                 "Người",
-                "đàn",
-                "ông",
+                "đàn ông",
                 "đó",
                 "là",
-                "giáo",
-                "viên."
+                "giáo viên."
               ],
               "exampleMeaning": {
                 "en": "That man is a teacher.",
@@ -1564,8 +1519,7 @@
               "example": "Người phụ nữ đó là mẹ tôi.",
               "exampleTokens": [
                 "Người",
-                "phụ",
-                "nữ",
+                "phụ nữ",
                 "đó",
                 "là",
                 "mẹ",
@@ -1593,12 +1547,10 @@
               },
               "example": "Anh ấy là người tốt bụng.",
               "exampleTokens": [
-                "Anh",
-                "ấy",
+                "Anh ấy",
                 "là",
                 "người",
-                "tốt",
-                "bụng."
+                "tốt bụng."
               ],
               "exampleMeaning": {
                 "en": "He is a kind person.",
@@ -1622,13 +1574,11 @@
               },
               "example": "Giáo viên của tôi rất tốt bụng.",
               "exampleTokens": [
-                "Giáo",
-                "viên",
+                "Giáo viên",
                 "của",
                 "tôi",
                 "rất",
-                "tốt",
-                "bụng."
+                "tốt bụng."
               ],
               "exampleMeaning": {
                 "en": "My teacher is kind.",
@@ -1654,8 +1604,7 @@
               "exampleTokens": [
                 "Tôi",
                 "là",
-                "học",
-                "sinh."
+                "học sinh."
               ],
               "exampleMeaning": {
                 "en": "I am a student.",
@@ -1679,11 +1628,9 @@
               },
               "example": "Anh ấy là bác sĩ.",
               "exampleTokens": [
-                "Anh",
-                "ấy",
+                "Anh ấy",
                 "là",
-                "bác",
-                "sĩ."
+                "bác sĩ."
               ],
               "exampleMeaning": {
                 "en": "He is a doctor.",
@@ -1722,8 +1669,7 @@
               },
               "example": "Hôm nay tôi rất vui.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "tôi",
                 "rất",
                 "vui."
@@ -1775,8 +1721,7 @@
               },
               "example": "Hôm nay bạn có bận không?",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "bạn",
                 "có",
                 "bận",
@@ -1804,8 +1749,7 @@
               },
               "example": "Giáo viên của tôi còn trẻ.",
               "exampleTokens": [
-                "Giáo",
-                "viên",
+                "Giáo viên",
                 "của",
                 "tôi",
                 "còn",
@@ -1833,11 +1777,9 @@
               },
               "example": "Cô ấy rất tốt bụng.",
               "exampleTokens": [
-                "Cô",
-                "ấy",
+                "Cô ấy",
                 "rất",
-                "tốt",
-                "bụng."
+                "tốt bụng."
               ],
               "exampleMeaning": {
                 "en": "She is very kind.",
@@ -1861,8 +1803,7 @@
               },
               "example": "Bông hoa này đẹp.",
               "exampleTokens": [
-                "Bông",
-                "hoa",
+                "Bông hoa",
                 "này",
                 "đẹp."
               ],
@@ -1907,8 +1848,7 @@
                 "chỉ",
                 "là",
                 "một",
-                "con",
-                "số."
+                "con số."
               ],
               "exampleMeaning": {
                 "en": "Age is just a number.",
@@ -1935,8 +1875,7 @@
                 "Bạn",
                 "đến",
                 "từ",
-                "đất",
-                "nước",
+                "đất nước",
                 "nào?"
               ],
               "exampleMeaning": {
@@ -1965,8 +1904,7 @@
                 "đang",
                 "học",
                 "một",
-                "ngôn",
-                "ngữ",
+                "ngôn ngữ",
                 "mới."
               ],
               "exampleMeaning": {
@@ -1991,8 +1929,7 @@
               },
               "example": "Địa chỉ của bạn là gì?",
               "exampleTokens": [
-                "Địa",
-                "chỉ",
+                "Địa chỉ",
                 "của",
                 "bạn",
                 "là",
@@ -2020,9 +1957,7 @@
               },
               "example": "Số điện thoại của bạn là gì?",
               "exampleTokens": [
-                "Số",
-                "điện",
-                "thoại",
+                "Số điện thoại",
                 "của",
                 "bạn",
                 "là",
@@ -2053,8 +1988,7 @@
                 "Tôi",
                 "sống",
                 "ở",
-                "Hà",
-                "Nội."
+                "Hà Nội."
               ],
               "exampleMeaning": {
                 "en": "I live in Hanoi.",
@@ -2106,8 +2040,7 @@
               },
               "example": "Hôm nay trời đẹp.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "trời",
                 "đẹp."
               ],
@@ -2133,11 +2066,8 @@
               },
               "example": "Hẹn gặp lại ngày mai!",
               "exampleTokens": [
-                "Hẹn",
-                "gặp",
-                "lại",
-                "ngày",
-                "mai!"
+                "Hẹn gặp lại",
+                "ngày mai!"
               ],
               "exampleMeaning": {
                 "en": "See you tomorrow!",
@@ -2161,8 +2091,7 @@
               },
               "example": "Hôm qua tôi mệt.",
               "exampleTokens": [
-                "Hôm",
-                "qua",
+                "Hôm qua",
                 "tôi",
                 "mệt."
               ],
@@ -2188,8 +2117,7 @@
               },
               "example": "Bây giờ tôi bận.",
               "exampleTokens": [
-                "Bây",
-                "giờ",
+                "Bây giờ",
                 "tôi",
                 "bận."
               ],
@@ -2217,11 +2145,9 @@
               "exampleTokens": [
                 "Tôi",
                 "uống",
-                "cà",
-                "phê",
+                "cà phê",
                 "vào",
-                "buổi",
-                "sáng."
+                "buổi sáng."
               ],
               "exampleMeaning": {
                 "en": "I drink coffee in the morning.",
@@ -2248,8 +2174,7 @@
                 "Tôi",
                 "học",
                 "vào",
-                "buổi",
-                "tối."
+                "buổi tối."
               ],
               "exampleMeaning": {
                 "en": "I study at night.",
@@ -2288,11 +2213,9 @@
               },
               "example": "Hôm nay là thứ Hai.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "là",
-                "thứ",
-                "Hai."
+                "thứ Hai."
               ],
               "exampleMeaning": {
                 "en": "Today is Monday.",
@@ -2316,12 +2239,10 @@
               },
               "example": "Thứ Ba tôi có cuộc họp.",
               "exampleTokens": [
-                "Thứ",
-                "Ba",
+                "Thứ Ba",
                 "tôi",
                 "có",
-                "cuộc",
-                "họp."
+                "cuộc họp."
               ],
               "exampleMeaning": {
                 "en": "I have a meeting on Tuesday.",
@@ -2345,11 +2266,9 @@
               },
               "example": "Hôm nay là thứ Tư.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "là",
-                "thứ",
-                "Tư."
+                "thứ Tư."
               ],
               "exampleMeaning": {
                 "en": "Today is Wednesday.",
@@ -2373,12 +2292,9 @@
               },
               "example": "Hẹn gặp lại vào thứ Năm!",
               "exampleTokens": [
-                "Hẹn",
-                "gặp",
-                "lại",
+                "Hẹn gặp lại",
                 "vào",
-                "thứ",
-                "Năm!"
+                "thứ Năm!"
               ],
               "exampleMeaning": {
                 "en": "See you on Thursday!",
@@ -2404,8 +2320,7 @@
               "exampleTokens": [
                 "Tôi",
                 "thích",
-                "thứ",
-                "Sáu."
+                "thứ Sáu."
               ],
               "exampleMeaning": {
                 "en": "I like Friday.",
@@ -2429,12 +2344,10 @@
               },
               "example": "Thứ Bảy tôi chơi bóng đá.",
               "exampleTokens": [
-                "Thứ",
-                "Bảy",
+                "Thứ Bảy",
                 "tôi",
                 "chơi",
-                "bóng",
-                "đá."
+                "bóng đá."
               ],
               "exampleMeaning": {
                 "en": "I play soccer on Saturday.",
@@ -2458,11 +2371,9 @@
               },
               "example": "Chủ nhật tôi nghỉ ngơi.",
               "exampleTokens": [
-                "Chủ",
-                "nhật",
+                "Chủ nhật",
                 "tôi",
-                "nghỉ",
-                "ngơi."
+                "nghỉ ngơi."
               ],
               "exampleMeaning": {
                 "en": "I rest on Sunday.",
@@ -2555,8 +2466,7 @@
               },
               "example": "Hôm nay là một ngày đẹp.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "là",
                 "một",
                 "ngày",
@@ -2585,8 +2495,7 @@
               "example": "Tôi làm việc năm ngày một tuần.",
               "exampleTokens": [
                 "Tôi",
-                "làm",
-                "việc",
+                "làm việc",
                 "năm",
                 "ngày",
                 "một",
@@ -2614,14 +2523,11 @@
               },
               "example": "Mỗi tháng tôi đi du lịch một lần.",
               "exampleTokens": [
-                "Mỗi",
-                "tháng",
+                "Mỗi tháng",
                 "tôi",
                 "đi",
-                "du",
-                "lịch",
-                "một",
-                "lần."
+                "du lịch",
+                "một lần."
               ],
               "exampleMeaning": {
                 "en": "I travel once a month.",
@@ -2645,8 +2551,7 @@
               },
               "example": "Cuối tuần bạn làm gì?",
               "exampleTokens": [
-                "Cuối",
-                "tuần",
+                "Cuối tuần",
                 "bạn",
                 "làm",
                 "gì?"
@@ -2688,11 +2593,9 @@
               },
               "example": "Mỗi sáng tôi thức dậy lúc sáu giờ.",
               "exampleTokens": [
-                "Mỗi",
-                "sáng",
+                "Mỗi sáng",
                 "tôi",
-                "thức",
-                "dậy",
+                "thức dậy",
                 "lúc",
                 "sáu",
                 "giờ."
@@ -2722,8 +2625,7 @@
                 "Tôi",
                 "ngủ",
                 "lúc",
-                "mười",
-                "một",
+                "mười một",
                 "giờ."
               ],
               "exampleMeaning": {
@@ -2751,8 +2653,7 @@
                 "Tôi",
                 "muốn",
                 "đi",
-                "Nhật",
-                "Bản."
+                "Nhật Bản."
               ],
               "exampleMeaning": {
                 "en": "I want to go to Japan.",
@@ -2777,8 +2678,7 @@
               "example": "Hãy đến đây.",
               "exampleTokens": [
                 "Hãy",
-                "đến",
-                "đây."
+                "đến đây."
               ],
               "exampleMeaning": {
                 "en": "Please come here.",
@@ -2804,8 +2704,7 @@
               "exampleTokens": [
                 "Đến",
                 "giờ",
-                "về",
-                "nhà",
+                "về nhà",
                 "rồi."
               ],
               "exampleMeaning": {
@@ -2831,11 +2730,9 @@
               "example": "Tôi làm việc ở bệnh viện.",
               "exampleTokens": [
                 "Tôi",
-                "làm",
-                "việc",
+                "làm việc",
                 "ở",
-                "bệnh",
-                "viện."
+                "bệnh viện."
               ],
               "exampleMeaning": {
                 "en": "I work at a hospital.",
@@ -2914,8 +2811,7 @@
               },
               "example": "Cửa hàng này rẻ.",
               "exampleTokens": [
-                "Cửa",
-                "hàng",
+                "Cửa hàng",
                 "này",
                 "rẻ."
               ],
@@ -2944,8 +2840,7 @@
                 "Tôi",
                 "muốn",
                 "mua",
-                "bánh",
-                "mì."
+                "bánh mì."
               ],
               "exampleMeaning": {
                 "en": "I want to buy bread.",
@@ -2969,8 +2864,7 @@
               },
               "example": "Cái này đắt quá.",
               "exampleTokens": [
-                "Cái",
-                "này",
+                "Cái này",
                 "đắt",
                 "quá."
               ],
@@ -2996,8 +2890,7 @@
               },
               "example": "Cái này rẻ quá!",
               "exampleTokens": [
-                "Cái",
-                "này",
+                "Cái này",
                 "rẻ",
                 "quá!"
               ],
@@ -3023,10 +2916,8 @@
               },
               "example": "Cái này bao nhiêu tiền?",
               "exampleTokens": [
-                "Cái",
-                "này",
-                "bao",
-                "nhiêu",
+                "Cái này",
+                "bao nhiêu",
                 "tiền?"
               ],
               "exampleMeaning": {
@@ -3067,9 +2958,7 @@
               "example": "Cái áo sơ mi này đắt.",
               "exampleTokens": [
                 "Cái",
-                "áo",
-                "sơ",
-                "mi",
+                "áo sơ mi",
                 "này",
                 "đắt."
               ],
@@ -3209,8 +3098,7 @@
                 "mua",
                 "một",
                 "cái",
-                "túi",
-                "xách."
+                "túi xách."
               ],
               "exampleMeaning": {
                 "en": "I want to buy a bag.",
@@ -3276,11 +3164,9 @@
               },
               "example": "Bầu trời màu xanh dương.",
               "exampleTokens": [
-                "Bầu",
-                "trời",
+                "Bầu trời",
                 "màu",
-                "xanh",
-                "dương."
+                "xanh dương."
               ],
               "exampleMeaning": {
                 "en": "The sky is blue.",
@@ -3307,8 +3193,7 @@
                 "Cái",
                 "cây",
                 "màu",
-                "xanh",
-                "lá."
+                "xanh lá."
               ],
               "exampleMeaning": {
                 "en": "The tree is green.",
@@ -3388,9 +3273,7 @@
               },
               "example": "Áo sơ mi màu trắng.",
               "exampleTokens": [
-                "Áo",
-                "sơ",
-                "mi",
+                "Áo sơ mi",
                 "màu",
                 "trắng."
               ],
@@ -3432,10 +3315,8 @@
               "example": "Tôi trả tiền ở đâu?",
               "exampleTokens": [
                 "Tôi",
-                "trả",
-                "tiền",
-                "ở",
-                "đâu?"
+                "trả tiền",
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where do I pay?",
@@ -3462,8 +3343,7 @@
                 "Tôi",
                 "trả",
                 "bằng",
-                "tiền",
-                "mặt",
+                "tiền mặt",
                 "được",
                 "không?"
               ],
@@ -3520,8 +3400,7 @@
               "exampleTokens": [
                 "Cho",
                 "tôi",
-                "hoá",
-                "đơn."
+                "hoá đơn."
               ],
               "exampleMeaning": {
                 "en": "A receipt, please.",
@@ -3546,8 +3425,7 @@
               "example": "Có giảm giá không?",
               "exampleTokens": [
                 "Có",
-                "giảm",
-                "giá",
+                "giảm giá",
                 "không?"
               ],
               "exampleMeaning": {
@@ -3574,8 +3452,7 @@
               "exampleTokens": [
                 "Đây",
                 "là",
-                "tiền",
-                "thừa",
+                "tiền thừa",
                 "của",
                 "bạn."
               ],
@@ -3629,11 +3506,9 @@
               },
               "example": "Nhà ga ở gần đây.",
               "exampleTokens": [
-                "Nhà",
-                "ga",
+                "Nhà ga",
                 "ở",
-                "gần",
-                "đây."
+                "gần đây."
               ],
               "exampleMeaning": {
                 "en": "The station is near.",
@@ -3661,8 +3536,7 @@
                 "đi",
                 "taxi",
                 "đến",
-                "sân",
-                "bay."
+                "sân bay."
               ],
               "exampleMeaning": {
                 "en": "I go to the airport by taxi.",
@@ -3686,12 +3560,10 @@
               },
               "example": "Khách sạn ở gần nhà ga.",
               "exampleTokens": [
-                "Khách",
-                "sạn",
+                "Khách sạn",
                 "ở",
                 "gần",
-                "nhà",
-                "ga."
+                "nhà ga."
               ],
               "exampleMeaning": {
                 "en": "The hotel is near the station.",
@@ -3715,12 +3587,10 @@
               },
               "example": "Chúng ta ăn ở nhà hàng này nhé.",
               "exampleTokens": [
-                "Chúng",
-                "ta",
+                "Chúng ta",
                 "ăn",
                 "ở",
-                "nhà",
-                "hàng",
+                "nhà hàng",
                 "này",
                 "nhé."
               ],
@@ -3746,10 +3616,8 @@
               },
               "example": "Bệnh viện ở đâu?",
               "exampleTokens": [
-                "Bệnh",
-                "viện",
-                "ở",
-                "đâu?"
+                "Bệnh viện",
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where is the hospital?",
@@ -3773,11 +3641,8 @@
               },
               "example": "Nhà vệ sinh ở đâu?",
               "exampleTokens": [
-                "Nhà",
-                "vệ",
-                "sinh",
-                "ở",
-                "đâu?"
+                "Nhà vệ sinh",
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where is the toilet?",
@@ -3817,8 +3682,7 @@
               "example": "Rẽ bên trái.",
               "exampleTokens": [
                 "Rẽ",
-                "bên",
-                "trái."
+                "bên trái."
               ],
               "exampleMeaning": {
                 "en": "Turn left.",
@@ -3843,11 +3707,9 @@
               "example": "Rẽ bên phải ở nhà ga.",
               "exampleTokens": [
                 "Rẽ",
-                "bên",
-                "phải",
+                "bên phải",
                 "ở",
-                "nhà",
-                "ga."
+                "nhà ga."
               ],
               "exampleMeaning": {
                 "en": "Turn right at the station.",
@@ -3872,8 +3734,7 @@
               "example": "Hãy đi thẳng.",
               "exampleTokens": [
                 "Hãy",
-                "đi",
-                "thẳng."
+                "đi thẳng."
               ],
               "exampleMeaning": {
                 "en": "Go straight ahead.",
@@ -3897,8 +3758,7 @@
               },
               "example": "Trường học ở gần.",
               "exampleTokens": [
-                "Trường",
-                "học",
+                "Trường học",
                 "ở",
                 "gần."
               ],
@@ -3950,10 +3810,8 @@
               },
               "example": "Xe buýt ở đâu?",
               "exampleTokens": [
-                "Xe",
-                "buýt",
-                "ở",
-                "đâu?"
+                "Xe buýt",
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where is the bus?",
@@ -3992,8 +3850,7 @@
               },
               "example": "Xe hơi của tôi màu trắng.",
               "exampleTokens": [
-                "Xe",
-                "hơi",
+                "Xe hơi",
                 "của",
                 "tôi",
                 "màu",
@@ -4023,8 +3880,7 @@
               "exampleTokens": [
                 "Tôi",
                 "đi",
-                "xe",
-                "buýt."
+                "xe buýt."
               ],
               "exampleMeaning": {
                 "en": "I go by bus.",
@@ -4049,11 +3905,9 @@
               "example": "Tôi đi làm bằng tàu hỏa.",
               "exampleTokens": [
                 "Tôi",
-                "đi",
-                "làm",
+                "đi làm",
                 "bằng",
-                "tàu",
-                "hỏa."
+                "tàu hỏa."
               ],
               "exampleMeaning": {
                 "en": "I go to work by train.",
@@ -4077,8 +3931,7 @@
               },
               "example": "Chúng ta đi taxi nhé.",
               "exampleTokens": [
-                "Chúng",
-                "ta",
+                "Chúng ta",
                 "đi",
                 "taxi",
                 "nhé."
@@ -4106,11 +3959,9 @@
               "example": "Tôi đi học bằng xe đạp.",
               "exampleTokens": [
                 "Tôi",
-                "đi",
-                "học",
+                "đi học",
                 "bằng",
-                "xe",
-                "đạp."
+                "xe đạp."
               ],
               "exampleMeaning": {
                 "en": "I go to school by bicycle.",
@@ -4203,12 +4054,10 @@
               },
               "example": "Chìa khoá của tôi ở đâu?",
               "exampleTokens": [
-                "Chìa",
-                "khoá",
+                "Chìa khoá",
                 "của",
                 "tôi",
-                "ở",
-                "đâu?"
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where is my key?",
@@ -4235,8 +4084,7 @@
                 "Cho",
                 "tôi",
                 "xem",
-                "hộ",
-                "chiếu."
+                "hộ chiếu."
               ],
               "exampleMeaning": {
                 "en": "Your passport, please.",
@@ -4262,8 +4110,7 @@
               "exampleTokens": [
                 "Tôi",
                 "đã",
-                "đặt",
-                "phòng."
+                "đặt phòng."
               ],
               "exampleMeaning": {
                 "en": "I have a reservation.",
@@ -4290,8 +4137,7 @@
                 "Tôi",
                 "có",
                 "nhiều",
-                "hành",
-                "lý."
+                "hành lý."
               ],
               "exampleMeaning": {
                 "en": "I have a lot of luggage.",
@@ -4317,8 +4163,7 @@
               "exampleTokens": [
                 "Bạn",
                 "có",
-                "bản",
-                "đồ",
+                "bản đồ",
                 "không?"
               ],
               "exampleMeaning": {
@@ -4374,8 +4219,7 @@
                 "Bố",
                 "tôi",
                 "là",
-                "kỹ",
-                "sư."
+                "kỹ sư."
               ],
               "exampleMeaning": {
                 "en": "My father is an engineer.",
@@ -4399,12 +4243,10 @@
               },
               "example": "Em gái tôi là y tá.",
               "exampleTokens": [
-                "Em",
-                "gái",
+                "Em gái",
                 "tôi",
                 "là",
-                "y",
-                "tá."
+                "y tá."
               ],
               "exampleMeaning": {
                 "en": "My sister is a nurse.",
@@ -4428,8 +4270,7 @@
               },
               "example": "Đầu bếp rất bận.",
               "exampleTokens": [
-                "Đầu",
-                "bếp",
+                "Đầu bếp",
                 "rất",
                 "bận."
               ],
@@ -4455,11 +4296,9 @@
               },
               "example": "Tài xế rất tốt bụng.",
               "exampleTokens": [
-                "Tài",
-                "xế",
+                "Tài xế",
                 "rất",
-                "tốt",
-                "bụng."
+                "tốt bụng."
               ],
               "exampleMeaning": {
                 "en": "The driver is kind.",
@@ -4485,8 +4324,7 @@
               "exampleTokens": [
                 "Hãy",
                 "hỏi",
-                "cảnh",
-                "sát."
+                "cảnh sát."
               ],
               "exampleMeaning": {
                 "en": "Ask a police officer.",
@@ -4513,10 +4351,7 @@
                 "Bố",
                 "tôi",
                 "là",
-                "nhân",
-                "viên",
-                "văn",
-                "phòng."
+                "nhân viên văn phòng."
               ],
               "exampleMeaning": {
                 "en": "My father is an office worker.",
@@ -4557,11 +4392,9 @@
               "exampleTokens": [
                 "Tôi",
                 "đi",
-                "xe",
-                "buýt",
+                "xe buýt",
                 "đến",
-                "công",
-                "ty."
+                "công ty."
               ],
               "exampleMeaning": {
                 "en": "I go to the company by bus.",
@@ -4586,11 +4419,9 @@
               "example": "Tôi làm việc trên máy tính.",
               "exampleTokens": [
                 "Tôi",
-                "làm",
-                "việc",
+                "làm việc",
                 "trên",
-                "máy",
-                "tính."
+                "máy tính."
               ],
               "exampleMeaning": {
                 "en": "I work on a computer.",
@@ -4614,8 +4445,7 @@
               },
               "example": "Điện thoại của tôi mới.",
               "exampleTokens": [
-                "Điện",
-                "thoại",
+                "Điện thoại",
                 "của",
                 "tôi",
                 "mới."
@@ -4642,8 +4472,7 @@
               },
               "example": "Cuộc họp lúc mười giờ.",
               "exampleTokens": [
-                "Cuộc",
-                "họp",
+                "Cuộc họp",
                 "lúc",
                 "mười",
                 "giờ."
@@ -4696,8 +4525,7 @@
               },
               "example": "Hôm nay sếp tôi bận.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "sếp",
                 "tôi",
                 "bận."
@@ -4739,8 +4567,7 @@
               },
               "example": "Trường học ở xa.",
               "exampleTokens": [
-                "Trường",
-                "học",
+                "Trường học",
                 "ở",
                 "xa."
               ],
@@ -4825,13 +4652,9 @@
               "exampleTokens": [
                 "Tôi",
                 "làm",
-                "bài",
-                "tập",
-                "về",
-                "nhà",
+                "bài tập về nhà",
                 "vào",
-                "buổi",
-                "tối."
+                "buổi tối."
               ],
               "exampleMeaning": {
                 "en": "I do my homework at night.",
@@ -4855,11 +4678,9 @@
               },
               "example": "Ngày mai có kỳ thi.",
               "exampleTokens": [
-                "Ngày",
-                "mai",
+                "Ngày mai",
                 "có",
-                "kỳ",
-                "thi."
+                "kỳ thi."
               ],
               "exampleMeaning": {
                 "en": "The exam is tomorrow.",
@@ -4883,8 +4704,7 @@
               },
               "example": "Lớp học rất vui.",
               "exampleTokens": [
-                "Lớp",
-                "học",
+                "Lớp học",
                 "rất",
                 "vui."
               ],
@@ -4980,8 +4800,7 @@
               },
               "example": "Vui lòng nói chậm.",
               "exampleTokens": [
-                "Vui",
-                "lòng",
+                "Vui lòng",
                 "nói",
                 "chậm."
               ],
@@ -5035,8 +4854,7 @@
               "exampleTokens": [
                 "Tôi",
                 "học",
-                "mỗi",
-                "ngày."
+                "mỗi ngày."
               ],
               "exampleMeaning": {
                 "en": "I study every day.",
@@ -5114,8 +4932,7 @@
               },
               "example": "Âm nhạc rất vui.",
               "exampleTokens": [
-                "Âm",
-                "nhạc",
+                "Âm nhạc",
                 "rất",
                 "vui."
               ],
@@ -5168,11 +4985,9 @@
               },
               "example": "Chúng ta chơi trò chơi nhé.",
               "exampleTokens": [
-                "Chúng",
-                "ta",
+                "Chúng ta",
                 "chơi",
-                "trò",
-                "chơi",
+                "trò chơi",
                 "nhé."
               ],
               "exampleMeaning": {
@@ -5197,8 +5012,7 @@
               },
               "example": "Làm ơn chụp ảnh giúp tôi.",
               "exampleTokens": [
-                "Làm",
-                "ơn",
+                "Làm ơn",
                 "chụp",
                 "ảnh",
                 "giúp",
@@ -5228,8 +5042,7 @@
               "exampleTokens": [
                 "Tôi",
                 "thích",
-                "du",
-                "lịch."
+                "du lịch."
               ],
               "exampleMeaning": {
                 "en": "I like to travel.",
@@ -5254,8 +5067,7 @@
               "example": "Đi mua sắm nhé.",
               "exampleTokens": [
                 "Đi",
-                "mua",
-                "sắm",
+                "mua sắm",
                 "nhé."
               ],
               "exampleMeaning": {
@@ -5297,8 +5109,7 @@
               "exampleTokens": [
                 "Tôi",
                 "thích",
-                "bóng",
-                "đá."
+                "bóng đá."
               ],
               "exampleMeaning": {
                 "en": "I like soccer.",
@@ -5324,8 +5135,7 @@
               "exampleTokens": [
                 "Tôi",
                 "thích",
-                "bơi",
-                "lội."
+                "bơi lội."
               ],
               "exampleMeaning": {
                 "en": "I like swimming.",
@@ -5349,11 +5159,9 @@
               },
               "example": "Mỗi sáng tôi chạy bộ.",
               "exampleTokens": [
-                "Mỗi",
-                "sáng",
+                "Mỗi sáng",
                 "tôi",
-                "chạy",
-                "bộ."
+                "chạy bộ."
               ],
               "exampleMeaning": {
                 "en": "I go running every morning.",
@@ -5380,8 +5188,7 @@
                 "Bạn",
                 "có",
                 "chơi",
-                "quần",
-                "vợt",
+                "quần vợt",
                 "không?"
               ],
               "exampleMeaning": {
@@ -5406,8 +5213,7 @@
               },
               "example": "Bóng rổ rất vui.",
               "exampleTokens": [
-                "Bóng",
-                "rổ",
+                "Bóng rổ",
                 "rất",
                 "vui."
               ],
@@ -5434,11 +5240,8 @@
               "example": "Tôi tập thể dục mỗi ngày.",
               "exampleTokens": [
                 "Tôi",
-                "tập",
-                "thể",
-                "dục",
-                "mỗi",
-                "ngày."
+                "tập thể dục",
+                "mỗi ngày."
               ],
               "exampleMeaning": {
                 "en": "I exercise every day.",
@@ -5477,8 +5280,7 @@
               },
               "example": "Cô ấy hát hay.",
               "exampleTokens": [
-                "Cô",
-                "ấy",
+                "Cô ấy",
                 "hát",
                 "hay."
               ],
@@ -5533,8 +5335,7 @@
                 "Bố",
                 "tôi",
                 "thích",
-                "nấu",
-                "ăn."
+                "nấu ăn."
               ],
               "exampleMeaning": {
                 "en": "My father likes cooking.",
@@ -5558,8 +5359,7 @@
               },
               "example": "Đứa trẻ thích vẽ.",
               "exampleTokens": [
-                "Đứa",
-                "trẻ",
+                "Đứa trẻ",
                 "thích",
                 "vẽ."
               ],
@@ -5585,10 +5385,8 @@
               },
               "example": "Chúng ta đi bộ nhé.",
               "exampleTokens": [
-                "Chúng",
-                "ta",
-                "đi",
-                "bộ",
+                "Chúng ta",
+                "đi bộ",
                 "nhé."
               ],
               "exampleMeaning": {
@@ -5613,11 +5411,9 @@
               },
               "example": "Hôm nay hãy nghỉ ngơi.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "hãy",
-                "nghỉ",
-                "ngơi."
+                "nghỉ ngơi."
               ],
               "exampleMeaning": {
                 "en": "Please rest today.",
@@ -5659,8 +5455,7 @@
                 "Bạn",
                 "có",
                 "thích",
-                "âm",
-                "nhạc",
+                "âm nhạc",
                 "không?"
               ],
               "exampleMeaning": {
@@ -5716,9 +5511,7 @@
                 "đỏ",
                 "là",
                 "màu",
-                "yêu",
-                "thích",
-                "nhất",
+                "yêu thích nhất",
                 "của",
                 "tôi."
               ],
@@ -5744,11 +5537,9 @@
               },
               "example": "Trò chơi này vui nhộn.",
               "exampleTokens": [
-                "Trò",
-                "chơi",
+                "Trò chơi",
                 "này",
-                "vui",
-                "nhộn."
+                "vui nhộn."
               ],
               "exampleMeaning": {
                 "en": "This game is fun.",
@@ -5772,8 +5563,7 @@
               },
               "example": "Bộ phim này chán.",
               "exampleTokens": [
-                "Bộ",
-                "phim",
+                "Bộ phim",
                 "này",
                 "chán."
               ],
@@ -5799,11 +5589,9 @@
               },
               "example": "Cuốn sách này thú vị.",
               "exampleTokens": [
-                "Cuốn",
-                "sách",
+                "Cuốn sách",
                 "này",
-                "thú",
-                "vị."
+                "thú vị."
               ],
               "exampleMeaning": {
                 "en": "This book is interesting.",
@@ -5855,8 +5643,7 @@
               },
               "example": "Hôm nay trời nóng.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "trời",
                 "nóng."
               ],
@@ -5882,8 +5669,7 @@
               },
               "example": "Hôm nay trời lạnh.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "trời",
                 "lạnh."
               ],
@@ -5909,8 +5695,7 @@
               },
               "example": "Hôm nay trời mưa.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "trời",
                 "mưa."
               ],
@@ -5937,8 +5722,7 @@
               "example": "Trên bầu trời có nhiều mây.",
               "exampleTokens": [
                 "Trên",
-                "bầu",
-                "trời",
+                "bầu trời",
                 "có",
                 "nhiều",
                 "mây."
@@ -5991,8 +5775,7 @@
               },
               "example": "Hôm nay trời nắng.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "trời",
                 "nắng."
               ],
@@ -6035,8 +5818,7 @@
               "exampleTokens": [
                 "Tôi",
                 "thích",
-                "mùa",
-                "xuân."
+                "mùa xuân."
               ],
               "exampleMeaning": {
                 "en": "I like spring.",
@@ -6060,8 +5842,7 @@
               },
               "example": "Mùa hè nóng.",
               "exampleTokens": [
-                "Mùa",
-                "hè",
+                "Mùa hè",
                 "nóng."
               ],
               "exampleMeaning": {
@@ -6086,10 +5867,8 @@
               },
               "example": "Mùa thu mát mẻ.",
               "exampleTokens": [
-                "Mùa",
-                "thu",
-                "mát",
-                "mẻ."
+                "Mùa thu",
+                "mát mẻ."
               ],
               "exampleMeaning": {
                 "en": "Autumn is cool.",
@@ -6113,8 +5892,7 @@
               },
               "example": "Mùa đông lạnh.",
               "exampleTokens": [
-                "Mùa",
-                "đông",
+                "Mùa đông",
                 "lạnh."
               ],
               "exampleMeaning": {
@@ -6139,10 +5917,8 @@
               },
               "example": "Mùa xuân ấm áp.",
               "exampleTokens": [
-                "Mùa",
-                "xuân",
-                "ấm",
-                "áp."
+                "Mùa xuân",
+                "ấm áp."
               ],
               "exampleMeaning": {
                 "en": "Spring is warm.",
@@ -6166,8 +5942,7 @@
               },
               "example": "Buổi sáng trời mát.",
               "exampleTokens": [
-                "Buổi",
-                "sáng",
+                "Buổi sáng",
                 "trời",
                 "mát."
               ],
@@ -6208,8 +5983,7 @@
               },
               "example": "Ngọn núi rất đẹp.",
               "exampleTokens": [
-                "Ngọn",
-                "núi",
+                "Ngọn núi",
                 "rất",
                 "đẹp."
               ],
@@ -6261,12 +6035,10 @@
               },
               "example": "Con sông ở gần trường học.",
               "exampleTokens": [
-                "Con",
-                "sông",
+                "Con sông",
                 "ở",
                 "gần",
-                "trường",
-                "học."
+                "trường học."
               ],
               "exampleMeaning": {
                 "en": "The river is near the school.",
@@ -6347,10 +6119,8 @@
               },
               "example": "Hôm nay bầu trời đẹp.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
-                "bầu",
-                "trời",
+                "Hôm nay",
+                "bầu trời",
                 "đẹp."
               ],
               "exampleMeaning": {
@@ -6611,8 +6381,7 @@
               "example": "Hãy rửa tay.",
               "exampleTokens": [
                 "Hãy",
-                "rửa",
-                "tay."
+                "rửa tay."
               ],
               "exampleMeaning": {
                 "en": "Please wash your hands.",
@@ -6716,8 +6485,7 @@
               "exampleTokens": [
                 "Hãy",
                 "giơ",
-                "cánh",
-                "tay",
+                "cánh tay",
                 "lên."
               ],
               "exampleMeaning": {
@@ -6757,8 +6525,7 @@
               },
               "example": "Cô ấy có đôi mắt to.",
               "exampleTokens": [
-                "Cô",
-                "ấy",
+                "Cô ấy",
                 "có",
                 "đôi",
                 "mắt",
@@ -6868,11 +6635,9 @@
               },
               "example": "Mỗi sáng tôi đánh răng.",
               "exampleTokens": [
-                "Mỗi",
-                "sáng",
+                "Mỗi sáng",
                 "tôi",
-                "đánh",
-                "răng."
+                "đánh răng."
               ],
               "exampleMeaning": {
                 "en": "I brush my teeth every morning.",
@@ -6897,8 +6662,7 @@
               "example": "Hãy rửa mặt.",
               "exampleTokens": [
                 "Hãy",
-                "rửa",
-                "mặt."
+                "rửa mặt."
               ],
               "exampleMeaning": {
                 "en": "Wash your face.",
@@ -6937,11 +6701,9 @@
               },
               "example": "Hôm nay tôi bị ốm.",
               "exampleTokens": [
-                "Hôm",
-                "nay",
+                "Hôm nay",
                 "tôi",
-                "bị",
-                "ốm."
+                "bị ốm."
               ],
               "exampleMeaning": {
                 "en": "I am sick today.",
@@ -6967,8 +6729,7 @@
               "exampleTokens": [
                 "Bạn",
                 "đau",
-                "ở",
-                "đâu?"
+                "ở đâu?"
               ],
               "exampleMeaning": {
                 "en": "Where is the pain?",
@@ -7020,8 +6781,7 @@
               "example": "Tôi bị sốt.",
               "exampleTokens": [
                 "Tôi",
-                "bị",
-                "sốt."
+                "bị sốt."
               ],
               "exampleMeaning": {
                 "en": "I have a fever.",
@@ -7046,8 +6806,7 @@
               "example": "Tôi bị ho.",
               "exampleTokens": [
                 "Tôi",
-                "bị",
-                "ho."
+                "bị ho."
               ],
               "exampleMeaning": {
                 "en": "I have a cough.",
@@ -7071,11 +6830,9 @@
               },
               "example": "Gần đây có hiệu thuốc không?",
               "exampleTokens": [
-                "Gần",
-                "đây",
+                "Gần đây",
                 "có",
-                "hiệu",
-                "thuốc",
+                "hiệu thuốc",
                 "không?"
               ],
               "exampleMeaning": {
@@ -7115,12 +6872,10 @@
               },
               "example": "Cứu với! Hãy gọi bác sĩ.",
               "exampleTokens": [
-                "Cứu",
-                "với!",
+                "Cứu với!",
                 "Hãy",
                 "gọi",
-                "bác",
-                "sĩ."
+                "bác sĩ."
               ],
               "exampleMeaning": {
                 "en": "Help! Please call a doctor.",
@@ -7144,9 +6899,7 @@
               },
               "example": "Xe cứu thương đang đến.",
               "exampleTokens": [
-                "Xe",
-                "cứu",
-                "thương",
+                "Xe cứu thương",
                 "đang",
                 "đến."
               ],
@@ -7197,8 +6950,7 @@
               },
               "example": "Nguy hiểm! Đừng đi đến đó.",
               "exampleTokens": [
-                "Nguy",
-                "hiểm!",
+                "Nguy hiểm!",
                 "Đừng",
                 "đi",
                 "đến",
@@ -7227,8 +6979,7 @@
               "example": "Tôi bị lạc.",
               "exampleTokens": [
                 "Tôi",
-                "bị",
-                "lạc."
+                "bị lạc."
               ],
               "exampleMeaning": {
                 "en": "I am lost.",
@@ -7254,9 +7005,7 @@
               "exampleTokens": [
                 "Hãy",
                 "gọi",
-                "xe",
-                "cứu",
-                "thương!"
+                "xe cứu thương!"
               ],
               "exampleMeaning": {
                 "en": "Please call an ambulance!",
