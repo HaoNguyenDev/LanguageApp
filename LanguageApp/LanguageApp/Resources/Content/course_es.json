@@ -1,6 +1,6 @@
 {
   "id": "es",
-  "version": 4,
+  "version": 5,
   "name": {
     "en": "Spanish",
     "vi": "Tiếng Tây Ban Nha",
@@ -50,6 +50,11 @@
                 "es": "hola"
               },
               "example": "Hola, ¿cómo estás?",
+              "exampleTokens": [
+                "Hola,",
+                "¿cómo",
+                "estás?"
+              ],
               "exampleMeaning": {
                 "en": "Hello, how are you?",
                 "vi": "Xin chào, bạn khỏe không?",
@@ -69,6 +74,20 @@
                 "ja": "さようなら",
                 "ko": "안녕히 가세요",
                 "es": "adiós"
+              },
+              "example": "Adiós, ¡hasta luego!",
+              "exampleTokens": [
+                "Adiós,",
+                "¡hasta",
+                "luego!"
+              ],
+              "exampleMeaning": {
+                "en": "Goodbye, see you later!",
+                "vi": "Tạm biệt, hẹn gặp lại!",
+                "zh": "再见，下次见！",
+                "ja": "さようなら、また明日。",
+                "ko": "안녕히 가세요, 또 만나요.",
+                "es": "Adiós, ¡hasta luego!"
               }
             },
             {
@@ -81,6 +100,19 @@
                 "ja": "ありがとう",
                 "ko": "감사합니다",
                 "es": "gracias"
+              },
+              "example": "Muchas gracias.",
+              "exampleTokens": [
+                "Muchas",
+                "gracias."
+              ],
+              "exampleMeaning": {
+                "en": "Thank you very much.",
+                "vi": "Cảm ơn bạn rất nhiều.",
+                "zh": "非常谢谢你。",
+                "ja": "どうもありがとう。",
+                "ko": "정말 감사합니다.",
+                "es": "Muchas gracias."
               }
             },
             {
@@ -93,6 +125,21 @@
                 "ja": "お願いします",
                 "ko": "주세요",
                 "es": "por favor"
+              },
+              "example": "Dos cafés, por favor.",
+              "exampleTokens": [
+                "Dos",
+                "cafés,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Two coffees, please.",
+                "vi": "Làm ơn cho tôi hai ly cà phê.",
+                "zh": "请给我两杯咖啡。",
+                "ja": "コーヒーを二つお願いします。",
+                "ko": "커피 두 잔 주세요.",
+                "es": "Dos cafés, por favor."
               }
             },
             {
@@ -105,6 +152,21 @@
                 "ja": "すみません / ごめんなさい",
                 "ko": "미안합니다",
                 "es": "lo siento"
+              },
+              "example": "Lo siento, llego tarde.",
+              "exampleTokens": [
+                "Lo",
+                "siento,",
+                "llego",
+                "tarde."
+              ],
+              "exampleMeaning": {
+                "en": "Sorry, I'm late.",
+                "vi": "Xin lỗi, tôi đến muộn.",
+                "zh": "对不起，我来晚了。",
+                "ja": "すみません、遅れました。",
+                "ko": "죄송합니다, 늦었어요.",
+                "es": "Lo siento, llego tarde."
               }
             },
             {
@@ -117,6 +179,20 @@
                 "ja": "おはよう",
                 "ko": "좋은 아침",
                 "es": "buenos días"
+              },
+              "example": "¡Buenos días, mamá!",
+              "exampleTokens": [
+                "¡Buenos",
+                "días,",
+                "mamá!"
+              ],
+              "exampleMeaning": {
+                "en": "Good morning, Mom!",
+                "vi": "Chào buổi sáng, mẹ!",
+                "zh": "妈妈，早上好！",
+                "ja": "お母さん、おはようございます！",
+                "ko": "엄마, 좋은 아침이에요!",
+                "es": "¡Buenos días, mamá!"
               }
             }
           ]
@@ -144,6 +220,20 @@
                 "ja": "はい",
                 "ko": "네",
                 "es": "sí"
+              },
+              "example": "Sí, soy estudiante.",
+              "exampleTokens": [
+                "Sí,",
+                "soy",
+                "estudiante."
+              ],
+              "exampleMeaning": {
+                "en": "Yes, I am a student.",
+                "vi": "Vâng, tôi là học sinh.",
+                "zh": "是，我是学生。",
+                "ja": "はい、学生です。",
+                "ko": "네, 학생이에요.",
+                "es": "Sí, soy estudiante."
               }
             },
             {
@@ -156,6 +246,19 @@
                 "ja": "いいえ",
                 "ko": "아니요",
                 "es": "no"
+              },
+              "example": "No, gracias.",
+              "exampleTokens": [
+                "No,",
+                "gracias."
+              ],
+              "exampleMeaning": {
+                "en": "No, thank you.",
+                "vi": "Không, cảm ơn.",
+                "zh": "不，谢谢。",
+                "ja": "いいえ、けっこうです。",
+                "ko": "아니요, 괜찮아요.",
+                "es": "No, gracias."
               }
             },
             {
@@ -170,6 +273,11 @@
                 "es": "agua"
               },
               "example": "Agua, por favor.",
+              "exampleTokens": [
+                "Agua,",
+                "por",
+                "favor."
+              ],
               "exampleMeaning": {
                 "en": "Water, please.",
                 "vi": "Cho tôi nước.",
@@ -189,6 +297,21 @@
                 "ja": "友達",
                 "ko": "친구",
                 "es": "amigo"
+              },
+              "example": "Él es mi amigo.",
+              "exampleTokens": [
+                "Él",
+                "es",
+                "mi",
+                "amigo."
+              ],
+              "exampleMeaning": {
+                "en": "He is my friend.",
+                "vi": "Anh ấy là bạn của tôi.",
+                "zh": "他是我的朋友。",
+                "ja": "彼は私の友達です。",
+                "ko": "그는 제 친구예요.",
+                "es": "Él es mi amigo."
               }
             },
             {
@@ -201,6 +324,21 @@
                 "ja": "家族",
                 "ko": "가족",
                 "es": "familia"
+              },
+              "example": "Quiero a mi familia.",
+              "exampleTokens": [
+                "Quiero",
+                "a",
+                "mi",
+                "familia."
+              ],
+              "exampleMeaning": {
+                "en": "I love my family.",
+                "vi": "Tôi yêu gia đình tôi.",
+                "zh": "我爱我的家人。",
+                "ja": "私は家族が大好きです。",
+                "ko": "저는 가족을 사랑해요.",
+                "es": "Quiero a mi familia."
               }
             },
             {
@@ -215,6 +353,11 @@
                 "es": "nombre"
               },
               "example": "Me llamo Anna.",
+              "exampleTokens": [
+                "Me",
+                "llamo",
+                "Anna."
+              ],
               "exampleMeaning": {
                 "en": "My name is Anna.",
                 "vi": "Tên tôi là Anna.",
@@ -251,6 +394,11 @@
                 "es": "qué"
               },
               "example": "¿Qué es esto?",
+              "exampleTokens": [
+                "¿Qué",
+                "es",
+                "esto?"
+              ],
               "exampleMeaning": {
                 "en": "What is this?",
                 "vi": "Đây là cái gì?",
@@ -270,6 +418,20 @@
                 "ja": "誰",
                 "ko": "누구",
                 "es": "quién"
+              },
+              "example": "¿Quién es él?",
+              "exampleTokens": [
+                "¿Quién",
+                "es",
+                "él?"
+              ],
+              "exampleMeaning": {
+                "en": "Who is he?",
+                "vi": "Anh ấy là ai?",
+                "zh": "他是谁？",
+                "ja": "彼は誰ですか？",
+                "ko": "그는 누구예요?",
+                "es": "¿Quién es él?"
               }
             },
             {
@@ -282,6 +444,21 @@
                 "ja": "いつ",
                 "ko": "언제",
                 "es": "cuándo"
+              },
+              "example": "¿Cuándo es la reunión?",
+              "exampleTokens": [
+                "¿Cuándo",
+                "es",
+                "la",
+                "reunión?"
+              ],
+              "exampleMeaning": {
+                "en": "When is the meeting?",
+                "vi": "Cuộc họp khi nào?",
+                "zh": "会议什么时候开始？",
+                "ja": "会議はいつですか？",
+                "ko": "회의는 언제예요?",
+                "es": "¿Cuándo es la reunión?"
               }
             },
             {
@@ -294,6 +471,21 @@
                 "ja": "なぜ",
                 "ko": "왜",
                 "es": "por qué"
+              },
+              "example": "¿Por qué estás cansado?",
+              "exampleTokens": [
+                "¿Por",
+                "qué",
+                "estás",
+                "cansado?"
+              ],
+              "exampleMeaning": {
+                "en": "Why are you tired?",
+                "vi": "Tại sao bạn mệt?",
+                "zh": "你为什么很累？",
+                "ja": "なぜ疲れていますか？",
+                "ko": "왜 피곤해요?",
+                "es": "¿Por qué estás cansado?"
               }
             },
             {
@@ -306,6 +498,22 @@
                 "ja": "どう",
                 "ko": "어떻게",
                 "es": "cómo"
+              },
+              "example": "¿Cómo voy a la estación?",
+              "exampleTokens": [
+                "¿Cómo",
+                "voy",
+                "a",
+                "la",
+                "estación?"
+              ],
+              "exampleMeaning": {
+                "en": "How do I get to the station?",
+                "vi": "Đi đến nhà ga như thế nào?",
+                "zh": "去车站怎么走？",
+                "ja": "駅までどう行きますか？",
+                "ko": "역에 어떻게 가요?",
+                "es": "¿Cómo voy a la estación?"
               }
             },
             {
@@ -318,6 +526,20 @@
                 "ja": "どれ",
                 "ko": "어느 것",
                 "es": "cuál"
+              },
+              "example": "¿Cuál te gusta?",
+              "exampleTokens": [
+                "¿Cuál",
+                "te",
+                "gusta?"
+              ],
+              "exampleMeaning": {
+                "en": "Which one do you like?",
+                "vi": "Bạn thích cái nào?",
+                "zh": "你喜欢哪个？",
+                "ja": "どれが好きですか？",
+                "ko": "어느 것을 좋아해요?",
+                "es": "¿Cuál te gusta?"
               }
             }
           ]
@@ -358,6 +580,20 @@
                 "ja": "いち",
                 "ko": "하나",
                 "es": "uno"
+              },
+              "example": "¡Uno, dos, tres!",
+              "exampleTokens": [
+                "¡Uno,",
+                "dos,",
+                "tres!"
+              ],
+              "exampleMeaning": {
+                "en": "One, two, three!",
+                "vi": "Một, hai, ba!",
+                "zh": "一、二、三！",
+                "ja": "一、二、三！",
+                "ko": "하나, 둘, 셋!",
+                "es": "¡Uno, dos, tres!"
               }
             },
             {
@@ -370,6 +606,22 @@
                 "ja": "に",
                 "ko": "둘",
                 "es": "dos"
+              },
+              "example": "Dos más dos son cuatro.",
+              "exampleTokens": [
+                "Dos",
+                "más",
+                "dos",
+                "son",
+                "cuatro."
+              ],
+              "exampleMeaning": {
+                "en": "Two plus two is four.",
+                "vi": "Hai cộng hai là bốn.",
+                "zh": "二加二等于四。",
+                "ja": "二たす二は四です。",
+                "ko": "둘 더하기 둘은 넷이에요.",
+                "es": "Dos más dos son cuatro."
               }
             },
             {
@@ -382,6 +634,20 @@
                 "ja": "さん",
                 "ko": "셋",
                 "es": "tres"
+              },
+              "example": "Tengo tres libros.",
+              "exampleTokens": [
+                "Tengo",
+                "tres",
+                "libros."
+              ],
+              "exampleMeaning": {
+                "en": "I have three books.",
+                "vi": "Tôi có ba quyển sách.",
+                "zh": "我有三本书。",
+                "ja": "本が三冊あります。",
+                "ko": "책이 세 권 있어요.",
+                "es": "Tengo tres libros."
               }
             },
             {
@@ -394,6 +660,22 @@
                 "ja": "よん",
                 "ko": "넷",
                 "es": "cuatro"
+              },
+              "example": "Somos cuatro en mi familia.",
+              "exampleTokens": [
+                "Somos",
+                "cuatro",
+                "en",
+                "mi",
+                "familia."
+              ],
+              "exampleMeaning": {
+                "en": "There are four people in my family.",
+                "vi": "Nhà tôi có bốn người.",
+                "zh": "我家有四口人。",
+                "ja": "家族は四人です。",
+                "ko": "우리 가족은 네 명이에요.",
+                "es": "Somos cuatro en mi familia."
               }
             },
             {
@@ -406,6 +688,21 @@
                 "ja": "ご",
                 "ko": "다섯",
                 "es": "cinco"
+              },
+              "example": "Cinco manzanas, por favor.",
+              "exampleTokens": [
+                "Cinco",
+                "manzanas,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Five apples, please.",
+                "vi": "Cho tôi năm quả táo.",
+                "zh": "请给我五个苹果。",
+                "ja": "りんごを五つください。",
+                "ko": "사과 다섯 개 주세요.",
+                "es": "Cinco manzanas, por favor."
               }
             },
             {
@@ -418,6 +715,20 @@
                 "ja": "じゅう",
                 "ko": "열",
                 "es": "diez"
+              },
+              "example": "Tengo diez años.",
+              "exampleTokens": [
+                "Tengo",
+                "diez",
+                "años."
+              ],
+              "exampleMeaning": {
+                "en": "I am ten years old.",
+                "vi": "Tôi mười tuổi.",
+                "zh": "我十岁。",
+                "ja": "私は十歳です。",
+                "ko": "저는 열 살이에요.",
+                "es": "Tengo diez años."
               }
             }
           ]
@@ -445,6 +756,22 @@
                 "ja": "ご飯",
                 "ko": "밥",
                 "es": "arroz"
+              },
+              "example": "Como arroz todos los días.",
+              "exampleTokens": [
+                "Como",
+                "arroz",
+                "todos",
+                "los",
+                "días."
+              ],
+              "exampleMeaning": {
+                "en": "I eat rice every day.",
+                "vi": "Tôi ăn cơm mỗi ngày.",
+                "zh": "我每天吃米饭。",
+                "ja": "毎日ご飯を食べます。",
+                "ko": "저는 매일 밥을 먹어요.",
+                "es": "Como arroz todos los días."
               }
             },
             {
@@ -457,6 +784,22 @@
                 "ja": "パン",
                 "ko": "빵",
                 "es": "pan"
+              },
+              "example": "Como pan en el desayuno.",
+              "exampleTokens": [
+                "Como",
+                "pan",
+                "en",
+                "el",
+                "desayuno."
+              ],
+              "exampleMeaning": {
+                "en": "I eat bread for breakfast.",
+                "vi": "Tôi ăn bánh mì vào bữa sáng.",
+                "zh": "我早饭吃面包。",
+                "ja": "朝ご飯にパンを食べます。",
+                "ko": "아침에 빵을 먹어요.",
+                "es": "Como pan en el desayuno."
               }
             },
             {
@@ -471,6 +814,12 @@
                 "es": "café"
               },
               "example": "Un café, por favor.",
+              "exampleTokens": [
+                "Un",
+                "café,",
+                "por",
+                "favor."
+              ],
               "exampleMeaning": {
                 "en": "A coffee, please.",
                 "vi": "Cho tôi một ly cà phê.",
@@ -492,6 +841,10 @@
                 "es": "té"
               },
               "example": "Bebo té.",
+              "exampleTokens": [
+                "Bebo",
+                "té."
+              ],
               "exampleMeaning": {
                 "en": "I drink tea.",
                 "vi": "Tôi uống trà.",
@@ -511,6 +864,21 @@
                 "ja": "りんご",
                 "ko": "사과",
                 "es": "manzana"
+              },
+              "example": "Esta manzana está deliciosa.",
+              "exampleTokens": [
+                "Esta",
+                "manzana",
+                "está",
+                "deliciosa."
+              ],
+              "exampleMeaning": {
+                "en": "This apple is delicious.",
+                "vi": "Quả táo này ngon.",
+                "zh": "这个苹果很好吃。",
+                "ja": "このりんごはおいしいです。",
+                "ko": "이 사과는 맛있어요.",
+                "es": "Esta manzana está deliciosa."
               }
             },
             {
@@ -523,6 +891,20 @@
                 "ja": "卵",
                 "ko": "계란",
                 "es": "huevo"
+              },
+              "example": "Como dos huevos.",
+              "exampleTokens": [
+                "Como",
+                "dos",
+                "huevos."
+              ],
+              "exampleMeaning": {
+                "en": "I eat two eggs.",
+                "vi": "Tôi ăn hai quả trứng.",
+                "zh": "我吃两个鸡蛋。",
+                "ja": "卵を二つ食べます。",
+                "ko": "계란 두 개를 먹어요.",
+                "es": "Como dos huevos."
               }
             }
           ]
@@ -550,6 +932,20 @@
                 "ja": "ろく",
                 "ko": "여섯",
                 "es": "seis"
+              },
+              "example": "Tengo seis manzanas.",
+              "exampleTokens": [
+                "Tengo",
+                "seis",
+                "manzanas."
+              ],
+              "exampleMeaning": {
+                "en": "I have six apples.",
+                "vi": "Tôi có sáu quả táo.",
+                "zh": "我有六个苹果。",
+                "ja": "りんごが六つあります。",
+                "ko": "사과가 여섯 개 있어요.",
+                "es": "Tengo seis manzanas."
               }
             },
             {
@@ -562,6 +958,22 @@
                 "ja": "なな",
                 "ko": "일곱",
                 "es": "siete"
+              },
+              "example": "Una semana tiene siete días.",
+              "exampleTokens": [
+                "Una",
+                "semana",
+                "tiene",
+                "siete",
+                "días."
+              ],
+              "exampleMeaning": {
+                "en": "A week has seven days.",
+                "vi": "Một tuần có bảy ngày.",
+                "zh": "一个星期有七天。",
+                "ja": "一週間は七日です。",
+                "ko": "일주일은 칠 일이에요.",
+                "es": "Una semana tiene siete días."
               }
             },
             {
@@ -576,6 +988,13 @@
                 "es": "ocho"
               },
               "example": "Me levanto a las ocho.",
+              "exampleTokens": [
+                "Me",
+                "levanto",
+                "a",
+                "las",
+                "ocho."
+              ],
               "exampleMeaning": {
                 "en": "I get up at eight.",
                 "vi": "Tôi dậy lúc tám giờ.",
@@ -595,6 +1014,23 @@
                 "ja": "きゅう",
                 "ko": "아홉",
                 "es": "nueve"
+              },
+              "example": "La tienda abre a las nueve.",
+              "exampleTokens": [
+                "La",
+                "tienda",
+                "abre",
+                "a",
+                "las",
+                "nueve."
+              ],
+              "exampleMeaning": {
+                "en": "The shop opens at nine.",
+                "vi": "Cửa hàng mở cửa lúc chín giờ.",
+                "zh": "商店九点开门。",
+                "ja": "店は九時に開きます。",
+                "ko": "가게는 아홉 시에 열어요.",
+                "es": "La tienda abre a las nueve."
               }
             },
             {
@@ -607,6 +1043,21 @@
                 "ja": "ひゃく",
                 "ko": "백",
                 "es": "cien"
+              },
+              "example": "Esto cuesta cien yenes.",
+              "exampleTokens": [
+                "Esto",
+                "cuesta",
+                "cien",
+                "yenes."
+              ],
+              "exampleMeaning": {
+                "en": "This costs one hundred yen.",
+                "vi": "Cái này giá một trăm yên.",
+                "zh": "这个一百日元。",
+                "ja": "これは百円です。",
+                "ko": "이건 백 엔이에요.",
+                "es": "Esto cuesta cien yenes."
               }
             },
             {
@@ -619,6 +1070,22 @@
                 "ja": "せん",
                 "ko": "천",
                 "es": "mil"
+              },
+              "example": "El billete cuesta mil yenes.",
+              "exampleTokens": [
+                "El",
+                "billete",
+                "cuesta",
+                "mil",
+                "yenes."
+              ],
+              "exampleMeaning": {
+                "en": "The ticket is one thousand yen.",
+                "vi": "Vé giá một nghìn yên.",
+                "zh": "票是一千日元。",
+                "ja": "切符は千円です。",
+                "ko": "표는 천 엔이에요.",
+                "es": "El billete cuesta mil yenes."
               }
             }
           ]
@@ -646,6 +1113,23 @@
                 "ja": "朝ご飯",
                 "ko": "아침 식사",
                 "es": "desayuno"
+              },
+              "example": "Tomo el desayuno a las siete.",
+              "exampleTokens": [
+                "Tomo",
+                "el",
+                "desayuno",
+                "a",
+                "las",
+                "siete."
+              ],
+              "exampleMeaning": {
+                "en": "I eat breakfast at seven.",
+                "vi": "Tôi ăn bữa sáng lúc bảy giờ.",
+                "zh": "我七点吃早饭。",
+                "ja": "七時に朝ご飯を食べます。",
+                "ko": "일곱 시에 아침 식사를 해요.",
+                "es": "Tomo el desayuno a las siete."
               }
             },
             {
@@ -658,6 +1142,21 @@
                 "ja": "昼ご飯",
                 "ko": "점심",
                 "es": "almuerzo"
+              },
+              "example": "Tomemos el almuerzo juntos.",
+              "exampleTokens": [
+                "Tomemos",
+                "el",
+                "almuerzo",
+                "juntos."
+              ],
+              "exampleMeaning": {
+                "en": "Let's eat lunch together.",
+                "vi": "Cùng ăn bữa trưa nhé.",
+                "zh": "我们一起吃午饭吧。",
+                "ja": "一緒に昼ご飯を食べましょう。",
+                "ko": "같이 점심 먹어요.",
+                "es": "Tomemos el almuerzo juntos."
               }
             },
             {
@@ -670,6 +1169,21 @@
                 "ja": "晩ご飯",
                 "ko": "저녁 식사",
                 "es": "cena"
+              },
+              "example": "La cena está deliciosa.",
+              "exampleTokens": [
+                "La",
+                "cena",
+                "está",
+                "deliciosa."
+              ],
+              "exampleMeaning": {
+                "en": "Dinner is delicious.",
+                "vi": "Bữa tối rất ngon.",
+                "zh": "晚饭很好吃。",
+                "ja": "晩ご飯はおいしいです。",
+                "ko": "저녁 식사가 맛있어요.",
+                "es": "La cena está deliciosa."
               }
             },
             {
@@ -682,6 +1196,21 @@
                 "ja": "食べる",
                 "ko": "먹다",
                 "es": "comer"
+              },
+              "example": "Me gusta comer arroz.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "comer",
+                "arroz."
+              ],
+              "exampleMeaning": {
+                "en": "I like to eat rice.",
+                "vi": "Tôi thích ăn cơm.",
+                "zh": "我喜欢吃米饭。",
+                "ja": "ご飯を食べるのが好きです。",
+                "ko": "밥 먹는 것을 좋아해요.",
+                "es": "Me gusta comer arroz."
               }
             },
             {
@@ -694,6 +1223,20 @@
                 "ja": "飲む",
                 "ko": "마시다",
                 "es": "beber"
+              },
+              "example": "Quiero beber agua.",
+              "exampleTokens": [
+                "Quiero",
+                "beber",
+                "agua."
+              ],
+              "exampleMeaning": {
+                "en": "I want to drink water.",
+                "vi": "Tôi muốn uống nước.",
+                "zh": "我想喝水。",
+                "ja": "水が飲みたいです。",
+                "ko": "물을 마시고 싶어요.",
+                "es": "Quiero beber agua."
               }
             },
             {
@@ -708,6 +1251,11 @@
                 "es": "delicioso"
               },
               "example": "¡Esto está delicioso!",
+              "exampleTokens": [
+                "¡Esto",
+                "está",
+                "delicioso!"
+              ],
               "exampleMeaning": {
                 "en": "This is delicious!",
                 "vi": "Món này ngon quá!",
@@ -757,6 +1305,12 @@
                 "es": "madre"
               },
               "example": "Mi madre es profesora.",
+              "exampleTokens": [
+                "Mi",
+                "madre",
+                "es",
+                "profesora."
+              ],
               "exampleMeaning": {
                 "en": "My mother is a teacher.",
                 "vi": "Mẹ tôi là giáo viên.",
@@ -776,6 +1330,21 @@
                 "ja": "お父さん",
                 "ko": "아버지",
                 "es": "padre"
+              },
+              "example": "Mi padre es médico.",
+              "exampleTokens": [
+                "Mi",
+                "padre",
+                "es",
+                "médico."
+              ],
+              "exampleMeaning": {
+                "en": "My father is a doctor.",
+                "vi": "Bố tôi là bác sĩ.",
+                "zh": "我爸爸是医生。",
+                "ja": "お父さんは医者です。",
+                "ko": "아버지는 의사예요.",
+                "es": "Mi padre es médico."
               }
             },
             {
@@ -788,6 +1357,21 @@
                 "ja": "子ども",
                 "ko": "아이",
                 "es": "niño / niña"
+              },
+              "example": "El niño quiere jugar.",
+              "exampleTokens": [
+                "El",
+                "niño",
+                "quiere",
+                "jugar."
+              ],
+              "exampleMeaning": {
+                "en": "The child likes to play.",
+                "vi": "Trẻ em thích chơi.",
+                "zh": "孩子喜欢玩。",
+                "ja": "子どもは遊ぶのが好きです。",
+                "ko": "아이는 노는 것을 좋아해요.",
+                "es": "El niño quiere jugar."
               }
             },
             {
@@ -800,6 +1384,23 @@
                 "ja": "夫",
                 "ko": "남편",
                 "es": "esposo"
+              },
+              "example": "Mi esposo trabaja en una empresa.",
+              "exampleTokens": [
+                "Mi",
+                "esposo",
+                "trabaja",
+                "en",
+                "una",
+                "empresa."
+              ],
+              "exampleMeaning": {
+                "en": "My husband works at a company.",
+                "vi": "Chồng tôi làm việc ở công ty.",
+                "zh": "我丈夫在公司工作。",
+                "ja": "夫は会社で働いています。",
+                "ko": "남편은 회사에서 일해요.",
+                "es": "Mi esposo trabaja en una empresa."
               }
             },
             {
@@ -812,6 +1413,21 @@
                 "ja": "妻",
                 "ko": "아내",
                 "es": "esposa"
+              },
+              "example": "Mi esposa es enfermera.",
+              "exampleTokens": [
+                "Mi",
+                "esposa",
+                "es",
+                "enfermera."
+              ],
+              "exampleMeaning": {
+                "en": "My wife is a nurse.",
+                "vi": "Vợ tôi là y tá.",
+                "zh": "我妻子是护士。",
+                "ja": "妻は看護師です。",
+                "ko": "아내는 간호사예요.",
+                "es": "Mi esposa es enfermera."
               }
             },
             {
@@ -826,6 +1442,12 @@
                 "es": "bebé"
               },
               "example": "El bebé está durmiendo.",
+              "exampleTokens": [
+                "El",
+                "bebé",
+                "está",
+                "durmiendo."
+              ],
               "exampleMeaning": {
                 "en": "The baby is sleeping.",
                 "vi": "Em bé đang ngủ.",
@@ -860,6 +1482,21 @@
                 "ja": "男の人",
                 "ko": "남자",
                 "es": "hombre"
+              },
+              "example": "Ese hombre es profesor.",
+              "exampleTokens": [
+                "Ese",
+                "hombre",
+                "es",
+                "profesor."
+              ],
+              "exampleMeaning": {
+                "en": "That man is a teacher.",
+                "vi": "Người đàn ông đó là giáo viên.",
+                "zh": "那个男人是老师。",
+                "ja": "あの男の人は先生です。",
+                "ko": "저 남자는 선생님이에요.",
+                "es": "Ese hombre es profesor."
               }
             },
             {
@@ -872,6 +1509,22 @@
                 "ja": "女の人",
                 "ko": "여자",
                 "es": "mujer"
+              },
+              "example": "Esa mujer es mi madre.",
+              "exampleTokens": [
+                "Esa",
+                "mujer",
+                "es",
+                "mi",
+                "madre."
+              ],
+              "exampleMeaning": {
+                "en": "That woman is my mother.",
+                "vi": "Người phụ nữ đó là mẹ tôi.",
+                "zh": "那个女人是我妈妈。",
+                "ja": "あの女の人は私の母です。",
+                "ko": "저 여자는 제 어머니예요.",
+                "es": "Esa mujer es mi madre."
               }
             },
             {
@@ -884,6 +1537,22 @@
                 "ja": "人",
                 "ko": "사람",
                 "es": "persona"
+              },
+              "example": "Él es una persona amable.",
+              "exampleTokens": [
+                "Él",
+                "es",
+                "una",
+                "persona",
+                "amable."
+              ],
+              "exampleMeaning": {
+                "en": "He is a kind person.",
+                "vi": "Anh ấy là người tốt bụng.",
+                "zh": "他是一个善良的人。",
+                "ja": "彼は優しい人です。",
+                "ko": "그는 친절한 사람이에요.",
+                "es": "Él es una persona amable."
               }
             },
             {
@@ -896,6 +1565,21 @@
                 "ja": "先生",
                 "ko": "선생님",
                 "es": "profesor / profesora"
+              },
+              "example": "Mi profesor es amable.",
+              "exampleTokens": [
+                "Mi",
+                "profesor",
+                "es",
+                "amable."
+              ],
+              "exampleMeaning": {
+                "en": "My teacher is kind.",
+                "vi": "Giáo viên của tôi rất tốt bụng.",
+                "zh": "我的老师很善良。",
+                "ja": "私の先生は優しいです。",
+                "ko": "제 선생님은 친절해요.",
+                "es": "Mi profesor es amable."
               }
             },
             {
@@ -910,6 +1594,10 @@
                 "es": "estudiante"
               },
               "example": "Soy estudiante.",
+              "exampleTokens": [
+                "Soy",
+                "estudiante."
+              ],
               "exampleMeaning": {
                 "en": "I am a student.",
                 "vi": "Tôi là học sinh.",
@@ -931,6 +1619,11 @@
                 "es": "médico"
               },
               "example": "Él es médico.",
+              "exampleTokens": [
+                "Él",
+                "es",
+                "médico."
+              ],
               "exampleMeaning": {
                 "en": "He is a doctor.",
                 "vi": "Anh ấy là bác sĩ.",
@@ -965,6 +1658,21 @@
                 "ja": "うれしい",
                 "ko": "기쁘다",
                 "es": "feliz"
+              },
+              "example": "Hoy estoy muy feliz.",
+              "exampleTokens": [
+                "Hoy",
+                "estoy",
+                "muy",
+                "feliz."
+              ],
+              "exampleMeaning": {
+                "en": "I am very happy today.",
+                "vi": "Hôm nay tôi rất vui.",
+                "zh": "我今天很高兴。",
+                "ja": "今日はとてもうれしいです。",
+                "ko": "오늘 정말 기뻐요.",
+                "es": "Hoy estoy muy feliz."
               }
             },
             {
@@ -979,6 +1687,10 @@
                 "es": "cansado"
               },
               "example": "Estoy cansado.",
+              "exampleTokens": [
+                "Estoy",
+                "cansado."
+              ],
               "exampleMeaning": {
                 "en": "I am tired.",
                 "vi": "Tôi mệt.",
@@ -1000,6 +1712,11 @@
                 "es": "ocupado"
               },
               "example": "¿Estás ocupado hoy?",
+              "exampleTokens": [
+                "¿Estás",
+                "ocupado",
+                "hoy?"
+              ],
               "exampleMeaning": {
                 "en": "Are you busy today?",
                 "vi": "Hôm nay bạn có bận không?",
@@ -1019,6 +1736,21 @@
                 "ja": "若い",
                 "ko": "젊다",
                 "es": "joven"
+              },
+              "example": "Mi profesora es joven.",
+              "exampleTokens": [
+                "Mi",
+                "profesora",
+                "es",
+                "joven."
+              ],
+              "exampleMeaning": {
+                "en": "My teacher is young.",
+                "vi": "Giáo viên của tôi còn trẻ.",
+                "zh": "我的老师很年轻。",
+                "ja": "私の先生は若いです。",
+                "ko": "제 선생님은 젊어요.",
+                "es": "Mi profesora es joven."
               }
             },
             {
@@ -1031,6 +1763,21 @@
                 "ja": "優しい",
                 "ko": "친절하다",
                 "es": "amable"
+              },
+              "example": "Ella es muy amable.",
+              "exampleTokens": [
+                "Ella",
+                "es",
+                "muy",
+                "amable."
+              ],
+              "exampleMeaning": {
+                "en": "She is very kind.",
+                "vi": "Cô ấy rất tốt bụng.",
+                "zh": "她很善良。",
+                "ja": "彼女はとても優しいです。",
+                "ko": "그녀는 아주 친절해요.",
+                "es": "Ella es muy amable."
               }
             },
             {
@@ -1043,6 +1790,21 @@
                 "ja": "きれい",
                 "ko": "예쁘다",
                 "es": "bonito"
+              },
+              "example": "Esta flor es bonita.",
+              "exampleTokens": [
+                "Esta",
+                "flor",
+                "es",
+                "bonita."
+              ],
+              "exampleMeaning": {
+                "en": "This flower is beautiful.",
+                "vi": "Bông hoa này đẹp.",
+                "zh": "这朵花很漂亮。",
+                "ja": "この花はきれいです。",
+                "ko": "이 꽃은 예뻐요.",
+                "es": "Esta flor es bonita."
               }
             }
           ]
@@ -1070,6 +1832,23 @@
                 "ja": "年齢",
                 "ko": "나이",
                 "es": "edad"
+              },
+              "example": "La edad es solo un número.",
+              "exampleTokens": [
+                "La",
+                "edad",
+                "es",
+                "solo",
+                "un",
+                "número."
+              ],
+              "exampleMeaning": {
+                "en": "Age is just a number.",
+                "vi": "Tuổi chỉ là một con số.",
+                "zh": "年龄只是一个数字。",
+                "ja": "年齢はただの数字です。",
+                "ko": "나이는 숫자일 뿐이에요.",
+                "es": "La edad es solo un número."
               }
             },
             {
@@ -1082,6 +1861,21 @@
                 "ja": "国",
                 "ko": "나라",
                 "es": "país"
+              },
+              "example": "¿De qué país eres?",
+              "exampleTokens": [
+                "¿De",
+                "qué",
+                "país",
+                "eres?"
+              ],
+              "exampleMeaning": {
+                "en": "Which country are you from?",
+                "vi": "Bạn đến từ đất nước nào?",
+                "zh": "你是哪个国家的人？",
+                "ja": "どこの国から来ましたか？",
+                "ko": "어느 나라에서 왔어요?",
+                "es": "¿De qué país eres?"
               }
             },
             {
@@ -1094,6 +1888,22 @@
                 "ja": "言語",
                 "ko": "언어",
                 "es": "idioma"
+              },
+              "example": "Estoy aprendiendo un idioma nuevo.",
+              "exampleTokens": [
+                "Estoy",
+                "aprendiendo",
+                "un",
+                "idioma",
+                "nuevo."
+              ],
+              "exampleMeaning": {
+                "en": "I am learning a new language.",
+                "vi": "Tôi đang học một ngôn ngữ mới.",
+                "zh": "我在学一门新语言。",
+                "ja": "新しい言語を勉強しています。",
+                "ko": "새로운 언어를 배우고 있어요.",
+                "es": "Estoy aprendiendo un idioma nuevo."
               }
             },
             {
@@ -1106,6 +1916,21 @@
                 "ja": "住所",
                 "ko": "주소",
                 "es": "dirección"
+              },
+              "example": "¿Cuál es tu dirección?",
+              "exampleTokens": [
+                "¿Cuál",
+                "es",
+                "tu",
+                "dirección?"
+              ],
+              "exampleMeaning": {
+                "en": "What is your address?",
+                "vi": "Địa chỉ của bạn là gì?",
+                "zh": "你的地址是什么？",
+                "ja": "住所はどこですか？",
+                "ko": "주소가 어떻게 돼요?",
+                "es": "¿Cuál es tu dirección?"
               }
             },
             {
@@ -1118,6 +1943,23 @@
                 "ja": "電話番号",
                 "ko": "전화번호",
                 "es": "número de teléfono"
+              },
+              "example": "¿Cuál es tu número de teléfono?",
+              "exampleTokens": [
+                "¿Cuál",
+                "es",
+                "tu",
+                "número",
+                "de",
+                "teléfono?"
+              ],
+              "exampleMeaning": {
+                "en": "What is your phone number?",
+                "vi": "Số điện thoại của bạn là gì?",
+                "zh": "你的电话号码是多少？",
+                "ja": "電話番号は何番ですか？",
+                "ko": "전화번호가 뭐예요?",
+                "es": "¿Cuál es tu número de teléfono?"
               }
             },
             {
@@ -1132,6 +1974,11 @@
                 "es": "vivir"
               },
               "example": "Vivo en Hanói.",
+              "exampleTokens": [
+                "Vivo",
+                "en",
+                "Hanói."
+              ],
               "exampleMeaning": {
                 "en": "I live in Hanoi.",
                 "vi": "Tôi sống ở Hà Nội.",
@@ -1179,6 +2026,21 @@
                 "ja": "今日",
                 "ko": "오늘",
                 "es": "hoy"
+              },
+              "example": "Hoy hace buen tiempo.",
+              "exampleTokens": [
+                "Hoy",
+                "hace",
+                "buen",
+                "tiempo."
+              ],
+              "exampleMeaning": {
+                "en": "The weather is nice today.",
+                "vi": "Hôm nay trời đẹp.",
+                "zh": "今天天气很好。",
+                "ja": "今日はいい天気です。",
+                "ko": "오늘은 날씨가 좋아요.",
+                "es": "Hoy hace buen tiempo."
               }
             },
             {
@@ -1193,6 +2055,10 @@
                 "es": "mañana"
               },
               "example": "¡Hasta mañana!",
+              "exampleTokens": [
+                "¡Hasta",
+                "mañana!"
+              ],
               "exampleMeaning": {
                 "en": "See you tomorrow!",
                 "vi": "Hẹn gặp lại ngày mai!",
@@ -1212,6 +2078,20 @@
                 "ja": "昨日",
                 "ko": "어제",
                 "es": "ayer"
+              },
+              "example": "Ayer estaba cansado.",
+              "exampleTokens": [
+                "Ayer",
+                "estaba",
+                "cansado."
+              ],
+              "exampleMeaning": {
+                "en": "I was tired yesterday.",
+                "vi": "Hôm qua tôi mệt.",
+                "zh": "我昨天很累。",
+                "ja": "昨日は疲れました。",
+                "ko": "어제 피곤했어요.",
+                "es": "Ayer estaba cansado."
               }
             },
             {
@@ -1226,6 +2106,11 @@
                 "es": "ahora"
               },
               "example": "Ahora estoy ocupado.",
+              "exampleTokens": [
+                "Ahora",
+                "estoy",
+                "ocupado."
+              ],
               "exampleMeaning": {
                 "en": "I am busy now.",
                 "vi": "Bây giờ tôi bận.",
@@ -1245,6 +2130,22 @@
                 "ja": "朝",
                 "ko": "아침",
                 "es": "la mañana"
+              },
+              "example": "Tomo café por la mañana.",
+              "exampleTokens": [
+                "Tomo",
+                "café",
+                "por",
+                "la",
+                "mañana."
+              ],
+              "exampleMeaning": {
+                "en": "I drink coffee in the morning.",
+                "vi": "Tôi uống cà phê vào buổi sáng.",
+                "zh": "我早上喝咖啡。",
+                "ja": "朝、コーヒーを飲みます。",
+                "ko": "아침에 커피를 마셔요.",
+                "es": "Tomo café por la mañana."
               }
             },
             {
@@ -1257,6 +2158,21 @@
                 "ja": "夜",
                 "ko": "밤",
                 "es": "la noche"
+              },
+              "example": "Estudio por la noche.",
+              "exampleTokens": [
+                "Estudio",
+                "por",
+                "la",
+                "noche."
+              ],
+              "exampleMeaning": {
+                "en": "I study at night.",
+                "vi": "Tôi học vào buổi tối.",
+                "zh": "我晚上学习。",
+                "ja": "夜に勉強します。",
+                "ko": "밤에 공부해요.",
+                "es": "Estudio por la noche."
               }
             }
           ]
@@ -1286,6 +2202,11 @@
                 "es": "lunes"
               },
               "example": "Hoy es lunes.",
+              "exampleTokens": [
+                "Hoy",
+                "es",
+                "lunes."
+              ],
               "exampleMeaning": {
                 "en": "Today is Monday.",
                 "vi": "Hôm nay là thứ Hai.",
@@ -1305,6 +2226,22 @@
                 "ja": "火曜日",
                 "ko": "화요일",
                 "es": "martes"
+              },
+              "example": "Tengo una reunión el martes.",
+              "exampleTokens": [
+                "Tengo",
+                "una",
+                "reunión",
+                "el",
+                "martes."
+              ],
+              "exampleMeaning": {
+                "en": "I have a meeting on Tuesday.",
+                "vi": "Thứ Ba tôi có cuộc họp.",
+                "zh": "我星期二有会议。",
+                "ja": "火曜日に会議があります。",
+                "ko": "화요일에 회의가 있어요.",
+                "es": "Tengo una reunión el martes."
               }
             },
             {
@@ -1317,6 +2254,20 @@
                 "ja": "水曜日",
                 "ko": "수요일",
                 "es": "miércoles"
+              },
+              "example": "Hoy es miércoles.",
+              "exampleTokens": [
+                "Hoy",
+                "es",
+                "miércoles."
+              ],
+              "exampleMeaning": {
+                "en": "Today is Wednesday.",
+                "vi": "Hôm nay là thứ Tư.",
+                "zh": "今天是星期三。",
+                "ja": "今日は水曜日です。",
+                "ko": "오늘은 수요일이에요.",
+                "es": "Hoy es miércoles."
               }
             },
             {
@@ -1329,6 +2280,20 @@
                 "ja": "木曜日",
                 "ko": "목요일",
                 "es": "jueves"
+              },
+              "example": "¡Hasta el jueves!",
+              "exampleTokens": [
+                "¡Hasta",
+                "el",
+                "jueves!"
+              ],
+              "exampleMeaning": {
+                "en": "See you on Thursday!",
+                "vi": "Hẹn gặp lại vào thứ Năm!",
+                "zh": "星期四见！",
+                "ja": "木曜日に会いましょう！",
+                "ko": "목요일에 만나요!",
+                "es": "¡Hasta el jueves!"
               }
             },
             {
@@ -1341,6 +2306,21 @@
                 "ja": "金曜日",
                 "ko": "금요일",
                 "es": "viernes"
+              },
+              "example": "Me gusta el viernes.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "el",
+                "viernes."
+              ],
+              "exampleMeaning": {
+                "en": "I like Friday.",
+                "vi": "Tôi thích thứ Sáu.",
+                "zh": "我喜欢星期五。",
+                "ja": "金曜日が好きです。",
+                "ko": "저는 금요일을 좋아해요.",
+                "es": "Me gusta el viernes."
               }
             },
             {
@@ -1353,6 +2333,22 @@
                 "ja": "土曜日",
                 "ko": "토요일",
                 "es": "sábado"
+              },
+              "example": "Juego al fútbol el sábado.",
+              "exampleTokens": [
+                "Juego",
+                "al",
+                "fútbol",
+                "el",
+                "sábado."
+              ],
+              "exampleMeaning": {
+                "en": "I play soccer on Saturday.",
+                "vi": "Thứ Bảy tôi chơi bóng đá.",
+                "zh": "我星期六踢足球。",
+                "ja": "土曜日にサッカーをします。",
+                "ko": "토요일에 축구를 해요.",
+                "es": "Juego al fútbol el sábado."
               }
             },
             {
@@ -1367,6 +2363,11 @@
                 "es": "domingo"
               },
               "example": "Descanso el domingo.",
+              "exampleTokens": [
+                "Descanso",
+                "el",
+                "domingo."
+              ],
               "exampleMeaning": {
                 "en": "I rest on Sunday.",
                 "vi": "Chủ nhật tôi nghỉ ngơi.",
@@ -1401,6 +2402,20 @@
                 "ja": "時間",
                 "ko": "시간",
                 "es": "hora"
+              },
+              "example": "Estudio una hora.",
+              "exampleTokens": [
+                "Estudio",
+                "una",
+                "hora."
+              ],
+              "exampleMeaning": {
+                "en": "I study for one hour.",
+                "vi": "Tôi học trong một giờ.",
+                "zh": "我学习一个小时。",
+                "ja": "一時間勉強します。",
+                "ko": "한 시간 공부해요.",
+                "es": "Estudio una hora."
               }
             },
             {
@@ -1415,6 +2430,11 @@
                 "es": "minuto"
               },
               "example": "Espera cinco minutos.",
+              "exampleTokens": [
+                "Espera",
+                "cinco",
+                "minutos."
+              ],
               "exampleMeaning": {
                 "en": "Wait five minutes.",
                 "vi": "Đợi năm phút.",
@@ -1434,6 +2454,21 @@
                 "ja": "日",
                 "ko": "날",
                 "es": "día"
+              },
+              "example": "Es un día bonito.",
+              "exampleTokens": [
+                "Es",
+                "un",
+                "día",
+                "bonito."
+              ],
+              "exampleMeaning": {
+                "en": "It's a beautiful day.",
+                "vi": "Hôm nay là một ngày đẹp.",
+                "zh": "今天是美好的一天。",
+                "ja": "いい日ですね。",
+                "ko": "좋은 날이에요.",
+                "es": "Es un día bonito."
               }
             },
             {
@@ -1446,6 +2481,23 @@
                 "ja": "週",
                 "ko": "주",
                 "es": "semana"
+              },
+              "example": "Trabajo cinco días a la semana.",
+              "exampleTokens": [
+                "Trabajo",
+                "cinco",
+                "días",
+                "a",
+                "la",
+                "semana."
+              ],
+              "exampleMeaning": {
+                "en": "I work five days a week.",
+                "vi": "Tôi làm việc năm ngày một tuần.",
+                "zh": "我一个星期工作五天。",
+                "ja": "一週間に五日働きます。",
+                "ko": "일주일에 5일 일해요.",
+                "es": "Trabajo cinco días a la semana."
               }
             },
             {
@@ -1458,6 +2510,22 @@
                 "ja": "月",
                 "ko": "달",
                 "es": "mes"
+              },
+              "example": "Viajo una vez al mes.",
+              "exampleTokens": [
+                "Viajo",
+                "una",
+                "vez",
+                "al",
+                "mes."
+              ],
+              "exampleMeaning": {
+                "en": "I travel once a month.",
+                "vi": "Mỗi tháng tôi đi du lịch một lần.",
+                "zh": "我每个月旅行一次。",
+                "ja": "月に一回旅行します。",
+                "ko": "한 달에 한 번 여행해요.",
+                "es": "Viajo una vez al mes."
               }
             },
             {
@@ -1472,6 +2540,14 @@
                 "es": "fin de semana"
               },
               "example": "¿Qué haces el fin de semana?",
+              "exampleTokens": [
+                "¿Qué",
+                "haces",
+                "el",
+                "fin",
+                "de",
+                "semana?"
+              ],
               "exampleMeaning": {
                 "en": "What do you do on the weekend?",
                 "vi": "Cuối tuần bạn làm gì?",
@@ -1506,6 +2582,24 @@
                 "ja": "起きる",
                 "ko": "일어나다",
                 "es": "despertarse"
+              },
+              "example": "Me despierto a las seis cada mañana.",
+              "exampleTokens": [
+                "Me",
+                "despierto",
+                "a",
+                "las",
+                "seis",
+                "cada",
+                "mañana."
+              ],
+              "exampleMeaning": {
+                "en": "I wake up at six every morning.",
+                "vi": "Mỗi sáng tôi thức dậy lúc sáu giờ.",
+                "zh": "我每天早上六点起床。",
+                "ja": "毎朝六時に起きる。",
+                "ko": "매일 아침 여섯 시에 일어나요.",
+                "es": "Me despierto a las seis cada mañana."
               }
             },
             {
@@ -1520,6 +2614,12 @@
                 "es": "dormir"
               },
               "example": "Duermo a las once.",
+              "exampleTokens": [
+                "Duermo",
+                "a",
+                "las",
+                "once."
+              ],
               "exampleMeaning": {
                 "en": "I sleep at eleven.",
                 "vi": "Tôi ngủ lúc mười một giờ.",
@@ -1539,6 +2639,21 @@
                 "ja": "行く",
                 "ko": "가다",
                 "es": "ir"
+              },
+              "example": "Quiero ir a Japón.",
+              "exampleTokens": [
+                "Quiero",
+                "ir",
+                "a",
+                "Japón."
+              ],
+              "exampleMeaning": {
+                "en": "I want to go to Japan.",
+                "vi": "Tôi muốn đi Nhật Bản.",
+                "zh": "我想去日本。",
+                "ja": "日本に行きたいです。",
+                "ko": "일본에 가고 싶어요.",
+                "es": "Quiero ir a Japón."
               }
             },
             {
@@ -1551,6 +2666,21 @@
                 "ja": "来る",
                 "ko": "오다",
                 "es": "venir"
+              },
+              "example": "Ven aquí, por favor.",
+              "exampleTokens": [
+                "Ven",
+                "aquí,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Please come here.",
+                "vi": "Hãy đến đây.",
+                "zh": "请来这里。",
+                "ja": "ここに来てください。",
+                "ko": "여기로 오세요.",
+                "es": "Ven aquí, por favor."
               }
             },
             {
@@ -1563,6 +2693,23 @@
                 "ja": "帰る",
                 "ko": "집에 가다",
                 "es": "volver a casa"
+              },
+              "example": "Es hora de volver a casa.",
+              "exampleTokens": [
+                "Es",
+                "hora",
+                "de",
+                "volver",
+                "a",
+                "casa."
+              ],
+              "exampleMeaning": {
+                "en": "It's time to go home.",
+                "vi": "Đến giờ về nhà rồi.",
+                "zh": "该回家了。",
+                "ja": "もう帰る時間です。",
+                "ko": "이제 집에 갈 시간이에요.",
+                "es": "Es hora de volver a casa."
               }
             },
             {
@@ -1575,6 +2722,21 @@
                 "ja": "働く",
                 "ko": "일하다",
                 "es": "trabajar"
+              },
+              "example": "Trabajo en un hospital.",
+              "exampleTokens": [
+                "Trabajo",
+                "en",
+                "un",
+                "hospital."
+              ],
+              "exampleMeaning": {
+                "en": "I work at a hospital.",
+                "vi": "Tôi làm việc ở bệnh viện.",
+                "zh": "我在医院工作。",
+                "ja": "病院で働いています。",
+                "ko": "병원에서 일해요.",
+                "es": "Trabajo en un hospital."
               }
             }
           ]
@@ -1615,6 +2777,20 @@
                 "ja": "お金",
                 "ko": "돈",
                 "es": "dinero"
+              },
+              "example": "No tengo dinero.",
+              "exampleTokens": [
+                "No",
+                "tengo",
+                "dinero."
+              ],
+              "exampleMeaning": {
+                "en": "I don't have money.",
+                "vi": "Tôi không có tiền.",
+                "zh": "我没有钱。",
+                "ja": "お金がありません。",
+                "ko": "돈이 없어요.",
+                "es": "No tengo dinero."
               }
             },
             {
@@ -1627,6 +2803,21 @@
                 "ja": "店",
                 "ko": "가게",
                 "es": "tienda"
+              },
+              "example": "Esta tienda es barata.",
+              "exampleTokens": [
+                "Esta",
+                "tienda",
+                "es",
+                "barata."
+              ],
+              "exampleMeaning": {
+                "en": "This shop is cheap.",
+                "vi": "Cửa hàng này rẻ.",
+                "zh": "这家商店很便宜。",
+                "ja": "この店は安いです。",
+                "ko": "이 가게는 싸요.",
+                "es": "Esta tienda es barata."
               }
             },
             {
@@ -1639,6 +2830,20 @@
                 "ja": "買う",
                 "ko": "사다",
                 "es": "comprar"
+              },
+              "example": "Quiero comprar pan.",
+              "exampleTokens": [
+                "Quiero",
+                "comprar",
+                "pan."
+              ],
+              "exampleMeaning": {
+                "en": "I want to buy bread.",
+                "vi": "Tôi muốn mua bánh mì.",
+                "zh": "我想买面包。",
+                "ja": "パンを買うつもりです。",
+                "ko": "빵을 사고 싶어요.",
+                "es": "Quiero comprar pan."
               }
             },
             {
@@ -1653,6 +2858,12 @@
                 "es": "caro"
               },
               "example": "Esto es demasiado caro.",
+              "exampleTokens": [
+                "Esto",
+                "es",
+                "demasiado",
+                "caro."
+              ],
               "exampleMeaning": {
                 "en": "This is too expensive.",
                 "vi": "Cái này đắt quá.",
@@ -1672,6 +2883,20 @@
                 "ja": "安い",
                 "ko": "싸다",
                 "es": "barato"
+              },
+              "example": "¡Esto es barato!",
+              "exampleTokens": [
+                "¡Esto",
+                "es",
+                "barato!"
+              ],
+              "exampleMeaning": {
+                "en": "This is cheap!",
+                "vi": "Cái này rẻ quá!",
+                "zh": "这个很便宜！",
+                "ja": "これは安いです！",
+                "ko": "이거 싸요!",
+                "es": "¡Esto es barato!"
               }
             },
             {
@@ -1686,6 +2911,11 @@
                 "es": "cuánto cuesta"
               },
               "example": "¿Cuánto cuesta esto?",
+              "exampleTokens": [
+                "¿Cuánto",
+                "cuesta",
+                "esto?"
+              ],
               "exampleMeaning": {
                 "en": "How much is this?",
                 "vi": "Cái này bao nhiêu tiền?",
@@ -1720,6 +2950,21 @@
                 "ja": "シャツ",
                 "ko": "셔츠",
                 "es": "camisa"
+              },
+              "example": "Esta camisa es cara.",
+              "exampleTokens": [
+                "Esta",
+                "camisa",
+                "es",
+                "cara."
+              ],
+              "exampleMeaning": {
+                "en": "This shirt is expensive.",
+                "vi": "Cái áo sơ mi này đắt.",
+                "zh": "这件衬衫很贵。",
+                "ja": "このシャツは高いです。",
+                "ko": "이 셔츠는 비싸요.",
+                "es": "Esta camisa es cara."
               }
             },
             {
@@ -1732,6 +2977,21 @@
                 "ja": "ズボン",
                 "ko": "바지",
                 "es": "pantalones"
+              },
+              "example": "Quiero comprar pantalones negros.",
+              "exampleTokens": [
+                "Quiero",
+                "comprar",
+                "pantalones",
+                "negros."
+              ],
+              "exampleMeaning": {
+                "en": "I want to buy black pants.",
+                "vi": "Tôi muốn mua quần đen.",
+                "zh": "我想买黑色的裤子。",
+                "ja": "黒いズボンを買いたいです。",
+                "ko": "검은 바지를 사고 싶어요.",
+                "es": "Quiero comprar pantalones negros."
               }
             },
             {
@@ -1746,6 +3006,12 @@
                 "es": "zapatos"
               },
               "example": "Estos zapatos son baratos.",
+              "exampleTokens": [
+                "Estos",
+                "zapatos",
+                "son",
+                "baratos."
+              ],
               "exampleMeaning": {
                 "en": "These shoes are cheap.",
                 "vi": "Đôi giày này rẻ.",
@@ -1765,6 +3031,21 @@
                 "ja": "帽子",
                 "ko": "모자",
                 "es": "sombrero"
+              },
+              "example": "El sombrero es rojo.",
+              "exampleTokens": [
+                "El",
+                "sombrero",
+                "es",
+                "rojo."
+              ],
+              "exampleMeaning": {
+                "en": "The hat is red.",
+                "vi": "Cái mũ màu đỏ.",
+                "zh": "帽子是红色的。",
+                "ja": "帽子は赤です。",
+                "ko": "모자는 빨간색이에요.",
+                "es": "El sombrero es rojo."
               }
             },
             {
@@ -1777,6 +3058,21 @@
                 "ja": "ワンピース",
                 "ko": "원피스",
                 "es": "vestido"
+              },
+              "example": "Este vestido es bonito.",
+              "exampleTokens": [
+                "Este",
+                "vestido",
+                "es",
+                "bonito."
+              ],
+              "exampleMeaning": {
+                "en": "This dress is beautiful.",
+                "vi": "Chiếc váy này đẹp.",
+                "zh": "这条连衣裙很漂亮。",
+                "ja": "このワンピースはきれいです。",
+                "ko": "이 원피스는 예뻐요.",
+                "es": "Este vestido es bonito."
               }
             },
             {
@@ -1791,6 +3087,12 @@
                 "es": "bolso"
               },
               "example": "Quiero comprar un bolso.",
+              "exampleTokens": [
+                "Quiero",
+                "comprar",
+                "un",
+                "bolso."
+              ],
               "exampleMeaning": {
                 "en": "I want to buy a bag.",
                 "vi": "Tôi muốn mua một cái túi xách.",
@@ -1827,6 +3129,12 @@
                 "es": "rojo"
               },
               "example": "Me gusta el rojo.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "el",
+                "rojo."
+              ],
               "exampleMeaning": {
                 "en": "I like red.",
                 "vi": "Tôi thích màu đỏ.",
@@ -1846,6 +3154,21 @@
                 "ja": "青",
                 "ko": "파란색",
                 "es": "azul"
+              },
+              "example": "El cielo es azul.",
+              "exampleTokens": [
+                "El",
+                "cielo",
+                "es",
+                "azul."
+              ],
+              "exampleMeaning": {
+                "en": "The sky is blue.",
+                "vi": "Bầu trời màu xanh dương.",
+                "zh": "天空是蓝色的。",
+                "ja": "空は青いです。",
+                "ko": "하늘은 파란색이에요.",
+                "es": "El cielo es azul."
               }
             },
             {
@@ -1858,6 +3181,21 @@
                 "ja": "緑",
                 "ko": "초록색",
                 "es": "verde"
+              },
+              "example": "El árbol es verde.",
+              "exampleTokens": [
+                "El",
+                "árbol",
+                "es",
+                "verde."
+              ],
+              "exampleMeaning": {
+                "en": "The tree is green.",
+                "vi": "Cái cây màu xanh lá.",
+                "zh": "树是绿色的。",
+                "ja": "木は緑です。",
+                "ko": "나무는 초록색이에요.",
+                "es": "El árbol es verde."
               }
             },
             {
@@ -1870,6 +3208,21 @@
                 "ja": "黄色",
                 "ko": "노란색",
                 "es": "amarillo"
+              },
+              "example": "Me gusta el amarillo.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "el",
+                "amarillo."
+              ],
+              "exampleMeaning": {
+                "en": "I like yellow.",
+                "vi": "Tôi thích màu vàng.",
+                "zh": "我喜欢黄色。",
+                "ja": "黄色が好きです。",
+                "ko": "저는 노란색을 좋아해요.",
+                "es": "Me gusta el amarillo."
               }
             },
             {
@@ -1882,6 +3235,21 @@
                 "ja": "黒",
                 "ko": "검은색",
                 "es": "negro"
+              },
+              "example": "Mi gato es negro.",
+              "exampleTokens": [
+                "Mi",
+                "gato",
+                "es",
+                "negro."
+              ],
+              "exampleMeaning": {
+                "en": "My cat is black.",
+                "vi": "Con mèo của tôi màu đen.",
+                "zh": "我的猫是黑色的。",
+                "ja": "私の猫は黒です。",
+                "ko": "제 고양이는 검은색이에요.",
+                "es": "Mi gato es negro."
               }
             },
             {
@@ -1896,6 +3264,12 @@
                 "es": "blanco"
               },
               "example": "La camisa es blanca.",
+              "exampleTokens": [
+                "La",
+                "camisa",
+                "es",
+                "blanca."
+              ],
               "exampleMeaning": {
                 "en": "The shirt is white.",
                 "vi": "Áo sơ mi màu trắng.",
@@ -1930,6 +3304,21 @@
                 "ja": "払う",
                 "ko": "내다",
                 "es": "pagar"
+              },
+              "example": "¿Dónde tengo que pagar?",
+              "exampleTokens": [
+                "¿Dónde",
+                "tengo",
+                "que",
+                "pagar?"
+              ],
+              "exampleMeaning": {
+                "en": "Where do I pay?",
+                "vi": "Tôi trả tiền ở đâu?",
+                "zh": "在哪里付钱？",
+                "ja": "どこで払いますか？",
+                "ko": "어디에서 내요?",
+                "es": "¿Dónde tengo que pagar?"
               }
             },
             {
@@ -1942,6 +3331,21 @@
                 "ja": "現金",
                 "ko": "현금",
                 "es": "efectivo"
+              },
+              "example": "¿Puedo pagar en efectivo?",
+              "exampleTokens": [
+                "¿Puedo",
+                "pagar",
+                "en",
+                "efectivo?"
+              ],
+              "exampleMeaning": {
+                "en": "Can I pay in cash?",
+                "vi": "Tôi trả bằng tiền mặt được không?",
+                "zh": "可以用现金吗？",
+                "ja": "現金で払えますか？",
+                "ko": "현금으로 내도 돼요?",
+                "es": "¿Puedo pagar en efectivo?"
               }
             },
             {
@@ -1956,6 +3360,12 @@
                 "es": "tarjeta"
               },
               "example": "¿Puedo pagar con tarjeta?",
+              "exampleTokens": [
+                "¿Puedo",
+                "pagar",
+                "con",
+                "tarjeta?"
+              ],
               "exampleMeaning": {
                 "en": "Can I pay by card?",
                 "vi": "Tôi trả bằng thẻ được không?",
@@ -1975,6 +3385,21 @@
                 "ja": "レシート",
                 "ko": "영수증",
                 "es": "recibo"
+              },
+              "example": "El recibo, por favor.",
+              "exampleTokens": [
+                "El",
+                "recibo,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "A receipt, please.",
+                "vi": "Cho tôi hoá đơn.",
+                "zh": "请给我收据。",
+                "ja": "レシートをください。",
+                "ko": "영수증 주세요.",
+                "es": "El recibo, por favor."
               }
             },
             {
@@ -1987,6 +3412,19 @@
                 "ja": "割引",
                 "ko": "할인",
                 "es": "descuento"
+              },
+              "example": "¿Hay descuento?",
+              "exampleTokens": [
+                "¿Hay",
+                "descuento?"
+              ],
+              "exampleMeaning": {
+                "en": "Is there a discount?",
+                "vi": "Có giảm giá không?",
+                "zh": "可以打折吗？",
+                "ja": "割引はありますか？",
+                "ko": "할인이 있어요?",
+                "es": "¿Hay descuento?"
               }
             },
             {
@@ -1999,6 +3437,21 @@
                 "ja": "おつり",
                 "ko": "거스름돈",
                 "es": "cambio"
+              },
+              "example": "Aquí tiene su cambio.",
+              "exampleTokens": [
+                "Aquí",
+                "tiene",
+                "su",
+                "cambio."
+              ],
+              "exampleMeaning": {
+                "en": "Here is your change.",
+                "vi": "Đây là tiền thừa của bạn.",
+                "zh": "这是找零。",
+                "ja": "おつりです。",
+                "ko": "거스름돈 여기 있어요.",
+                "es": "Aquí tiene su cambio."
               }
             }
           ]
@@ -2041,6 +3494,12 @@
                 "es": "estación"
               },
               "example": "La estación está cerca.",
+              "exampleTokens": [
+                "La",
+                "estación",
+                "está",
+                "cerca."
+              ],
               "exampleMeaning": {
                 "en": "The station is near.",
                 "vi": "Nhà ga ở gần đây.",
@@ -2060,6 +3519,22 @@
                 "ja": "空港",
                 "ko": "공항",
                 "es": "aeropuerto"
+              },
+              "example": "Voy al aeropuerto en taxi.",
+              "exampleTokens": [
+                "Voy",
+                "al",
+                "aeropuerto",
+                "en",
+                "taxi."
+              ],
+              "exampleMeaning": {
+                "en": "I go to the airport by taxi.",
+                "vi": "Tôi đi taxi đến sân bay.",
+                "zh": "我坐出租车去机场。",
+                "ja": "タクシーで空港に行きます。",
+                "ko": "택시로 공항에 가요.",
+                "es": "Voy al aeropuerto en taxi."
               }
             },
             {
@@ -2072,6 +3547,24 @@
                 "ja": "ホテル",
                 "ko": "호텔",
                 "es": "hotel"
+              },
+              "example": "El hotel está cerca de la estación.",
+              "exampleTokens": [
+                "El",
+                "hotel",
+                "está",
+                "cerca",
+                "de",
+                "la",
+                "estación."
+              ],
+              "exampleMeaning": {
+                "en": "The hotel is near the station.",
+                "vi": "Khách sạn ở gần nhà ga.",
+                "zh": "酒店在车站附近。",
+                "ja": "ホテルは駅の近くです。",
+                "ko": "호텔은 역 근처에 있어요.",
+                "es": "El hotel está cerca de la estación."
               }
             },
             {
@@ -2084,6 +3577,21 @@
                 "ja": "レストラン",
                 "ko": "식당",
                 "es": "restaurante"
+              },
+              "example": "Comamos en este restaurante.",
+              "exampleTokens": [
+                "Comamos",
+                "en",
+                "este",
+                "restaurante."
+              ],
+              "exampleMeaning": {
+                "en": "Let's eat at this restaurant.",
+                "vi": "Chúng ta ăn ở nhà hàng này nhé.",
+                "zh": "我们在这家餐厅吃饭吧。",
+                "ja": "このレストランで食べましょう。",
+                "ko": "이 식당에서 먹어요.",
+                "es": "Comamos en este restaurante."
               }
             },
             {
@@ -2096,6 +3604,21 @@
                 "ja": "病院",
                 "ko": "병원",
                 "es": "hospital"
+              },
+              "example": "¿Dónde está el hospital?",
+              "exampleTokens": [
+                "¿Dónde",
+                "está",
+                "el",
+                "hospital?"
+              ],
+              "exampleMeaning": {
+                "en": "Where is the hospital?",
+                "vi": "Bệnh viện ở đâu?",
+                "zh": "医院在哪里？",
+                "ja": "病院はどこですか？",
+                "ko": "병원이 어디예요?",
+                "es": "¿Dónde está el hospital?"
               }
             },
             {
@@ -2110,6 +3633,12 @@
                 "es": "baño"
               },
               "example": "¿Dónde está el baño?",
+              "exampleTokens": [
+                "¿Dónde",
+                "está",
+                "el",
+                "baño?"
+              ],
               "exampleMeaning": {
                 "en": "Where is the toilet?",
                 "vi": "Nhà vệ sinh ở đâu?",
@@ -2146,6 +3675,12 @@
                 "es": "izquierda"
               },
               "example": "Gira a la izquierda.",
+              "exampleTokens": [
+                "Gira",
+                "a",
+                "la",
+                "izquierda."
+              ],
               "exampleMeaning": {
                 "en": "Turn left.",
                 "vi": "Rẽ bên trái.",
@@ -2165,6 +3700,24 @@
                 "ja": "右",
                 "ko": "오른쪽",
                 "es": "derecha"
+              },
+              "example": "Gira a la derecha en la estación.",
+              "exampleTokens": [
+                "Gira",
+                "a",
+                "la",
+                "derecha",
+                "en",
+                "la",
+                "estación."
+              ],
+              "exampleMeaning": {
+                "en": "Turn right at the station.",
+                "vi": "Rẽ bên phải ở nhà ga.",
+                "zh": "在车站往右边走。",
+                "ja": "駅で右に曲がってください。",
+                "ko": "역에서 오른쪽으로 가세요.",
+                "es": "Gira a la derecha en la estación."
               }
             },
             {
@@ -2177,6 +3730,20 @@
                 "ja": "まっすぐ",
                 "ko": "직진",
                 "es": "todo recto"
+              },
+              "example": "Sigue todo recto.",
+              "exampleTokens": [
+                "Sigue",
+                "todo",
+                "recto."
+              ],
+              "exampleMeaning": {
+                "en": "Go straight ahead.",
+                "vi": "Hãy đi thẳng.",
+                "zh": "请一直走。",
+                "ja": "まっすぐ行ってください。",
+                "ko": "직진하세요.",
+                "es": "Sigue todo recto."
               }
             },
             {
@@ -2189,6 +3756,21 @@
                 "ja": "近い",
                 "ko": "가깝다",
                 "es": "cerca"
+              },
+              "example": "La escuela está cerca.",
+              "exampleTokens": [
+                "La",
+                "escuela",
+                "está",
+                "cerca."
+              ],
+              "exampleMeaning": {
+                "en": "The school is near.",
+                "vi": "Trường học ở gần.",
+                "zh": "学校很近。",
+                "ja": "学校は近いです。",
+                "ko": "학교가 가까워요.",
+                "es": "La escuela está cerca."
               }
             },
             {
@@ -2203,6 +3785,10 @@
                 "es": "lejos"
               },
               "example": "¿Está lejos?",
+              "exampleTokens": [
+                "¿Está",
+                "lejos?"
+              ],
               "exampleMeaning": {
                 "en": "Is it far?",
                 "vi": "Có xa không?",
@@ -2222,6 +3808,21 @@
                 "ja": "どこ",
                 "ko": "어디",
                 "es": "dónde"
+              },
+              "example": "¿Dónde está el autobús?",
+              "exampleTokens": [
+                "¿Dónde",
+                "está",
+                "el",
+                "autobús?"
+              ],
+              "exampleMeaning": {
+                "en": "Where is the bus?",
+                "vi": "Xe buýt ở đâu?",
+                "zh": "公交车在哪里？",
+                "ja": "バスはどこですか？",
+                "ko": "버스가 어디 있어요?",
+                "es": "¿Dónde está el autobús?"
               }
             }
           ]
@@ -2249,6 +3850,21 @@
                 "ja": "車",
                 "ko": "자동차",
                 "es": "coche"
+              },
+              "example": "Mi coche es blanco.",
+              "exampleTokens": [
+                "Mi",
+                "coche",
+                "es",
+                "blanco."
+              ],
+              "exampleMeaning": {
+                "en": "My car is white.",
+                "vi": "Xe hơi của tôi màu trắng.",
+                "zh": "我的汽车是白色的。",
+                "ja": "私の車は白です。",
+                "ko": "제 자동차는 흰색이에요.",
+                "es": "Mi coche es blanco."
               }
             },
             {
@@ -2263,6 +3879,11 @@
                 "es": "autobús"
               },
               "example": "Voy en autobús.",
+              "exampleTokens": [
+                "Voy",
+                "en",
+                "autobús."
+              ],
               "exampleMeaning": {
                 "en": "I go by bus.",
                 "vi": "Tôi đi xe buýt.",
@@ -2282,6 +3903,22 @@
                 "ja": "電車",
                 "ko": "기차",
                 "es": "tren"
+              },
+              "example": "Voy al trabajo en tren.",
+              "exampleTokens": [
+                "Voy",
+                "al",
+                "trabajo",
+                "en",
+                "tren."
+              ],
+              "exampleMeaning": {
+                "en": "I go to work by train.",
+                "vi": "Tôi đi làm bằng tàu hỏa.",
+                "zh": "我坐火车去上班。",
+                "ja": "電車で会社に行きます。",
+                "ko": "기차로 회사에 가요.",
+                "es": "Voy al trabajo en tren."
               }
             },
             {
@@ -2294,6 +3931,20 @@
                 "ja": "タクシー",
                 "ko": "택시",
                 "es": "taxi"
+              },
+              "example": "Tomemos un taxi.",
+              "exampleTokens": [
+                "Tomemos",
+                "un",
+                "taxi."
+              ],
+              "exampleMeaning": {
+                "en": "Let's take a taxi.",
+                "vi": "Chúng ta đi taxi nhé.",
+                "zh": "我们坐出租车吧。",
+                "ja": "タクシーに乗りましょう。",
+                "ko": "택시를 타요.",
+                "es": "Tomemos un taxi."
               }
             },
             {
@@ -2306,6 +3957,23 @@
                 "ja": "自転車",
                 "ko": "자전거",
                 "es": "bicicleta"
+              },
+              "example": "Voy a la escuela en bicicleta.",
+              "exampleTokens": [
+                "Voy",
+                "a",
+                "la",
+                "escuela",
+                "en",
+                "bicicleta."
+              ],
+              "exampleMeaning": {
+                "en": "I go to school by bicycle.",
+                "vi": "Tôi đi học bằng xe đạp.",
+                "zh": "我骑自行车去学校。",
+                "ja": "自転車で学校に行きます。",
+                "ko": "자전거로 학교에 가요.",
+                "es": "Voy a la escuela en bicicleta."
               }
             },
             {
@@ -2320,6 +3988,12 @@
                 "es": "billete"
               },
               "example": "Un billete, por favor.",
+              "exampleTokens": [
+                "Un",
+                "billete,",
+                "por",
+                "favor."
+              ],
               "exampleMeaning": {
                 "en": "One ticket, please.",
                 "vi": "Cho tôi một vé.",
@@ -2354,6 +4028,21 @@
                 "ja": "部屋",
                 "ko": "방",
                 "es": "habitación"
+              },
+              "example": "Esta habitación es fresca.",
+              "exampleTokens": [
+                "Esta",
+                "habitación",
+                "es",
+                "fresca."
+              ],
+              "exampleMeaning": {
+                "en": "This room is cool.",
+                "vi": "Căn phòng này mát.",
+                "zh": "这个房间很凉快。",
+                "ja": "この部屋は涼しいです。",
+                "ko": "이 방은 시원해요.",
+                "es": "Esta habitación es fresca."
               }
             },
             {
@@ -2366,6 +4055,21 @@
                 "ja": "鍵",
                 "ko": "열쇠",
                 "es": "llave"
+              },
+              "example": "¿Dónde está mi llave?",
+              "exampleTokens": [
+                "¿Dónde",
+                "está",
+                "mi",
+                "llave?"
+              ],
+              "exampleMeaning": {
+                "en": "Where is my key?",
+                "vi": "Chìa khoá của tôi ở đâu?",
+                "zh": "我的钥匙在哪里？",
+                "ja": "私の鍵はどこですか？",
+                "ko": "제 열쇠가 어디 있어요?",
+                "es": "¿Dónde está mi llave?"
               }
             },
             {
@@ -2378,6 +4082,21 @@
                 "ja": "パスポート",
                 "ko": "여권",
                 "es": "pasaporte"
+              },
+              "example": "Su pasaporte, por favor.",
+              "exampleTokens": [
+                "Su",
+                "pasaporte,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Your passport, please.",
+                "vi": "Cho tôi xem hộ chiếu.",
+                "zh": "请出示护照。",
+                "ja": "パスポートをお願いします。",
+                "ko": "여권 주세요.",
+                "es": "Su pasaporte, por favor."
               }
             },
             {
@@ -2392,6 +4111,11 @@
                 "es": "reserva"
               },
               "example": "Tengo una reserva.",
+              "exampleTokens": [
+                "Tengo",
+                "una",
+                "reserva."
+              ],
               "exampleMeaning": {
                 "en": "I have a reservation.",
                 "vi": "Tôi đã đặt phòng.",
@@ -2411,6 +4135,20 @@
                 "ja": "荷物",
                 "ko": "짐",
                 "es": "equipaje"
+              },
+              "example": "Tengo mucho equipaje.",
+              "exampleTokens": [
+                "Tengo",
+                "mucho",
+                "equipaje."
+              ],
+              "exampleMeaning": {
+                "en": "I have a lot of luggage.",
+                "vi": "Tôi có nhiều hành lý.",
+                "zh": "我的行李很多。",
+                "ja": "荷物がたくさんあります。",
+                "ko": "짐이 많아요.",
+                "es": "Tengo mucho equipaje."
               }
             },
             {
@@ -2423,6 +4161,20 @@
                 "ja": "地図",
                 "ko": "지도",
                 "es": "mapa"
+              },
+              "example": "¿Tienes un mapa?",
+              "exampleTokens": [
+                "¿Tienes",
+                "un",
+                "mapa?"
+              ],
+              "exampleMeaning": {
+                "en": "Do you have a map?",
+                "vi": "Bạn có bản đồ không?",
+                "zh": "你有地图吗？",
+                "ja": "地図がありますか？",
+                "ko": "지도 있어요?",
+                "es": "¿Tienes un mapa?"
               }
             }
           ]
@@ -2465,6 +4217,12 @@
                 "es": "ingeniero / ingeniera"
               },
               "example": "Mi padre es ingeniero.",
+              "exampleTokens": [
+                "Mi",
+                "padre",
+                "es",
+                "ingeniero."
+              ],
               "exampleMeaning": {
                 "en": "My father is an engineer.",
                 "vi": "Bố tôi là kỹ sư.",
@@ -2484,6 +4242,21 @@
                 "ja": "看護師",
                 "ko": "간호사",
                 "es": "enfermero / enfermera"
+              },
+              "example": "Mi hermana es enfermera.",
+              "exampleTokens": [
+                "Mi",
+                "hermana",
+                "es",
+                "enfermera."
+              ],
+              "exampleMeaning": {
+                "en": "My sister is a nurse.",
+                "vi": "Em gái tôi là y tá.",
+                "zh": "我妹妹是护士。",
+                "ja": "妹は看護師です。",
+                "ko": "제 동생은 간호사예요.",
+                "es": "Mi hermana es enfermera."
               }
             },
             {
@@ -2496,6 +4269,22 @@
                 "ja": "料理人",
                 "ko": "요리사",
                 "es": "cocinero / cocinera"
+              },
+              "example": "El cocinero está muy ocupado.",
+              "exampleTokens": [
+                "El",
+                "cocinero",
+                "está",
+                "muy",
+                "ocupado."
+              ],
+              "exampleMeaning": {
+                "en": "The cook is very busy.",
+                "vi": "Đầu bếp rất bận.",
+                "zh": "厨师很忙。",
+                "ja": "料理人はとても忙しいです。",
+                "ko": "요리사는 아주 바빠요.",
+                "es": "El cocinero está muy ocupado."
               }
             },
             {
@@ -2508,6 +4297,21 @@
                 "ja": "運転手",
                 "ko": "운전기사",
                 "es": "conductor / conductora"
+              },
+              "example": "El conductor es amable.",
+              "exampleTokens": [
+                "El",
+                "conductor",
+                "es",
+                "amable."
+              ],
+              "exampleMeaning": {
+                "en": "The driver is kind.",
+                "vi": "Tài xế rất tốt bụng.",
+                "zh": "司机很善良。",
+                "ja": "運転手は優しいです。",
+                "ko": "운전기사는 친절해요.",
+                "es": "El conductor es amable."
               }
             },
             {
@@ -2520,6 +4324,21 @@
                 "ja": "警察官",
                 "ko": "경찰관",
                 "es": "policía"
+              },
+              "example": "Pregunta a un policía.",
+              "exampleTokens": [
+                "Pregunta",
+                "a",
+                "un",
+                "policía."
+              ],
+              "exampleMeaning": {
+                "en": "Ask a police officer.",
+                "vi": "Hãy hỏi cảnh sát.",
+                "zh": "请问警察。",
+                "ja": "警察官に聞いてください。",
+                "ko": "경찰관에게 물어보세요.",
+                "es": "Pregunta a un policía."
               }
             },
             {
@@ -2532,6 +4351,21 @@
                 "ja": "会社員",
                 "ko": "회사원",
                 "es": "oficinista"
+              },
+              "example": "Mi padre es oficinista.",
+              "exampleTokens": [
+                "Mi",
+                "padre",
+                "es",
+                "oficinista."
+              ],
+              "exampleMeaning": {
+                "en": "My father is an office worker.",
+                "vi": "Bố tôi là nhân viên văn phòng.",
+                "zh": "我爸爸是上班族。",
+                "ja": "父は会社員です。",
+                "ko": "아버지는 회사원이에요.",
+                "es": "Mi padre es oficinista."
               }
             }
           ]
@@ -2559,6 +4393,23 @@
                 "ja": "会社",
                 "ko": "회사",
                 "es": "empresa"
+              },
+              "example": "Voy a la empresa en autobús.",
+              "exampleTokens": [
+                "Voy",
+                "a",
+                "la",
+                "empresa",
+                "en",
+                "autobús."
+              ],
+              "exampleMeaning": {
+                "en": "I go to the company by bus.",
+                "vi": "Tôi đi xe buýt đến công ty.",
+                "zh": "我坐公交车去公司。",
+                "ja": "バスで会社に行きます。",
+                "ko": "버스로 회사에 가요.",
+                "es": "Voy a la empresa en autobús."
               }
             },
             {
@@ -2571,6 +4422,21 @@
                 "ja": "パソコン",
                 "ko": "컴퓨터",
                 "es": "ordenador"
+              },
+              "example": "Trabajo con el ordenador.",
+              "exampleTokens": [
+                "Trabajo",
+                "con",
+                "el",
+                "ordenador."
+              ],
+              "exampleMeaning": {
+                "en": "I work on a computer.",
+                "vi": "Tôi làm việc trên máy tính.",
+                "zh": "我用电脑工作。",
+                "ja": "パソコンで仕事をします。",
+                "ko": "컴퓨터로 일해요.",
+                "es": "Trabajo con el ordenador."
               }
             },
             {
@@ -2583,6 +4449,21 @@
                 "ja": "電話",
                 "ko": "전화",
                 "es": "teléfono"
+              },
+              "example": "Mi teléfono es nuevo.",
+              "exampleTokens": [
+                "Mi",
+                "teléfono",
+                "es",
+                "nuevo."
+              ],
+              "exampleMeaning": {
+                "en": "My phone is new.",
+                "vi": "Điện thoại của tôi mới.",
+                "zh": "我的手机是新的。",
+                "ja": "私の電話は新しいです。",
+                "ko": "제 전화는 새 거예요.",
+                "es": "Mi teléfono es nuevo."
               }
             },
             {
@@ -2597,6 +4478,14 @@
                 "es": "reunión"
               },
               "example": "La reunión es a las diez.",
+              "exampleTokens": [
+                "La",
+                "reunión",
+                "es",
+                "a",
+                "las",
+                "diez."
+              ],
               "exampleMeaning": {
                 "en": "The meeting is at ten.",
                 "vi": "Cuộc họp lúc mười giờ.",
@@ -2616,6 +4505,21 @@
                 "ja": "メール",
                 "ko": "이메일",
                 "es": "correo electrónico"
+              },
+              "example": "Escribo un correo electrónico.",
+              "exampleTokens": [
+                "Escribo",
+                "un",
+                "correo",
+                "electrónico."
+              ],
+              "exampleMeaning": {
+                "en": "I write an email.",
+                "vi": "Tôi viết email.",
+                "zh": "我写邮件。",
+                "ja": "メールを書きます。",
+                "ko": "이메일을 써요.",
+                "es": "Escribo un correo electrónico."
               }
             },
             {
@@ -2628,6 +4532,22 @@
                 "ja": "上司",
                 "ko": "상사",
                 "es": "jefe / jefa"
+              },
+              "example": "Mi jefe está ocupado hoy.",
+              "exampleTokens": [
+                "Mi",
+                "jefe",
+                "está",
+                "ocupado",
+                "hoy."
+              ],
+              "exampleMeaning": {
+                "en": "My boss is busy today.",
+                "vi": "Hôm nay sếp tôi bận.",
+                "zh": "我老板今天很忙。",
+                "ja": "上司は今日忙しいです。",
+                "ko": "상사는 오늘 바빠요.",
+                "es": "Mi jefe está ocupado hoy."
               }
             }
           ]
@@ -2655,6 +4575,21 @@
                 "ja": "学校",
                 "ko": "학교",
                 "es": "escuela"
+              },
+              "example": "La escuela está lejos.",
+              "exampleTokens": [
+                "La",
+                "escuela",
+                "está",
+                "lejos."
+              ],
+              "exampleMeaning": {
+                "en": "The school is far.",
+                "vi": "Trường học ở xa.",
+                "zh": "学校很远。",
+                "ja": "学校は遠いです。",
+                "ko": "학교가 멀어요.",
+                "es": "La escuela está lejos."
               }
             },
             {
@@ -2669,6 +4604,12 @@
                 "es": "libro"
               },
               "example": "Estoy leyendo un libro.",
+              "exampleTokens": [
+                "Estoy",
+                "leyendo",
+                "un",
+                "libro."
+              ],
               "exampleMeaning": {
                 "en": "I am reading a book.",
                 "vi": "Tôi đang đọc sách.",
@@ -2688,6 +4629,21 @@
                 "ja": "ペン",
                 "ko": "펜",
                 "es": "bolígrafo"
+              },
+              "example": "¿Puedo usar tu bolígrafo?",
+              "exampleTokens": [
+                "¿Puedo",
+                "usar",
+                "tu",
+                "bolígrafo?"
+              ],
+              "exampleMeaning": {
+                "en": "Can I use your pen?",
+                "vi": "Tôi dùng bút của bạn được không?",
+                "zh": "我可以用你的笔吗？",
+                "ja": "ペンを使ってもいいですか？",
+                "ko": "펜을 써도 돼요?",
+                "es": "¿Puedo usar tu bolígrafo?"
               }
             },
             {
@@ -2700,6 +4656,23 @@
                 "ja": "宿題",
                 "ko": "숙제",
                 "es": "deberes"
+              },
+              "example": "Hago los deberes por la noche.",
+              "exampleTokens": [
+                "Hago",
+                "los",
+                "deberes",
+                "por",
+                "la",
+                "noche."
+              ],
+              "exampleMeaning": {
+                "en": "I do my homework at night.",
+                "vi": "Tôi làm bài tập về nhà vào buổi tối.",
+                "zh": "我晚上做作业。",
+                "ja": "夜に宿題をします。",
+                "ko": "밤에 숙제를 해요.",
+                "es": "Hago los deberes por la noche."
               }
             },
             {
@@ -2712,6 +4685,21 @@
                 "ja": "試験",
                 "ko": "시험",
                 "es": "examen"
+              },
+              "example": "El examen es mañana.",
+              "exampleTokens": [
+                "El",
+                "examen",
+                "es",
+                "mañana."
+              ],
+              "exampleMeaning": {
+                "en": "The exam is tomorrow.",
+                "vi": "Ngày mai có kỳ thi.",
+                "zh": "明天有考试。",
+                "ja": "試験は明日です。",
+                "ko": "시험은 내일이에요.",
+                "es": "El examen es mañana."
               }
             },
             {
@@ -2724,6 +4712,21 @@
                 "ja": "授業",
                 "ko": "수업",
                 "es": "clase"
+              },
+              "example": "La clase es divertida.",
+              "exampleTokens": [
+                "La",
+                "clase",
+                "es",
+                "divertida."
+              ],
+              "exampleMeaning": {
+                "en": "The class is fun.",
+                "vi": "Lớp học rất vui.",
+                "zh": "这节课很有意思。",
+                "ja": "授業は楽しいです。",
+                "ko": "수업이 재미있어요.",
+                "es": "La clase es divertida."
               }
             }
           ]
@@ -2751,6 +4754,21 @@
                 "ja": "読む",
                 "ko": "읽다",
                 "es": "leer"
+              },
+              "example": "Me gusta leer libros.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "leer",
+                "libros."
+              ],
+              "exampleMeaning": {
+                "en": "I like to read books.",
+                "vi": "Tôi thích đọc sách.",
+                "zh": "我喜欢读书。",
+                "ja": "本を読むのが好きです。",
+                "ko": "책 읽는 것을 좋아해요.",
+                "es": "Me gusta leer libros."
               }
             },
             {
@@ -2763,6 +4781,22 @@
                 "ja": "書く",
                 "ko": "쓰다",
                 "es": "escribir"
+              },
+              "example": "Escribe tu nombre, por favor.",
+              "exampleTokens": [
+                "Escribe",
+                "tu",
+                "nombre,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Please write your name.",
+                "vi": "Hãy viết tên của bạn.",
+                "zh": "请写你的名字。",
+                "ja": "名前を書いてください。",
+                "ko": "이름을 써 주세요.",
+                "es": "Escribe tu nombre, por favor."
               }
             },
             {
@@ -2777,6 +4811,12 @@
                 "es": "hablar"
               },
               "example": "Habla despacio, por favor.",
+              "exampleTokens": [
+                "Habla",
+                "despacio,",
+                "por",
+                "favor."
+              ],
               "exampleMeaning": {
                 "en": "Please speak slowly.",
                 "vi": "Vui lòng nói chậm.",
@@ -2796,6 +4836,19 @@
                 "ja": "聞く",
                 "ko": "듣다",
                 "es": "escuchar"
+              },
+              "example": "Escucho música.",
+              "exampleTokens": [
+                "Escucho",
+                "música."
+              ],
+              "exampleMeaning": {
+                "en": "I listen to music.",
+                "vi": "Tôi nghe nhạc.",
+                "zh": "我听音乐。",
+                "ja": "音楽を聞きます。",
+                "ko": "음악을 들어요.",
+                "es": "Escucho música."
               }
             },
             {
@@ -2808,6 +4861,21 @@
                 "ja": "勉強する",
                 "ko": "공부하다",
                 "es": "estudiar"
+              },
+              "example": "Estudio todos los días.",
+              "exampleTokens": [
+                "Estudio",
+                "todos",
+                "los",
+                "días."
+              ],
+              "exampleMeaning": {
+                "en": "I study every day.",
+                "vi": "Tôi học mỗi ngày.",
+                "zh": "我每天学习。",
+                "ja": "毎日勉強します。",
+                "ko": "매일 공부해요.",
+                "es": "Estudio todos los días."
               }
             },
             {
@@ -2820,6 +4888,19 @@
                 "ja": "分かる",
                 "ko": "이해하다",
                 "es": "entender"
+              },
+              "example": "No entiendo.",
+              "exampleTokens": [
+                "No",
+                "entiendo."
+              ],
+              "exampleMeaning": {
+                "en": "I don't understand.",
+                "vi": "Tôi không hiểu.",
+                "zh": "我不懂。",
+                "ja": "よく分かりません。",
+                "ko": "이해가 안 돼요.",
+                "es": "No entiendo."
               }
             }
           ]
@@ -2860,6 +4941,21 @@
                 "ja": "音楽",
                 "ko": "음악",
                 "es": "música"
+              },
+              "example": "La música es divertida.",
+              "exampleTokens": [
+                "La",
+                "música",
+                "es",
+                "divertida."
+              ],
+              "exampleMeaning": {
+                "en": "Music is fun.",
+                "vi": "Âm nhạc rất vui.",
+                "zh": "音乐很有意思。",
+                "ja": "音楽は楽しいです。",
+                "ko": "음악은 재미있어요.",
+                "es": "La música es divertida."
               }
             },
             {
@@ -2874,6 +4970,13 @@
                 "es": "película"
               },
               "example": "Vamos a ver una película.",
+              "exampleTokens": [
+                "Vamos",
+                "a",
+                "ver",
+                "una",
+                "película."
+              ],
               "exampleMeaning": {
                 "en": "Let's watch a movie.",
                 "vi": "Cùng xem phim nhé.",
@@ -2893,6 +4996,20 @@
                 "ja": "ゲーム",
                 "ko": "게임",
                 "es": "juego"
+              },
+              "example": "Juguemos un juego.",
+              "exampleTokens": [
+                "Juguemos",
+                "un",
+                "juego."
+              ],
+              "exampleMeaning": {
+                "en": "Let's play a game.",
+                "vi": "Chúng ta chơi trò chơi nhé.",
+                "zh": "我们玩游戏吧。",
+                "ja": "ゲームをしましょう。",
+                "ko": "게임해요.",
+                "es": "Juguemos un juego."
               }
             },
             {
@@ -2905,6 +5022,22 @@
                 "ja": "写真",
                 "ko": "사진",
                 "es": "foto"
+              },
+              "example": "Haz una foto, por favor.",
+              "exampleTokens": [
+                "Haz",
+                "una",
+                "foto,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Please take a photo.",
+                "vi": "Làm ơn chụp ảnh giúp tôi.",
+                "zh": "请帮我拍照片。",
+                "ja": "写真を撮ってください。",
+                "ko": "사진을 찍어 주세요.",
+                "es": "Haz una foto, por favor."
               }
             },
             {
@@ -2917,6 +5050,20 @@
                 "ja": "旅行",
                 "ko": "여행",
                 "es": "viajar"
+              },
+              "example": "Me gusta viajar.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "viajar."
+              ],
+              "exampleMeaning": {
+                "en": "I like to travel.",
+                "vi": "Tôi thích du lịch.",
+                "zh": "我喜欢旅行。",
+                "ja": "旅行が好きです。",
+                "ko": "여행을 좋아해요.",
+                "es": "Me gusta viajar."
               }
             },
             {
@@ -2929,6 +5076,22 @@
                 "ja": "買い物",
                 "ko": "쇼핑",
                 "es": "ir de compras"
+              },
+              "example": "Vamos a ir de compras.",
+              "exampleTokens": [
+                "Vamos",
+                "a",
+                "ir",
+                "de",
+                "compras."
+              ],
+              "exampleMeaning": {
+                "en": "Let's go shopping.",
+                "vi": "Đi mua sắm nhé.",
+                "zh": "我们去购物吧。",
+                "ja": "買い物に行きましょう。",
+                "ko": "쇼핑하러 가요.",
+                "es": "Vamos a ir de compras."
               }
             }
           ]
@@ -2958,6 +5121,12 @@
                 "es": "fútbol"
               },
               "example": "Me gusta el fútbol.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "el",
+                "fútbol."
+              ],
               "exampleMeaning": {
                 "en": "I like soccer.",
                 "vi": "Tôi thích bóng đá.",
@@ -2977,6 +5146,21 @@
                 "ja": "水泳",
                 "ko": "수영",
                 "es": "natación"
+              },
+              "example": "Me gusta la natación.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "la",
+                "natación."
+              ],
+              "exampleMeaning": {
+                "en": "I like swimming.",
+                "vi": "Tôi thích bơi lội.",
+                "zh": "我喜欢游泳。",
+                "ja": "水泳が好きです。",
+                "ko": "수영을 좋아해요.",
+                "es": "Me gusta la natación."
               }
             },
             {
@@ -2989,6 +5173,22 @@
                 "ja": "ランニング",
                 "ko": "달리기",
                 "es": "correr"
+              },
+              "example": "Salgo a correr cada mañana.",
+              "exampleTokens": [
+                "Salgo",
+                "a",
+                "correr",
+                "cada",
+                "mañana."
+              ],
+              "exampleMeaning": {
+                "en": "I go running every morning.",
+                "vi": "Mỗi sáng tôi chạy bộ.",
+                "zh": "我每天早上跑步。",
+                "ja": "毎朝ランニングをします。",
+                "ko": "매일 아침 달리기를 해요.",
+                "es": "Salgo a correr cada mañana."
               }
             },
             {
@@ -3001,6 +5201,20 @@
                 "ja": "テニス",
                 "ko": "테니스",
                 "es": "tenis"
+              },
+              "example": "¿Juegas al tenis?",
+              "exampleTokens": [
+                "¿Juegas",
+                "al",
+                "tenis?"
+              ],
+              "exampleMeaning": {
+                "en": "Do you play tennis?",
+                "vi": "Bạn có chơi quần vợt không?",
+                "zh": "你打网球吗？",
+                "ja": "テニスをしますか？",
+                "ko": "테니스를 쳐요?",
+                "es": "¿Juegas al tenis?"
               }
             },
             {
@@ -3013,6 +5227,21 @@
                 "ja": "バスケットボール",
                 "ko": "농구",
                 "es": "baloncesto"
+              },
+              "example": "El baloncesto es divertido.",
+              "exampleTokens": [
+                "El",
+                "baloncesto",
+                "es",
+                "divertido."
+              ],
+              "exampleMeaning": {
+                "en": "Basketball is fun.",
+                "vi": "Bóng rổ rất vui.",
+                "zh": "篮球很有意思。",
+                "ja": "バスケットボールは楽しいです。",
+                "ko": "농구는 재미있어요.",
+                "es": "El baloncesto es divertido."
               }
             },
             {
@@ -3025,6 +5254,22 @@
                 "ja": "運動",
                 "ko": "운동",
                 "es": "hacer ejercicio"
+              },
+              "example": "Hago ejercicio todos los días.",
+              "exampleTokens": [
+                "Hago",
+                "ejercicio",
+                "todos",
+                "los",
+                "días."
+              ],
+              "exampleMeaning": {
+                "en": "I exercise every day.",
+                "vi": "Tôi tập thể dục mỗi ngày.",
+                "zh": "我每天运动。",
+                "ja": "毎日運動します。",
+                "ko": "매일 운동해요.",
+                "es": "Hago ejercicio todos los días."
               }
             }
           ]
@@ -3054,6 +5299,11 @@
                 "es": "cantar"
               },
               "example": "Ella canta bien.",
+              "exampleTokens": [
+                "Ella",
+                "canta",
+                "bien."
+              ],
               "exampleMeaning": {
                 "en": "She sings well.",
                 "vi": "Cô ấy hát hay.",
@@ -3073,6 +5323,20 @@
                 "ja": "踊る",
                 "ko": "춤추다",
                 "es": "bailar"
+              },
+              "example": "¡Vamos a bailar!",
+              "exampleTokens": [
+                "¡Vamos",
+                "a",
+                "bailar!"
+              ],
+              "exampleMeaning": {
+                "en": "Let's dance!",
+                "vi": "Cùng nhảy nào!",
+                "zh": "我们跳舞吧！",
+                "ja": "一緒に踊ろう！",
+                "ko": "같이 춤춰요!",
+                "es": "¡Vamos a bailar!"
               }
             },
             {
@@ -3085,6 +5349,23 @@
                 "ja": "料理",
                 "ko": "요리",
                 "es": "cocinar"
+              },
+              "example": "A mi padre le gusta cocinar.",
+              "exampleTokens": [
+                "A",
+                "mi",
+                "padre",
+                "le",
+                "gusta",
+                "cocinar."
+              ],
+              "exampleMeaning": {
+                "en": "My father likes cooking.",
+                "vi": "Bố tôi thích nấu ăn.",
+                "zh": "我爸爸喜欢做饭。",
+                "ja": "父は料理が好きです。",
+                "ko": "아버지는 요리를 좋아해요.",
+                "es": "A mi padre le gusta cocinar."
               }
             },
             {
@@ -3097,6 +5378,22 @@
                 "ja": "絵を描く",
                 "ko": "그림을 그리다",
                 "es": "dibujar"
+              },
+              "example": "Al niño le gusta dibujar.",
+              "exampleTokens": [
+                "Al",
+                "niño",
+                "le",
+                "gusta",
+                "dibujar."
+              ],
+              "exampleMeaning": {
+                "en": "The child likes to draw.",
+                "vi": "Đứa trẻ thích vẽ.",
+                "zh": "孩子喜欢画画。",
+                "ja": "子どもは絵を描くのが好きです。",
+                "ko": "아이는 그림 그리는 것을 좋아해요.",
+                "es": "Al niño le gusta dibujar."
               }
             },
             {
@@ -3109,6 +5406,20 @@
                 "ja": "散歩",
                 "ko": "산책",
                 "es": "pasear"
+              },
+              "example": "Vamos a pasear.",
+              "exampleTokens": [
+                "Vamos",
+                "a",
+                "pasear."
+              ],
+              "exampleMeaning": {
+                "en": "Let's take a walk.",
+                "vi": "Chúng ta đi bộ nhé.",
+                "zh": "我们去散步吧。",
+                "ja": "散歩しましょう。",
+                "ko": "산책해요.",
+                "es": "Vamos a pasear."
               }
             },
             {
@@ -3121,6 +5432,19 @@
                 "ja": "休む",
                 "ko": "쉬다",
                 "es": "descansar"
+              },
+              "example": "Descansa hoy.",
+              "exampleTokens": [
+                "Descansa",
+                "hoy."
+              ],
+              "exampleMeaning": {
+                "en": "Please rest today.",
+                "vi": "Hôm nay hãy nghỉ ngơi.",
+                "zh": "今天请休息。",
+                "ja": "今日は休んでください。",
+                "ko": "오늘은 쉬세요.",
+                "es": "Descansa hoy."
               }
             }
           ]
@@ -3150,6 +5474,12 @@
                 "es": "gustar"
               },
               "example": "¿Te gusta la música?",
+              "exampleTokens": [
+                "¿Te",
+                "gusta",
+                "la",
+                "música?"
+              ],
               "exampleMeaning": {
                 "en": "Do you like music?",
                 "vi": "Bạn có thích âm nhạc không?",
@@ -3169,6 +5499,21 @@
                 "ja": "大好き",
                 "ko": "사랑하다",
                 "es": "amar"
+              },
+              "example": "Amo a los gatos.",
+              "exampleTokens": [
+                "Amo",
+                "a",
+                "los",
+                "gatos."
+              ],
+              "exampleMeaning": {
+                "en": "I love cats.",
+                "vi": "Tôi rất yêu mèo.",
+                "zh": "我爱猫。",
+                "ja": "猫が大好きです。",
+                "ko": "고양이를 사랑해요.",
+                "es": "Amo a los gatos."
               }
             },
             {
@@ -3181,6 +5526,23 @@
                 "ja": "いちばん好き",
                 "ko": "제일 좋아하는",
                 "es": "favorito"
+              },
+              "example": "El rojo es mi color favorito.",
+              "exampleTokens": [
+                "El",
+                "rojo",
+                "es",
+                "mi",
+                "color",
+                "favorito."
+              ],
+              "exampleMeaning": {
+                "en": "Red is my favorite color.",
+                "vi": "Màu đỏ là màu yêu thích nhất của tôi.",
+                "zh": "红色是我最喜欢的颜色。",
+                "ja": "赤がいちばん好きな色です。",
+                "ko": "빨간색은 제가 제일 좋아하는 색이에요.",
+                "es": "El rojo es mi color favorito."
               }
             },
             {
@@ -3193,6 +5555,21 @@
                 "ja": "楽しい",
                 "ko": "재미있다",
                 "es": "divertido"
+              },
+              "example": "Este juego es divertido.",
+              "exampleTokens": [
+                "Este",
+                "juego",
+                "es",
+                "divertido."
+              ],
+              "exampleMeaning": {
+                "en": "This game is fun.",
+                "vi": "Trò chơi này vui nhộn.",
+                "zh": "这个游戏很好玩。",
+                "ja": "このゲームは楽しいです。",
+                "ko": "이 게임은 재미있어요.",
+                "es": "Este juego es divertido."
               }
             },
             {
@@ -3205,6 +5582,21 @@
                 "ja": "つまらない",
                 "ko": "지루하다",
                 "es": "aburrido"
+              },
+              "example": "Esta película es aburrida.",
+              "exampleTokens": [
+                "Esta",
+                "película",
+                "es",
+                "aburrida."
+              ],
+              "exampleMeaning": {
+                "en": "This movie is boring.",
+                "vi": "Bộ phim này chán.",
+                "zh": "这部电影很无聊。",
+                "ja": "この映画はつまらないです。",
+                "ko": "이 영화는 지루해요.",
+                "es": "Esta película es aburrida."
               }
             },
             {
@@ -3217,6 +5609,21 @@
                 "ja": "面白い",
                 "ko": "흥미롭다",
                 "es": "interesante"
+              },
+              "example": "Este libro es interesante.",
+              "exampleTokens": [
+                "Este",
+                "libro",
+                "es",
+                "interesante."
+              ],
+              "exampleMeaning": {
+                "en": "This book is interesting.",
+                "vi": "Cuốn sách này thú vị.",
+                "zh": "这本书很有意思。",
+                "ja": "この本は面白いです。",
+                "ko": "이 책은 흥미로워요.",
+                "es": "Este libro es interesante."
               }
             }
           ]
@@ -3259,6 +5666,11 @@
                 "es": "calor"
               },
               "example": "Hoy hace calor.",
+              "exampleTokens": [
+                "Hoy",
+                "hace",
+                "calor."
+              ],
               "exampleMeaning": {
                 "en": "It's hot today.",
                 "vi": "Hôm nay trời nóng.",
@@ -3278,6 +5690,20 @@
                 "ja": "寒い",
                 "ko": "춥다",
                 "es": "frío"
+              },
+              "example": "Hoy hace frío.",
+              "exampleTokens": [
+                "Hoy",
+                "hace",
+                "frío."
+              ],
+              "exampleMeaning": {
+                "en": "It's cold today.",
+                "vi": "Hôm nay trời lạnh.",
+                "zh": "今天很冷。",
+                "ja": "今日は寒いです。",
+                "ko": "오늘은 추워요.",
+                "es": "Hoy hace frío."
               }
             },
             {
@@ -3290,6 +5716,21 @@
                 "ja": "雨",
                 "ko": "비",
                 "es": "lluvia"
+              },
+              "example": "Hoy cae mucha lluvia.",
+              "exampleTokens": [
+                "Hoy",
+                "cae",
+                "mucha",
+                "lluvia."
+              ],
+              "exampleMeaning": {
+                "en": "It's raining today.",
+                "vi": "Hôm nay trời mưa.",
+                "zh": "今天下雨。",
+                "ja": "今日は雨です。",
+                "ko": "오늘은 비가 와요.",
+                "es": "Hoy cae mucha lluvia."
               }
             },
             {
@@ -3302,6 +5743,23 @@
                 "ja": "雲",
                 "ko": "구름",
                 "es": "nube"
+              },
+              "example": "Hay muchas nubes en el cielo.",
+              "exampleTokens": [
+                "Hay",
+                "muchas",
+                "nubes",
+                "en",
+                "el",
+                "cielo."
+              ],
+              "exampleMeaning": {
+                "en": "There are many clouds in the sky.",
+                "vi": "Trên bầu trời có nhiều mây.",
+                "zh": "天空中有很多云。",
+                "ja": "空に雲がたくさんあります。",
+                "ko": "하늘에 구름이 많아요.",
+                "es": "Hay muchas nubes en el cielo."
               }
             },
             {
@@ -3314,6 +5772,21 @@
                 "ja": "風",
                 "ko": "바람",
                 "es": "viento"
+              },
+              "example": "El viento es fresco.",
+              "exampleTokens": [
+                "El",
+                "viento",
+                "es",
+                "fresco."
+              ],
+              "exampleMeaning": {
+                "en": "The wind is cool.",
+                "vi": "Gió rất mát.",
+                "zh": "风很凉快。",
+                "ja": "風が涼しいです。",
+                "ko": "바람이 시원해요.",
+                "es": "El viento es fresco."
               }
             },
             {
@@ -3326,6 +5799,20 @@
                 "ja": "晴れ",
                 "ko": "맑다",
                 "es": "soleado"
+              },
+              "example": "Hoy está soleado.",
+              "exampleTokens": [
+                "Hoy",
+                "está",
+                "soleado."
+              ],
+              "exampleMeaning": {
+                "en": "It's sunny today.",
+                "vi": "Hôm nay trời nắng.",
+                "zh": "今天是晴天。",
+                "ja": "今日は晴れです。",
+                "ko": "오늘은 맑아요.",
+                "es": "Hoy está soleado."
               }
             }
           ]
@@ -3353,6 +5840,21 @@
                 "ja": "春",
                 "ko": "봄",
                 "es": "primavera"
+              },
+              "example": "Me gusta la primavera.",
+              "exampleTokens": [
+                "Me",
+                "gusta",
+                "la",
+                "primavera."
+              ],
+              "exampleMeaning": {
+                "en": "I like spring.",
+                "vi": "Tôi thích mùa xuân.",
+                "zh": "我喜欢春天。",
+                "ja": "春が好きです。",
+                "ko": "봄을 좋아해요.",
+                "es": "Me gusta la primavera."
               }
             },
             {
@@ -3365,6 +5867,21 @@
                 "ja": "夏",
                 "ko": "여름",
                 "es": "verano"
+              },
+              "example": "El verano es caluroso.",
+              "exampleTokens": [
+                "El",
+                "verano",
+                "es",
+                "caluroso."
+              ],
+              "exampleMeaning": {
+                "en": "Summer is hot.",
+                "vi": "Mùa hè nóng.",
+                "zh": "夏天很热。",
+                "ja": "夏は暑いです。",
+                "ko": "여름은 더워요.",
+                "es": "El verano es caluroso."
               }
             },
             {
@@ -3377,6 +5894,21 @@
                 "ja": "秋",
                 "ko": "가을",
                 "es": "otoño"
+              },
+              "example": "El otoño es fresco.",
+              "exampleTokens": [
+                "El",
+                "otoño",
+                "es",
+                "fresco."
+              ],
+              "exampleMeaning": {
+                "en": "Autumn is cool.",
+                "vi": "Mùa thu mát mẻ.",
+                "zh": "秋天很凉快。",
+                "ja": "秋は涼しいです。",
+                "ko": "가을은 시원해요.",
+                "es": "El otoño es fresco."
               }
             },
             {
@@ -3391,6 +5923,12 @@
                 "es": "invierno"
               },
               "example": "El invierno es frío.",
+              "exampleTokens": [
+                "El",
+                "invierno",
+                "es",
+                "frío."
+              ],
               "exampleMeaning": {
                 "en": "Winter is cold.",
                 "vi": "Mùa đông lạnh.",
@@ -3410,6 +5948,21 @@
                 "ja": "暖かい",
                 "ko": "따뜻하다",
                 "es": "cálido"
+              },
+              "example": "La primavera es cálida.",
+              "exampleTokens": [
+                "La",
+                "primavera",
+                "es",
+                "cálida."
+              ],
+              "exampleMeaning": {
+                "en": "Spring is warm.",
+                "vi": "Mùa xuân ấm áp.",
+                "zh": "春天很暖和。",
+                "ja": "春は暖かいです。",
+                "ko": "봄은 따뜻해요.",
+                "es": "La primavera es cálida."
               }
             },
             {
@@ -3422,6 +5975,22 @@
                 "ja": "涼しい",
                 "ko": "시원하다",
                 "es": "fresco"
+              },
+              "example": "Por la mañana hace fresco.",
+              "exampleTokens": [
+                "Por",
+                "la",
+                "mañana",
+                "hace",
+                "fresco."
+              ],
+              "exampleMeaning": {
+                "en": "It's cool in the morning.",
+                "vi": "Buổi sáng trời mát.",
+                "zh": "早上很凉快。",
+                "ja": "朝は涼しいです。",
+                "ko": "아침에는 시원해요.",
+                "es": "Por la mañana hace fresco."
               }
             }
           ]
@@ -3449,6 +6018,21 @@
                 "ja": "山",
                 "ko": "산",
                 "es": "montaña"
+              },
+              "example": "La montaña es bonita.",
+              "exampleTokens": [
+                "La",
+                "montaña",
+                "es",
+                "bonita."
+              ],
+              "exampleMeaning": {
+                "en": "The mountain is beautiful.",
+                "vi": "Ngọn núi rất đẹp.",
+                "zh": "这座山很美。",
+                "ja": "山はきれいです。",
+                "ko": "산이 예뻐요.",
+                "es": "La montaña es bonita."
               }
             },
             {
@@ -3463,6 +6047,12 @@
                 "es": "mar"
               },
               "example": "El mar es bonito.",
+              "exampleTokens": [
+                "El",
+                "mar",
+                "es",
+                "bonito."
+              ],
               "exampleMeaning": {
                 "en": "The sea is beautiful.",
                 "vi": "Biển rất đẹp.",
@@ -3482,6 +6072,24 @@
                 "ja": "川",
                 "ko": "강",
                 "es": "río"
+              },
+              "example": "El río está cerca de la escuela.",
+              "exampleTokens": [
+                "El",
+                "río",
+                "está",
+                "cerca",
+                "de",
+                "la",
+                "escuela."
+              ],
+              "exampleMeaning": {
+                "en": "The river is near the school.",
+                "vi": "Con sông ở gần trường học.",
+                "zh": "河在学校附近。",
+                "ja": "川は学校の近くです。",
+                "ko": "강은 학교 근처에 있어요.",
+                "es": "El río está cerca de la escuela."
               }
             },
             {
@@ -3494,6 +6102,23 @@
                 "ja": "木",
                 "ko": "나무",
                 "es": "árbol"
+              },
+              "example": "Hay un pájaro en el árbol.",
+              "exampleTokens": [
+                "Hay",
+                "un",
+                "pájaro",
+                "en",
+                "el",
+                "árbol."
+              ],
+              "exampleMeaning": {
+                "en": "There is a bird in the tree.",
+                "vi": "Có một con chim trên cây.",
+                "zh": "树上有一只鸟。",
+                "ja": "木に鳥がいます。",
+                "ko": "나무에 새가 있어요.",
+                "es": "Hay un pájaro en el árbol."
               }
             },
             {
@@ -3506,6 +6131,22 @@
                 "ja": "花",
                 "ko": "꽃",
                 "es": "flor"
+              },
+              "example": "Compro flores para mi madre.",
+              "exampleTokens": [
+                "Compro",
+                "flores",
+                "para",
+                "mi",
+                "madre."
+              ],
+              "exampleMeaning": {
+                "en": "I buy flowers for my mother.",
+                "vi": "Tôi mua hoa cho mẹ.",
+                "zh": "我给妈妈买花。",
+                "ja": "お母さんに花を買います。",
+                "ko": "어머니께 꽃을 사요.",
+                "es": "Compro flores para mi madre."
               }
             },
             {
@@ -3518,6 +6159,22 @@
                 "ja": "空",
                 "ko": "하늘",
                 "es": "cielo"
+              },
+              "example": "Hoy el cielo está bonito.",
+              "exampleTokens": [
+                "Hoy",
+                "el",
+                "cielo",
+                "está",
+                "bonito."
+              ],
+              "exampleMeaning": {
+                "en": "The sky is beautiful today.",
+                "vi": "Hôm nay bầu trời đẹp.",
+                "zh": "今天的天空很美。",
+                "ja": "今日の空はきれいです。",
+                "ko": "오늘 하늘이 예뻐요.",
+                "es": "Hoy el cielo está bonito."
               }
             }
           ]
@@ -3545,6 +6202,20 @@
                 "ja": "犬",
                 "ko": "개",
                 "es": "perro"
+              },
+              "example": "Tengo un perro.",
+              "exampleTokens": [
+                "Tengo",
+                "un",
+                "perro."
+              ],
+              "exampleMeaning": {
+                "en": "I have a dog.",
+                "vi": "Tôi có một con chó.",
+                "zh": "我有一只狗。",
+                "ja": "犬を飼っています。",
+                "ko": "개가 있어요.",
+                "es": "Tengo un perro."
               }
             },
             {
@@ -3559,6 +6230,11 @@
                 "es": "gato"
               },
               "example": "Tengo un gato.",
+              "exampleTokens": [
+                "Tengo",
+                "un",
+                "gato."
+              ],
               "exampleMeaning": {
                 "en": "I have a cat.",
                 "vi": "Tôi có một con mèo.",
@@ -3578,6 +6254,21 @@
                 "ja": "鳥",
                 "ko": "새",
                 "es": "pájaro"
+              },
+              "example": "El pájaro está cantando.",
+              "exampleTokens": [
+                "El",
+                "pájaro",
+                "está",
+                "cantando."
+              ],
+              "exampleMeaning": {
+                "en": "The bird is singing.",
+                "vi": "Con chim đang hót.",
+                "zh": "鸟在唱歌。",
+                "ja": "鳥が歌っています。",
+                "ko": "새가 노래하고 있어요.",
+                "es": "El pájaro está cantando."
               }
             },
             {
@@ -3590,6 +6281,23 @@
                 "ja": "魚",
                 "ko": "물고기",
                 "es": "pez"
+              },
+              "example": "Los peces viven en el río.",
+              "exampleTokens": [
+                "Los",
+                "peces",
+                "viven",
+                "en",
+                "el",
+                "río."
+              ],
+              "exampleMeaning": {
+                "en": "Fish live in the river.",
+                "vi": "Cá sống ở sông.",
+                "zh": "鱼生活在河里。",
+                "ja": "魚は川に住んでいます。",
+                "ko": "물고기는 강에 살아요.",
+                "es": "Los peces viven en el río."
               }
             },
             {
@@ -3602,6 +6310,21 @@
                 "ja": "馬",
                 "ko": "말",
                 "es": "caballo"
+              },
+              "example": "El caballo está corriendo.",
+              "exampleTokens": [
+                "El",
+                "caballo",
+                "está",
+                "corriendo."
+              ],
+              "exampleMeaning": {
+                "en": "The horse is running.",
+                "vi": "Con ngựa đang chạy.",
+                "zh": "马在跑。",
+                "ja": "馬が走っています。",
+                "ko": "말이 달리고 있어요.",
+                "es": "El caballo está corriendo."
               }
             },
             {
@@ -3614,6 +6337,23 @@
                 "ja": "牛",
                 "ko": "소",
                 "es": "vaca"
+              },
+              "example": "La vaca es blanca y negra.",
+              "exampleTokens": [
+                "La",
+                "vaca",
+                "es",
+                "blanca",
+                "y",
+                "negra."
+              ],
+              "exampleMeaning": {
+                "en": "The cow is black and white.",
+                "vi": "Con bò màu đen và trắng.",
+                "zh": "这头牛是黑白色的。",
+                "ja": "牛は白と黒です。",
+                "ko": "소는 검은색과 흰색이에요.",
+                "es": "La vaca es blanca y negra."
               }
             }
           ]
@@ -3656,6 +6396,12 @@
                 "es": "cabeza"
               },
               "example": "Me duele la cabeza.",
+              "exampleTokens": [
+                "Me",
+                "duele",
+                "la",
+                "cabeza."
+              ],
               "exampleMeaning": {
                 "en": "My head hurts.",
                 "vi": "Tôi đau đầu.",
@@ -3675,6 +6421,20 @@
                 "ja": "手",
                 "ko": "손",
                 "es": "mano"
+              },
+              "example": "Lávate las manos.",
+              "exampleTokens": [
+                "Lávate",
+                "las",
+                "manos."
+              ],
+              "exampleMeaning": {
+                "en": "Please wash your hands.",
+                "vi": "Hãy rửa tay.",
+                "zh": "请洗手。",
+                "ja": "手を洗ってください。",
+                "ko": "손을 씻으세요.",
+                "es": "Lávate las manos."
               }
             },
             {
@@ -3687,6 +6447,21 @@
                 "ja": "足",
                 "ko": "다리",
                 "es": "pierna"
+              },
+              "example": "Me duele la pierna.",
+              "exampleTokens": [
+                "Me",
+                "duele",
+                "la",
+                "pierna."
+              ],
+              "exampleMeaning": {
+                "en": "My leg hurts.",
+                "vi": "Tôi đau chân.",
+                "zh": "我的腿疼。",
+                "ja": "足が痛いです。",
+                "ko": "다리가 아파요.",
+                "es": "Me duele la pierna."
               }
             },
             {
@@ -3699,6 +6474,21 @@
                 "ja": "お腹",
                 "ko": "배",
                 "es": "estómago"
+              },
+              "example": "Me duele el estómago.",
+              "exampleTokens": [
+                "Me",
+                "duele",
+                "el",
+                "estómago."
+              ],
+              "exampleMeaning": {
+                "en": "My stomach hurts.",
+                "vi": "Tôi đau bụng.",
+                "zh": "我肚子疼。",
+                "ja": "お腹が痛いです。",
+                "ko": "배가 아파요.",
+                "es": "Me duele el estómago."
               }
             },
             {
@@ -3711,6 +6501,21 @@
                 "ja": "背中",
                 "ko": "등",
                 "es": "espalda"
+              },
+              "example": "Me duele la espalda.",
+              "exampleTokens": [
+                "Me",
+                "duele",
+                "la",
+                "espalda."
+              ],
+              "exampleMeaning": {
+                "en": "My back hurts.",
+                "vi": "Tôi đau lưng.",
+                "zh": "我背疼。",
+                "ja": "背中が痛いです。",
+                "ko": "등이 아파요.",
+                "es": "Me duele la espalda."
               }
             },
             {
@@ -3723,6 +6528,20 @@
                 "ja": "腕",
                 "ko": "팔",
                 "es": "brazo"
+              },
+              "example": "Levanta el brazo.",
+              "exampleTokens": [
+                "Levanta",
+                "el",
+                "brazo."
+              ],
+              "exampleMeaning": {
+                "en": "Raise your arm.",
+                "vi": "Hãy giơ cánh tay lên.",
+                "zh": "请举起胳膊。",
+                "ja": "腕を上げてください。",
+                "ko": "팔을 들어 주세요.",
+                "es": "Levanta el brazo."
               }
             }
           ]
@@ -3752,6 +6571,13 @@
                 "es": "ojo"
               },
               "example": "Ella tiene los ojos grandes.",
+              "exampleTokens": [
+                "Ella",
+                "tiene",
+                "los",
+                "ojos",
+                "grandes."
+              ],
               "exampleMeaning": {
                 "en": "She has big eyes.",
                 "vi": "Cô ấy có đôi mắt to.",
@@ -3771,6 +6597,21 @@
                 "ja": "耳",
                 "ko": "귀",
                 "es": "oreja"
+              },
+              "example": "Me duele la oreja.",
+              "exampleTokens": [
+                "Me",
+                "duele",
+                "la",
+                "oreja."
+              ],
+              "exampleMeaning": {
+                "en": "My ear hurts.",
+                "vi": "Tôi đau tai.",
+                "zh": "我耳朵疼。",
+                "ja": "耳が痛いです。",
+                "ko": "귀가 아파요.",
+                "es": "Me duele la oreja."
               }
             },
             {
@@ -3783,6 +6624,23 @@
                 "ja": "鼻",
                 "ko": "코",
                 "es": "nariz"
+              },
+              "example": "El perro tiene la nariz negra.",
+              "exampleTokens": [
+                "El",
+                "perro",
+                "tiene",
+                "la",
+                "nariz",
+                "negra."
+              ],
+              "exampleMeaning": {
+                "en": "The dog has a black nose.",
+                "vi": "Con chó có cái mũi đen.",
+                "zh": "狗的鼻子是黑色的。",
+                "ja": "犬の鼻は黒いです。",
+                "ko": "개의 코는 검은색이에요.",
+                "es": "El perro tiene la nariz negra."
               }
             },
             {
@@ -3795,6 +6653,22 @@
                 "ja": "口",
                 "ko": "입",
                 "es": "boca"
+              },
+              "example": "Abre la boca, por favor.",
+              "exampleTokens": [
+                "Abre",
+                "la",
+                "boca,",
+                "por",
+                "favor."
+              ],
+              "exampleMeaning": {
+                "en": "Please open your mouth.",
+                "vi": "Hãy mở miệng ra.",
+                "zh": "请张开嘴。",
+                "ja": "口を開けてください。",
+                "ko": "입을 벌려 주세요.",
+                "es": "Abre la boca, por favor."
               }
             },
             {
@@ -3807,6 +6681,23 @@
                 "ja": "歯",
                 "ko": "치아",
                 "es": "diente"
+              },
+              "example": "Me lavo los dientes cada mañana.",
+              "exampleTokens": [
+                "Me",
+                "lavo",
+                "los",
+                "dientes",
+                "cada",
+                "mañana."
+              ],
+              "exampleMeaning": {
+                "en": "I brush my teeth every morning.",
+                "vi": "Mỗi sáng tôi đánh răng.",
+                "zh": "我每天早上刷牙。",
+                "ja": "毎朝歯をみがきます。",
+                "ko": "매일 아침 치아를 닦아요.",
+                "es": "Me lavo los dientes cada mañana."
               }
             },
             {
@@ -3819,6 +6710,20 @@
                 "ja": "顔",
                 "ko": "얼굴",
                 "es": "cara"
+              },
+              "example": "Lávate la cara.",
+              "exampleTokens": [
+                "Lávate",
+                "la",
+                "cara."
+              ],
+              "exampleMeaning": {
+                "en": "Wash your face.",
+                "vi": "Hãy rửa mặt.",
+                "zh": "请洗脸。",
+                "ja": "顔を洗ってください。",
+                "ko": "얼굴을 씻으세요.",
+                "es": "Lávate la cara."
               }
             }
           ]
@@ -3846,6 +6751,20 @@
                 "ja": "病気",
                 "ko": "아프다",
                 "es": "enfermo"
+              },
+              "example": "Hoy estoy enfermo.",
+              "exampleTokens": [
+                "Hoy",
+                "estoy",
+                "enfermo."
+              ],
+              "exampleMeaning": {
+                "en": "I am sick today.",
+                "vi": "Hôm nay tôi bị ốm.",
+                "zh": "我今天生病了。",
+                "ja": "今日は病気です。",
+                "ko": "오늘 아파요.",
+                "es": "Hoy estoy enfermo."
               }
             },
             {
@@ -3858,6 +6777,20 @@
                 "ja": "痛い",
                 "ko": "통증",
                 "es": "dolor"
+              },
+              "example": "¿Dónde tiene dolor?",
+              "exampleTokens": [
+                "¿Dónde",
+                "tiene",
+                "dolor?"
+              ],
+              "exampleMeaning": {
+                "en": "Where is the pain?",
+                "vi": "Bạn đau ở đâu?",
+                "zh": "哪里疼？",
+                "ja": "どこが痛いですか？",
+                "ko": "어디에 통증이 있어요?",
+                "es": "¿Dónde tiene dolor?"
               }
             },
             {
@@ -3872,6 +6805,11 @@
                 "es": "medicina"
               },
               "example": "Toma esta medicina.",
+              "exampleTokens": [
+                "Toma",
+                "esta",
+                "medicina."
+              ],
               "exampleMeaning": {
                 "en": "Please take this medicine.",
                 "vi": "Hãy uống thuốc này.",
@@ -3891,6 +6829,19 @@
                 "ja": "熱",
                 "ko": "열이 나다",
                 "es": "fiebre"
+              },
+              "example": "Tengo fiebre.",
+              "exampleTokens": [
+                "Tengo",
+                "fiebre."
+              ],
+              "exampleMeaning": {
+                "en": "I have a fever.",
+                "vi": "Tôi bị sốt.",
+                "zh": "我发烧了。",
+                "ja": "熱があります。",
+                "ko": "열이 나요.",
+                "es": "Tengo fiebre."
               }
             },
             {
@@ -3903,6 +6854,19 @@
                 "ja": "咳",
                 "ko": "기침",
                 "es": "tos"
+              },
+              "example": "Tengo tos.",
+              "exampleTokens": [
+                "Tengo",
+                "tos."
+              ],
+              "exampleMeaning": {
+                "en": "I have a cough.",
+                "vi": "Tôi bị ho.",
+                "zh": "我咳嗽。",
+                "ja": "咳が出ます。",
+                "ko": "기침이 나요.",
+                "es": "Tengo tos."
               }
             },
             {
@@ -3915,6 +6879,23 @@
                 "ja": "薬局",
                 "ko": "약국",
                 "es": "farmacia"
+              },
+              "example": "¿Hay una farmacia cerca de aquí?",
+              "exampleTokens": [
+                "¿Hay",
+                "una",
+                "farmacia",
+                "cerca",
+                "de",
+                "aquí?"
+              ],
+              "exampleMeaning": {
+                "en": "Is there a pharmacy near here?",
+                "vi": "Gần đây có hiệu thuốc không?",
+                "zh": "这附近有药店吗？",
+                "ja": "この近くに薬局はありますか？",
+                "ko": "이 근처에 약국이 있어요?",
+                "es": "¿Hay una farmacia cerca de aquí?"
               }
             }
           ]
@@ -3942,6 +6923,22 @@
                 "ja": "助けて",
                 "ko": "도와주세요",
                 "es": "ayuda"
+              },
+              "example": "¡Ayuda! Llame a un médico.",
+              "exampleTokens": [
+                "¡Ayuda!",
+                "Llame",
+                "a",
+                "un",
+                "médico."
+              ],
+              "exampleMeaning": {
+                "en": "Help! Please call a doctor.",
+                "vi": "Cứu với! Hãy gọi bác sĩ.",
+                "zh": "救命！请叫医生。",
+                "ja": "助けて！医者を呼んでください。",
+                "ko": "도와주세요! 의사를 불러 주세요.",
+                "es": "¡Ayuda! Llame a un médico."
               }
             },
             {
@@ -3954,6 +6951,21 @@
                 "ja": "救急車",
                 "ko": "구급차",
                 "es": "ambulancia"
+              },
+              "example": "La ambulancia está llegando.",
+              "exampleTokens": [
+                "La",
+                "ambulancia",
+                "está",
+                "llegando."
+              ],
+              "exampleMeaning": {
+                "en": "The ambulance is coming.",
+                "vi": "Xe cứu thương đang đến.",
+                "zh": "救护车来了。",
+                "ja": "救急車が来ています。",
+                "ko": "구급차가 오고 있어요.",
+                "es": "La ambulancia está llegando."
               }
             },
             {
@@ -3966,6 +6978,20 @@
                 "ja": "火事",
                 "ko": "불",
                 "es": "incendio"
+              },
+              "example": "¡Hay un incendio!",
+              "exampleTokens": [
+                "¡Hay",
+                "un",
+                "incendio!"
+              ],
+              "exampleMeaning": {
+                "en": "There is a fire!",
+                "vi": "Có cháy!",
+                "zh": "这里有火灾！",
+                "ja": "火事です！",
+                "ko": "불이야!",
+                "es": "¡Hay un incendio!"
               }
             },
             {
@@ -3978,6 +7004,21 @@
                 "ja": "危ない",
                 "ko": "위험",
                 "es": "peligro"
+              },
+              "example": "¡Peligro! No vayas allí.",
+              "exampleTokens": [
+                "¡Peligro!",
+                "No",
+                "vayas",
+                "allí."
+              ],
+              "exampleMeaning": {
+                "en": "Danger! Don't go there.",
+                "vi": "Nguy hiểm! Đừng đi đến đó.",
+                "zh": "危险！别去那里。",
+                "ja": "危ない！そこに行かないで。",
+                "ko": "위험해요! 거기 가지 마세요.",
+                "es": "¡Peligro! No vayas allí."
               }
             },
             {
@@ -3990,6 +7031,19 @@
                 "ja": "迷子",
                 "ko": "길을 잃다",
                 "es": "perdido"
+              },
+              "example": "Estoy perdido.",
+              "exampleTokens": [
+                "Estoy",
+                "perdido."
+              ],
+              "exampleMeaning": {
+                "en": "I am lost.",
+                "vi": "Tôi bị lạc.",
+                "zh": "我迷路了。",
+                "ja": "迷子になりました。",
+                "ko": "길을 잃었어요.",
+                "es": "Estoy perdido."
               }
             },
             {
@@ -4004,6 +7058,12 @@
                 "es": "llamar"
               },
               "example": "¡Llame a una ambulancia!",
+              "exampleTokens": [
+                "¡Llame",
+                "a",
+                "una",
+                "ambulancia!"
+              ],
               "exampleMeaning": {
                 "en": "Please call an ambulance!",
                 "vi": "Hãy gọi xe cứu thương!",

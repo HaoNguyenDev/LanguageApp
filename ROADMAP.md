@@ -67,7 +67,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Plan the curriculum: 10 units per course (greetings, family, numbers & time, food, shopping, travel & directions, work, hobbies, weather, health)
 - [x] Units 3–10 added, 3–4 lessons per unit (39 lessons, 235 words per course)
 - [ ] ~20–30 words per unit, 4–8 words per lesson (all edited in the Google Sheet) – currently 18–25 per unit
-- [ ] Example sentence for every word (all 6 languages) – currently 1–2 per lesson
+- [x] Example sentence for every word (all 6 languages), split into chunks (`tokens_xx`, required for zh / ja) for the sentence builder
 - [ ] Review readings (Pinyin, kana/Romaji, Romanization, IPA) and meanings per language
 - [ ] Keep word ids stable; run `build_courses.py --check` before every commit
 

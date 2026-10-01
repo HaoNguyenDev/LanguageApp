@@ -140,6 +140,8 @@ final class VocabItem {
     var reading: String?
     var meaning: LocalizedText = LocalizedText.empty
     var example: String?
+    /// `example` split into chunks (words, or phrases for Chinese / Japanese) for the sentence builder.
+    var exampleTokens: [String]?
     var exampleMeaning: LocalizedText?
 
     var lesson: Lesson?

@@ -30,6 +30,9 @@ from pathlib import Path
 LANGS = ["vi", "en", "zh", "ja", "ko", "es"]          # UI languages == course languages
 JSON_LANG_ORDER = ["en", "vi", "zh", "ja", "ko", "es"]  # key order inside LocalizedText
 READING_REQUIRED = {"zh", "ja", "ko"}
+# Languages written without spaces: their example sentences need `tokens_xx` (chunks separated
+# by " / ") for the sentence-builder exercise. Other languages are split on spaces.
+TOKENS_REQUIRED = {"zh", "ja"}
 READING_RECOMMENDED = {"en"}
 TABS = ["courses", "units", "lessons", "words"]
 
@@ -295,6 +298,7 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
 
     # Words
     seen_ids: dict[str, int] = {}
+    examples_without_term: dict[str, list[str]] = defaultdict(list)
     for row, r in records["words"]:
         where = f"words!row {row}"
         wid = normalize_word_id(r["id"])
@@ -310,7 +314,7 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
             report.error(where, f"lesson_id '{r['lesson_id']}' does not exist in the lessons tab")
             continue
 
-        word = {"id": wid, "term": {}, "reading": {}, "meaning": {}, "example": {}}
+        word = {"id": wid, "term": {}, "reading": {}, "meaning": {}, "example": {}, "tokens": {}}
         for lang in LANGS:
             term = r[f"term_{lang}"]
             reading = r[f"reading_{lang}"]
@@ -325,11 +329,22 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
             word["reading"][lang] = reading
             word["meaning"][lang] = meaning
             word["example"][lang] = r[f"example_{lang}"]
+            word["tokens"][lang] = check_tokens(where, lang, r[f"example_{lang}"],
+                                                (r.get(f"tokens_{lang}") or "").strip(), report)
         filled = [l for l in LANGS if word["example"][l]]
         if filled and len(filled) != len(LANGS):
             missing = [l for l in LANGS if l not in filled]
             report.error(where, f"example is filled for {', '.join(filled)} but missing for {', '.join(missing)}")
+        for lang in LANGS:
+            example, term = word["example"][lang], word["term"][lang]
+            if example and term and term.casefold() not in example.casefold():
+                examples_without_term[lang].append(wid)
         lessons[r["lesson_id"]]["words"].append(word)
+
+    for lang, ids in examples_without_term.items():
+        report.warn(f"words (example_{lang})",
+                    f"{len(ids)} example(s) don't contain term_{lang} as written – fill-in-the-blank skips them: "
+                    + ", ".join(ids[:12]) + (" …" if len(ids) > 12 else ""))
 
     # Structure checks
     for uid, unit in units.items():
@@ -376,12 +391,41 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
                         item["reading"] = w["reading"][cid]
                     if w["example"][cid]:
                         item["example"] = w["example"][cid]
+                        item["exampleTokens"] = w["tokens"][cid]
                         item["exampleMeaning"] = {l: w["example"][l] for l in JSON_LANG_ORDER}
                     lesson_json["items"].append(item)
                 unit_json["lessons"].append(lesson_json)
             data["units"].append(unit_json)
         output[cid] = data
     return output
+
+
+def check_tokens(where: str, lang: str, example: str, tokens: str, report: "Report") -> list[str]:
+    """Validates `tokens_xx` ("私 / は / 学生 / です。") against the example and returns the chunks.
+    Without tokens, space-separated languages are split on spaces."""
+    if not example:
+        if tokens:
+            report.error(where, f"tokens_{lang} is filled but example_{lang} is empty")
+        return []
+    if not tokens:
+        if lang in TOKENS_REQUIRED:
+            report.error(where, f"tokens_{lang} is empty (required for {lang} examples, e.g. 私 / は / 学生 / です。)")
+            return []
+        return example.split()
+    parts = [p.strip() for p in tokens.split("/")]
+    if any(not p for p in parts):
+        report.error(where, f"tokens_{lang} has an empty chunk: '{tokens}'")
+        return []
+    if lang in TOKENS_REQUIRED:
+        same = "".join(parts) == "".join(example.split())
+    else:
+        same = " ".join(" ".join(parts).split()) == " ".join(example.split())
+    if not same:
+        report.error(where, f"tokens_{lang} '{tokens}' don't rebuild example_{lang} '{example}'")
+        return []
+    if len(parts) < 2:
+        report.warn(where, f"tokens_{lang} has a single chunk – the sentence builder needs at least 2")
+    return parts
 
 
 # --------------------------------------------------------------------------- write

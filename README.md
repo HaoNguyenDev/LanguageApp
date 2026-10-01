@@ -127,7 +127,7 @@ Each course currently has 10 units, 39 lessons and 235 words (1,410 in total), c
 | 9 Weather & nature | Weather · Seasons · Nature · Animals |
 | 10 Health | Body · Face · Feeling sick · Emergencies |
 
-Most lessons have 6 words; every lesson has at least one example sentence in all six languages.
+Most lessons have 6 words. **Every word has an example sentence** in all six languages, stored with `exampleTokens` (the sentence split into chunks – phrases for Chinese / Japanese, words elsewhere) for the upcoming sentence-builder exercise.
 
 Readings: IPA (English), Pinyin (Chinese), kana + Romaji (Japanese), Romanization (Korean); none for Spanish and Vietnamese.
 
@@ -144,7 +144,8 @@ Generated item format:
 ```json
 { "id": "ja-0007", "term": "はい", "reading": "hai",
   "meaning": { "en": "yes", "vi": "vâng / có", "zh": "是", "ja": "はい", "ko": "네", "es": "sí" },
-  "example": "…", "exampleMeaning": { "en": "…", "vi": "…" } }
+  "example": "はい、学生です。", "exampleTokens": ["はい、", "学生", "です。"],
+  "exampleMeaning": { "en": "Yes, I am a student.", "vi": "Vâng, tôi là học sinh.", … } }
 ```
 
 Lesson icons are SF Symbol names in the lesson's `icon` field.

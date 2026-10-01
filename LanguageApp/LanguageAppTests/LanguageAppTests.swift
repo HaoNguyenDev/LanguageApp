@@ -442,6 +442,14 @@ final class ContentImporterTests: XCTestCase {
         XCTAssertEqual(japanese.orderedLessons.count, expected.lessons)
         XCTAssertEqual(japanese.allItems.count, expected.words)
 
+        // Every word has an example sentence, split into chunks that rebuild it (sentence builder).
+        for item in japanese.allItems {
+            let example = try XCTUnwrap(item.example, item.remoteId)
+            let tokens = try XCTUnwrap(item.exampleTokens, item.remoteId)
+            XCTAssertGreaterThanOrEqual(tokens.count, 2, item.remoteId)
+            XCTAssertEqual(tokens.joined(), example, item.remoteId)
+        }
+
         // Learn a word, then re-import → SRS state must be kept, no duplicates.
         let word = try XCTUnwrap(japanese.allItems.first)
         word.srsState = SRSScheduler().introduce()
