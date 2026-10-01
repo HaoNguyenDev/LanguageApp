@@ -243,15 +243,18 @@ final class ContentImporterTests: XCTestCase {
 
         let courses = try context.fetch(FetchDescriptor<Course>())
         XCTAssertEqual(courses.count, 6)
+        // Expected sizes come from the bundled JSON, so adding content doesn't break the test.
+        let expected = try Self.bundledCounts("course_ja")
+        let totalWords = try LanguageCode.allCases.reduce(0) { $0 + (try Self.bundledCounts("course_\($1.courseId)").words) }
         let japanese = try XCTUnwrap(courses.first { $0.remoteId == "ja" })
-        XCTAssertEqual(japanese.orderedLessons.count, 4)
-        XCTAssertEqual(japanese.allItems.count, 24)
+        XCTAssertEqual(japanese.orderedLessons.count, expected.lessons)
+        XCTAssertEqual(japanese.allItems.count, expected.words)
 
         // Learn a word, then re-import → SRS state must be kept, no duplicates.
         let word = try XCTUnwrap(japanese.allItems.first)
         word.srsState = SRSScheduler().introduce()
         importer.importBundledCourses()
-        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, 144)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, totalWords)
         XCTAssertTrue(word.isLearned)
 
         // Content update (higher version): text changes, a learned word moves to another
@@ -278,8 +281,17 @@ final class ContentImporterTests: XCTestCase {
         XCTAssertEqual(word.term, "こんにちは!")
         XCTAssertTrue(word.isLearned, "Moving a word to another lesson keeps its SRS state")
         XCTAssertEqual(word.lesson?.remoteId, lessons[1]["id"] as? String)
-        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, 143)
+        XCTAssertEqual(try context.fetch(FetchDescriptor<VocabItem>()).count, totalWords - 1)
         let removedLeft = try context.fetch(FetchDescriptor<VocabItem>(predicate: #Predicate { $0.remoteId == removedId }))
         XCTAssertTrue(removedLeft.isEmpty, "Words removed from the content are deleted")
+    }
+
+    /// Lesson and word counts of a bundled course file.
+    private static func bundledCounts(_ fileName: String) throws -> (lessons: Int, words: Int) {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: fileName, withExtension: "json"), fileName)
+        let json = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        let lessons = (json["units"] as? [[String: Any]] ?? []).flatMap { $0["lessons"] as? [[String: Any]] ?? [] }
+        let words = lessons.reduce(0) { $0 + (($1["items"] as? [Any])?.count ?? 0) }
+        return (lessons.count, words)
     }
 }

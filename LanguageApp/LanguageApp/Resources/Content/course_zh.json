@@ -1,6 +1,6 @@
 {
   "id": "zh",
-  "version": 3,
+  "version": 4,
   "name": {
     "en": "Chinese",
     "vi": "Tiếng Trung",
@@ -94,7 +94,7 @@
                 "vi": "làm ơn",
                 "zh": "请",
                 "ja": "お願いします",
-                "ko": "부탁합니다",
+                "ko": "주세요",
                 "es": "por favor"
               },
               "reading": "qǐng"
@@ -106,7 +106,7 @@
                 "en": "sorry",
                 "vi": "xin lỗi",
                 "zh": "对不起",
-                "ja": "ごめんなさい",
+                "ja": "すみません / ごめんなさい",
                 "ko": "미안합니다",
                 "es": "lo siento"
               },
@@ -235,6 +235,108 @@
                 "ko": "제 이름은 안나예요.",
                 "es": "Me llamo Anna."
               }
+            }
+          ]
+        },
+        {
+          "id": "zh-u1-l3",
+          "title": {
+            "en": "Questions",
+            "vi": "Câu hỏi",
+            "zh": "疑问词",
+            "ja": "質問",
+            "ko": "질문",
+            "es": "Preguntas"
+          },
+          "icon": "questionmark.bubble.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0098",
+              "term": "什么",
+              "meaning": {
+                "en": "what",
+                "vi": "cái gì",
+                "zh": "什么",
+                "ja": "何",
+                "ko": "뭐",
+                "es": "qué"
+              },
+              "reading": "shénme",
+              "example": "这是什么？",
+              "exampleMeaning": {
+                "en": "What is this?",
+                "vi": "Đây là cái gì?",
+                "zh": "这是什么？",
+                "ja": "これは何ですか？",
+                "ko": "이게 뭐예요?",
+                "es": "¿Qué es esto?"
+              }
+            },
+            {
+              "id": "zh-0099",
+              "term": "谁",
+              "meaning": {
+                "en": "who",
+                "vi": "ai",
+                "zh": "谁",
+                "ja": "誰",
+                "ko": "누구",
+                "es": "quién"
+              },
+              "reading": "shéi"
+            },
+            {
+              "id": "zh-0100",
+              "term": "什么时候",
+              "meaning": {
+                "en": "when",
+                "vi": "khi nào",
+                "zh": "什么时候",
+                "ja": "いつ",
+                "ko": "언제",
+                "es": "cuándo"
+              },
+              "reading": "shénme shíhou"
+            },
+            {
+              "id": "zh-0101",
+              "term": "为什么",
+              "meaning": {
+                "en": "why",
+                "vi": "tại sao",
+                "zh": "为什么",
+                "ja": "なぜ",
+                "ko": "왜",
+                "es": "por qué"
+              },
+              "reading": "wèishénme"
+            },
+            {
+              "id": "zh-0102",
+              "term": "怎么",
+              "meaning": {
+                "en": "how",
+                "vi": "như thế nào",
+                "zh": "怎么",
+                "ja": "どう",
+                "ko": "어떻게",
+                "es": "cómo"
+              },
+              "reading": "zěnme"
+            },
+            {
+              "id": "zh-0103",
+              "term": "哪个",
+              "meaning": {
+                "en": "which",
+                "vi": "cái nào",
+                "zh": "哪个",
+                "ja": "どれ",
+                "ko": "어느 것",
+                "es": "cuál"
+              },
+              "reading": "nǎge"
             }
           ]
         }
@@ -452,6 +554,3699 @@
                 "es": "huevo"
               },
               "reading": "jīdàn"
+            }
+          ]
+        },
+        {
+          "id": "zh-u2-l3",
+          "title": {
+            "en": "Numbers 2",
+            "vi": "Số đếm 2",
+            "zh": "数字 2",
+            "ja": "数字 2",
+            "ko": "숫자 2",
+            "es": "Números 2"
+          },
+          "icon": "number.circle.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0104",
+              "term": "六",
+              "meaning": {
+                "en": "six",
+                "vi": "sáu",
+                "zh": "六",
+                "ja": "ろく",
+                "ko": "여섯",
+                "es": "seis"
+              },
+              "reading": "liù"
+            },
+            {
+              "id": "zh-0105",
+              "term": "七",
+              "meaning": {
+                "en": "seven",
+                "vi": "bảy",
+                "zh": "七",
+                "ja": "なな",
+                "ko": "일곱",
+                "es": "siete"
+              },
+              "reading": "qī"
+            },
+            {
+              "id": "zh-0106",
+              "term": "八",
+              "meaning": {
+                "en": "eight",
+                "vi": "tám",
+                "zh": "八",
+                "ja": "はち",
+                "ko": "여덟",
+                "es": "ocho"
+              },
+              "reading": "bā",
+              "example": "我八点起床。",
+              "exampleMeaning": {
+                "en": "I get up at eight.",
+                "vi": "Tôi dậy lúc tám giờ.",
+                "zh": "我八点起床。",
+                "ja": "八時に起きます。",
+                "ko": "여덟 시에 일어나요.",
+                "es": "Me levanto a las ocho."
+              }
+            },
+            {
+              "id": "zh-0107",
+              "term": "九",
+              "meaning": {
+                "en": "nine",
+                "vi": "chín",
+                "zh": "九",
+                "ja": "きゅう",
+                "ko": "아홉",
+                "es": "nueve"
+              },
+              "reading": "jiǔ"
+            },
+            {
+              "id": "zh-0108",
+              "term": "一百",
+              "meaning": {
+                "en": "one hundred",
+                "vi": "một trăm",
+                "zh": "一百",
+                "ja": "ひゃく",
+                "ko": "백",
+                "es": "cien"
+              },
+              "reading": "yìbǎi"
+            },
+            {
+              "id": "zh-0109",
+              "term": "一千",
+              "meaning": {
+                "en": "one thousand",
+                "vi": "một nghìn",
+                "zh": "一千",
+                "ja": "せん",
+                "ko": "천",
+                "es": "mil"
+              },
+              "reading": "yìqiān"
+            }
+          ]
+        },
+        {
+          "id": "zh-u2-l4",
+          "title": {
+            "en": "Meals",
+            "vi": "Bữa ăn",
+            "zh": "三餐",
+            "ja": "食事",
+            "ko": "식사",
+            "es": "Comidas"
+          },
+          "icon": "takeoutbag.and.cup.and.straw.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0110",
+              "term": "早饭",
+              "meaning": {
+                "en": "breakfast",
+                "vi": "bữa sáng",
+                "zh": "早饭",
+                "ja": "朝ご飯",
+                "ko": "아침 식사",
+                "es": "desayuno"
+              },
+              "reading": "zǎofàn"
+            },
+            {
+              "id": "zh-0111",
+              "term": "午饭",
+              "meaning": {
+                "en": "lunch",
+                "vi": "bữa trưa",
+                "zh": "午饭",
+                "ja": "昼ご飯",
+                "ko": "점심",
+                "es": "almuerzo"
+              },
+              "reading": "wǔfàn"
+            },
+            {
+              "id": "zh-0112",
+              "term": "晚饭",
+              "meaning": {
+                "en": "dinner",
+                "vi": "bữa tối",
+                "zh": "晚饭",
+                "ja": "晩ご飯",
+                "ko": "저녁 식사",
+                "es": "cena"
+              },
+              "reading": "wǎnfàn"
+            },
+            {
+              "id": "zh-0113",
+              "term": "吃",
+              "meaning": {
+                "en": "eat",
+                "vi": "ăn",
+                "zh": "吃",
+                "ja": "食べる",
+                "ko": "먹다",
+                "es": "comer"
+              },
+              "reading": "chī"
+            },
+            {
+              "id": "zh-0114",
+              "term": "喝",
+              "meaning": {
+                "en": "drink",
+                "vi": "uống",
+                "zh": "喝",
+                "ja": "飲む",
+                "ko": "마시다",
+                "es": "beber"
+              },
+              "reading": "hē"
+            },
+            {
+              "id": "zh-0115",
+              "term": "好吃",
+              "meaning": {
+                "en": "delicious",
+                "vi": "ngon",
+                "zh": "好吃",
+                "ja": "おいしい",
+                "ko": "맛있다",
+                "es": "delicioso"
+              },
+              "reading": "hǎochī",
+              "example": "这个很好吃！",
+              "exampleMeaning": {
+                "en": "This is delicious!",
+                "vi": "Món này ngon quá!",
+                "zh": "这个很好吃！",
+                "ja": "これはおいしいです！",
+                "ko": "이거 맛있어요!",
+                "es": "¡Esto está delicioso!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u3",
+      "title": {
+        "en": "People & family",
+        "vi": "Người & gia đình",
+        "zh": "人物与家庭",
+        "ja": "人と家族",
+        "ko": "사람과 가족",
+        "es": "Personas y familia"
+      },
+      "lessons": [
+        {
+          "id": "zh-u3-l1",
+          "title": {
+            "en": "Family",
+            "vi": "Gia đình",
+            "zh": "家庭",
+            "ja": "家族",
+            "ko": "가족",
+            "es": "Familia"
+          },
+          "icon": "figure.2.and.child.holdinghands",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0025",
+              "term": "妈妈",
+              "meaning": {
+                "en": "mother",
+                "vi": "mẹ",
+                "zh": "妈妈",
+                "ja": "お母さん",
+                "ko": "어머니",
+                "es": "madre"
+              },
+              "reading": "māma",
+              "example": "我妈妈是老师。",
+              "exampleMeaning": {
+                "en": "My mother is a teacher.",
+                "vi": "Mẹ tôi là giáo viên.",
+                "zh": "我妈妈是老师。",
+                "ja": "お母さんは先生です。",
+                "ko": "어머니는 선생님이에요.",
+                "es": "Mi madre es profesora."
+              }
+            },
+            {
+              "id": "zh-0026",
+              "term": "爸爸",
+              "meaning": {
+                "en": "father",
+                "vi": "bố / cha",
+                "zh": "爸爸",
+                "ja": "お父さん",
+                "ko": "아버지",
+                "es": "padre"
+              },
+              "reading": "bàba"
+            },
+            {
+              "id": "zh-0027",
+              "term": "孩子",
+              "meaning": {
+                "en": "child",
+                "vi": "trẻ em / con",
+                "zh": "孩子",
+                "ja": "子ども",
+                "ko": "아이",
+                "es": "niño / niña"
+              },
+              "reading": "háizi"
+            },
+            {
+              "id": "zh-0028",
+              "term": "丈夫",
+              "meaning": {
+                "en": "husband",
+                "vi": "chồng",
+                "zh": "丈夫",
+                "ja": "夫",
+                "ko": "남편",
+                "es": "esposo"
+              },
+              "reading": "zhàngfu"
+            },
+            {
+              "id": "zh-0029",
+              "term": "妻子",
+              "meaning": {
+                "en": "wife",
+                "vi": "vợ",
+                "zh": "妻子",
+                "ja": "妻",
+                "ko": "아내",
+                "es": "esposa"
+              },
+              "reading": "qīzi"
+            },
+            {
+              "id": "zh-0030",
+              "term": "宝宝",
+              "meaning": {
+                "en": "baby",
+                "vi": "em bé",
+                "zh": "宝宝",
+                "ja": "赤ちゃん",
+                "ko": "아기",
+                "es": "bebé"
+              },
+              "reading": "bǎobao",
+              "example": "宝宝在睡觉。",
+              "exampleMeaning": {
+                "en": "The baby is sleeping.",
+                "vi": "Em bé đang ngủ.",
+                "zh": "宝宝在睡觉。",
+                "ja": "赤ちゃんが寝ています。",
+                "ko": "아기가 자고 있어요.",
+                "es": "El bebé está durmiendo."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u3-l2",
+          "title": {
+            "en": "People",
+            "vi": "Mọi người",
+            "zh": "人们",
+            "ja": "人々",
+            "ko": "사람들",
+            "es": "Personas"
+          },
+          "icon": "person.2.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0031",
+              "term": "男人",
+              "meaning": {
+                "en": "man",
+                "vi": "đàn ông",
+                "zh": "男人",
+                "ja": "男の人",
+                "ko": "남자",
+                "es": "hombre"
+              },
+              "reading": "nánrén"
+            },
+            {
+              "id": "zh-0032",
+              "term": "女人",
+              "meaning": {
+                "en": "woman",
+                "vi": "phụ nữ",
+                "zh": "女人",
+                "ja": "女の人",
+                "ko": "여자",
+                "es": "mujer"
+              },
+              "reading": "nǚrén"
+            },
+            {
+              "id": "zh-0033",
+              "term": "人",
+              "meaning": {
+                "en": "person",
+                "vi": "người",
+                "zh": "人",
+                "ja": "人",
+                "ko": "사람",
+                "es": "persona"
+              },
+              "reading": "rén"
+            },
+            {
+              "id": "zh-0034",
+              "term": "老师",
+              "meaning": {
+                "en": "teacher",
+                "vi": "giáo viên",
+                "zh": "老师",
+                "ja": "先生",
+                "ko": "선생님",
+                "es": "profesor / profesora"
+              },
+              "reading": "lǎoshī"
+            },
+            {
+              "id": "zh-0035",
+              "term": "学生",
+              "meaning": {
+                "en": "student",
+                "vi": "học sinh / sinh viên",
+                "zh": "学生",
+                "ja": "学生",
+                "ko": "학생",
+                "es": "estudiante"
+              },
+              "reading": "xuésheng",
+              "example": "我是学生。",
+              "exampleMeaning": {
+                "en": "I am a student.",
+                "vi": "Tôi là học sinh.",
+                "zh": "我是学生。",
+                "ja": "私は学生です。",
+                "ko": "저는 학생이에요.",
+                "es": "Soy estudiante."
+              }
+            },
+            {
+              "id": "zh-0036",
+              "term": "医生",
+              "meaning": {
+                "en": "doctor",
+                "vi": "bác sĩ",
+                "zh": "医生",
+                "ja": "医者",
+                "ko": "의사",
+                "es": "médico"
+              },
+              "reading": "yīshēng",
+              "example": "他是医生。",
+              "exampleMeaning": {
+                "en": "He is a doctor.",
+                "vi": "Anh ấy là bác sĩ.",
+                "zh": "他是医生。",
+                "ja": "彼は医者です。",
+                "ko": "그는 의사예요.",
+                "es": "Él es médico."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u3-l3",
+          "title": {
+            "en": "Describing people",
+            "vi": "Miêu tả",
+            "zh": "描述",
+            "ja": "様子を表す言葉",
+            "ko": "묘사",
+            "es": "Descripciones"
+          },
+          "icon": "face.smiling",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0037",
+              "term": "高兴",
+              "meaning": {
+                "en": "happy",
+                "vi": "vui / vui vẻ",
+                "zh": "高兴",
+                "ja": "うれしい",
+                "ko": "기쁘다",
+                "es": "feliz"
+              },
+              "reading": "gāoxìng"
+            },
+            {
+              "id": "zh-0038",
+              "term": "累",
+              "meaning": {
+                "en": "tired",
+                "vi": "mệt",
+                "zh": "累",
+                "ja": "疲れた",
+                "ko": "피곤하다",
+                "es": "cansado"
+              },
+              "reading": "lèi",
+              "example": "我很累。",
+              "exampleMeaning": {
+                "en": "I am tired.",
+                "vi": "Tôi mệt.",
+                "zh": "我很累。",
+                "ja": "私は疲れました。",
+                "ko": "저는 피곤해요.",
+                "es": "Estoy cansado."
+              }
+            },
+            {
+              "id": "zh-0039",
+              "term": "忙",
+              "meaning": {
+                "en": "busy",
+                "vi": "bận",
+                "zh": "忙",
+                "ja": "忙しい",
+                "ko": "바쁘다",
+                "es": "ocupado"
+              },
+              "reading": "máng",
+              "example": "你今天忙吗？",
+              "exampleMeaning": {
+                "en": "Are you busy today?",
+                "vi": "Hôm nay bạn có bận không?",
+                "zh": "你今天忙吗？",
+                "ja": "今日は忙しいですか？",
+                "ko": "오늘 바빠요?",
+                "es": "¿Estás ocupado hoy?"
+              }
+            },
+            {
+              "id": "zh-0040",
+              "term": "年轻",
+              "meaning": {
+                "en": "young",
+                "vi": "trẻ",
+                "zh": "年轻",
+                "ja": "若い",
+                "ko": "젊다",
+                "es": "joven"
+              },
+              "reading": "niánqīng"
+            },
+            {
+              "id": "zh-0041",
+              "term": "善良",
+              "meaning": {
+                "en": "kind",
+                "vi": "tốt bụng",
+                "zh": "善良",
+                "ja": "優しい",
+                "ko": "친절하다",
+                "es": "amable"
+              },
+              "reading": "shànliáng"
+            },
+            {
+              "id": "zh-0042",
+              "term": "漂亮",
+              "meaning": {
+                "en": "beautiful",
+                "vi": "đẹp",
+                "zh": "漂亮",
+                "ja": "きれい",
+                "ko": "예쁘다",
+                "es": "bonito"
+              },
+              "reading": "piàoliang"
+            }
+          ]
+        },
+        {
+          "id": "zh-u3-l4",
+          "title": {
+            "en": "About me",
+            "vi": "Thông tin cá nhân",
+            "zh": "个人信息",
+            "ja": "自己紹介",
+            "ko": "자기소개",
+            "es": "Sobre mí"
+          },
+          "icon": "person.text.rectangle.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0116",
+              "term": "年龄",
+              "meaning": {
+                "en": "age",
+                "vi": "tuổi",
+                "zh": "年龄",
+                "ja": "年齢",
+                "ko": "나이",
+                "es": "edad"
+              },
+              "reading": "niánlíng"
+            },
+            {
+              "id": "zh-0117",
+              "term": "国家",
+              "meaning": {
+                "en": "country",
+                "vi": "đất nước",
+                "zh": "国家",
+                "ja": "国",
+                "ko": "나라",
+                "es": "país"
+              },
+              "reading": "guójiā"
+            },
+            {
+              "id": "zh-0118",
+              "term": "语言",
+              "meaning": {
+                "en": "language",
+                "vi": "ngôn ngữ",
+                "zh": "语言",
+                "ja": "言語",
+                "ko": "언어",
+                "es": "idioma"
+              },
+              "reading": "yǔyán"
+            },
+            {
+              "id": "zh-0119",
+              "term": "地址",
+              "meaning": {
+                "en": "address",
+                "vi": "địa chỉ",
+                "zh": "地址",
+                "ja": "住所",
+                "ko": "주소",
+                "es": "dirección"
+              },
+              "reading": "dìzhǐ"
+            },
+            {
+              "id": "zh-0120",
+              "term": "电话号码",
+              "meaning": {
+                "en": "phone number",
+                "vi": "số điện thoại",
+                "zh": "电话号码",
+                "ja": "電話番号",
+                "ko": "전화번호",
+                "es": "número de teléfono"
+              },
+              "reading": "diànhuà hàomǎ"
+            },
+            {
+              "id": "zh-0121",
+              "term": "住",
+              "meaning": {
+                "en": "live",
+                "vi": "sống",
+                "zh": "住",
+                "ja": "住む",
+                "ko": "살다",
+                "es": "vivir"
+              },
+              "reading": "zhù",
+              "example": "我住在河内。",
+              "exampleMeaning": {
+                "en": "I live in Hanoi.",
+                "vi": "Tôi sống ở Hà Nội.",
+                "zh": "我住在河内。",
+                "ja": "私はハノイに住んでいます。",
+                "ko": "저는 하노이에 살아요.",
+                "es": "Vivo en Hanói."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u4",
+      "title": {
+        "en": "Time",
+        "vi": "Thời gian",
+        "zh": "时间",
+        "ja": "時間",
+        "ko": "시간",
+        "es": "El tiempo"
+      },
+      "lessons": [
+        {
+          "id": "zh-u4-l1",
+          "title": {
+            "en": "Today & tomorrow",
+            "vi": "Hôm nay & ngày mai",
+            "zh": "今天和明天",
+            "ja": "今日と明日",
+            "ko": "오늘과 내일",
+            "es": "Hoy y mañana"
+          },
+          "icon": "sun.max.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0043",
+              "term": "今天",
+              "meaning": {
+                "en": "today",
+                "vi": "hôm nay",
+                "zh": "今天",
+                "ja": "今日",
+                "ko": "오늘",
+                "es": "hoy"
+              },
+              "reading": "jīntiān"
+            },
+            {
+              "id": "zh-0044",
+              "term": "明天",
+              "meaning": {
+                "en": "tomorrow",
+                "vi": "ngày mai",
+                "zh": "明天",
+                "ja": "明日",
+                "ko": "내일",
+                "es": "mañana"
+              },
+              "reading": "míngtiān",
+              "example": "明天见！",
+              "exampleMeaning": {
+                "en": "See you tomorrow!",
+                "vi": "Hẹn gặp lại ngày mai!",
+                "zh": "明天见！",
+                "ja": "また明日！",
+                "ko": "내일 봐요!",
+                "es": "¡Hasta mañana!"
+              }
+            },
+            {
+              "id": "zh-0045",
+              "term": "昨天",
+              "meaning": {
+                "en": "yesterday",
+                "vi": "hôm qua",
+                "zh": "昨天",
+                "ja": "昨日",
+                "ko": "어제",
+                "es": "ayer"
+              },
+              "reading": "zuótiān"
+            },
+            {
+              "id": "zh-0046",
+              "term": "现在",
+              "meaning": {
+                "en": "now",
+                "vi": "bây giờ",
+                "zh": "现在",
+                "ja": "今",
+                "ko": "지금",
+                "es": "ahora"
+              },
+              "reading": "xiànzài",
+              "example": "我现在很忙。",
+              "exampleMeaning": {
+                "en": "I am busy now.",
+                "vi": "Bây giờ tôi bận.",
+                "zh": "我现在很忙。",
+                "ja": "今、忙しいです。",
+                "ko": "지금 바빠요.",
+                "es": "Ahora estoy ocupado."
+              }
+            },
+            {
+              "id": "zh-0047",
+              "term": "早上",
+              "meaning": {
+                "en": "morning",
+                "vi": "buổi sáng",
+                "zh": "早上",
+                "ja": "朝",
+                "ko": "아침",
+                "es": "la mañana"
+              },
+              "reading": "zǎoshang"
+            },
+            {
+              "id": "zh-0048",
+              "term": "晚上",
+              "meaning": {
+                "en": "night",
+                "vi": "buổi tối / ban đêm",
+                "zh": "晚上",
+                "ja": "夜",
+                "ko": "밤",
+                "es": "la noche"
+              },
+              "reading": "wǎnshang"
+            }
+          ]
+        },
+        {
+          "id": "zh-u4-l2",
+          "title": {
+            "en": "Days of the week",
+            "vi": "Các ngày trong tuần",
+            "zh": "星期",
+            "ja": "曜日",
+            "ko": "요일",
+            "es": "Días de la semana"
+          },
+          "icon": "calendar",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0049",
+              "term": "星期一",
+              "meaning": {
+                "en": "Monday",
+                "vi": "thứ Hai",
+                "zh": "星期一",
+                "ja": "月曜日",
+                "ko": "월요일",
+                "es": "lunes"
+              },
+              "reading": "xīngqīyī",
+              "example": "今天是星期一。",
+              "exampleMeaning": {
+                "en": "Today is Monday.",
+                "vi": "Hôm nay là thứ Hai.",
+                "zh": "今天是星期一。",
+                "ja": "今日は月曜日です。",
+                "ko": "오늘은 월요일이에요.",
+                "es": "Hoy es lunes."
+              }
+            },
+            {
+              "id": "zh-0050",
+              "term": "星期二",
+              "meaning": {
+                "en": "Tuesday",
+                "vi": "thứ Ba",
+                "zh": "星期二",
+                "ja": "火曜日",
+                "ko": "화요일",
+                "es": "martes"
+              },
+              "reading": "xīngqīèr"
+            },
+            {
+              "id": "zh-0051",
+              "term": "星期三",
+              "meaning": {
+                "en": "Wednesday",
+                "vi": "thứ Tư",
+                "zh": "星期三",
+                "ja": "水曜日",
+                "ko": "수요일",
+                "es": "miércoles"
+              },
+              "reading": "xīngqīsān"
+            },
+            {
+              "id": "zh-0052",
+              "term": "星期四",
+              "meaning": {
+                "en": "Thursday",
+                "vi": "thứ Năm",
+                "zh": "星期四",
+                "ja": "木曜日",
+                "ko": "목요일",
+                "es": "jueves"
+              },
+              "reading": "xīngqīsì"
+            },
+            {
+              "id": "zh-0053",
+              "term": "星期五",
+              "meaning": {
+                "en": "Friday",
+                "vi": "thứ Sáu",
+                "zh": "星期五",
+                "ja": "金曜日",
+                "ko": "금요일",
+                "es": "viernes"
+              },
+              "reading": "xīngqīwǔ"
+            },
+            {
+              "id": "zh-0054",
+              "term": "星期六",
+              "meaning": {
+                "en": "Saturday",
+                "vi": "thứ Bảy",
+                "zh": "星期六",
+                "ja": "土曜日",
+                "ko": "토요일",
+                "es": "sábado"
+              },
+              "reading": "xīngqīliù"
+            },
+            {
+              "id": "zh-0055",
+              "term": "星期天",
+              "meaning": {
+                "en": "Sunday",
+                "vi": "Chủ nhật",
+                "zh": "星期天",
+                "ja": "日曜日",
+                "ko": "일요일",
+                "es": "domingo"
+              },
+              "reading": "xīngqītiān",
+              "example": "我星期天休息。",
+              "exampleMeaning": {
+                "en": "I rest on Sunday.",
+                "vi": "Chủ nhật tôi nghỉ ngơi.",
+                "zh": "我星期天休息。",
+                "ja": "日曜日は休みます。",
+                "ko": "일요일에 쉬어요.",
+                "es": "Descanso el domingo."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u4-l3",
+          "title": {
+            "en": "Hours, days, months",
+            "vi": "Giờ, ngày, tháng",
+            "zh": "时间单位",
+            "ja": "時間の単位",
+            "ko": "시간 단위",
+            "es": "Horas, días y meses"
+          },
+          "icon": "clock.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0056",
+              "term": "小时",
+              "meaning": {
+                "en": "hour",
+                "vi": "giờ / tiếng",
+                "zh": "小时",
+                "ja": "時間",
+                "ko": "시간",
+                "es": "hora"
+              },
+              "reading": "xiǎoshí"
+            },
+            {
+              "id": "zh-0057",
+              "term": "分钟",
+              "meaning": {
+                "en": "minute",
+                "vi": "phút",
+                "zh": "分钟",
+                "ja": "分",
+                "ko": "분",
+                "es": "minuto"
+              },
+              "reading": "fēnzhōng",
+              "example": "等五分钟。",
+              "exampleMeaning": {
+                "en": "Wait five minutes.",
+                "vi": "Đợi năm phút.",
+                "zh": "等五分钟。",
+                "ja": "五分待ってください。",
+                "ko": "오 분만 기다려 주세요.",
+                "es": "Espera cinco minutos."
+              }
+            },
+            {
+              "id": "zh-0058",
+              "term": "天",
+              "meaning": {
+                "en": "day",
+                "vi": "ngày",
+                "zh": "天",
+                "ja": "日",
+                "ko": "날",
+                "es": "día"
+              },
+              "reading": "tiān"
+            },
+            {
+              "id": "zh-0059",
+              "term": "星期",
+              "meaning": {
+                "en": "week",
+                "vi": "tuần",
+                "zh": "星期",
+                "ja": "週",
+                "ko": "주",
+                "es": "semana"
+              },
+              "reading": "xīngqī"
+            },
+            {
+              "id": "zh-0060",
+              "term": "月",
+              "meaning": {
+                "en": "month",
+                "vi": "tháng",
+                "zh": "月",
+                "ja": "月",
+                "ko": "달",
+                "es": "mes"
+              },
+              "reading": "yuè"
+            },
+            {
+              "id": "zh-0061",
+              "term": "周末",
+              "meaning": {
+                "en": "weekend",
+                "vi": "cuối tuần",
+                "zh": "周末",
+                "ja": "週末",
+                "ko": "주말",
+                "es": "fin de semana"
+              },
+              "reading": "zhōumò",
+              "example": "你周末做什么？",
+              "exampleMeaning": {
+                "en": "What do you do on the weekend?",
+                "vi": "Cuối tuần bạn làm gì?",
+                "zh": "你周末做什么？",
+                "ja": "週末は何をしますか？",
+                "ko": "주말에 뭐 해요?",
+                "es": "¿Qué haces el fin de semana?"
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u4-l4",
+          "title": {
+            "en": "Daily routine",
+            "vi": "Sinh hoạt hằng ngày",
+            "zh": "日常作息",
+            "ja": "一日の生活",
+            "ko": "하루 일과",
+            "es": "Rutina diaria"
+          },
+          "icon": "bed.double.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0122",
+              "term": "起床",
+              "meaning": {
+                "en": "wake up",
+                "vi": "thức dậy",
+                "zh": "起床",
+                "ja": "起きる",
+                "ko": "일어나다",
+                "es": "despertarse"
+              },
+              "reading": "qǐchuáng"
+            },
+            {
+              "id": "zh-0123",
+              "term": "睡觉",
+              "meaning": {
+                "en": "sleep",
+                "vi": "ngủ",
+                "zh": "睡觉",
+                "ja": "寝る",
+                "ko": "자다",
+                "es": "dormir"
+              },
+              "reading": "shuìjiào",
+              "example": "我十一点睡觉。",
+              "exampleMeaning": {
+                "en": "I sleep at eleven.",
+                "vi": "Tôi ngủ lúc mười một giờ.",
+                "zh": "我十一点睡觉。",
+                "ja": "十一時に寝ます。",
+                "ko": "열한 시에 자요.",
+                "es": "Duermo a las once."
+              }
+            },
+            {
+              "id": "zh-0124",
+              "term": "去",
+              "meaning": {
+                "en": "go",
+                "vi": "đi",
+                "zh": "去",
+                "ja": "行く",
+                "ko": "가다",
+                "es": "ir"
+              },
+              "reading": "qù"
+            },
+            {
+              "id": "zh-0125",
+              "term": "来",
+              "meaning": {
+                "en": "come",
+                "vi": "đến",
+                "zh": "来",
+                "ja": "来る",
+                "ko": "오다",
+                "es": "venir"
+              },
+              "reading": "lái"
+            },
+            {
+              "id": "zh-0126",
+              "term": "回家",
+              "meaning": {
+                "en": "go home",
+                "vi": "về nhà",
+                "zh": "回家",
+                "ja": "帰る",
+                "ko": "집에 가다",
+                "es": "volver a casa"
+              },
+              "reading": "huíjiā"
+            },
+            {
+              "id": "zh-0127",
+              "term": "工作",
+              "meaning": {
+                "en": "work",
+                "vi": "làm việc",
+                "zh": "工作",
+                "ja": "働く",
+                "ko": "일하다",
+                "es": "trabajar"
+              },
+              "reading": "gōngzuò"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u5",
+      "title": {
+        "en": "Shopping",
+        "vi": "Mua sắm",
+        "zh": "购物",
+        "ja": "買い物",
+        "ko": "쇼핑",
+        "es": "De compras"
+      },
+      "lessons": [
+        {
+          "id": "zh-u5-l1",
+          "title": {
+            "en": "At the shop",
+            "vi": "Ở cửa hàng",
+            "zh": "在商店",
+            "ja": "お店で",
+            "ko": "가게에서",
+            "es": "En la tienda"
+          },
+          "icon": "cart.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0062",
+              "term": "钱",
+              "meaning": {
+                "en": "money",
+                "vi": "tiền",
+                "zh": "钱",
+                "ja": "お金",
+                "ko": "돈",
+                "es": "dinero"
+              },
+              "reading": "qián"
+            },
+            {
+              "id": "zh-0063",
+              "term": "商店",
+              "meaning": {
+                "en": "shop",
+                "vi": "cửa hàng",
+                "zh": "商店",
+                "ja": "店",
+                "ko": "가게",
+                "es": "tienda"
+              },
+              "reading": "shāngdiàn"
+            },
+            {
+              "id": "zh-0064",
+              "term": "买",
+              "meaning": {
+                "en": "buy",
+                "vi": "mua",
+                "zh": "买",
+                "ja": "買う",
+                "ko": "사다",
+                "es": "comprar"
+              },
+              "reading": "mǎi"
+            },
+            {
+              "id": "zh-0065",
+              "term": "贵",
+              "meaning": {
+                "en": "expensive",
+                "vi": "đắt",
+                "zh": "贵",
+                "ja": "高い",
+                "ko": "비싸다",
+                "es": "caro"
+              },
+              "reading": "guì",
+              "example": "这个太贵了。",
+              "exampleMeaning": {
+                "en": "This is too expensive.",
+                "vi": "Cái này đắt quá.",
+                "zh": "这个太贵了。",
+                "ja": "これは高すぎます。",
+                "ko": "이거 너무 비싸요.",
+                "es": "Esto es demasiado caro."
+              }
+            },
+            {
+              "id": "zh-0066",
+              "term": "便宜",
+              "meaning": {
+                "en": "cheap",
+                "vi": "rẻ",
+                "zh": "便宜",
+                "ja": "安い",
+                "ko": "싸다",
+                "es": "barato"
+              },
+              "reading": "piányi"
+            },
+            {
+              "id": "zh-0067",
+              "term": "多少钱",
+              "meaning": {
+                "en": "how much",
+                "vi": "bao nhiêu tiền",
+                "zh": "多少钱",
+                "ja": "いくら",
+                "ko": "얼마예요",
+                "es": "cuánto cuesta"
+              },
+              "reading": "duōshao qián",
+              "example": "这个多少钱？",
+              "exampleMeaning": {
+                "en": "How much is this?",
+                "vi": "Cái này bao nhiêu tiền?",
+                "zh": "这个多少钱？",
+                "ja": "これはいくらですか？",
+                "ko": "이거 얼마예요?",
+                "es": "¿Cuánto cuesta esto?"
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u5-l2",
+          "title": {
+            "en": "Clothes",
+            "vi": "Quần áo",
+            "zh": "衣服",
+            "ja": "服",
+            "ko": "옷",
+            "es": "Ropa"
+          },
+          "icon": "tshirt.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0068",
+              "term": "衬衫",
+              "meaning": {
+                "en": "shirt",
+                "vi": "áo sơ mi",
+                "zh": "衬衫",
+                "ja": "シャツ",
+                "ko": "셔츠",
+                "es": "camisa"
+              },
+              "reading": "chènshān"
+            },
+            {
+              "id": "zh-0069",
+              "term": "裤子",
+              "meaning": {
+                "en": "pants",
+                "vi": "quần",
+                "zh": "裤子",
+                "ja": "ズボン",
+                "ko": "바지",
+                "es": "pantalones"
+              },
+              "reading": "kùzi"
+            },
+            {
+              "id": "zh-0070",
+              "term": "鞋",
+              "meaning": {
+                "en": "shoes",
+                "vi": "giày",
+                "zh": "鞋",
+                "ja": "靴",
+                "ko": "신발",
+                "es": "zapatos"
+              },
+              "reading": "xié",
+              "example": "这双鞋很便宜。",
+              "exampleMeaning": {
+                "en": "These shoes are cheap.",
+                "vi": "Đôi giày này rẻ.",
+                "zh": "这双鞋很便宜。",
+                "ja": "この靴は安いです。",
+                "ko": "이 신발은 싸요.",
+                "es": "Estos zapatos son baratos."
+              }
+            },
+            {
+              "id": "zh-0071",
+              "term": "帽子",
+              "meaning": {
+                "en": "hat",
+                "vi": "mũ / nón",
+                "zh": "帽子",
+                "ja": "帽子",
+                "ko": "모자",
+                "es": "sombrero"
+              },
+              "reading": "màozi"
+            },
+            {
+              "id": "zh-0072",
+              "term": "连衣裙",
+              "meaning": {
+                "en": "dress",
+                "vi": "váy / đầm",
+                "zh": "连衣裙",
+                "ja": "ワンピース",
+                "ko": "원피스",
+                "es": "vestido"
+              },
+              "reading": "liányīqún"
+            },
+            {
+              "id": "zh-0073",
+              "term": "包",
+              "meaning": {
+                "en": "bag",
+                "vi": "túi xách",
+                "zh": "包",
+                "ja": "かばん",
+                "ko": "가방",
+                "es": "bolso"
+              },
+              "reading": "bāo",
+              "example": "我想买一个包。",
+              "exampleMeaning": {
+                "en": "I want to buy a bag.",
+                "vi": "Tôi muốn mua một cái túi xách.",
+                "zh": "我想买一个包。",
+                "ja": "かばんを買いたいです。",
+                "ko": "가방을 사고 싶어요.",
+                "es": "Quiero comprar un bolso."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u5-l3",
+          "title": {
+            "en": "Colors",
+            "vi": "Màu sắc",
+            "zh": "颜色",
+            "ja": "色",
+            "ko": "색깔",
+            "es": "Colores"
+          },
+          "icon": "paintpalette.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0074",
+              "term": "红色",
+              "meaning": {
+                "en": "red",
+                "vi": "đỏ",
+                "zh": "红色",
+                "ja": "赤",
+                "ko": "빨간색",
+                "es": "rojo"
+              },
+              "reading": "hóngsè",
+              "example": "我喜欢红色。",
+              "exampleMeaning": {
+                "en": "I like red.",
+                "vi": "Tôi thích màu đỏ.",
+                "zh": "我喜欢红色。",
+                "ja": "赤が好きです。",
+                "ko": "저는 빨간색을 좋아해요.",
+                "es": "Me gusta el rojo."
+              }
+            },
+            {
+              "id": "zh-0075",
+              "term": "蓝色",
+              "meaning": {
+                "en": "blue",
+                "vi": "xanh dương",
+                "zh": "蓝色",
+                "ja": "青",
+                "ko": "파란색",
+                "es": "azul"
+              },
+              "reading": "lánsè"
+            },
+            {
+              "id": "zh-0076",
+              "term": "绿色",
+              "meaning": {
+                "en": "green",
+                "vi": "xanh lá",
+                "zh": "绿色",
+                "ja": "緑",
+                "ko": "초록색",
+                "es": "verde"
+              },
+              "reading": "lǜsè"
+            },
+            {
+              "id": "zh-0077",
+              "term": "黄色",
+              "meaning": {
+                "en": "yellow",
+                "vi": "vàng",
+                "zh": "黄色",
+                "ja": "黄色",
+                "ko": "노란색",
+                "es": "amarillo"
+              },
+              "reading": "huángsè"
+            },
+            {
+              "id": "zh-0078",
+              "term": "黑色",
+              "meaning": {
+                "en": "black",
+                "vi": "đen",
+                "zh": "黑色",
+                "ja": "黒",
+                "ko": "검은색",
+                "es": "negro"
+              },
+              "reading": "hēisè"
+            },
+            {
+              "id": "zh-0079",
+              "term": "白色",
+              "meaning": {
+                "en": "white",
+                "vi": "trắng",
+                "zh": "白色",
+                "ja": "白",
+                "ko": "흰색",
+                "es": "blanco"
+              },
+              "reading": "báisè",
+              "example": "衬衫是白色的。",
+              "exampleMeaning": {
+                "en": "The shirt is white.",
+                "vi": "Áo sơ mi màu trắng.",
+                "zh": "衬衫是白色的。",
+                "ja": "シャツは白です。",
+                "ko": "셔츠는 흰색이에요.",
+                "es": "La camisa es blanca."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u5-l4",
+          "title": {
+            "en": "Paying",
+            "vi": "Thanh toán",
+            "zh": "付款",
+            "ja": "支払い",
+            "ko": "결제",
+            "es": "Pagar"
+          },
+          "icon": "creditcard.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0128",
+              "term": "付钱",
+              "meaning": {
+                "en": "pay",
+                "vi": "trả tiền",
+                "zh": "付钱",
+                "ja": "払う",
+                "ko": "내다",
+                "es": "pagar"
+              },
+              "reading": "fùqián"
+            },
+            {
+              "id": "zh-0129",
+              "term": "现金",
+              "meaning": {
+                "en": "cash",
+                "vi": "tiền mặt",
+                "zh": "现金",
+                "ja": "現金",
+                "ko": "현금",
+                "es": "efectivo"
+              },
+              "reading": "xiànjīn"
+            },
+            {
+              "id": "zh-0130",
+              "term": "卡",
+              "meaning": {
+                "en": "card",
+                "vi": "thẻ",
+                "zh": "卡",
+                "ja": "カード",
+                "ko": "카드",
+                "es": "tarjeta"
+              },
+              "reading": "kǎ",
+              "example": "可以刷卡吗？",
+              "exampleMeaning": {
+                "en": "Can I pay by card?",
+                "vi": "Tôi trả bằng thẻ được không?",
+                "zh": "可以刷卡吗？",
+                "ja": "カードで払えますか？",
+                "ko": "카드로 내도 돼요?",
+                "es": "¿Puedo pagar con tarjeta?"
+              }
+            },
+            {
+              "id": "zh-0131",
+              "term": "收据",
+              "meaning": {
+                "en": "receipt",
+                "vi": "hoá đơn",
+                "zh": "收据",
+                "ja": "レシート",
+                "ko": "영수증",
+                "es": "recibo"
+              },
+              "reading": "shōujù"
+            },
+            {
+              "id": "zh-0132",
+              "term": "打折",
+              "meaning": {
+                "en": "discount",
+                "vi": "giảm giá",
+                "zh": "打折",
+                "ja": "割引",
+                "ko": "할인",
+                "es": "descuento"
+              },
+              "reading": "dǎzhé"
+            },
+            {
+              "id": "zh-0133",
+              "term": "找零",
+              "meaning": {
+                "en": "change (money)",
+                "vi": "tiền thừa",
+                "zh": "找零",
+                "ja": "おつり",
+                "ko": "거스름돈",
+                "es": "cambio"
+              },
+              "reading": "zhǎolíng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u6",
+      "title": {
+        "en": "Travel",
+        "vi": "Du lịch",
+        "zh": "旅行",
+        "ja": "旅行",
+        "ko": "여행",
+        "es": "Viajes"
+      },
+      "lessons": [
+        {
+          "id": "zh-u6-l1",
+          "title": {
+            "en": "Places",
+            "vi": "Địa điểm",
+            "zh": "地点",
+            "ja": "場所",
+            "ko": "장소",
+            "es": "Lugares"
+          },
+          "icon": "building.2.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0080",
+              "term": "车站",
+              "meaning": {
+                "en": "station",
+                "vi": "nhà ga",
+                "zh": "车站",
+                "ja": "駅",
+                "ko": "역",
+                "es": "estación"
+              },
+              "reading": "chēzhàn",
+              "example": "车站很近。",
+              "exampleMeaning": {
+                "en": "The station is near.",
+                "vi": "Nhà ga ở gần đây.",
+                "zh": "车站很近。",
+                "ja": "駅は近いです。",
+                "ko": "역이 가까워요.",
+                "es": "La estación está cerca."
+              }
+            },
+            {
+              "id": "zh-0081",
+              "term": "机场",
+              "meaning": {
+                "en": "airport",
+                "vi": "sân bay",
+                "zh": "机场",
+                "ja": "空港",
+                "ko": "공항",
+                "es": "aeropuerto"
+              },
+              "reading": "jīchǎng"
+            },
+            {
+              "id": "zh-0082",
+              "term": "酒店",
+              "meaning": {
+                "en": "hotel",
+                "vi": "khách sạn",
+                "zh": "酒店",
+                "ja": "ホテル",
+                "ko": "호텔",
+                "es": "hotel"
+              },
+              "reading": "jiǔdiàn"
+            },
+            {
+              "id": "zh-0083",
+              "term": "餐厅",
+              "meaning": {
+                "en": "restaurant",
+                "vi": "nhà hàng",
+                "zh": "餐厅",
+                "ja": "レストラン",
+                "ko": "식당",
+                "es": "restaurante"
+              },
+              "reading": "cāntīng"
+            },
+            {
+              "id": "zh-0084",
+              "term": "医院",
+              "meaning": {
+                "en": "hospital",
+                "vi": "bệnh viện",
+                "zh": "医院",
+                "ja": "病院",
+                "ko": "병원",
+                "es": "hospital"
+              },
+              "reading": "yīyuàn"
+            },
+            {
+              "id": "zh-0085",
+              "term": "厕所",
+              "meaning": {
+                "en": "toilet",
+                "vi": "nhà vệ sinh",
+                "zh": "厕所",
+                "ja": "トイレ",
+                "ko": "화장실",
+                "es": "baño"
+              },
+              "reading": "cèsuǒ",
+              "example": "厕所在哪里？",
+              "exampleMeaning": {
+                "en": "Where is the toilet?",
+                "vi": "Nhà vệ sinh ở đâu?",
+                "zh": "厕所在哪里？",
+                "ja": "トイレはどこですか？",
+                "ko": "화장실이 어디예요?",
+                "es": "¿Dónde está el baño?"
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u6-l2",
+          "title": {
+            "en": "Directions",
+            "vi": "Chỉ đường",
+            "zh": "问路",
+            "ja": "道案内",
+            "ko": "길 안내",
+            "es": "Direcciones"
+          },
+          "icon": "signpost.right.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0086",
+              "term": "左边",
+              "meaning": {
+                "en": "left",
+                "vi": "bên trái",
+                "zh": "左边",
+                "ja": "左",
+                "ko": "왼쪽",
+                "es": "izquierda"
+              },
+              "reading": "zuǒbian",
+              "example": "往左边走。",
+              "exampleMeaning": {
+                "en": "Turn left.",
+                "vi": "Rẽ bên trái.",
+                "zh": "往左边走。",
+                "ja": "左に曲がってください。",
+                "ko": "왼쪽으로 가세요.",
+                "es": "Gira a la izquierda."
+              }
+            },
+            {
+              "id": "zh-0087",
+              "term": "右边",
+              "meaning": {
+                "en": "right",
+                "vi": "bên phải",
+                "zh": "右边",
+                "ja": "右",
+                "ko": "오른쪽",
+                "es": "derecha"
+              },
+              "reading": "yòubian"
+            },
+            {
+              "id": "zh-0088",
+              "term": "一直走",
+              "meaning": {
+                "en": "straight ahead",
+                "vi": "đi thẳng",
+                "zh": "一直走",
+                "ja": "まっすぐ",
+                "ko": "직진",
+                "es": "todo recto"
+              },
+              "reading": "yìzhí zǒu"
+            },
+            {
+              "id": "zh-0089",
+              "term": "近",
+              "meaning": {
+                "en": "near",
+                "vi": "gần",
+                "zh": "近",
+                "ja": "近い",
+                "ko": "가깝다",
+                "es": "cerca"
+              },
+              "reading": "jìn"
+            },
+            {
+              "id": "zh-0090",
+              "term": "远",
+              "meaning": {
+                "en": "far",
+                "vi": "xa",
+                "zh": "远",
+                "ja": "遠い",
+                "ko": "멀다",
+                "es": "lejos"
+              },
+              "reading": "yuǎn",
+              "example": "远吗？",
+              "exampleMeaning": {
+                "en": "Is it far?",
+                "vi": "Có xa không?",
+                "zh": "远吗？",
+                "ja": "遠いですか？",
+                "ko": "멀어요?",
+                "es": "¿Está lejos?"
+              }
+            },
+            {
+              "id": "zh-0091",
+              "term": "哪里",
+              "meaning": {
+                "en": "where",
+                "vi": "ở đâu",
+                "zh": "哪里",
+                "ja": "どこ",
+                "ko": "어디",
+                "es": "dónde"
+              },
+              "reading": "nǎlǐ"
+            }
+          ]
+        },
+        {
+          "id": "zh-u6-l3",
+          "title": {
+            "en": "Transport",
+            "vi": "Phương tiện",
+            "zh": "交通工具",
+            "ja": "乗り物",
+            "ko": "교통수단",
+            "es": "Transporte"
+          },
+          "icon": "bus.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0092",
+              "term": "汽车",
+              "meaning": {
+                "en": "car",
+                "vi": "xe hơi / ô tô",
+                "zh": "汽车",
+                "ja": "車",
+                "ko": "자동차",
+                "es": "coche"
+              },
+              "reading": "qìchē"
+            },
+            {
+              "id": "zh-0093",
+              "term": "公交车",
+              "meaning": {
+                "en": "bus",
+                "vi": "xe buýt",
+                "zh": "公交车",
+                "ja": "バス",
+                "ko": "버스",
+                "es": "autobús"
+              },
+              "reading": "gōngjiāochē",
+              "example": "我坐公交车去。",
+              "exampleMeaning": {
+                "en": "I go by bus.",
+                "vi": "Tôi đi xe buýt.",
+                "zh": "我坐公交车去。",
+                "ja": "バスで行きます。",
+                "ko": "버스로 가요.",
+                "es": "Voy en autobús."
+              }
+            },
+            {
+              "id": "zh-0094",
+              "term": "火车",
+              "meaning": {
+                "en": "train",
+                "vi": "tàu hỏa",
+                "zh": "火车",
+                "ja": "電車",
+                "ko": "기차",
+                "es": "tren"
+              },
+              "reading": "huǒchē"
+            },
+            {
+              "id": "zh-0095",
+              "term": "出租车",
+              "meaning": {
+                "en": "taxi",
+                "vi": "taxi",
+                "zh": "出租车",
+                "ja": "タクシー",
+                "ko": "택시",
+                "es": "taxi"
+              },
+              "reading": "chūzūchē"
+            },
+            {
+              "id": "zh-0096",
+              "term": "自行车",
+              "meaning": {
+                "en": "bicycle",
+                "vi": "xe đạp",
+                "zh": "自行车",
+                "ja": "自転車",
+                "ko": "자전거",
+                "es": "bicicleta"
+              },
+              "reading": "zìxíngchē"
+            },
+            {
+              "id": "zh-0097",
+              "term": "票",
+              "meaning": {
+                "en": "ticket",
+                "vi": "vé",
+                "zh": "票",
+                "ja": "切符",
+                "ko": "표",
+                "es": "billete"
+              },
+              "reading": "piào",
+              "example": "请给我一张票。",
+              "exampleMeaning": {
+                "en": "One ticket, please.",
+                "vi": "Cho tôi một vé.",
+                "zh": "请给我一张票。",
+                "ja": "切符を一枚ください。",
+                "ko": "표 한 장 주세요.",
+                "es": "Un billete, por favor."
+              }
+            }
+          ]
+        },
+        {
+          "id": "zh-u6-l4",
+          "title": {
+            "en": "At the hotel",
+            "vi": "Ở khách sạn",
+            "zh": "在酒店",
+            "ja": "ホテルで",
+            "ko": "호텔에서",
+            "es": "En el hotel"
+          },
+          "icon": "key.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0134",
+              "term": "房间",
+              "meaning": {
+                "en": "room",
+                "vi": "phòng",
+                "zh": "房间",
+                "ja": "部屋",
+                "ko": "방",
+                "es": "habitación"
+              },
+              "reading": "fángjiān"
+            },
+            {
+              "id": "zh-0135",
+              "term": "钥匙",
+              "meaning": {
+                "en": "key",
+                "vi": "chìa khoá",
+                "zh": "钥匙",
+                "ja": "鍵",
+                "ko": "열쇠",
+                "es": "llave"
+              },
+              "reading": "yàoshi"
+            },
+            {
+              "id": "zh-0136",
+              "term": "护照",
+              "meaning": {
+                "en": "passport",
+                "vi": "hộ chiếu",
+                "zh": "护照",
+                "ja": "パスポート",
+                "ko": "여권",
+                "es": "pasaporte"
+              },
+              "reading": "hùzhào"
+            },
+            {
+              "id": "zh-0137",
+              "term": "预订",
+              "meaning": {
+                "en": "reservation",
+                "vi": "đặt phòng",
+                "zh": "预订",
+                "ja": "予約",
+                "ko": "예약",
+                "es": "reserva"
+              },
+              "reading": "yùdìng",
+              "example": "我有预订。",
+              "exampleMeaning": {
+                "en": "I have a reservation.",
+                "vi": "Tôi đã đặt phòng.",
+                "zh": "我有预订。",
+                "ja": "予約があります。",
+                "ko": "예약했어요.",
+                "es": "Tengo una reserva."
+              }
+            },
+            {
+              "id": "zh-0138",
+              "term": "行李",
+              "meaning": {
+                "en": "luggage",
+                "vi": "hành lý",
+                "zh": "行李",
+                "ja": "荷物",
+                "ko": "짐",
+                "es": "equipaje"
+              },
+              "reading": "xíngli"
+            },
+            {
+              "id": "zh-0139",
+              "term": "地图",
+              "meaning": {
+                "en": "map",
+                "vi": "bản đồ",
+                "zh": "地图",
+                "ja": "地図",
+                "ko": "지도",
+                "es": "mapa"
+              },
+              "reading": "dìtú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u7",
+      "title": {
+        "en": "Work & school",
+        "vi": "Công việc & học tập",
+        "zh": "工作与学习",
+        "ja": "仕事と勉強",
+        "ko": "일과 공부",
+        "es": "Trabajo y estudios"
+      },
+      "lessons": [
+        {
+          "id": "zh-u7-l1",
+          "title": {
+            "en": "Jobs",
+            "vi": "Nghề nghiệp",
+            "zh": "职业",
+            "ja": "職業",
+            "ko": "직업",
+            "es": "Profesiones"
+          },
+          "icon": "briefcase.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0140",
+              "term": "工程师",
+              "meaning": {
+                "en": "engineer",
+                "vi": "kỹ sư",
+                "zh": "工程师",
+                "ja": "エンジニア",
+                "ko": "엔지니어",
+                "es": "ingeniero / ingeniera"
+              },
+              "reading": "gōngchéngshī",
+              "example": "我爸爸是工程师。",
+              "exampleMeaning": {
+                "en": "My father is an engineer.",
+                "vi": "Bố tôi là kỹ sư.",
+                "zh": "我爸爸是工程师。",
+                "ja": "父はエンジニアです。",
+                "ko": "아버지는 엔지니어예요.",
+                "es": "Mi padre es ingeniero."
+              }
+            },
+            {
+              "id": "zh-0141",
+              "term": "护士",
+              "meaning": {
+                "en": "nurse",
+                "vi": "y tá",
+                "zh": "护士",
+                "ja": "看護師",
+                "ko": "간호사",
+                "es": "enfermero / enfermera"
+              },
+              "reading": "hùshi"
+            },
+            {
+              "id": "zh-0142",
+              "term": "厨师",
+              "meaning": {
+                "en": "cook (job)",
+                "vi": "đầu bếp",
+                "zh": "厨师",
+                "ja": "料理人",
+                "ko": "요리사",
+                "es": "cocinero / cocinera"
+              },
+              "reading": "chúshī"
+            },
+            {
+              "id": "zh-0143",
+              "term": "司机",
+              "meaning": {
+                "en": "driver",
+                "vi": "tài xế",
+                "zh": "司机",
+                "ja": "運転手",
+                "ko": "운전기사",
+                "es": "conductor / conductora"
+              },
+              "reading": "sījī"
+            },
+            {
+              "id": "zh-0144",
+              "term": "警察",
+              "meaning": {
+                "en": "police officer",
+                "vi": "cảnh sát",
+                "zh": "警察",
+                "ja": "警察官",
+                "ko": "경찰관",
+                "es": "policía"
+              },
+              "reading": "jǐngchá"
+            },
+            {
+              "id": "zh-0145",
+              "term": "上班族",
+              "meaning": {
+                "en": "office worker",
+                "vi": "nhân viên văn phòng",
+                "zh": "上班族",
+                "ja": "会社員",
+                "ko": "회사원",
+                "es": "oficinista"
+              },
+              "reading": "shàngbānzú"
+            }
+          ]
+        },
+        {
+          "id": "zh-u7-l2",
+          "title": {
+            "en": "At the office",
+            "vi": "Văn phòng",
+            "zh": "办公室",
+            "ja": "オフィス",
+            "ko": "사무실",
+            "es": "En la oficina"
+          },
+          "icon": "desktopcomputer",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0146",
+              "term": "公司",
+              "meaning": {
+                "en": "company",
+                "vi": "công ty",
+                "zh": "公司",
+                "ja": "会社",
+                "ko": "회사",
+                "es": "empresa"
+              },
+              "reading": "gōngsī"
+            },
+            {
+              "id": "zh-0147",
+              "term": "电脑",
+              "meaning": {
+                "en": "computer",
+                "vi": "máy tính",
+                "zh": "电脑",
+                "ja": "パソコン",
+                "ko": "컴퓨터",
+                "es": "ordenador"
+              },
+              "reading": "diànnǎo"
+            },
+            {
+              "id": "zh-0148",
+              "term": "手机",
+              "meaning": {
+                "en": "phone",
+                "vi": "điện thoại",
+                "zh": "手机",
+                "ja": "電話",
+                "ko": "전화",
+                "es": "teléfono"
+              },
+              "reading": "shǒujī"
+            },
+            {
+              "id": "zh-0149",
+              "term": "会议",
+              "meaning": {
+                "en": "meeting",
+                "vi": "cuộc họp",
+                "zh": "会议",
+                "ja": "会議",
+                "ko": "회의",
+                "es": "reunión"
+              },
+              "reading": "huìyì",
+              "example": "会议十点开始。",
+              "exampleMeaning": {
+                "en": "The meeting is at ten.",
+                "vi": "Cuộc họp lúc mười giờ.",
+                "zh": "会议十点开始。",
+                "ja": "会議は十時です。",
+                "ko": "회의는 열 시예요.",
+                "es": "La reunión es a las diez."
+              }
+            },
+            {
+              "id": "zh-0150",
+              "term": "邮件",
+              "meaning": {
+                "en": "email",
+                "vi": "email",
+                "zh": "邮件",
+                "ja": "メール",
+                "ko": "이메일",
+                "es": "correo electrónico"
+              },
+              "reading": "yóujiàn"
+            },
+            {
+              "id": "zh-0151",
+              "term": "老板",
+              "meaning": {
+                "en": "boss",
+                "vi": "sếp",
+                "zh": "老板",
+                "ja": "上司",
+                "ko": "상사",
+                "es": "jefe / jefa"
+              },
+              "reading": "lǎobǎn"
+            }
+          ]
+        },
+        {
+          "id": "zh-u7-l3",
+          "title": {
+            "en": "At school",
+            "vi": "Trường học",
+            "zh": "学校",
+            "ja": "学校",
+            "ko": "학교",
+            "es": "En la escuela"
+          },
+          "icon": "graduationcap.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0152",
+              "term": "学校",
+              "meaning": {
+                "en": "school",
+                "vi": "trường học",
+                "zh": "学校",
+                "ja": "学校",
+                "ko": "학교",
+                "es": "escuela"
+              },
+              "reading": "xuéxiào"
+            },
+            {
+              "id": "zh-0153",
+              "term": "书",
+              "meaning": {
+                "en": "book",
+                "vi": "sách",
+                "zh": "书",
+                "ja": "本",
+                "ko": "책",
+                "es": "libro"
+              },
+              "reading": "shū",
+              "example": "我在看书。",
+              "exampleMeaning": {
+                "en": "I am reading a book.",
+                "vi": "Tôi đang đọc sách.",
+                "zh": "我在看书。",
+                "ja": "本を読んでいます。",
+                "ko": "책을 읽고 있어요.",
+                "es": "Estoy leyendo un libro."
+              }
+            },
+            {
+              "id": "zh-0154",
+              "term": "笔",
+              "meaning": {
+                "en": "pen",
+                "vi": "bút",
+                "zh": "笔",
+                "ja": "ペン",
+                "ko": "펜",
+                "es": "bolígrafo"
+              },
+              "reading": "bǐ"
+            },
+            {
+              "id": "zh-0155",
+              "term": "作业",
+              "meaning": {
+                "en": "homework",
+                "vi": "bài tập về nhà",
+                "zh": "作业",
+                "ja": "宿題",
+                "ko": "숙제",
+                "es": "deberes"
+              },
+              "reading": "zuòyè"
+            },
+            {
+              "id": "zh-0156",
+              "term": "考试",
+              "meaning": {
+                "en": "exam",
+                "vi": "kỳ thi",
+                "zh": "考试",
+                "ja": "試験",
+                "ko": "시험",
+                "es": "examen"
+              },
+              "reading": "kǎoshì"
+            },
+            {
+              "id": "zh-0157",
+              "term": "课",
+              "meaning": {
+                "en": "class",
+                "vi": "lớp học",
+                "zh": "课",
+                "ja": "授業",
+                "ko": "수업",
+                "es": "clase"
+              },
+              "reading": "kè"
+            }
+          ]
+        },
+        {
+          "id": "zh-u7-l4",
+          "title": {
+            "en": "Learning",
+            "vi": "Học tập",
+            "zh": "学习",
+            "ja": "学ぶ",
+            "ko": "배우기",
+            "es": "Aprender"
+          },
+          "icon": "book.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0158",
+              "term": "读",
+              "meaning": {
+                "en": "read",
+                "vi": "đọc",
+                "zh": "读",
+                "ja": "読む",
+                "ko": "읽다",
+                "es": "leer"
+              },
+              "reading": "dú"
+            },
+            {
+              "id": "zh-0159",
+              "term": "写",
+              "meaning": {
+                "en": "write",
+                "vi": "viết",
+                "zh": "写",
+                "ja": "書く",
+                "ko": "쓰다",
+                "es": "escribir"
+              },
+              "reading": "xiě"
+            },
+            {
+              "id": "zh-0160",
+              "term": "说",
+              "meaning": {
+                "en": "speak",
+                "vi": "nói",
+                "zh": "说",
+                "ja": "話す",
+                "ko": "말하다",
+                "es": "hablar"
+              },
+              "reading": "shuō",
+              "example": "请说慢一点。",
+              "exampleMeaning": {
+                "en": "Please speak slowly.",
+                "vi": "Vui lòng nói chậm.",
+                "zh": "请说慢一点。",
+                "ja": "ゆっくり話してください。",
+                "ko": "천천히 말해 주세요.",
+                "es": "Habla despacio, por favor."
+              }
+            },
+            {
+              "id": "zh-0161",
+              "term": "听",
+              "meaning": {
+                "en": "listen",
+                "vi": "nghe",
+                "zh": "听",
+                "ja": "聞く",
+                "ko": "듣다",
+                "es": "escuchar"
+              },
+              "reading": "tīng"
+            },
+            {
+              "id": "zh-0162",
+              "term": "学习",
+              "meaning": {
+                "en": "study",
+                "vi": "học",
+                "zh": "学习",
+                "ja": "勉強する",
+                "ko": "공부하다",
+                "es": "estudiar"
+              },
+              "reading": "xuéxí"
+            },
+            {
+              "id": "zh-0163",
+              "term": "懂",
+              "meaning": {
+                "en": "understand",
+                "vi": "hiểu",
+                "zh": "懂",
+                "ja": "分かる",
+                "ko": "이해하다",
+                "es": "entender"
+              },
+              "reading": "dǒng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u8",
+      "title": {
+        "en": "Hobbies",
+        "vi": "Sở thích",
+        "zh": "爱好",
+        "ja": "趣味",
+        "ko": "취미",
+        "es": "Pasatiempos"
+      },
+      "lessons": [
+        {
+          "id": "zh-u8-l1",
+          "title": {
+            "en": "Free time",
+            "vi": "Thời gian rảnh",
+            "zh": "休闲",
+            "ja": "余暇",
+            "ko": "여가",
+            "es": "Tiempo libre"
+          },
+          "icon": "gamecontroller.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0164",
+              "term": "音乐",
+              "meaning": {
+                "en": "music",
+                "vi": "âm nhạc",
+                "zh": "音乐",
+                "ja": "音楽",
+                "ko": "음악",
+                "es": "música"
+              },
+              "reading": "yīnyuè"
+            },
+            {
+              "id": "zh-0165",
+              "term": "电影",
+              "meaning": {
+                "en": "movie",
+                "vi": "phim",
+                "zh": "电影",
+                "ja": "映画",
+                "ko": "영화",
+                "es": "película"
+              },
+              "reading": "diànyǐng",
+              "example": "我们看电影吧。",
+              "exampleMeaning": {
+                "en": "Let's watch a movie.",
+                "vi": "Cùng xem phim nhé.",
+                "zh": "我们看电影吧。",
+                "ja": "映画を見ましょう。",
+                "ko": "같이 영화 봐요.",
+                "es": "Vamos a ver una película."
+              }
+            },
+            {
+              "id": "zh-0166",
+              "term": "游戏",
+              "meaning": {
+                "en": "game",
+                "vi": "trò chơi",
+                "zh": "游戏",
+                "ja": "ゲーム",
+                "ko": "게임",
+                "es": "juego"
+              },
+              "reading": "yóuxì"
+            },
+            {
+              "id": "zh-0167",
+              "term": "照片",
+              "meaning": {
+                "en": "photo",
+                "vi": "ảnh",
+                "zh": "照片",
+                "ja": "写真",
+                "ko": "사진",
+                "es": "foto"
+              },
+              "reading": "zhàopiàn"
+            },
+            {
+              "id": "zh-0168",
+              "term": "旅行",
+              "meaning": {
+                "en": "travel",
+                "vi": "du lịch",
+                "zh": "旅行",
+                "ja": "旅行",
+                "ko": "여행",
+                "es": "viajar"
+              },
+              "reading": "lǚxíng"
+            },
+            {
+              "id": "zh-0169",
+              "term": "购物",
+              "meaning": {
+                "en": "shopping",
+                "vi": "mua sắm",
+                "zh": "购物",
+                "ja": "買い物",
+                "ko": "쇼핑",
+                "es": "ir de compras"
+              },
+              "reading": "gòuwù"
+            }
+          ]
+        },
+        {
+          "id": "zh-u8-l2",
+          "title": {
+            "en": "Sports",
+            "vi": "Thể thao",
+            "zh": "运动",
+            "ja": "スポーツ",
+            "ko": "운동",
+            "es": "Deportes"
+          },
+          "icon": "figure.run",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0170",
+              "term": "足球",
+              "meaning": {
+                "en": "soccer",
+                "vi": "bóng đá",
+                "zh": "足球",
+                "ja": "サッカー",
+                "ko": "축구",
+                "es": "fútbol"
+              },
+              "reading": "zúqiú",
+              "example": "我喜欢足球。",
+              "exampleMeaning": {
+                "en": "I like soccer.",
+                "vi": "Tôi thích bóng đá.",
+                "zh": "我喜欢足球。",
+                "ja": "サッカーが好きです。",
+                "ko": "저는 축구를 좋아해요.",
+                "es": "Me gusta el fútbol."
+              }
+            },
+            {
+              "id": "zh-0171",
+              "term": "游泳",
+              "meaning": {
+                "en": "swimming",
+                "vi": "bơi lội",
+                "zh": "游泳",
+                "ja": "水泳",
+                "ko": "수영",
+                "es": "natación"
+              },
+              "reading": "yóuyǒng"
+            },
+            {
+              "id": "zh-0172",
+              "term": "跑步",
+              "meaning": {
+                "en": "running",
+                "vi": "chạy bộ",
+                "zh": "跑步",
+                "ja": "ランニング",
+                "ko": "달리기",
+                "es": "correr"
+              },
+              "reading": "pǎobù"
+            },
+            {
+              "id": "zh-0173",
+              "term": "网球",
+              "meaning": {
+                "en": "tennis",
+                "vi": "quần vợt",
+                "zh": "网球",
+                "ja": "テニス",
+                "ko": "테니스",
+                "es": "tenis"
+              },
+              "reading": "wǎngqiú"
+            },
+            {
+              "id": "zh-0174",
+              "term": "篮球",
+              "meaning": {
+                "en": "basketball",
+                "vi": "bóng rổ",
+                "zh": "篮球",
+                "ja": "バスケットボール",
+                "ko": "농구",
+                "es": "baloncesto"
+              },
+              "reading": "lánqiú"
+            },
+            {
+              "id": "zh-0175",
+              "term": "运动",
+              "meaning": {
+                "en": "exercise",
+                "vi": "tập thể dục",
+                "zh": "运动",
+                "ja": "運動",
+                "ko": "운동",
+                "es": "hacer ejercicio"
+              },
+              "reading": "yùndòng"
+            }
+          ]
+        },
+        {
+          "id": "zh-u8-l3",
+          "title": {
+            "en": "Activities",
+            "vi": "Hoạt động",
+            "zh": "活动",
+            "ja": "活動",
+            "ko": "활동",
+            "es": "Actividades"
+          },
+          "icon": "music.note",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0176",
+              "term": "唱歌",
+              "meaning": {
+                "en": "sing",
+                "vi": "hát",
+                "zh": "唱歌",
+                "ja": "歌う",
+                "ko": "노래하다",
+                "es": "cantar"
+              },
+              "reading": "chànggē",
+              "example": "她唱歌唱得很好。",
+              "exampleMeaning": {
+                "en": "She sings well.",
+                "vi": "Cô ấy hát hay.",
+                "zh": "她唱歌唱得很好。",
+                "ja": "彼女は上手に歌います。",
+                "ko": "그녀는 노래를 잘해요.",
+                "es": "Ella canta bien."
+              }
+            },
+            {
+              "id": "zh-0177",
+              "term": "跳舞",
+              "meaning": {
+                "en": "dance",
+                "vi": "nhảy",
+                "zh": "跳舞",
+                "ja": "踊る",
+                "ko": "춤추다",
+                "es": "bailar"
+              },
+              "reading": "tiàowǔ"
+            },
+            {
+              "id": "zh-0178",
+              "term": "做饭",
+              "meaning": {
+                "en": "cooking",
+                "vi": "nấu ăn",
+                "zh": "做饭",
+                "ja": "料理",
+                "ko": "요리",
+                "es": "cocinar"
+              },
+              "reading": "zuòfàn"
+            },
+            {
+              "id": "zh-0179",
+              "term": "画画",
+              "meaning": {
+                "en": "draw",
+                "vi": "vẽ",
+                "zh": "画画",
+                "ja": "絵を描く",
+                "ko": "그림을 그리다",
+                "es": "dibujar"
+              },
+              "reading": "huàhuà"
+            },
+            {
+              "id": "zh-0180",
+              "term": "散步",
+              "meaning": {
+                "en": "walk",
+                "vi": "đi bộ",
+                "zh": "散步",
+                "ja": "散歩",
+                "ko": "산책",
+                "es": "pasear"
+              },
+              "reading": "sànbù"
+            },
+            {
+              "id": "zh-0181",
+              "term": "休息",
+              "meaning": {
+                "en": "rest",
+                "vi": "nghỉ ngơi",
+                "zh": "休息",
+                "ja": "休む",
+                "ko": "쉬다",
+                "es": "descansar"
+              },
+              "reading": "xiūxi"
+            }
+          ]
+        },
+        {
+          "id": "zh-u8-l4",
+          "title": {
+            "en": "Likes & dislikes",
+            "vi": "Thích & không thích",
+            "zh": "喜好",
+            "ja": "好き嫌い",
+            "ko": "좋고 싫음",
+            "es": "Gustos"
+          },
+          "icon": "heart.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0182",
+              "term": "喜欢",
+              "meaning": {
+                "en": "like",
+                "vi": "thích",
+                "zh": "喜欢",
+                "ja": "好き",
+                "ko": "좋아하다",
+                "es": "gustar"
+              },
+              "reading": "xǐhuan",
+              "example": "你喜欢音乐吗？",
+              "exampleMeaning": {
+                "en": "Do you like music?",
+                "vi": "Bạn có thích âm nhạc không?",
+                "zh": "你喜欢音乐吗？",
+                "ja": "音楽が好きですか？",
+                "ko": "음악을 좋아해요?",
+                "es": "¿Te gusta la música?"
+              }
+            },
+            {
+              "id": "zh-0183",
+              "term": "爱",
+              "meaning": {
+                "en": "love",
+                "vi": "yêu",
+                "zh": "爱",
+                "ja": "大好き",
+                "ko": "사랑하다",
+                "es": "amar"
+              },
+              "reading": "ài"
+            },
+            {
+              "id": "zh-0184",
+              "term": "最喜欢",
+              "meaning": {
+                "en": "favorite",
+                "vi": "yêu thích nhất",
+                "zh": "最喜欢",
+                "ja": "いちばん好き",
+                "ko": "제일 좋아하는",
+                "es": "favorito"
+              },
+              "reading": "zuì xǐhuan"
+            },
+            {
+              "id": "zh-0185",
+              "term": "好玩",
+              "meaning": {
+                "en": "fun",
+                "vi": "vui nhộn",
+                "zh": "好玩",
+                "ja": "楽しい",
+                "ko": "재미있다",
+                "es": "divertido"
+              },
+              "reading": "hǎowán"
+            },
+            {
+              "id": "zh-0186",
+              "term": "无聊",
+              "meaning": {
+                "en": "boring",
+                "vi": "chán",
+                "zh": "无聊",
+                "ja": "つまらない",
+                "ko": "지루하다",
+                "es": "aburrido"
+              },
+              "reading": "wúliáo"
+            },
+            {
+              "id": "zh-0187",
+              "term": "有意思",
+              "meaning": {
+                "en": "interesting",
+                "vi": "thú vị",
+                "zh": "有意思",
+                "ja": "面白い",
+                "ko": "흥미롭다",
+                "es": "interesante"
+              },
+              "reading": "yǒu yìsi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u9",
+      "title": {
+        "en": "Weather & nature",
+        "vi": "Thời tiết & thiên nhiên",
+        "zh": "天气与自然",
+        "ja": "天気と自然",
+        "ko": "날씨와 자연",
+        "es": "Clima y naturaleza"
+      },
+      "lessons": [
+        {
+          "id": "zh-u9-l1",
+          "title": {
+            "en": "Weather",
+            "vi": "Thời tiết",
+            "zh": "天气",
+            "ja": "天気",
+            "ko": "날씨",
+            "es": "El clima"
+          },
+          "icon": "cloud.sun.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0188",
+              "term": "热",
+              "meaning": {
+                "en": "hot",
+                "vi": "nóng",
+                "zh": "热",
+                "ja": "暑い",
+                "ko": "덥다",
+                "es": "calor"
+              },
+              "reading": "rè",
+              "example": "今天很热。",
+              "exampleMeaning": {
+                "en": "It's hot today.",
+                "vi": "Hôm nay trời nóng.",
+                "zh": "今天很热。",
+                "ja": "今日は暑いです。",
+                "ko": "오늘은 더워요.",
+                "es": "Hoy hace calor."
+              }
+            },
+            {
+              "id": "zh-0189",
+              "term": "冷",
+              "meaning": {
+                "en": "cold",
+                "vi": "lạnh",
+                "zh": "冷",
+                "ja": "寒い",
+                "ko": "춥다",
+                "es": "frío"
+              },
+              "reading": "lěng"
+            },
+            {
+              "id": "zh-0190",
+              "term": "雨",
+              "meaning": {
+                "en": "rain",
+                "vi": "mưa",
+                "zh": "雨",
+                "ja": "雨",
+                "ko": "비",
+                "es": "lluvia"
+              },
+              "reading": "yǔ"
+            },
+            {
+              "id": "zh-0191",
+              "term": "云",
+              "meaning": {
+                "en": "cloud",
+                "vi": "mây",
+                "zh": "云",
+                "ja": "雲",
+                "ko": "구름",
+                "es": "nube"
+              },
+              "reading": "yún"
+            },
+            {
+              "id": "zh-0192",
+              "term": "风",
+              "meaning": {
+                "en": "wind",
+                "vi": "gió",
+                "zh": "风",
+                "ja": "風",
+                "ko": "바람",
+                "es": "viento"
+              },
+              "reading": "fēng"
+            },
+            {
+              "id": "zh-0193",
+              "term": "晴天",
+              "meaning": {
+                "en": "sunny",
+                "vi": "nắng",
+                "zh": "晴天",
+                "ja": "晴れ",
+                "ko": "맑다",
+                "es": "soleado"
+              },
+              "reading": "qíngtiān"
+            }
+          ]
+        },
+        {
+          "id": "zh-u9-l2",
+          "title": {
+            "en": "Seasons",
+            "vi": "Các mùa",
+            "zh": "季节",
+            "ja": "季節",
+            "ko": "계절",
+            "es": "Estaciones del año"
+          },
+          "icon": "leaf.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0194",
+              "term": "春天",
+              "meaning": {
+                "en": "spring",
+                "vi": "mùa xuân",
+                "zh": "春天",
+                "ja": "春",
+                "ko": "봄",
+                "es": "primavera"
+              },
+              "reading": "chūntiān"
+            },
+            {
+              "id": "zh-0195",
+              "term": "夏天",
+              "meaning": {
+                "en": "summer",
+                "vi": "mùa hè",
+                "zh": "夏天",
+                "ja": "夏",
+                "ko": "여름",
+                "es": "verano"
+              },
+              "reading": "xiàtiān"
+            },
+            {
+              "id": "zh-0196",
+              "term": "秋天",
+              "meaning": {
+                "en": "autumn",
+                "vi": "mùa thu",
+                "zh": "秋天",
+                "ja": "秋",
+                "ko": "가을",
+                "es": "otoño"
+              },
+              "reading": "qiūtiān"
+            },
+            {
+              "id": "zh-0197",
+              "term": "冬天",
+              "meaning": {
+                "en": "winter",
+                "vi": "mùa đông",
+                "zh": "冬天",
+                "ja": "冬",
+                "ko": "겨울",
+                "es": "invierno"
+              },
+              "reading": "dōngtiān",
+              "example": "冬天很冷。",
+              "exampleMeaning": {
+                "en": "Winter is cold.",
+                "vi": "Mùa đông lạnh.",
+                "zh": "冬天很冷。",
+                "ja": "冬は寒いです。",
+                "ko": "겨울은 추워요.",
+                "es": "El invierno es frío."
+              }
+            },
+            {
+              "id": "zh-0198",
+              "term": "暖和",
+              "meaning": {
+                "en": "warm",
+                "vi": "ấm",
+                "zh": "暖和",
+                "ja": "暖かい",
+                "ko": "따뜻하다",
+                "es": "cálido"
+              },
+              "reading": "nuǎnhuo"
+            },
+            {
+              "id": "zh-0199",
+              "term": "凉快",
+              "meaning": {
+                "en": "cool",
+                "vi": "mát",
+                "zh": "凉快",
+                "ja": "涼しい",
+                "ko": "시원하다",
+                "es": "fresco"
+              },
+              "reading": "liángkuai"
+            }
+          ]
+        },
+        {
+          "id": "zh-u9-l3",
+          "title": {
+            "en": "Nature",
+            "vi": "Thiên nhiên",
+            "zh": "自然",
+            "ja": "自然",
+            "ko": "자연",
+            "es": "Naturaleza"
+          },
+          "icon": "mountain.2.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0200",
+              "term": "山",
+              "meaning": {
+                "en": "mountain",
+                "vi": "núi",
+                "zh": "山",
+                "ja": "山",
+                "ko": "산",
+                "es": "montaña"
+              },
+              "reading": "shān"
+            },
+            {
+              "id": "zh-0201",
+              "term": "海",
+              "meaning": {
+                "en": "sea",
+                "vi": "biển",
+                "zh": "海",
+                "ja": "海",
+                "ko": "바다",
+                "es": "mar"
+              },
+              "reading": "hǎi",
+              "example": "大海很美。",
+              "exampleMeaning": {
+                "en": "The sea is beautiful.",
+                "vi": "Biển rất đẹp.",
+                "zh": "大海很美。",
+                "ja": "海はきれいです。",
+                "ko": "바다가 예뻐요.",
+                "es": "El mar es bonito."
+              }
+            },
+            {
+              "id": "zh-0202",
+              "term": "河",
+              "meaning": {
+                "en": "river",
+                "vi": "sông",
+                "zh": "河",
+                "ja": "川",
+                "ko": "강",
+                "es": "río"
+              },
+              "reading": "hé"
+            },
+            {
+              "id": "zh-0203",
+              "term": "树",
+              "meaning": {
+                "en": "tree",
+                "vi": "cây",
+                "zh": "树",
+                "ja": "木",
+                "ko": "나무",
+                "es": "árbol"
+              },
+              "reading": "shù"
+            },
+            {
+              "id": "zh-0204",
+              "term": "花",
+              "meaning": {
+                "en": "flower",
+                "vi": "hoa",
+                "zh": "花",
+                "ja": "花",
+                "ko": "꽃",
+                "es": "flor"
+              },
+              "reading": "huā"
+            },
+            {
+              "id": "zh-0205",
+              "term": "天空",
+              "meaning": {
+                "en": "sky",
+                "vi": "bầu trời",
+                "zh": "天空",
+                "ja": "空",
+                "ko": "하늘",
+                "es": "cielo"
+              },
+              "reading": "tiānkōng"
+            }
+          ]
+        },
+        {
+          "id": "zh-u9-l4",
+          "title": {
+            "en": "Animals",
+            "vi": "Động vật",
+            "zh": "动物",
+            "ja": "動物",
+            "ko": "동물",
+            "es": "Animales"
+          },
+          "icon": "pawprint.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0206",
+              "term": "狗",
+              "meaning": {
+                "en": "dog",
+                "vi": "chó",
+                "zh": "狗",
+                "ja": "犬",
+                "ko": "개",
+                "es": "perro"
+              },
+              "reading": "gǒu"
+            },
+            {
+              "id": "zh-0207",
+              "term": "猫",
+              "meaning": {
+                "en": "cat",
+                "vi": "mèo",
+                "zh": "猫",
+                "ja": "猫",
+                "ko": "고양이",
+                "es": "gato"
+              },
+              "reading": "māo",
+              "example": "我有一只猫。",
+              "exampleMeaning": {
+                "en": "I have a cat.",
+                "vi": "Tôi có một con mèo.",
+                "zh": "我有一只猫。",
+                "ja": "猫を飼っています。",
+                "ko": "고양이가 있어요.",
+                "es": "Tengo un gato."
+              }
+            },
+            {
+              "id": "zh-0208",
+              "term": "鸟",
+              "meaning": {
+                "en": "bird",
+                "vi": "chim",
+                "zh": "鸟",
+                "ja": "鳥",
+                "ko": "새",
+                "es": "pájaro"
+              },
+              "reading": "niǎo"
+            },
+            {
+              "id": "zh-0209",
+              "term": "鱼",
+              "meaning": {
+                "en": "fish",
+                "vi": "cá",
+                "zh": "鱼",
+                "ja": "魚",
+                "ko": "물고기",
+                "es": "pez"
+              },
+              "reading": "yú"
+            },
+            {
+              "id": "zh-0210",
+              "term": "马",
+              "meaning": {
+                "en": "horse",
+                "vi": "ngựa",
+                "zh": "马",
+                "ja": "馬",
+                "ko": "말",
+                "es": "caballo"
+              },
+              "reading": "mǎ"
+            },
+            {
+              "id": "zh-0211",
+              "term": "牛",
+              "meaning": {
+                "en": "cow",
+                "vi": "bò",
+                "zh": "牛",
+                "ja": "牛",
+                "ko": "소",
+                "es": "vaca"
+              },
+              "reading": "niú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zh-u10",
+      "title": {
+        "en": "Health",
+        "vi": "Sức khoẻ",
+        "zh": "健康",
+        "ja": "健康",
+        "ko": "건강",
+        "es": "Salud"
+      },
+      "lessons": [
+        {
+          "id": "zh-u10-l1",
+          "title": {
+            "en": "Body",
+            "vi": "Cơ thể",
+            "zh": "身体",
+            "ja": "体",
+            "ko": "몸",
+            "es": "El cuerpo"
+          },
+          "icon": "figure.stand",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0212",
+              "term": "头",
+              "meaning": {
+                "en": "head",
+                "vi": "đầu",
+                "zh": "头",
+                "ja": "頭",
+                "ko": "머리",
+                "es": "cabeza"
+              },
+              "reading": "tóu",
+              "example": "我头疼。",
+              "exampleMeaning": {
+                "en": "My head hurts.",
+                "vi": "Tôi đau đầu.",
+                "zh": "我头疼。",
+                "ja": "頭が痛いです。",
+                "ko": "머리가 아파요.",
+                "es": "Me duele la cabeza."
+              }
+            },
+            {
+              "id": "zh-0213",
+              "term": "手",
+              "meaning": {
+                "en": "hand",
+                "vi": "bàn tay",
+                "zh": "手",
+                "ja": "手",
+                "ko": "손",
+                "es": "mano"
+              },
+              "reading": "shǒu"
+            },
+            {
+              "id": "zh-0214",
+              "term": "腿",
+              "meaning": {
+                "en": "leg",
+                "vi": "chân",
+                "zh": "腿",
+                "ja": "足",
+                "ko": "다리",
+                "es": "pierna"
+              },
+              "reading": "tuǐ"
+            },
+            {
+              "id": "zh-0215",
+              "term": "肚子",
+              "meaning": {
+                "en": "stomach",
+                "vi": "bụng",
+                "zh": "肚子",
+                "ja": "お腹",
+                "ko": "배",
+                "es": "estómago"
+              },
+              "reading": "dùzi"
+            },
+            {
+              "id": "zh-0216",
+              "term": "背",
+              "meaning": {
+                "en": "back (body)",
+                "vi": "lưng",
+                "zh": "背",
+                "ja": "背中",
+                "ko": "등",
+                "es": "espalda"
+              },
+              "reading": "bèi"
+            },
+            {
+              "id": "zh-0217",
+              "term": "胳膊",
+              "meaning": {
+                "en": "arm",
+                "vi": "cánh tay",
+                "zh": "胳膊",
+                "ja": "腕",
+                "ko": "팔",
+                "es": "brazo"
+              },
+              "reading": "gēbo"
+            }
+          ]
+        },
+        {
+          "id": "zh-u10-l2",
+          "title": {
+            "en": "Face",
+            "vi": "Khuôn mặt",
+            "zh": "脸",
+            "ja": "顔",
+            "ko": "얼굴",
+            "es": "La cara"
+          },
+          "icon": "eye.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0218",
+              "term": "眼睛",
+              "meaning": {
+                "en": "eye",
+                "vi": "mắt",
+                "zh": "眼睛",
+                "ja": "目",
+                "ko": "눈",
+                "es": "ojo"
+              },
+              "reading": "yǎnjing",
+              "example": "她的眼睛很大。",
+              "exampleMeaning": {
+                "en": "She has big eyes.",
+                "vi": "Cô ấy có đôi mắt to.",
+                "zh": "她的眼睛很大。",
+                "ja": "彼女は目が大きいです。",
+                "ko": "그녀는 눈이 커요.",
+                "es": "Ella tiene los ojos grandes."
+              }
+            },
+            {
+              "id": "zh-0219",
+              "term": "耳朵",
+              "meaning": {
+                "en": "ear",
+                "vi": "tai",
+                "zh": "耳朵",
+                "ja": "耳",
+                "ko": "귀",
+                "es": "oreja"
+              },
+              "reading": "ěrduo"
+            },
+            {
+              "id": "zh-0220",
+              "term": "鼻子",
+              "meaning": {
+                "en": "nose",
+                "vi": "mũi",
+                "zh": "鼻子",
+                "ja": "鼻",
+                "ko": "코",
+                "es": "nariz"
+              },
+              "reading": "bízi"
+            },
+            {
+              "id": "zh-0221",
+              "term": "嘴",
+              "meaning": {
+                "en": "mouth",
+                "vi": "miệng",
+                "zh": "嘴",
+                "ja": "口",
+                "ko": "입",
+                "es": "boca"
+              },
+              "reading": "zuǐ"
+            },
+            {
+              "id": "zh-0222",
+              "term": "牙",
+              "meaning": {
+                "en": "tooth",
+                "vi": "răng",
+                "zh": "牙",
+                "ja": "歯",
+                "ko": "치아",
+                "es": "diente"
+              },
+              "reading": "yá"
+            },
+            {
+              "id": "zh-0223",
+              "term": "脸",
+              "meaning": {
+                "en": "face",
+                "vi": "khuôn mặt",
+                "zh": "脸",
+                "ja": "顔",
+                "ko": "얼굴",
+                "es": "cara"
+              },
+              "reading": "liǎn"
+            }
+          ]
+        },
+        {
+          "id": "zh-u10-l3",
+          "title": {
+            "en": "Feeling sick",
+            "vi": "Bị ốm",
+            "zh": "生病",
+            "ja": "体調",
+            "ko": "아플 때",
+            "es": "Estar enfermo"
+          },
+          "icon": "cross.case.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0224",
+              "term": "生病",
+              "meaning": {
+                "en": "sick",
+                "vi": "ốm / bệnh",
+                "zh": "生病",
+                "ja": "病気",
+                "ko": "아프다",
+                "es": "enfermo"
+              },
+              "reading": "shēngbìng"
+            },
+            {
+              "id": "zh-0225",
+              "term": "疼",
+              "meaning": {
+                "en": "pain",
+                "vi": "đau",
+                "zh": "疼",
+                "ja": "痛い",
+                "ko": "통증",
+                "es": "dolor"
+              },
+              "reading": "téng"
+            },
+            {
+              "id": "zh-0226",
+              "term": "药",
+              "meaning": {
+                "en": "medicine",
+                "vi": "thuốc",
+                "zh": "药",
+                "ja": "薬",
+                "ko": "약",
+                "es": "medicina"
+              },
+              "reading": "yào",
+              "example": "请吃这个药。",
+              "exampleMeaning": {
+                "en": "Please take this medicine.",
+                "vi": "Hãy uống thuốc này.",
+                "zh": "请吃这个药。",
+                "ja": "この薬を飲んでください。",
+                "ko": "이 약을 드세요.",
+                "es": "Toma esta medicina."
+              }
+            },
+            {
+              "id": "zh-0227",
+              "term": "发烧",
+              "meaning": {
+                "en": "fever",
+                "vi": "sốt",
+                "zh": "发烧",
+                "ja": "熱",
+                "ko": "열이 나다",
+                "es": "fiebre"
+              },
+              "reading": "fāshāo"
+            },
+            {
+              "id": "zh-0228",
+              "term": "咳嗽",
+              "meaning": {
+                "en": "cough",
+                "vi": "ho",
+                "zh": "咳嗽",
+                "ja": "咳",
+                "ko": "기침",
+                "es": "tos"
+              },
+              "reading": "késou"
+            },
+            {
+              "id": "zh-0229",
+              "term": "药店",
+              "meaning": {
+                "en": "pharmacy",
+                "vi": "hiệu thuốc",
+                "zh": "药店",
+                "ja": "薬局",
+                "ko": "약국",
+                "es": "farmacia"
+              },
+              "reading": "yàodiàn"
+            }
+          ]
+        },
+        {
+          "id": "zh-u10-l4",
+          "title": {
+            "en": "Emergencies",
+            "vi": "Khẩn cấp",
+            "zh": "紧急情况",
+            "ja": "緊急",
+            "ko": "응급 상황",
+            "es": "Emergencias"
+          },
+          "icon": "exclamationmark.triangle.fill",
+          "xp": 10,
+          "items": [
+            {
+              "id": "zh-0230",
+              "term": "救命",
+              "meaning": {
+                "en": "help",
+                "vi": "cứu với",
+                "zh": "救命",
+                "ja": "助けて",
+                "ko": "도와주세요",
+                "es": "ayuda"
+              },
+              "reading": "jiùmìng"
+            },
+            {
+              "id": "zh-0231",
+              "term": "救护车",
+              "meaning": {
+                "en": "ambulance",
+                "vi": "xe cứu thương",
+                "zh": "救护车",
+                "ja": "救急車",
+                "ko": "구급차",
+                "es": "ambulancia"
+              },
+              "reading": "jiùhùchē"
+            },
+            {
+              "id": "zh-0232",
+              "term": "火灾",
+              "meaning": {
+                "en": "fire",
+                "vi": "cháy",
+                "zh": "火灾",
+                "ja": "火事",
+                "ko": "불",
+                "es": "incendio"
+              },
+              "reading": "huǒzāi"
+            },
+            {
+              "id": "zh-0233",
+              "term": "危险",
+              "meaning": {
+                "en": "danger",
+                "vi": "nguy hiểm",
+                "zh": "危险",
+                "ja": "危ない",
+                "ko": "위험",
+                "es": "peligro"
+              },
+              "reading": "wēixiǎn"
+            },
+            {
+              "id": "zh-0234",
+              "term": "迷路",
+              "meaning": {
+                "en": "lost",
+                "vi": "bị lạc",
+                "zh": "迷路",
+                "ja": "迷子",
+                "ko": "길을 잃다",
+                "es": "perdido"
+              },
+              "reading": "mílù"
+            },
+            {
+              "id": "zh-0235",
+              "term": "叫",
+              "meaning": {
+                "en": "call",
+                "vi": "gọi",
+                "zh": "叫",
+                "ja": "呼ぶ",
+                "ko": "부르다",
+                "es": "llamar"
+              },
+              "reading": "jiào",
+              "example": "请叫救护车！",
+              "exampleMeaning": {
+                "en": "Please call an ambulance!",
+                "vi": "Hãy gọi xe cứu thương!",
+                "zh": "请叫救护车！",
+                "ja": "救急車を呼んでください！",
+                "ko": "구급차를 불러 주세요!",
+                "es": "¡Llame a una ambulancia!"
+              }
             }
           ]
         }

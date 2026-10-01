@@ -15,7 +15,7 @@ An iOS language-learning app for **Vietnamese, English, Chinese, Japanese, Korea
 2. Xcode resolves the **Lottie** package (`lottie-spm`) automatically.
 3. Select an iPhone simulator and run.
 
-Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, lesson state machine, streaks, content import/upsert, and localization (UI languages match courses, every UI language has a strings file, English fallback).
+Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, lesson state machine, streaks, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
 
 ## MVP features
 
@@ -88,10 +88,22 @@ LanguageApp/
 
 ## Course content
 
-Each course currently has 2 units × 2 lessons × 6 words (24 words per course, 144 in total), content `version` 3:
+Each course currently has 10 units, 39 lessons and 235 words (1,410 in total), content `version` 4:
 
-- Unit 1 "Basics 1": Greetings, Essentials
-- Unit 2 "Everyday life": Numbers, Food & drink
+| Unit | Lessons |
+|---|---|
+| 1 Basics 1 | Greetings · Essentials · Questions |
+| 2 Everyday life | Numbers · Food & drink · Numbers 2 · Meals |
+| 3 People & family | Family · People · Describing people · About me |
+| 4 Time | Today & tomorrow · Days of the week · Hours, days, months · Daily routine |
+| 5 Shopping | At the shop · Clothes · Colors · Paying |
+| 6 Travel | Places · Directions · Transport · At the hotel |
+| 7 Work & school | Jobs · At the office · At school · Learning |
+| 8 Hobbies | Free time · Sports · Activities · Likes & dislikes |
+| 9 Weather & nature | Weather · Seasons · Nature · Animals |
+| 10 Health | Body · Face · Feeling sick · Emergencies |
+
+Most lessons have 6 words; every lesson has at least one example sentence in all six languages.
 
 Readings: IPA (English), Pinyin (Chinese), kana + Romaji (Japanese), Romanization (Korean); none for Spanish and Vietnamese.
 
