@@ -65,7 +65,10 @@ struct LessonCoordinator: View {
         let newIds = Set(found.sortedItems.filter { !$0.isLearned }.map(\.remoteId))
 
         var rng = SystemRandomNumberGenerator()
-        let exercises = debug.lessonGenerator().makeLesson(items: items,
+        var generator = debug.lessonGenerator()
+        // First time: more multiple choice; replaying a finished lesson: more typing / listening.
+        generator.difficulty = found.isCompleted ? .replay : .firstTime
+        let exercises = generator.makeLesson(items: items,
                                                        distractorPool: pool,
                                                        newWordIds: newIds,
                                                        using: &rng)

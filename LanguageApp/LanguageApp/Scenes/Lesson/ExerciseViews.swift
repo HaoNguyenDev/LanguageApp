@@ -63,6 +63,8 @@ struct ChoiceExerciseView: View {
         case term(StudyItem)
         case meaning(String)
         case audio(StudyItem)
+        /// Example sentence with a blank where the word goes, plus its meaning.
+        case sentence(before: String, after: String, meaning: String?)
     }
 
     @Environment(UserSettings.self) private var userSettings
@@ -142,7 +144,32 @@ struct ChoiceExerciseView: View {
                 SpeakerButton(text: item.term, locale: item.speechLocale, size: 60, slow: true)
             }
             .padding(.vertical, 12)
+        case .sentence(let before, let after, let meaning):
+            VStack(alignment: .leading, spacing: 10) {
+                Text(blankSentence(before: before, after: after))
+                    .font(mainFont.bold(24))
+                    .foregroundStyle(theme.textColor)
+                if let meaning, !meaning.isEmpty {
+                    Text(meaning)
+                        .setFont(.regular, size: 15, color: theme.secondaryTextColor)
+                }
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
+    }
+
+    /// "I like to ＿＿＿ rice." – the blank shows the chosen option once answered.
+    private func blankSentence(before: String, after: String) -> AttributedString {
+        let theme = userSettings.theme
+        let answered = viewModel.phase != .answering
+        let chosen = answered ? options.first { $0.id == viewModel.selectedOptionId }?.text : nil
+        var blank = AttributedString(chosen ?? "＿＿＿")
+        blank.foregroundColor = answered
+            ? (viewModel.selectedOptionId == viewModel.current?.correctOptionId ? theme.correctColor : theme.wrongColor)
+            : theme.primaryColor
+        return AttributedString(before) + blank + AttributedString(after)
     }
 
     private func state(for option: ChoiceOption) -> OptionState {

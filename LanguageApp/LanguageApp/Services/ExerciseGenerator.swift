@@ -63,6 +63,8 @@ enum Exercise: Identifiable, Hashable {
     case typeListening(StudyItem)
     /// Show the example's meaning → tap the chunks of the example in the right order.
     case buildSentence(StudyItem, tiles: [SentenceTile])
+    /// Example sentence with the word blanked out → pick the missing word.
+    case fillBlank(StudyItem, before: String, after: String, options: [ChoiceOption])
 
     var id: String {
         switch self {
@@ -74,6 +76,7 @@ enum Exercise: Identifiable, Hashable {
         case .typeTerm(let item): return "type-\(item.id)"
         case .typeListening(let item): return "typelisten-\(item.id)"
         case .buildSentence(let item, _): return "sentence-\(item.id)"
+        case .fillBlank(let item, _, _, _): return "blank-\(item.id)"
         }
     }
 
@@ -93,7 +96,7 @@ enum Exercise: Identifiable, Hashable {
     /// Correct option id for choice exercises.
     var correctOptionId: String? {
         switch self {
-        case .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _):
+        case .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _), .fillBlank(let item, _, _, _):
             return item.id
         default:
             return nil
@@ -103,7 +106,7 @@ enum Exercise: Identifiable, Hashable {
     var studyItem: StudyItem? {
         switch self {
         case .introduce(let item), .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _),
-             .typeTerm(let item), .typeListening(let item), .buildSentence(let item, _):
+             .typeTerm(let item), .typeListening(let item), .buildSentence(let item, _), .fillBlank(let item, _, _, _):
             return item
         case .matchPairs:
             return nil
@@ -117,13 +120,20 @@ struct ExerciseGenerator {
     /// Include typing exercises in the second pass.
     var allowsTyping = true
     /// Question type of the second pass.
-    enum SecondPassKind { case chooseTerm, listen, typeTerm, typeListening, buildSentence }
+    enum SecondPassKind { case chooseTerm, listen, typeTerm, typeListening, buildSentence, fillBlank }
+
+    /// First time through a lesson: more multiple choice, fewer sentence questions.
+    /// Replay (and practice): more typing and listening, more sentence questions.
+    enum Difficulty { case firstTime, replay }
+    var difficulty: Difficulty = .replay
     /// Developer option: every second-pass question uses this type (nil = random mix).
     var forcedSecondPass: SecondPassKind?
     var includesIntroCards = true
     var includesMatchPairs = true
     /// Sentence-builder questions added after the second pass (words with an example sentence).
-    var sentenceCount = 2
+    var sentenceCount: Int { difficulty == .replay ? 2 : 1 }
+    /// Fill-in-the-blank questions added after the second pass.
+    var fillBlankCount: Int { difficulty == .replay ? 2 : 1 }
     /// Wrong chunks mixed into the sentence builder.
     var sentenceDistractors = 2
     /// Sentences with more chunks than this are too long for the builder.
@@ -154,46 +164,28 @@ struct ExerciseGenerator {
         // the learner has met before; a brand-new word can still be typed from its meaning.
         var second: [Exercise] = []
         for item in items {
-            let kinds = !allowsTyping ? 2 : (newWordIds.contains(item.id) ? 3 : 4)
-            let roll = Int.random(in: 0..<kinds, using: &rng)
-            let forced: Int? = forcedSecondPass.map {
-                switch $0 {
-                case .chooseTerm: return 0
-                case .listen: return 1
-                case .typeTerm: return 2
-                case .typeListening: return 3
-                case .buildSentence: return 4
-                }
-            }
-            switch forced ?? roll {
-            case 0:
-                second.append(.chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng)))
-            case 1:
-                second.append(.listen(item, options: termOptions(for: item, pool: pool, using: &rng)))
-            case 2:
-                second.append(.typeTerm(item))
-            case 3:
-                second.append(.typeListening(item))
-            default:
-                // Developer option "only sentence builder": words without a usable example fall back.
-                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) {
-                    second.append(sentence)
-                } else {
-                    second.append(.chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng)))
-                }
-            }
+            let kinds = secondPassKinds(isNew: newWordIds.contains(item.id))
+            let kind = forcedSecondPass ?? kinds[Int.random(in: 0..<kinds.count, using: &rng)]
+            second.append(exercise(kind, for: item, pool: pool, using: &rng))
         }
         second.shuffle(using: &rng)
         exercises.append(contentsOf: second)
 
-        // Pass 3: build a few example sentences from chunks.
-        if forcedSecondPass != .buildSentence, sentenceCount > 0 {
-            let candidates = items.filter(Self.hasBuildableSentence).shuffled(using: &rng)
-            for item in candidates.prefix(sentenceCount) {
-                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) {
-                    exercises.append(sentence)
-                }
+        // Pass 3: example sentences – build a few from chunks, fill in the blank in others
+        // (different words, so the same sentence isn't asked twice). Skipped when a developer
+        // option forces one question type.
+        if forcedSecondPass == nil {
+            var third: [Exercise] = []
+            let sentenceItems = Array(items.filter(Self.hasBuildableSentence).shuffled(using: &rng).prefix(sentenceCount))
+            for item in sentenceItems {
+                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) { third.append(sentence) }
             }
+            let usedIds = Set(sentenceItems.map(\.id))
+            let blankItems = items.filter { !usedIds.contains($0.id) && Self.blankParts(of: $0) != nil }
+            for item in blankItems.shuffled(using: &rng).prefix(fillBlankCount) {
+                if let blank = fillBlankExercise(for: item, pool: pool, using: &rng) { third.append(blank) }
+            }
+            exercises.append(contentsOf: third.shuffled(using: &rng))
         }
 
         // Finale: matching pairs.
@@ -202,6 +194,69 @@ struct ExerciseGenerator {
             exercises.append(.matchPairs(pairs))
         }
         return exercises
+    }
+
+    /// Weighted list of second-pass question types (picked uniformly, so repeats = more likely).
+    func secondPassKinds(isNew: Bool) -> [SecondPassKind] {
+        guard allowsTyping else { return [.chooseTerm, .listen] }
+        switch (difficulty, isNew) {
+        case (.firstTime, true): return [.chooseTerm, .chooseTerm, .listen, .typeTerm]
+        case (.firstTime, false): return [.chooseTerm, .listen, .typeTerm, .typeListening]
+        case (.replay, true): return [.chooseTerm, .listen, .typeTerm, .typeTerm]
+        case (.replay, false): return [.chooseTerm, .listen, .typeTerm, .typeTerm, .typeListening, .typeListening]
+        }
+    }
+
+    /// One question of the given type; sentence questions fall back to "choose the word" for words
+    /// without a usable example (developer option that forces a type).
+    private func exercise(_ kind: SecondPassKind, for item: StudyItem, pool: [StudyItem],
+                          using rng: inout some RandomNumberGenerator) -> Exercise {
+        switch kind {
+        case .chooseTerm:
+            return .chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng))
+        case .listen:
+            return .listen(item, options: termOptions(for: item, pool: pool, using: &rng))
+        case .typeTerm:
+            return .typeTerm(item)
+        case .typeListening:
+            return .typeListening(item)
+        case .buildSentence:
+            if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) { return sentence }
+        case .fillBlank:
+            if let blank = fillBlankExercise(for: item, pool: pool, using: &rng) { return blank }
+        }
+        return .chooseTerm(item, options: termOptions(for: item, pool: pool, using: &rng))
+    }
+
+    // MARK: - Fill in the blank
+
+    /// Splits the example around the word as written: "I like to ___ rice." In Latin-script languages
+    /// the match must be a whole word ("car" is not found in "card"). nil → the example can't be used.
+    static func blankParts(of item: StudyItem) -> (before: String, after: String)? {
+        guard let example = item.example, !item.term.isEmpty, item.exampleMeaning?.isEmpty == false else { return nil }
+        var searchStart = example.startIndex
+        while let range = example.range(of: item.term, options: .caseInsensitive, range: searchStart..<example.endIndex) {
+            let before = range.lowerBound > example.startIndex ? example[example.index(before: range.lowerBound)] : nil
+            let after = range.upperBound < example.endIndex ? example[range.upperBound] : nil
+            let needsWordBoundary = item.term.first.map(isLatinLetter) ?? false
+            if !needsWordBoundary || (!(before.map(isLatinLetter) ?? false) && !(after.map(isLatinLetter) ?? false)) {
+                return (String(example[..<range.lowerBound]), String(example[range.upperBound...]))
+            }
+            searchStart = range.upperBound
+        }
+        return nil
+    }
+
+    private static func isLatinLetter(_ character: Character) -> Bool {
+        guard character.isLetter, let scalar = character.unicodeScalars.first else { return false }
+        return scalar.value < 0x0250 || (0x1E00...0x1EFF).contains(scalar.value)   // incl. Vietnamese
+    }
+
+    func fillBlankExercise(for item: StudyItem, pool: [StudyItem],
+                           using rng: inout some RandomNumberGenerator) -> Exercise? {
+        guard let parts = Self.blankParts(of: item) else { return nil }
+        return .fillBlank(item, before: parts.before, after: parts.after,
+                          options: termOptions(for: item, pool: pool, using: &rng))
     }
 
     // MARK: - Sentence builder
