@@ -974,3 +974,131 @@ final class DailyQuestTests: XCTestCase {
         XCTAssertTrue(ProgressService.allActivities(in: context).isEmpty)
     }
 }
+
+@MainActor
+final class UnitCheckpointTests: XCTestCase {
+    private var now: Date { Date(timeIntervalSince1970: 1_800_000_000) }
+
+    /// 2 units × 2 lessons × 2 words.
+    private func makeCourse(in context: ModelContext) -> Course {
+        let course = Course(remoteId: "en")
+        context.insert(course)
+        for u in 0..<2 {
+            let unit = CourseUnit(remoteId: "u\(u)")
+            unit.order = u
+            context.insert(unit)
+            unit.course = course
+            for l in 0..<2 {
+                let lesson = Lesson(remoteId: "u\(u)-l\(l)")
+                lesson.order = l
+                context.insert(lesson)
+                lesson.unit = unit
+                for w in 0..<2 {
+                    let item = VocabItem(remoteId: "u\(u)-l\(l)-w\(w)", courseId: "en")
+                    item.order = w
+                    context.insert(item)
+                    item.lesson = lesson
+                }
+            }
+        }
+        try? context.save()
+        return course
+    }
+
+    func testNextUnitWaitsForTheCheckpoint() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let course = makeCourse(in: container.mainContext)
+        let first = course.sortedUnits[0], second = course.sortedUnits[1]
+        XCTAssertFalse(first.isCheckpointUnlocked)
+
+        first.sortedLessons.forEach { $0.isCompleted = true }
+        XCTAssertTrue(first.isCheckpointUnlocked)
+        let nextLesson = second.sortedLessons[0]
+        XCTAssertFalse(course.isUnlocked(nextLesson))
+        XCTAssertTrue(course.isWaitingForCheckpoint(nextLesson))
+
+        first.checkpointPassed = true
+        XCTAssertTrue(course.isUnlocked(nextLesson))
+        XCTAssertFalse(course.isUnlocked(second.sortedLessons[1]), "Lessons inside a unit still unlock in order")
+    }
+
+    func testCompletedLessonsStayUnlocked() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let course = makeCourse(in: container.mainContext)
+        course.orderedLessons.prefix(3).forEach { $0.isCompleted = true }
+        // Progress made before checkpoints existed is not locked away.
+        XCTAssertTrue(course.isUnlocked(course.sortedUnits[1].sortedLessons[0]))
+        XCTAssertTrue(course.isUnlocked(course.sortedUnits[1].sortedLessons[1]))
+    }
+
+    func testPassThreshold() {
+        XCTAssertTrue(UnitCheckpointService.isPassing(accuracy: 0.8))
+        XCTAssertTrue(UnitCheckpointService.isPassing(accuracy: 12.0 / 15.0))
+        XCTAssertFalse(UnitCheckpointService.isPassing(accuracy: 0.79))
+    }
+
+    func testPickWordsMixesWeakAndRandom() {
+        var rng = SeededGenerator(seed: 7)
+        let words = (0..<20).map { PracticeService.Candidate(id: "w\($0)", mistakes: $0 < 3 ? 2 : 0, interval: 10) }
+        let picked = UnitCheckpointService.pickWords(words, count: 10, using: &rng)
+        XCTAssertEqual(picked.count, 10)
+        XCTAssertEqual(Set(picked).count, 10)
+        XCTAssertTrue(Set(["w0", "w1", "w2"]).isSubset(of: Set(picked)), "Weak words are always tested")
+
+        let few = Array(words.prefix(6))
+        XCTAssertEqual(Set(UnitCheckpointService.pickWords(few, count: 10, using: &rng)), Set(few.map(\.id)))
+    }
+
+    func testCheckpointHasNoEasyQuestions() {
+        var rng = SeededGenerator(seed: 1)
+        let items = (0..<6).map {
+            StudyItem(id: "w\($0)", term: "term\($0)", reading: nil, meaning: "meaning\($0)",
+                      example: nil, exampleMeaning: nil, speechLocale: "en-US")
+        }
+        let exercises = ExerciseGenerator().makeCheckpoint(items: items, distractorPool: [], intro: "intro", using: &rng)
+        XCTAssertEqual(exercises.first, .tip("intro"))
+        XCTAssertEqual(exercises.count, items.count + 1)
+        for exercise in exercises.dropFirst() {
+            switch exercise {
+            case .tip, .introduce, .chooseMeaning, .matchPairs: XCTFail("Unexpected \(exercise)")
+            default: break
+            }
+        }
+    }
+
+    func testPassingUnlocksOnceAndGivesXP() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let course = makeCourse(in: context)
+        let unit = course.sortedUnits[0]
+
+        let failed = UnitCheckpointService.complete(unit: unit, items: unit.allItems, accuracy: 0.6,
+                                                    dailyGoalXP: 100, in: context, now: now)
+        XCTAssertEqual(failed.checkpoint?.passed, false)
+        XCTAssertEqual(failed.xpEarned, 0)
+        XCTAssertFalse(unit.checkpointPassed)
+        XCTAssertEqual(unit.checkpointBestAccuracy, 0.6, accuracy: 0.001)
+
+        let passed = UnitCheckpointService.complete(unit: unit, items: unit.allItems, accuracy: 0.9,
+                                                    dailyGoalXP: 100, in: context, now: now)
+        XCTAssertEqual(passed.checkpoint?.passed, true)
+        XCTAssertEqual(passed.checkpoint?.unlockedNextUnit, true)
+        XCTAssertEqual(passed.xpEarned, UnitCheckpointService.xpReward)
+        XCTAssertTrue(unit.checkpointPassed)
+
+        let again = UnitCheckpointService.complete(unit: unit, items: unit.allItems, accuracy: 1,
+                                                   dailyGoalXP: 100, in: context, now: now)
+        XCTAssertEqual(again.checkpoint?.unlockedNextUnit, false)
+        XCTAssertEqual(again.xpEarned, UnitCheckpointService.xpReward + 5)
+    }
+
+    func testResetProgressResetsCheckpoints() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let course = makeCourse(in: context)
+        course.sortedUnits[0].checkpointPassed = true
+        LessonCompletionService.resetProgress(of: course, in: context)
+        XCTAssertFalse(course.sortedUnits[0].checkpointPassed)
+    }
+}
+

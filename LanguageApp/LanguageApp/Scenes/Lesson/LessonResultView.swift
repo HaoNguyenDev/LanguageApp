@@ -17,11 +17,25 @@ struct LessonResultView: View {
         let theme = userSettings.theme
         VStack(spacing: 20) {
             Spacer()
-            LottieHelperView(fileName: result.isPerfect ? "Win" : "Congrats", playLoopMode: .playOnce)
-                .frame(width: 220, height: 220)
+            if result.checkpoint?.passed == false {
+                Image(systemName: "arrow.counterclockwise.circle.fill")
+                    .font(.system(size: 96))
+                    .foregroundStyle(theme.streakColor)
+                    .frame(width: 220, height: 220)
+            } else {
+                LottieHelperView(fileName: result.isPerfect || result.checkpoint != nil ? "Win" : "Congrats",
+                                 playLoopMode: .playOnce)
+                    .frame(width: 220, height: 220)
+            }
 
-            Text((result.isPerfect ? "lesson_perfect" : "lesson_complete").localized())
-                .setFont(.bold, size: 30, color: theme.xpColor, alignment: .center)
+            Text(titleKey.localized())
+                .setFont(.bold, size: 30, color: result.checkpoint?.passed == false ? theme.streakColor : theme.xpColor,
+                         alignment: .center)
+
+            if let checkpoint = result.checkpoint {
+                Text(checkpointMessage(checkpoint))
+                    .setFont(.medium, size: 16, color: theme.secondaryTextColor, alignment: .center)
+            }
 
             if result.reachedDailyGoal {
                 Label("daily_goal_reached".localized(), systemImage: "target")
@@ -62,6 +76,20 @@ struct LessonResultView: View {
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.3)) { appear = true }
         }
+    }
+
+    private var titleKey: String {
+        if let checkpoint = result.checkpoint {
+            return checkpoint.passed ? "checkpoint_passed" : "checkpoint_failed"
+        }
+        return result.isPerfect ? "lesson_perfect" : "lesson_complete"
+    }
+
+    private func checkpointMessage(_ checkpoint: CheckpointOutcome) -> String {
+        if !checkpoint.passed {
+            return "checkpoint_failed_message".localizedFormat(Int((checkpoint.requiredAccuracy * 100).rounded()))
+        }
+        return (checkpoint.unlockedNextUnit ? "checkpoint_next_unit_unlocked" : "checkpoint_passed_again").localized()
     }
 
     private var completedQuests: some View {

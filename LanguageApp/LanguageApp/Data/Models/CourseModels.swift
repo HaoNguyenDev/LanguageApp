@@ -57,11 +57,25 @@ final class Course {
     }
 
     /// A lesson is unlocked if it is the first one or the previous lesson is completed.
+    /// The first lesson of a unit also needs the previous unit's checkpoint passed
+    /// (lessons already completed stay unlocked, so earlier progress is never locked away).
     func isUnlocked(_ lesson: Lesson) -> Bool {
         if DebugSettings.shared.unlocksAllLessons { return true }
         let lessons = orderedLessons
         guard let index = lessons.firstIndex(where: { $0.remoteId == lesson.remoteId }) else { return false }
-        return index == 0 || lessons[index - 1].isCompleted
+        if index == 0 || lesson.isCompleted { return true }
+        guard lessons[index - 1].isCompleted else { return false }
+        return !isWaitingForCheckpoint(lesson)
+    }
+
+    /// True for the first lesson of a unit whose previous unit's checkpoint isn't passed yet.
+    func isWaitingForCheckpoint(_ lesson: Lesson) -> Bool {
+        guard !lesson.isCompleted,
+              let unit = lesson.unit,
+              unit.sortedLessons.first?.remoteId == lesson.remoteId,
+              let unitIndex = sortedUnits.firstIndex(where: { $0.remoteId == unit.remoteId }),
+              unitIndex > 0 else { return false }
+        return !sortedUnits[unitIndex - 1].checkpointPassed
     }
 
     /// True when this course teaches the app's UI language (e.g. English course + English UI),
@@ -97,6 +111,25 @@ final class CourseUnit {
 
     var completedCount: Int {
         sortedLessons.filter(\.isCompleted).count
+    }
+
+    // MARK: Checkpoint (test at the end of the unit)
+    var checkpointPassed: Bool = false
+    var checkpointPassedAt: Date?
+    var checkpointBestAccuracy: Double = 0
+
+    var allLessonsCompleted: Bool {
+        let lessons = sortedLessons
+        return !lessons.isEmpty && lessons.allSatisfy(\.isCompleted)
+    }
+
+    /// The checkpoint opens once every lesson of the unit is completed.
+    var isCheckpointUnlocked: Bool {
+        DebugSettings.shared.unlocksAllLessons || allLessonsCompleted
+    }
+
+    var allItems: [VocabItem] {
+        sortedLessons.flatMap(\.sortedItems)
     }
 }
 

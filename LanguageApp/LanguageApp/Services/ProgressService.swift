@@ -124,6 +124,8 @@ struct LessonResult: Hashable {
     let reachedDailyGoal: Bool
     /// Daily quests completed by this lesson (their XP is already recorded).
     var completedQuests: [DailyQuest] = []
+    /// Set for a unit checkpoint (pass / fail).
+    var checkpoint: CheckpointOutcome?
 }
 
 enum LessonCompletionService {
@@ -176,6 +178,11 @@ enum LessonCompletionService {
             lesson.timesCompleted = 0
             lesson.bestAccuracy = 0
             lesson.sortedItems.forEach { $0.resetProgress() }
+        }
+        for unit in course.sortedUnits {
+            unit.checkpointPassed = false
+            unit.checkpointPassedAt = nil
+            unit.checkpointBestAccuracy = 0
         }
         try? context.save()
     }

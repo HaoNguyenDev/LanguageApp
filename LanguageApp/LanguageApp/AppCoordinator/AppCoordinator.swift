@@ -12,6 +12,7 @@ extension Router {
     /// Modal flows presented from anywhere (full screen cover / sheet on the root router).
     enum Study: Routable {
         case lesson(lessonId: String)
+        case checkpoint(unitId: String)
         case review(courseId: String, practice: Bool)
         case practiceWeakWords(courseId: String)
         case paywall
@@ -20,6 +21,7 @@ extension Router {
         var id: String {
             switch self {
             case .lesson(let lessonId): return "lesson-\(lessonId)"
+            case .checkpoint(let unitId): return "checkpoint-\(unitId)"
             case .review(let courseId, let practice): return "review-\(courseId)-\(practice)"
             case .practiceWeakWords(let courseId): return "practice-\(courseId)"
             case .paywall: return "paywall"
@@ -139,6 +141,8 @@ extension AppCoordinator {
         switch routable {
         case Router.Study.lesson(let lessonId):
             LessonCoordinator(navRouter: rootRouter, lessonId: lessonId)
+        case Router.Study.checkpoint(let unitId):
+            UnitCheckpointCoordinator(navRouter: rootRouter, unitId: unitId)
         case Router.Study.review(let courseId, let practice):
             ReviewSessionCoordinator(navRouter: rootRouter, courseId: courseId, practiceMode: practice)
         case Router.Study.practiceWeakWords(let courseId):

@@ -101,7 +101,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 
 - [x] Streak freeze – protect the streak for a missed day (50 XP each, hold up to 2; Plus always fully equipped), streak sheet with the last 7 days
 - [x] Daily quests – 3 a day (earn the daily goal + two of: complete 2 lessons, review 15 cards, perfect lesson) with automatic XP rewards
-- [ ] Unit checkpoint – a short test at the end of each unit
+- [x] Unit checkpoint – a short test at the end of each unit (10 words, ≥ 80 % to pass, unlocks the next unit)
 - [ ] Smart notifications – streak at risk, cards due, reminder at the learner's usual time
 - [ ] More achievements and a celebration when a unit is completed
 
