@@ -18,17 +18,39 @@ struct ContentImporter {
 
     func importBundledCourses(bundle: Bundle = .main) {
         for (index, file) in Self.bundledCourseFiles.enumerated() {
-            guard let url = bundle.url(forResource: file, withExtension: "json") else {
-                Logger.shared.error("Course file not found: \(file).json")
-                continue
-            }
-            do {
-                let data = try Data(contentsOf: url)
-                try importCourse(from: data, order: index)
-            } catch {
-                Logger.shared.error("Failed to import \(file): \(error)")
-            }
+            importBundledCourse(file, order: index, bundle: bundle)
         }
+        save()
+    }
+
+    /// Same as `importBundledCourses`, but gives the main thread back between courses so the splash
+    /// keeps animating. A content update re-imports ~1,700 words, which took a few seconds in one go.
+    /// (The models are main-actor isolated in this project, so the import itself stays on the main actor.)
+    func importBundledCoursesInSteps(bundle: Bundle = .main) async {
+        let start = Date()
+        for (index, file) in Self.bundledCourseFiles.enumerated() {
+            importBundledCourse(file, order: index, bundle: bundle)
+            await Task.yield()
+        }
+        save()
+        Logger.shared.info("Content import: \(Int(Date().timeIntervalSince(start) * 1000)) ms")
+    }
+
+    private func importBundledCourse(_ file: String, order: Int, bundle: Bundle) {
+        guard let url = bundle.url(forResource: file, withExtension: "json") else {
+            Logger.shared.error("Course file not found: \(file).json")
+            return
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            try importCourse(from: data, order: order)
+        } catch {
+            Logger.shared.error("Failed to import \(file): \(error)")
+        }
+    }
+
+    private func save() {
+        guard context.hasChanges else { return }
         do {
             try context.save()
         } catch {

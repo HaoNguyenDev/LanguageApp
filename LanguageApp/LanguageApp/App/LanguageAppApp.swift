@@ -22,10 +22,9 @@ struct LanguageAppApp: App {
 
     init() {
         Logger.shared.isEnabled = true
-        let container = PersistenceController.makeContainer()
-        // Bundled content is small → import synchronously so the first screen has data.
-        ContentImporter(context: container.mainContext).importBundledCourses()
-        modelContainer = container
+        // Bundled content is imported in `.task` below while the splash is shown
+        // (the splash waits for `AppState.isContentReady`).
+        modelContainer = PersistenceController.makeContainer()
     }
 
     var body: some Scene {
@@ -40,6 +39,8 @@ struct LanguageAppApp: App {
                 .environment(speechService)
                 .task {
                     Logger.shared.info("UI language: \(userSettings.languageCode ?? "")")
+                    await ContentImporter(context: modelContainer.mainContext).importBundledCoursesInSteps()
+                    appState.isContentReady = true
                     await premiumManager.start()
                 }
         }
