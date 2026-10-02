@@ -36,7 +36,7 @@ struct AppCoordinator: View {
     @State var rootRouter = NavRouter()
     @State private var isShowBlockingView: Bool = false
 
-    private static let expectedBundleId = "com.haonguyen.app.LanguageApp"
+    private static let expectedBundleId = "com.haonguyen.apps.LanguageApp"
 
     var body: some View {
         Group {
