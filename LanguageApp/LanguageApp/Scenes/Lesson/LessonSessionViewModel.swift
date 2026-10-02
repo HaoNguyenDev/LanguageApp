@@ -149,6 +149,22 @@ import Observation
         }
     }
 
+    /// Developer menu: ends the lesson right away (results, XP and quests as for a real finish).
+    /// - Parameter perfect: true → no mistakes (100 %); false → at least one mistake.
+    func debugFinish(perfect: Bool) {
+        guard phase != .finished else { return }
+        if perfect {
+            correctCount = gradedCount
+        } else if correctCount >= gradedCount {
+            gradedCount = correctCount + 1
+        }
+        selectedOptionId = nil
+        typedAnswer = ""
+        arrangedTileIds = []
+        currentIndex = exercises.count
+        phase = .finished
+    }
+
     /// Lets the user continue after refilling hearts (e.g. purchased premium).
     func resumeAfterRefill() {
         guard phase == .outOfHearts else { return }

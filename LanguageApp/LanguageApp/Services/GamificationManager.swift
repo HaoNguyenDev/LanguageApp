@@ -147,6 +147,14 @@ import Observation
         streakFreezes = max(0, streakFreezes - count)
     }
 
+    /// Developer menu ("Reset everything"): full hearts, no freezes, no XP spent.
+    func debugResetAll() {
+        refillAll()
+        streakFreezes = 0
+        spentXP = 0
+        streakLostAfterDayKey = nil
+    }
+
     /// Developer menu: set the number of freezes directly.
     func debugSetStreakFreezes(_ value: Int) {
         streakFreezes = min(max(0, value), Self.maxStreakFreezes)
