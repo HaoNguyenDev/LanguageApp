@@ -91,17 +91,15 @@ extension NavRouter {
         }
     }
     
+    /// Builds the new path first and assigns it once: removing and appending separately changes
+    /// `path` twice in one frame ("NavigationRequestObserver tried to update multiple times per frame").
     func replaceLast<T: Hashable>(with view: T) {
-        guard !children.isEmpty else {
-            path.append(view)
-            children.append(view)
-            return
-        }
-        children.removeLast()
-        path.removeLast()
-
-        path.append(view)
+        var newPath = path
+        if !newPath.isEmpty { newPath.removeLast() }
+        newPath.append(view)
+        if !children.isEmpty { children.removeLast() }
         children.append(view)
+        path = newPath
     }
     
     func contains(_ subpath: AnyHashable) -> Bool {
