@@ -88,7 +88,28 @@ struct LessonPlayerView: View {
             }
             .font(.system(size: 20))
             .animation(.snappy, value: gamification.hearts)
+
+            if DebugSettings.isAvailable {
+                debugFinishMenu
+            }
         }
+    }
+
+    /// Developer builds only: finish the lesson in one tap.
+    private var debugFinishMenu: some View {
+        Menu {
+            Button("Finish – perfect", systemImage: "checkmark.seal") {
+                viewModel.debugFinish(perfect: true)
+            }
+            Button("Finish – with a mistake", systemImage: "xmark.seal") {
+                viewModel.debugFinish(perfect: false)
+            }
+        } label: {
+            Image(systemName: "flag.checkered.circle.fill")
+                .font(.system(size: 24))
+                .foregroundStyle(.orange)
+        }
+        .accessibilityLabel("Developer: finish lesson")
     }
 
     // MARK: - Exercise

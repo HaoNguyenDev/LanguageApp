@@ -111,4 +111,19 @@ enum DebugActions {
         try? context.save()
         return next
     }
+
+    /// Lessons and SRS of every course back to "not started" (XP, streak and quests are kept).
+    static func resetAllCourses(in context: ModelContext) {
+        let courses = (try? context.fetch(FetchDescriptor<Course>())) ?? []
+        courses.forEach { LessonCompletionService.resetProgress(of: $0, in: context) }
+    }
+
+    /// Like a fresh install (except settings and onboarding): every course reset,
+    /// all daily activity (XP, streak, freezes used, quests) deleted.
+    /// Call `GamificationManager.debugResetAll()` too for hearts and streak freezes.
+    static func resetEverything(in context: ModelContext) {
+        resetAllCourses(in: context)
+        ProgressService.allActivities(in: context).forEach { context.delete($0) }
+        try? context.save()
+    }
 }

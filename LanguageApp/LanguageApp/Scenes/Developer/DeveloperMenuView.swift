@@ -17,7 +17,37 @@ struct DeveloperMenuView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \Course.order) private var courses: [Course]
 
-    @State private var confirmCompleteAll = false
+    @State private var pendingAction: ConfirmAction?
+
+    /// Destructive developer actions that ask for confirmation first.
+    private enum ConfirmAction: Identifiable {
+        case completeAllLessons, resetAllCourses, resetEverything
+        var id: Self { self }
+
+        var title: String {
+            switch self {
+            case .completeAllLessons: return "Complete all lessons of this course?"
+            case .resetAllCourses: return "Reset all courses?"
+            case .resetEverything: return "Reset everything?"
+            }
+        }
+
+        var message: String {
+            switch self {
+            case .completeAllLessons: return "Every lesson is marked completed and its words go into review."
+            case .resetAllCourses: return "Lessons and review progress of all 6 courses go back to the start. XP, streak and quests are kept."
+            case .resetEverything: return "All courses, XP, streak, daily activity, quests, streak freezes and hearts are reset – like a fresh install. Settings and onboarding are kept."
+            }
+        }
+
+        var buttonTitle: String {
+            switch self {
+            case .completeAllLessons: return "Complete all"
+            case .resetAllCourses: return "Reset all courses"
+            case .resetEverything: return "Reset everything"
+            }
+        }
+    }
 
     private var course: Course? {
         courses.first { $0.remoteId == userSettings.selectedCourseId } ?? courses.first
@@ -71,7 +101,7 @@ struct DeveloperMenuView: View {
                         DebugActions.complete(lessons, in: modelContext)
                         toast("Completed \(lessons.count) lessons")
                     }
-                    Button("Complete all lessons") { confirmCompleteAll = true }
+                    Button("Complete all lessons") { pendingAction = .completeAllLessons }
                     Button("Reset course progress", role: .destructive) {
                         LessonCompletionService.resetProgress(of: course, in: modelContext)
                         toast("Course progress reset")
@@ -148,6 +178,15 @@ struct DeveloperMenuView: View {
             }
 
             Section {
+                Button("Reset all courses", role: .destructive) { pendingAction = .resetAllCourses }
+                Button("Reset everything", role: .destructive) { pendingAction = .resetEverything }
+            } header: {
+                Text("Reset")
+            } footer: {
+                Text("Reset all courses: lessons + review progress of every course. Reset everything: also XP, streak, quests, streak freezes and hearts.")
+            }
+
+            Section {
                 Button("Show onboarding on next launch") {
                     userSettings.hasCompletedOnboarding = false
                     toast("Restart the app to see onboarding")
@@ -175,13 +214,34 @@ struct DeveloperMenuView: View {
         .navigationTitle("Developer")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)
-        .confirmationDialog("Complete all lessons of this course?", isPresented: $confirmCompleteAll, titleVisibility: .visible) {
-            Button("Complete all") {
-                guard let course else { return }
-                DebugActions.complete(course.orderedLessons, in: modelContext)
-                toast("All lessons completed")
+        .confirmationDialog(pendingAction?.title ?? "",
+                            isPresented: Binding(get: { pendingAction != nil },
+                                                 set: { if !$0 { pendingAction = nil } }),
+                            titleVisibility: .visible,
+                            presenting: pendingAction) { action in
+            Button(action.buttonTitle, role: action == .completeAllLessons ? nil : .destructive) {
+                perform(action)
             }
             Button("Cancel", role: .cancel) {}
+        } message: { action in
+            Text(action.message)
+        }
+    }
+
+    private func perform(_ action: ConfirmAction) {
+        switch action {
+        case .completeAllLessons:
+            guard let course else { return }
+            DebugActions.complete(course.orderedLessons, in: modelContext)
+            toast("All lessons completed")
+        case .resetAllCourses:
+            DebugActions.resetAllCourses(in: modelContext)
+            toast("All courses reset")
+        case .resetEverything:
+            DebugActions.resetEverything(in: modelContext)
+            gamification.debugResetAll()
+            DailyQuestService.ensureTodayQuests(in: modelContext)
+            toast("Everything reset")
         }
     }
 

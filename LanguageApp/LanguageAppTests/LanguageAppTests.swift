@@ -496,6 +496,21 @@ final class LessonSessionViewModelTests: XCTestCase {
         vm.check()
         XCTAssertEqual(vm.phase, .outOfHearts)
     }
+
+    func testDebugFinish() {
+        let perfect = LessonSessionViewModel(lessonTitle: "t", exercises: [choice(), choice()])
+        perfect.select("b")
+        perfect.check()
+        perfect.debugFinish(perfect: true)
+        XCTAssertEqual(perfect.phase, .finished)
+        XCTAssertEqual(perfect.accuracy, 1)
+        XCTAssertEqual(perfect.progress, 1)
+
+        let withMistake = LessonSessionViewModel(lessonTitle: "t", exercises: [choice()])
+        withMistake.debugFinish(perfect: false)
+        XCTAssertEqual(withMistake.phase, .finished)
+        XCTAssertLessThan(withMistake.accuracy, 1)
+    }
 }
 
 @MainActor
@@ -948,5 +963,14 @@ final class DailyQuestTests: XCTestCase {
         XCTAssertNotEqual(next.map(\.rawValue), kinds)
         XCTAssertTrue(DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now).isEmpty,
                       "Earn XP was already rewarded")
+    }
+
+    func testResetEverythingDeletesActivity() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ProgressService.record(xp: 30, lessons: 1, in: context, now: now)
+        try? context.save()
+        DebugActions.resetEverything(in: context)
+        XCTAssertTrue(ProgressService.allActivities(in: context).isEmpty)
     }
 }
