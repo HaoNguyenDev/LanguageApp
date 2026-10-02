@@ -155,6 +155,7 @@
         "tap_to_flip": "タップしてカードをめくる",
         "this_week": "今週",
         "total_xp": "合計XP",
+        "typing_hint_add_keyboard": "「設定 ▸ 一般 ▸ キーボード ▸ キーボード」で %@ キーボードを追加すると、この言語で入力できます。",
         "typing_hint_romanized": "ヒント：読み方をローマ字で入力してもOKです。",
         "typing_placeholder": "答えを入力",
         "typo_note": "つづりに注意：",

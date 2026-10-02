@@ -232,7 +232,7 @@ struct TypingExerciseView: View {
     @Bindable var viewModel: LessonSessionViewModel
     var onSubmit: VoidResult?
 
-    @FocusState private var isFocused: Bool
+    @State private var isFocused = false
 
     private var item: StudyItem {
         switch prompt {
@@ -250,22 +250,27 @@ struct TypingExerciseView: View {
                 .frame(maxWidth: .infinity)
 
             VStack(alignment: .leading, spacing: 10) {
-                TextField("typing_placeholder".localized(), text: $viewModel.typedAnswer)
-                    .font(mainFont.semibold(20))
-                    .foregroundStyle(theme.textColor)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled()
-                    .submitLabel(.done)
-                    .focused($isFocused)
-                    .disabled(viewModel.phase != .answering)
+                // Opens the keyboard of the language being learned when it is installed.
+                LanguageTextField(placeholder: "typing_placeholder".localized(),
+                                  text: $viewModel.typedAnswer,
+                                  locale: item.speechLocale,
+                                  isFocused: $isFocused,
+                                  isEnabled: viewModel.phase == .answering,
+                                  textColor: UIColor(theme.textColor),
+                                  onSubmit: { onSubmit?() })
+                    .frame(height: 28)
                     .padding(16)
                     .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     .overlay {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .stroke(borderColor, lineWidth: 2)
                     }
-                    .onSubmit { onSubmit?() }
 
+                if !hasLearningKeyboard {
+                    Label("typing_hint_add_keyboard".localizedFormat(keyboardName), systemImage: "keyboard")
+                        .font(mainFont.regular(13))
+                        .foregroundStyle(theme.secondaryTextColor)
+                }
                 if showsRomanizedHint {
                     Label("typing_hint_romanized".localized(), systemImage: "lightbulb")
                         .font(mainFont.regular(13))
@@ -310,6 +315,16 @@ struct TypingExerciseView: View {
         default:
             return isFocused ? theme.primaryColor : theme.secondaryTextColor.opacity(0.25)
         }
+    }
+
+    private var hasLearningKeyboard: Bool {
+        KeyboardLanguageTextField.hasKeyboard(for: item.speechLocale)
+    }
+
+    /// Name of the language being learned in that language, e.g. "日本語".
+    private var keyboardName: String {
+        let code = String(item.speechLocale.prefix(2))
+        return Locale(identifier: code).localizedString(forLanguageCode: code)?.capitalized ?? code
     }
 
     /// Chinese, Japanese and Korean words can also be typed in Latin letters (Pinyin, Romaji, Romanization).
