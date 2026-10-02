@@ -33,8 +33,13 @@ struct SplashCoordinator: View, ScreenCoordinator {
 
     var body: some View {
         getView()
+            // Every route type pushed on `rootRouter.path` is registered here, at the root of the
+            // NavigationStack, so it resolves no matter which screen is on top.
             .navigationDestination(for: ScreenRouter.self) { route in
                 viewForRouter(router: route)
+            }
+            .navigationDestination(for: Router.MainTab.self) { route in
+                MainTabRouteView(route: route, navRouter: navRouter)
             }
     }
 

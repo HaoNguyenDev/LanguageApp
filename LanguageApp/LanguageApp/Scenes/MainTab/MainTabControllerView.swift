@@ -95,9 +95,6 @@ struct MainTabControllerView: View {
                 .padding(.bottom, 0)
         }
         .ignoresSafeArea(.keyboard)
-        .navigationDestination(for: Router.MainTab.self) { route in
-            viewForRoute(route: route)
-        }
         .onReceive(NotificationCenter.default.publisher(for: .showReviewTab)) { _ in
             selectedTab = TabType.review.rawValue
         }
@@ -153,8 +150,17 @@ struct MainTabControllerView: View {
         .buttonStyle(.plain)
     }
 
-    @ViewBuilder
-    func viewForRoute(route: Router.MainTab) -> some View {
+}
+
+/// Screens pushed on top of the tab bar (`Router.MainTab`).
+/// The destination is registered at the root of the NavigationStack (`SplashCoordinator`), not on
+/// `MainTabControllerView`: that view is itself a pushed destination, and a `navigationDestination`
+/// declared there is not always visible to the stack, so a push showed the yellow warning icon.
+struct MainTabRouteView: View {
+    let route: Router.MainTab
+    var navRouter: any NavRouterProtocol
+
+    var body: some View {
         switch route {
         case .courseSelection:
             CourseSelectionCoordinator(navRouter: navRouter)
