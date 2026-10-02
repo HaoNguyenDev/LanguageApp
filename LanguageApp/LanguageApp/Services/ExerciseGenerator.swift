@@ -142,7 +142,7 @@ struct ExerciseGenerator {
     /// Wrong chunks mixed into the sentence builder.
     var sentenceDistractors = 2
     /// Sentences with more chunks than this are too long for the builder.
-    static let maxSentenceTokens = 8
+    nonisolated static let maxSentenceTokens = 8
 
     /// - Parameters:
     ///   - items: words of the lesson.
@@ -244,7 +244,7 @@ struct ExerciseGenerator {
 
     /// Splits the example around the word as written: "I like to ___ rice." In Latin-script languages
     /// the match must be a whole word ("car" is not found in "card"). nil → the example can't be used.
-    static func blankParts(of item: StudyItem) -> (before: String, after: String)? {
+    nonisolated static func blankParts(of item: StudyItem) -> (before: String, after: String)? {
         guard let example = item.example, !item.term.isEmpty, item.exampleMeaning?.isEmpty == false else { return nil }
         var searchStart = example.startIndex
         while let range = example.range(of: item.term, options: .caseInsensitive, range: searchStart..<example.endIndex) {
@@ -259,7 +259,7 @@ struct ExerciseGenerator {
         return nil
     }
 
-    private static func isLatinLetter(_ character: Character) -> Bool {
+    nonisolated private static func isLatinLetter(_ character: Character) -> Bool {
         guard character.isLetter, let scalar = character.unicodeScalars.first else { return false }
         return scalar.value < 0x0250 || (0x1E00...0x1EFF).contains(scalar.value)   // incl. Vietnamese
     }
@@ -273,7 +273,7 @@ struct ExerciseGenerator {
 
     // MARK: - Sentence builder
 
-    static func hasBuildableSentence(_ item: StudyItem) -> Bool {
+    nonisolated static func hasBuildableSentence(_ item: StudyItem) -> Bool {
         guard let tokens = item.exampleTokens, item.exampleMeaning?.isEmpty == false else { return false }
         return (2...maxSentenceTokens).contains(tokens.count)
     }
