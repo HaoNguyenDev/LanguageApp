@@ -7,6 +7,7 @@
 
 import XCTest
 import SwiftData
+import AVFoundation
 @testable import LanguageApp
 
 @MainActor
@@ -564,6 +565,13 @@ final class LocalizationTests: XCTestCase {
             XCTAssertEqual(english.subtracting(other).sorted(), [], "missing in \(fileName)")
             XCTAssertEqual(other.subtracting(english).sorted(), [], "extra in \(fileName)")
         }
+    }
+
+    func testSlowSpeechIsMuchSlower() {
+        let normal = SpeechService.rate(slow: false)
+        let slow = SpeechService.rate(slow: true)
+        XCTAssertLessThanOrEqual(slow, normal * 0.5, "Tortoise speed should be at most half the normal speed")
+        XCTAssertGreaterThanOrEqual(slow, AVSpeechUtteranceMinimumSpeechRate)
     }
 
     func testLocalizedTextFallsBackToEnglish() {

@@ -28,9 +28,19 @@ import Observation
         }
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: locale)
-        utterance.rate = slow ? AVSpeechUtteranceDefaultSpeechRate * 0.6 : AVSpeechUtteranceDefaultSpeechRate * 0.9
+        utterance.rate = Self.rate(slow: slow)
         try? AVAudioSession.sharedInstance().setActive(true)
         synthesizer.speak(utterance)
+    }
+
+    /// Speech rate: normal is a little slower than the system default; the tortoise button
+    /// (`slow`) is much slower so each syllable can be heard clearly.
+    static let normalRateFactor: Float = 0.9
+    static let slowRateFactor: Float = 0.25
+
+    static func rate(slow: Bool) -> Float {
+        let factor = slow ? slowRateFactor : normalRateFactor
+        return max(AVSpeechUtteranceMinimumSpeechRate, AVSpeechUtteranceDefaultSpeechRate * factor)
     }
 
     func stop() {
