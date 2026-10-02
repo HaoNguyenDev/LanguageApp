@@ -68,6 +68,7 @@ struct MainTabControllerView: View {
     @Environment(GamificationManager.self) var gamification
     @Environment(\.scenePhase) private var scenePhase
     @State var selectedTab = TabType.learn.rawValue
+    @Namespace private var tabSelection
 
     init(navRouter: any NavRouterProtocol) {
         let navBarAppearance = UINavigationBarAppearance()
@@ -113,43 +114,67 @@ struct MainTabControllerView: View {
             .accessibilityHidden(!isSelected)
     }
 
+    /// Floating glass capsule like iOS 26 apps (e.g. Telegram): translucent bar, the selected tab
+    /// sits in a soft pill that slides between tabs and is tinted with the accent color.
     @ViewBuilder
     private func tabBar() -> some View {
-        HStack {
+        HStack(spacing: 0) {
             ForEach(TabType.allTabs, id: \.self) { tab in
                 tabItem(tab: tab, isSelected: selectedTab == tab.rawValue)
-                    .frame(maxWidth: .infinity)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 68)
-        .background(
-            userSettings.theme.subviewBgColor
-                .clipShape(RoundedRectangle(cornerRadius: 34))
-                .shadow(color: Color.black.opacity(0.12), radius: 10, x: 0, y: 4)
-        )
+        .padding(4)
+        .frame(maxWidth: .infinity)
+        .frame(height: 64)
+        .modifier(TabBarGlassBackground())
     }
 
     @ViewBuilder
     private func tabItem(tab: TabType, isSelected: Bool) -> some View {
+        let theme = userSettings.theme
+        let color = isSelected ? theme.tabBarSelectedColor : theme.tabBarUnselectedColor
         Button {
             if selectedTab != tab.rawValue { FeedbackService.tap() }
-            selectedTab = tab.rawValue
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                selectedTab = tab.rawValue
+            }
         } label: {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 (isSelected ? tab.iconSelected : tab.icon)
-                    .font(.system(size: 22, weight: .semibold))
+                    .font(.system(size: 21, weight: .semibold))
                     .symbolEffect(.bounce, value: isSelected)
-                    .foregroundStyle(isSelected ? userSettings.theme.mainTabSelectedTextColor : userSettings.theme.mainTabUnselectedTextColor)
+                    .foregroundStyle(color)
                 Text(tab.title)
-                    .setFont(isSelected ? .bold : .regular, size: 10,
-                             color: isSelected ? userSettings.theme.mainTabSelectedTextColor : userSettings.theme.mainTabUnselectedTextColor)
+                    .setFont(isSelected ? .bold : .medium, size: 10, color: color)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .contentShape(Rectangle())
+            .background {
+                if isSelected {
+                    Capsule()
+                        .fill(theme.tabBarSelectedBgColor)
+                        .matchedGeometryEffect(id: "selectedTab", in: tabSelection)
+                }
+            }
+            .contentShape(Capsule())
         }
         .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
+}
+
+/// Liquid Glass on iOS 26, a blurred material with a hairline border and shadow before that.
+private struct TabBarGlassBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.glassEffect(.regular.interactive(), in: .capsule)
+        } else {
+            content
+                .background(.ultraThinMaterial, in: Capsule())
+                .overlay(Capsule().strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5))
+                .shadow(color: Color.black.opacity(0.12), radius: 12, x: 0, y: 4)
+        }
+    }
 }
 
 /// Screens pushed on top of the tab bar (`Router.MainTab`).

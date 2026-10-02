@@ -18,6 +18,12 @@ protocol Theme {
     var mainTabSelectedTextColor: Color { get }
     var mainTabUnselectedTextColor: Color { get }
 
+    // MARK: Tab bar (iOS 26 glass style)
+    var tabBarSelectedColor: Color { get }
+    var tabBarUnselectedColor: Color { get }
+    /// Pill behind the selected tab.
+    var tabBarSelectedBgColor: Color { get }
+
     // MARK: Learning / gamification
     var primaryColor: Color { get }
     var primaryShadowColor: Color { get }

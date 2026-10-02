@@ -16,6 +16,9 @@ struct LightTheme: Theme {
     let buttonBgColor = Color(hex: "#6C5CE7")
     let mainTabSelectedTextColor = Color(hex: "#FFFFFF")
     let mainTabUnselectedTextColor = Color(hex: "#AEAEB2")
+    let tabBarSelectedColor = Color(hex: "#6C5CE7")
+    let tabBarUnselectedColor = Color(hex: "#1C1C1E")
+    let tabBarSelectedBgColor = Color.black.opacity(0.07)
 
     let primaryColor = Color(hex: "#6C5CE7")
     let primaryShadowColor = Color(hex: "#5245C9")
