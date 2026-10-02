@@ -13,6 +13,8 @@ struct ReviewSessionCoordinator: View {
 
     @Environment(\.modelContext) private var modelContext
     @Environment(PremiumManager.self) private var premium
+    @Environment(UserSettings.self) private var userSettings
+    @Environment(AppState.self) private var appState
     @State private var viewModel: ReviewSessionViewModel?
     @State private var speechLocale = "en-US"
     @State private var didRecord = false
@@ -59,6 +61,10 @@ struct ReviewSessionCoordinator: View {
         didRecord = true
         ProgressService.record(xp: viewModel.xpEarned, reviews: viewModel.reviewedCount, in: modelContext)
         try? modelContext.save()
+        let quests = DailyQuestService.claimCompleted(in: modelContext, dailyGoalXP: userSettings.dailyGoalXP)
+        if !quests.isEmpty {
+            appState.showToast(item: DailyQuestService.toastItem(for: quests))
+        }
     }
 
     private func close() {

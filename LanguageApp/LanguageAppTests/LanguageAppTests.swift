@@ -828,3 +828,125 @@ final class StreakFreezeTests: XCTestCase {
         XCTAssertEqual(ProgressService.streak(from: ProgressService.allActivities(in: context), today: today, calendar: calendar), 2)
     }
 }
+
+@MainActor
+final class DailyQuestTests: XCTestCase {
+    private var now: Date { Date(timeIntervalSince1970: 1_800_000_000) }
+
+    func testPlanAlwaysHasEarnXPAndThreeDifferentQuests() {
+        for day in 1...28 {
+            let key = String(format: "2026-10-%02ld", day)
+            let kinds = DailyQuestService.plan(dayKey: key, hasLearnedWords: true)
+            XCTAssertEqual(kinds.count, DailyQuestService.questsPerDay)
+            XCTAssertEqual(kinds.first, .earnXP)
+            XCTAssertEqual(Set(kinds).count, kinds.count)
+        }
+    }
+
+    func testPlanIsStableForADay() {
+        XCTAssertEqual(DailyQuestService.plan(dayKey: "2026-10-03", hasLearnedWords: true),
+                       DailyQuestService.plan(dayKey: "2026-10-03", hasLearnedWords: true))
+        XCTAssertEqual(DailyQuestService.stableHash("2026-10-03"), DailyQuestService.stableHash("2026-10-03"))
+    }
+
+    func testPlanVariesAcrossDays() {
+        let plans = Set((1...28).map { DailyQuestService.plan(dayKey: String(format: "2026-10-%02ld", $0),
+                                                               hasLearnedWords: true) })
+        XCTAssertGreaterThan(plans.count, 1)
+    }
+
+    func testNoReviewQuestWithoutLearnedWords() {
+        for day in 1...28 {
+            let kinds = DailyQuestService.plan(dayKey: String(format: "2026-10-%02ld", day), hasLearnedWords: false)
+            XCTAssertFalse(kinds.contains(.reviewCards))
+        }
+    }
+
+    func testEarnXPTargetIsTheDailyGoal() {
+        XCTAssertEqual(DailyQuestService.quest(.earnXP, dailyGoalXP: 30).target, 30)
+    }
+
+    func testProgressReadsTheDayCounters() {
+        _ = PersistenceController.makeContainer(inMemory: true)
+        let activity = DailyActivity(dayKey: "k", date: now)
+        activity.xp = 12
+        activity.lessonsCompleted = 1
+        activity.reviewsDone = 20
+        activity.perfectLessons = 1
+        XCTAssertEqual(DailyQuestService.progress(of: DailyQuestService.quest(.earnXP, dailyGoalXP: 20), in: activity), 12)
+        XCTAssertEqual(DailyQuestService.progress(of: DailyQuestService.quest(.completeLessons, dailyGoalXP: 20), in: activity), 1)
+        XCTAssertTrue(DailyQuestService.isComplete(DailyQuestService.quest(.reviewCards, dailyGoalXP: 20), in: activity))
+        XCTAssertTrue(DailyQuestService.isComplete(DailyQuestService.quest(.perfectLesson, dailyGoalXP: 20), in: activity))
+        XCTAssertEqual(DailyQuestService.progress(of: DailyQuestService.quest(.earnXP, dailyGoalXP: 20), in: nil), 0)
+    }
+
+    func testClaimGivesEachRewardOnceAndChainsIntoEarnXP() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let activity = DailyQuestService.ensureTodayQuests(in: context, now: now)
+        activity.questKinds = [DailyQuest.Kind.earnXP, .completeLessons, .perfectLesson].map(\.rawValue)
+
+        // 2 lessons, one perfect: 15 + 15 XP of rewards push 5 XP over the 20 XP goal.
+        ProgressService.record(xp: 5, lessons: 2, perfect: 1, in: context, now: now)
+        let claimed = DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now)
+        XCTAssertEqual(Set(claimed.map(\.kind)), [.earnXP, .completeLessons, .perfectLesson])
+        XCTAssertEqual(activity.xp, 5 + 15 + 15 + 10)
+
+        XCTAssertTrue(DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now).isEmpty)
+        XCTAssertEqual(activity.xp, 45)
+    }
+
+    func testTodayQuestsArePickedOnce() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let first = DailyQuestService.ensureTodayQuests(in: context, now: now)
+        XCTAssertFalse(first.questKinds?.contains(DailyQuest.Kind.reviewCards.rawValue) ?? true,
+                       "No learned words yet → no review quest")
+        let kinds = first.questKinds
+        let item = VocabItem(remoteId: "w", courseId: "en")
+        context.insert(item)
+        item.srsDue = now
+        XCTAssertEqual(DailyQuestService.ensureTodayQuests(in: context, now: now).questKinds, kinds)
+    }
+
+    func testShiftPicksAnotherSetForTheSameDay() {
+        let base = DailyQuestService.plan(dayKey: "2026-10-03", hasLearnedWords: true)
+        let next = DailyQuestService.plan(dayKey: "2026-10-03", hasLearnedWords: true, shift: 1)
+        XCTAssertNotEqual(base, next)
+        XCTAssertEqual(next.first, .earnXP)
+        XCTAssertEqual(DailyQuestService.plan(dayKey: "2026-10-03", hasLearnedWords: true, shift: 3), base,
+                       "Shifting by the number of candidates wraps around")
+    }
+
+    func testStartTodayOverClearsTodayOnly() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let yesterday = now.addingTimeInterval(-86_400)
+        ProgressService.record(xp: 30, lessons: 2, in: context, now: yesterday)
+        ProgressService.record(xp: 40, lessons: 2, reviews: 15, perfect: 1, in: context, now: now)
+        DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now)
+
+        DebugActions.startTodayOver(in: context, now: now)
+        let today = ProgressService.activity(on: now, in: context)
+        XCTAssertEqual(today.xp, 0)
+        XCTAssertEqual(today.lessonsCompleted, 0)
+        XCTAssertEqual(today.perfectLessons, 0)
+        XCTAssertNil(today.claimedQuests)
+        XCTAssertNotNil(today.questKinds)
+        XCTAssertEqual(ProgressService.activity(on: yesterday, in: context).xp, 30)
+    }
+
+    func testNextQuestSetKeepsRewards() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ProgressService.record(xp: 25, in: context, now: now)
+        DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now)
+        let before = ProgressService.activity(on: now, in: context)
+        let kinds = before.questKinds
+
+        let next = DebugActions.nextQuestSet(in: context, now: now)
+        XCTAssertNotEqual(next.map(\.rawValue), kinds)
+        XCTAssertTrue(DailyQuestService.claimCompleted(in: context, dailyGoalXP: 20, now: now).isEmpty,
+                      "Earn XP was already rewarded")
+    }
+}

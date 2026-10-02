@@ -75,9 +75,11 @@ enum PracticeService {
         let xpBefore = ProgressService.xp(on: now, from: ProgressService.allActivities(in: context))
         let xp = ProgressService.lessonXP(base: 10, accuracy: accuracy)
 
+        let isPerfect = accuracy >= 0.999
         recordMistakes(mistakes, for: items, forgiveCorrect: true, now: now)
-        ProgressService.record(xp: xp, in: context, now: now)
+        ProgressService.record(xp: xp, perfect: isPerfect ? 1 : 0, in: context, now: now)
         try? context.save()
+        let quests = DailyQuestService.claimCompleted(in: context, dailyGoalXP: dailyGoalXP, now: now)
 
         let activities = ProgressService.allActivities(in: context)
         let xpAfter = ProgressService.xp(on: now, from: activities)
@@ -85,8 +87,9 @@ enum PracticeService {
                             accuracy: accuracy,
                             newWords: 0,
                             streak: ProgressService.streak(from: activities, today: now),
-                            isPerfect: accuracy >= 0.999,
-                            reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP)
+                            isPerfect: isPerfect,
+                            reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP,
+                            completedQuests: quests)
     }
 }
 

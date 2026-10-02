@@ -44,12 +44,15 @@ struct LanguageAppApp: App {
                     Logger.shared.info("UI language: \(userSettings.languageCode ?? "")")
                     await ContentImporter(context: modelContainer.mainContext).importBundledCoursesInSteps()
                     appState.isContentReady = true
+                    DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
                     await premiumManager.start()
                     isPremiumReady = true
                     applyStreakFreezes()
                 }
                 .onChange(of: scenePhase) { _, phase in
-                    if phase == .active { applyStreakFreezes() }
+                    guard phase == .active, appState.isContentReady else { return }
+                    DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
+                    applyStreakFreezes()
                 }
         }
         .modelContainer(modelContainer)
