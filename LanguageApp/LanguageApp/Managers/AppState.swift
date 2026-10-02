@@ -31,6 +31,8 @@ actor LoadingCounter {
     nonisolated deinit {}
 
     // MARK: - Loading
+    /// Bundled courses are imported (the splash waits for this before showing Home / onboarding).
+    var isContentReady = false
     var isShowLoading = false
     
     var isShowDrawingCoin = false

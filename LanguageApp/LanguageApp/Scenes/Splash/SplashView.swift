@@ -10,6 +10,7 @@ import SwiftUI
 struct SplashView: View {
     @Environment(UserSettings.self) var userSettings
     @Environment(AppSettings.self) var appSettings
+    @Environment(AppState.self) var appState
     var onFinished: VoidResult?
     @State private var appear = false
 
@@ -46,6 +47,10 @@ extension SplashView {
         .task {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) { appear = true }
             try? await Task.sleep(for: .milliseconds(900))
+            // First launch / content update: wait until the bundled courses are imported.
+            while !appState.isContentReady {
+                try? await Task.sleep(for: .milliseconds(50))
+            }
             onFinished?()
         }
     }
@@ -75,5 +80,6 @@ extension SplashView {
 #Preview {
     SplashView()
         .environment(AppSettings())
+        .environment(AppState())
         .environment(UserSettings())
 }
