@@ -35,6 +35,7 @@ struct LearnView: View {
                 ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
                         LazyVStack(spacing: 28) {
+                            DailyQuestsCard()
                             ForEach(Array(course.sortedUnits.enumerated()), id: \.element.remoteId) { unitIndex, unit in
                                 UnitSectionView(unit: unit,
                                                 unitIndex: unitIndex,

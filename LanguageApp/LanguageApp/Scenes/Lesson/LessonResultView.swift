@@ -43,6 +43,11 @@ struct LessonResultView: View {
             .scaleEffect(appear ? 1 : 0.8)
             .opacity(appear ? 1 : 0)
 
+            if !result.completedQuests.isEmpty {
+                completedQuests
+                    .opacity(appear ? 1 : 0)
+            }
+
             if result.newWords > 0 {
                 Text("new_words_learned".localizedFormat(result.newWords))
                     .setFont(.medium, size: 15, color: theme.secondaryTextColor, alignment: .center)
@@ -57,6 +62,30 @@ struct LessonResultView: View {
         .onAppear {
             withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.3)) { appear = true }
         }
+    }
+
+    private var completedQuests: some View {
+        let theme = userSettings.theme
+        return VStack(alignment: .leading, spacing: 8) {
+            Label("quest_complete_title".localized(), systemImage: "checkmark.seal.fill")
+                .font(mainFont.bold(15))
+                .foregroundStyle(theme.correctShadowColor)
+            ForEach(result.completedQuests) { quest in
+                HStack(spacing: 10) {
+                    Image(systemName: quest.icon)
+                        .foregroundStyle(theme.xpColor)
+                        .frame(width: 22)
+                    Text(quest.title)
+                        .setFont(.semibold, size: 15, color: theme.textColor)
+                    Spacer()
+                    Text("xp_earned".localizedFormat(quest.rewardXP))
+                        .setFont(.bold, size: 15, color: theme.xpColor)
+                }
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(theme.correctBgColor, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 
     private func statTile(title: String, value: String, icon: String, color: Color) -> some View {
@@ -85,6 +114,7 @@ struct LessonResultView: View {
 
 #Preview {
     LessonResultView(result: LessonResult(xpEarned: 15, accuracy: 1, newWords: 6, streak: 3,
-                                          isPerfect: true, reachedDailyGoal: true))
+                                          isPerfect: true, reachedDailyGoal: true,
+                                          completedQuests: [DailyQuestService.quest(.perfectLesson, dailyGoalXP: 20)]))
         .environment(UserSettings())
 }

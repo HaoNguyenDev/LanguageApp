@@ -231,6 +231,12 @@ final class DailyActivity {
     var reviewsDone: Int = 0
     /// A missed day covered by a streak freeze: keeps the streak alive without adding to it.
     var streakFreezeUsed: Bool = false
+    /// Lessons (or practice sessions) finished without a mistake.
+    var perfectLessons: Int = 0
+    /// Daily quests picked for this day (`DailyQuest.Kind` raw values), fixed once generated.
+    var questKinds: [String]?
+    /// Daily quests whose XP reward was already given.
+    var claimedQuests: [String]?
 
     init(dayKey: String, date: Date) {
         self.dayKey = dayKey

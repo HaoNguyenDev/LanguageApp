@@ -89,19 +89,25 @@ enum ProgressService {
 
     // MARK: - Persistence
 
-    static func record(xp: Int, lessons: Int = 0, reviews: Int = 0, in context: ModelContext, now: Date = .now) {
-        let key = dayKey(for: now)
-        let descriptor = FetchDescriptor<DailyActivity>(predicate: #Predicate { $0.dayKey == key })
-        let activity: DailyActivity
-        if let existing = try? context.fetch(descriptor).first {
-            activity = existing
-        } else {
-            activity = DailyActivity(dayKey: key, date: Calendar.current.startOfDay(for: now))
-            context.insert(activity)
-        }
+    static func record(xp: Int, lessons: Int = 0, reviews: Int = 0, perfect: Int = 0,
+                       in context: ModelContext, now: Date = .now) {
+        let activity = Self.activity(on: now, in: context)
         activity.xp += xp
         activity.lessonsCompleted += lessons
         activity.reviewsDone += reviews
+        activity.perfectLessons += perfect
+    }
+
+    /// The activity row of the day of `date`, created if needed.
+    static func activity(on date: Date, in context: ModelContext, calendar: Calendar = .current) -> DailyActivity {
+        let key = dayKey(for: date, calendar: calendar)
+        let descriptor = FetchDescriptor<DailyActivity>(predicate: #Predicate { $0.dayKey == key })
+        if let existing = try? context.fetch(descriptor).first {
+            return existing
+        }
+        let activity = DailyActivity(dayKey: key, date: calendar.startOfDay(for: date))
+        context.insert(activity)
+        return activity
     }
 
     static func allActivities(in context: ModelContext) -> [DailyActivity] {
@@ -116,6 +122,8 @@ struct LessonResult: Hashable {
     let streak: Int
     let isPerfect: Bool
     let reachedDailyGoal: Bool
+    /// Daily quests completed by this lesson (their XP is already recorded).
+    var completedQuests: [DailyQuest] = []
 }
 
 enum LessonCompletionService {
@@ -144,8 +152,10 @@ enum LessonCompletionService {
         }
 
         PracticeService.recordMistakes(mistakes, for: lesson.sortedItems, forgiveCorrect: false, now: now)
-        ProgressService.record(xp: xp, lessons: 1, in: context, now: now)
+        let isPerfect = accuracy >= 0.999
+        ProgressService.record(xp: xp, lessons: 1, perfect: isPerfect ? 1 : 0, in: context, now: now)
         try? context.save()
+        let quests = DailyQuestService.claimCompleted(in: context, dailyGoalXP: dailyGoalXP, now: now)
 
         let activities = ProgressService.allActivities(in: context)
         let xpAfter = ProgressService.xp(on: now, from: activities)
@@ -153,8 +163,9 @@ enum LessonCompletionService {
                             accuracy: accuracy,
                             newWords: newWords,
                             streak: ProgressService.streak(from: activities, today: now),
-                            isPerfect: accuracy >= 0.999,
-                            reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP)
+                            isPerfect: isPerfect,
+                            reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP,
+                            completedQuests: quests)
     }
 
     /// Resets lessons + SRS of a course (keeps XP history).

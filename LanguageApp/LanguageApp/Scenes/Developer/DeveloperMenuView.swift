@@ -97,12 +97,28 @@ struct DeveloperMenuView: View {
             Section("Stats") {
                 Button("+100 XP today") {
                     DebugActions.addXP(100, in: modelContext)
+                    DailyQuestService.claimCompleted(in: modelContext, dailyGoalXP: userSettings.dailyGoalXP)
                     toast("+100 XP")
                 }
                 Button("Build a 7-day streak") {
                     DebugActions.buildStreak(days: 7, in: modelContext)
                     toast("Streak: 7 days")
                 }
+            }
+
+            Section {
+                Button("Start today over") {
+                    DebugActions.startTodayOver(in: modelContext)
+                    toast("Today reset – quests start from 0")
+                }
+                Button("Next quest set") {
+                    let kinds = DebugActions.nextQuestSet(in: modelContext)
+                    toast(kinds.map(\.rawValue).joined(separator: ", "))
+                }
+            } header: {
+                Text("Daily quests")
+            } footer: {
+                Text("Start today over clears today's XP, lessons, reviews, quests and rewards (earlier days are kept). Next quest set switches today's quests without paying rewards twice.")
             }
 
             Section {

@@ -17,20 +17,21 @@ An iOS language-learning app for **Vietnamese, English, Chinese, Japanese, Korea
 
 CI (`.github/workflows/ci.yml`) builds the app and runs the unit tests on every PR into `develop` / `main`.
 
-Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer matching, lesson state machine, streaks and streak freezes, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
+Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer matching, lesson state machine, streaks and streak freezes, daily quests, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
 
 ## MVP features
 
 | Screen | What it does |
 |---|---|
 | Onboarding | Asks for the **app language** (the UI switches immediately) → the **language to learn** (the course in the app language is hidden) → daily XP goal → daily reminder |
-| Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows the course badge, streak 🔥, XP ⚡ and hearts ❤️; tap the streak for the last 7 days and **streak freezes** |
+| Learn | Unit → lesson path in a zig-zag layout; lessons unlock in order; header shows the course badge, streak 🔥, XP ⚡ and hearts ❤️; tap the streak for the last 7 days and **streak freezes**; **daily quests** card at the top of the path |
 | Lesson | New-word card → choose the meaning → choose the word / listen & choose / type the word / type what you hear → **example sentences**: build the sentence (tap the chunks in order, plus 2 distractor chunks) and **fill in the blank** (pick the missing word; only examples that contain the word as written) → match pairs. **Difficulty:** the first time through a lesson uses more multiple choice and 1 + 1 sentence questions; replaying a finished lesson (and *Practice weak words*) uses more typing / listening and 2 + 2. Typed answers are graded leniently (`AnswerMatcher`: case, punctuation and spaces ignored; kana or kanji; Pinyin / Romaji / Korean romanization without tones; a missing accent or one typo is accepted and the correct spelling is shown). A wrong answer costs a heart and the question comes back at the end of the lesson |
 | Lesson result | XP (+5 bonus for a perfect lesson), accuracy, streak, daily goal |
 | Review | Flashcards with a 3D flip, graded Again/Hard/Good/Easy; SM-2 schedules the next review; **Practice weak words** (a lesson of up to 8 words ranked by mistakes, SRS lapses, low ease and short interval – no hearts lost); word list with memory strength and search |
 | Profile | Daily goal ring, stats, 7-day XP chart (Swift Charts), achievements, editable display name |
 | Settings | Course, daily goal, sound effects, auto-play pronunciation, reminder + time, app language, theme, reset course progress, restore purchases |
 | Streak | Current streak, last 7 days (studied 🔥 / frozen ❄️ / missed). **Streak freeze:** covers a missed day so the streak survives (frozen days keep the streak but don't add to it); applied automatically when the app becomes active. Free users buy them for 50 XP each from the spendable XP balance (lifetime XP − XP spent; total XP shown in the header doesn't drop) and hold up to 2; Plus is always fully equipped. A gap longer than 2 days, or one bigger than the freezes owned, loses the streak – freezes bought later can't revive it |
+| Daily quests | 3 quests a day: always *Earn {daily goal} XP* (+10 XP) plus two of *Complete 2 lessons* (+15), *Review 15 cards* (+10, only offered once words are learned) and *Finish a lesson with no mistakes* (+15, practice counts too), picked from the day (stable FNV-1a hash of the day key) and fixed once chosen (`DailyActivity.questKinds`). Progress comes from the day's counters; rewards are given automatically when a quest completes and shown on the lesson result (or as a toast after a review session). Reward XP counts toward *Earn XP* and the streak-freeze balance |
 | Plus (paywall) | StoreKit 2: unlimited hearts, unlimited reviews (free tier: 20 cards per session) and streak freezes that never run out |
 
 Pronunciation uses `AVSpeechSynthesizer`: offline, free, with built-in voices for all 6 languages.
@@ -54,7 +55,8 @@ Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product 
 - **Hearts:** refill / empty
 - **Progress:** complete the current unit or all lessons, reset course progress
 - **Review & practice:** make all learned words due now, mark 8 random words weak
-- **Stats:** +100 XP today, build a 7-day streak
+- **Stats:** +100 XP today (also completes quests), build a 7-day streak
+- **Daily quests:** start today over (today's XP, lessons, reviews, quests and rewards back to 0), next quest set (switch today's quests without paying rewards twice)
 - **Streak freeze:** give 2 / remove freezes, 7-day streak with yesterday missed, apply freezes now
 - **App:** show onboarding on next launch, reset all switches; build info
 

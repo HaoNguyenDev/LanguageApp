@@ -78,4 +78,37 @@ enum DebugActions {
         guard let dayBeforeYesterday = calendar.date(byAdding: .day, value: -2, to: now) else { return }
         buildStreak(days: 7, in: context, now: dayBeforeYesterday, calendar: calendar)
     }
+
+    /// Today starts from zero: XP, lessons, reviews and perfect lessons of today are cleared,
+    /// today's quests and rewards too, then quests are picked again. Earlier days are kept,
+    /// so the streak stays if yesterday counted.
+    static func startTodayOver(in context: ModelContext, now: Date = .now) {
+        let activity = ProgressService.activity(on: now, in: context)
+        activity.xp = 0
+        activity.lessonsCompleted = 0
+        activity.reviewsDone = 0
+        activity.perfectLessons = 0
+        activity.questKinds = nil
+        activity.claimedQuests = nil
+        try? context.save()
+        DailyQuestService.ensureTodayQuests(in: context, now: now)
+    }
+
+    /// Switches today to the next quest set (rewards already given are kept, so nothing is paid twice).
+    /// - Returns: the new quest kinds.
+    @discardableResult
+    static func nextQuestSet(in context: ModelContext, now: Date = .now) -> [DailyQuest.Kind] {
+        let activity = DailyQuestService.ensureTodayQuests(in: context, now: now)
+        let current = activity.questKinds?.compactMap(DailyQuest.Kind.init(rawValue:)) ?? []
+        let hasLearnedWords = current.contains(.reviewCards)
+            || ((try? context.fetchCount(FetchDescriptor<VocabItem>(predicate: #Predicate { $0.srsDue != nil }))) ?? 0) > 0
+        let count = DailyQuestService.candidates(hasLearnedWords: hasLearnedWords).count
+        let shift = (0..<count).first {
+            DailyQuestService.plan(dayKey: activity.dayKey, hasLearnedWords: hasLearnedWords, shift: $0) == current
+        } ?? -1
+        let next = DailyQuestService.plan(dayKey: activity.dayKey, hasLearnedWords: hasLearnedWords, shift: shift + 1)
+        activity.questKinds = next.map(\.rawValue)
+        try? context.save()
+        return next
+    }
 }
