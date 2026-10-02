@@ -155,6 +155,7 @@
         "tap_to_flip": "Tap the card to flip",
         "this_week": "This week",
         "total_xp": "Total XP",
+        "typing_hint_add_keyboard": "Add the %@ keyboard in Settings ▸ General ▸ Keyboard ▸ Keyboards to type in this language.",
         "typing_hint_romanized": "Tip: you can also type the reading in Latin letters.",
         "typing_placeholder": "Type your answer",
         "typo_note": "Watch the spelling:",

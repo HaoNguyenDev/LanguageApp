@@ -155,6 +155,7 @@
         "tap_to_flip": "点击卡片翻面",
         "this_week": "本周",
         "total_xp": "总经验",
+        "typing_hint_add_keyboard": "在“设置 ▸ 通用 ▸ 键盘 ▸ 键盘”中添加 %@ 键盘，即可用这种语言输入。",
         "typing_hint_romanized": "提示：也可以用拉丁字母输入读音。",
         "typing_placeholder": "输入答案",
         "typo_note": "注意拼写：",
