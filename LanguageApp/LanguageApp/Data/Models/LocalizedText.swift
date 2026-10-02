@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct LocalizedText: Codable, Hashable {
+/// `nonisolated`: the project isolates types to the main actor by default, but SwiftData's
+/// generated persistence code encodes / decodes this value off the main actor.
+nonisolated struct LocalizedText: Codable, Hashable, Sendable {
     var en: String
     var vi: String?
     var zh: String?
@@ -25,6 +27,7 @@ struct LocalizedText: Codable, Hashable {
     }
 
     /// Resolves for a UI language code (`LanguageCode.rawValue`), falling back to English.
+    @MainActor
     func resolved(for uiLanguageCode: String) -> String {
         switch LanguageCode(rawValue: uiLanguageCode) {
         case .vi: return vi ?? en
@@ -37,6 +40,7 @@ struct LocalizedText: Codable, Hashable {
     }
 
     /// Resolved with the current UI language.
+    @MainActor
     var text: String {
         resolved(for: LanguageManager.shared.language.languageCode)
     }
