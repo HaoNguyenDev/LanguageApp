@@ -51,13 +51,14 @@ Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product 
 **Settings ▸ Developer** (no code changes needed):
 
 - **Access:** unlock all lessons, unlimited hearts, force Free / Plus (overrides StoreKit)
-- **Lessons:** force one question type (choose, listen, type, type what you hear, build the sentence, fill in the blank), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
+- **Lessons:** a 🏁 button in the lesson top bar finishes the lesson at once (perfect / with a mistake), force one question type (choose, listen, type, type what you hear, build the sentence, fill in the blank), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
 - **Hearts:** refill / empty
 - **Progress:** complete the current unit or all lessons, reset course progress
 - **Review & practice:** make all learned words due now, mark 8 random words weak
 - **Stats:** +100 XP today (also completes quests), build a 7-day streak
 - **Daily quests:** start today over (today's XP, lessons, reviews, quests and rewards back to 0), next quest set (switch today's quests without paying rewards twice)
 - **Streak freeze:** give 2 / remove freezes, 7-day streak with yesterday missed, apply freezes now
+- **Reset** (with confirmation): reset all courses (lessons + review progress of all 6 courses), reset everything (also XP, streak, daily activity, quests, streak freezes and hearts – like a fresh install, settings kept)
 - **App:** show onboarding on next launch, reset all switches; build info
 
 The developer menu is gated by the `DEVELOPER_MENU` compilation condition (set for Debug in *Active Compilation Conditions*), not by `DEBUG`, so a future **Beta** configuration for TestFlight can enable it in an optimized build. App code only reads the *effective* values (`DebugSettings.shared.unlocksAllLessons`, `forcedPremium`, …), which are `false`/`nil` in Release builds and while unit tests run.
