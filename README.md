@@ -15,6 +15,8 @@ An iOS language-learning app for **Vietnamese, English, Chinese, Japanese, Korea
 2. Xcode resolves the **Lottie** package (`lottie-spm`) automatically.
 3. Select an iPhone simulator and run.
 
+CI (`.github/workflows/ci.yml`) builds the app and runs the unit tests on every PR into `develop` / `main`.
+
 Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer matching, lesson state machine, streaks, content import/upsert (word counts are read from the bundled JSON), and localization (UI languages match courses, every UI language has a strings file with the same keys as English, English fallback).
 
 ## MVP features
@@ -164,7 +166,7 @@ Add a **lowercase** key to all six `lang_*.json` files, then use `"key".localize
 - Product IDs (create them in App Store Connect as auto-renewable subscriptions in one subscription group):
   - `com.haonguyen.app.LanguageApp.plus.monthly`
   - `com.haonguyen.app.LanguageApp.plus.yearly` (a 7-day free trial is recommended)
-- Local testing: File ▸ New ▸ **StoreKit Configuration File**, add the two products above, then select the file in Scheme ▸ Run ▸ Options ▸ StoreKit Configuration.
+- Local testing: `LanguageApp/LinguaPath.storekit` holds both products (1-week free trial) and is selected in Scheme ▸ Run ▸ Options ▸ StoreKit Configuration, so purchases work in the simulator without App Store Connect. Transactions: Debug ▸ StoreKit ▸ Manage Transactions.
 
 ## Roadmap
 

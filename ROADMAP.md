@@ -59,6 +59,18 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Debug / Release environments: "LinguaPath Dev" app name, Settings ▸ Developer menu in Debug only
 - [x] Developer switches: unlock all lessons, unlimited hearts, force Free / Plus, force question type, skip intro / match, short lessons, show answers
 - [x] Developer actions: complete unit / all lessons, make words due, mark words weak, add XP, build streak, replay onboarding
+- [x] Local StoreKit configuration (`LinguaPath.storekit`) used by the Run scheme – buy / restore Plus in the simulator
+- [x] CI: GitHub Actions builds the app and runs the unit tests on every PR into `develop` / `main` (`.github/workflows/ci.yml`)
+- [ ] Require the CI check ("Build & unit tests") in the `develop` ruleset
+
+## ✅ Learning experience improvements (done, Oct 2026)
+
+- [x] Lesson tips: a rule of the language on a card before the lesson (used by the Numbers lesson)
+- [x] Slower tortoise playback (25 % speed); listen to example sentences (normal + slow)
+- [x] Speaker button on each word option in "Select the correct word" and "Fill in the blank"
+- [x] Typing exercises open the keyboard of the language being learned (hint to add it when it isn't installed)
+- [x] iOS 26 glass tab bar (material fallback on iOS 17–18)
+- [x] Fixes: course picker navigation, Swift 6 concurrency warnings, launch hang while importing content
 
 ## ✅ v0.10 – Content (done)
 
@@ -98,13 +110,13 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Native-speaker audio for words (fallback to TTS); pick the best installed TTS voice
 - [ ] Animations and transitions (lesson start/finish, unit complete)
 - [ ] Dynamic Type and VoiceOver support
-- [ ] Performance check with the full content set (import time, SwiftData queries)
+- [ ] Performance check with the full content set (import time, SwiftData queries) – launch import no longer blocks the splash; SwiftData queries still to check
 - [ ] iPad layout (optional)
 
 ## ⚪ v1.0.0 – Release on the App Store
 
 - [ ] Final app name (currently "LinguaPath" placeholder) and App Store icon (1024×1024)
-- [ ] Subscription products in App Store Connect (`…plus.monthly`, `…plus.yearly`), tested with a StoreKit configuration file
+- [ ] Subscription products in App Store Connect (`…plus.monthly`, `…plus.yearly`) – the local StoreKit configuration file already exists
 - [ ] Privacy policy & terms of use URLs (required for subscriptions)
 - [ ] App Store metadata in 6 languages: name, subtitle, description, keywords, screenshots
 - [ ] Native-speaker review of ja / ko / es / zh UI strings, course meanings and example sentences
