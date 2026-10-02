@@ -208,6 +208,44 @@ struct ExerciseGenerator {
         return exercises
     }
 
+    /// Unit checkpoint: no intro cards, no easy recognition pass and no match pairs – one harder
+    /// question per word (as when replaying a lesson), then example sentences.
+    /// - Parameter intro: text of a card shown first (what the checkpoint is and how to pass).
+    func makeCheckpoint(items: [StudyItem],
+                        distractorPool: [StudyItem],
+                        intro: String? = nil,
+                        using rng: inout some RandomNumberGenerator) -> [Exercise] {
+        guard !items.isEmpty else { return [] }
+        var generator = self
+        generator.difficulty = .replay
+        let pool = uniquePool(items + distractorPool)
+        var exercises: [Exercise] = []
+        if let intro, !intro.isEmpty {
+            exercises.append(.tip(intro))
+        }
+
+        var questions: [Exercise] = []
+        for item in items {
+            let kinds = generator.secondPassKinds(isNew: false)
+            let kind = forcedSecondPass ?? kinds[Int.random(in: 0..<kinds.count, using: &rng)]
+            questions.append(generator.exercise(kind, for: item, pool: pool, using: &rng))
+        }
+        if forcedSecondPass == nil {
+            let sentenceItems = Array(items.filter(Self.hasBuildableSentence).shuffled(using: &rng)
+                .prefix(generator.sentenceCount))
+            for item in sentenceItems {
+                if let sentence = sentenceExercise(for: item, pool: pool, using: &rng) { questions.append(sentence) }
+            }
+            let usedIds = Set(sentenceItems.map(\.id))
+            let blankItems = items.filter { !usedIds.contains($0.id) && Self.blankParts(of: $0) != nil }
+            for item in blankItems.shuffled(using: &rng).prefix(generator.fillBlankCount) {
+                if let blank = fillBlankExercise(for: item, pool: pool, using: &rng) { questions.append(blank) }
+            }
+        }
+        exercises.append(contentsOf: questions.shuffled(using: &rng))
+        return exercises
+    }
+
     /// Weighted list of second-pass question types (picked uniformly, so repeats = more likely).
     func secondPassKinds(isNew: Bool) -> [SecondPassKind] {
         guard allowsTyping else { return [.chooseTerm, .listen] }

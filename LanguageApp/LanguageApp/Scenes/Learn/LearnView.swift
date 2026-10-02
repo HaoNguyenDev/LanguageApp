@@ -13,7 +13,9 @@ struct LearnView: View {
     @Query(sort: \Course.order) private var courses: [Course]
 
     var onStartLesson: SingleResult<Lesson>?
-    var onLockedLesson: VoidResult?
+    var onStartCheckpoint: SingleResult<CourseUnit>?
+    /// Tapped something locked; the parameter is the key of the message to show.
+    var onLocked: StringResult?
     var onChangeCourse: VoidResult?
     var onOpenPaywall: VoidResult?
     var onOpenStreak: VoidResult?
@@ -40,7 +42,8 @@ struct LearnView: View {
                                 UnitSectionView(unit: unit,
                                                 unitIndex: unitIndex,
                                                 course: course,
-                                                onTapLesson: handleTap)
+                                                onTapLesson: handleTap,
+                                                onTapCheckpoint: handleCheckpointTap)
                             }
                             comingSoon
                         }
@@ -70,7 +73,16 @@ struct LearnView: View {
             FeedbackService.tap()
             onStartLesson?(lesson)
         } else {
-            onLockedLesson?()
+            onLocked?(course.isWaitingForCheckpoint(lesson) ? "lesson_locked_checkpoint_message" : "lesson_locked_message")
+        }
+    }
+
+    private func handleCheckpointTap(_ unit: CourseUnit) {
+        if unit.isCheckpointUnlocked {
+            FeedbackService.tap()
+            onStartCheckpoint?(unit)
+        } else {
+            onLocked?("checkpoint_locked_message")
         }
     }
 
@@ -94,6 +106,7 @@ private struct UnitSectionView: View {
     let unitIndex: Int
     let course: Course
     var onTapLesson: (Lesson) -> Void
+    var onTapCheckpoint: (CourseUnit) -> Void
 
     /// Horizontal offsets that create the winding path.
     private static let offsets: [CGFloat] = [0, 44, 70, 44, 0, -44, -70, -44]
@@ -114,7 +127,16 @@ private struct UnitSectionView: View {
                     .id(lesson.remoteId)
                     .onTapGesture { onTapLesson(lesson) }
             }
+            CheckpointNodeView(state: checkpointState, color: unitColor)
+                .id("checkpoint-\(unit.remoteId)")
+                .onTapGesture { onTapCheckpoint(unit) }
         }
+    }
+
+    private var checkpointState: CheckpointNodeView.NodeState {
+        if unit.checkpointPassed { return .passed }
+        if unit.isCheckpointUnlocked { return .available }
+        return .locked
     }
 
     private var header: some View {
@@ -140,6 +162,50 @@ private struct UnitSectionView: View {
         if lesson.isCompleted { return .completed }
         if course.isUnlocked(lesson) { return .current }
         return .locked
+    }
+}
+
+// MARK: - Checkpoint node
+
+struct CheckpointNodeView: View {
+    enum NodeState { case passed, available, locked }
+
+    @Environment(UserSettings.self) private var userSettings
+    let state: NodeState
+    let color: Color
+
+    var body: some View {
+        let theme = userSettings.theme
+        VStack(spacing: 8) {
+            Image(systemName: state == .locked ? "lock.fill" : "trophy.fill")
+                .font(.system(size: 28, weight: .semibold))
+                .foregroundStyle(state == .locked ? theme.secondaryTextColor : .white)
+                .frame(width: 76, height: 76)
+                .background(fillColor, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .overlay(alignment: .bottomTrailing) {
+                    if state == .passed {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.white, theme.correctColor)
+                            .offset(x: 6, y: 6)
+                    }
+                }
+            Text("checkpoint".localized())
+                .setFont(state == .available ? .bold : .semibold, size: 13,
+                         color: state == .locked ? theme.secondaryTextColor : theme.textColor,
+                         alignment: .center)
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+    }
+
+    private var fillColor: Color {
+        switch state {
+        case .passed: return userSettings.theme.xpColor
+        case .available: return color
+        case .locked: return userSettings.theme.lockedColor
+        }
     }
 }
 

@@ -31,6 +31,7 @@ Unit tests (`⌘U`) cover the SRS scheduler, exercise generator, typed-answer ma
 | Profile | Daily goal ring, stats, 7-day XP chart (Swift Charts), achievements, editable display name |
 | Settings | Course, daily goal, sound effects, auto-play pronunciation, reminder + time, app language, theme, reset course progress, restore purchases |
 | Streak | Current streak, last 7 days (studied 🔥 / frozen ❄️ / missed). **Streak freeze:** covers a missed day so the streak survives (frozen days keep the streak but don't add to it); applied automatically when the app becomes active. Free users buy them for 50 XP each from the spendable XP balance (lifetime XP − XP spent; total XP shown in the header doesn't drop) and hold up to 2; Plus is always fully equipped. A gap longer than 2 days, or one bigger than the freezes owned, loses the streak – freezes bought later can't revive it |
+| Unit checkpoint | A 🏆 node at the end of each unit, unlocked when every lesson of the unit is completed. 10 words of the unit (half the learner's weakest, half random), one harder question each (choose / listen / type, as when replaying a lesson) + example sentences, no intro cards or match pairs; costs hearts like a lesson. **≥ 80 % correct passes**: +20 XP (+5 perfect), counts as a lesson for quests, and the next unit opens (the first lesson of a unit needs the previous unit's checkpoint; lessons already completed stay unlocked). A failed attempt gives no XP but records mistakes for *Practice weak words* |
 | Daily quests | 3 quests a day: always *Earn {daily goal} XP* (+10 XP) plus two of *Complete 2 lessons* (+15), *Review 15 cards* (+10, only offered once words are learned) and *Finish a lesson with no mistakes* (+15, practice counts too), picked from the day (stable FNV-1a hash of the day key) and fixed once chosen (`DailyActivity.questKinds`). Progress comes from the day's counters; rewards are given automatically when a quest completes and shown on the lesson result (or as a toast after a review session). Reward XP counts toward *Earn XP* and the streak-freeze balance |
 | Plus (paywall) | StoreKit 2: unlimited hearts, unlimited reviews (free tier: 20 cards per session) and streak freezes that never run out |
 
@@ -53,7 +54,7 @@ Run from Xcode (`⌘R`) uses **Debug**. To try a Release build locally: Product 
 - **Access:** unlock all lessons, unlimited hearts, force Free / Plus (overrides StoreKit)
 - **Lessons:** a 🏁 button in the lesson top bar finishes the lesson at once (perfect / with a mistake), force one question type (choose, listen, type, type what you hear, build the sentence, fill in the blank), skip new-word cards, skip match pairs, short lessons (3 words), show the correct answer above each exercise
 - **Hearts:** refill / empty
-- **Progress:** complete the current unit or all lessons, reset course progress
+- **Progress:** complete the current unit or all lessons, pass the checkpoints of completed units, reset course progress
 - **Review & practice:** make all learned words due now, mark 8 random words weak
 - **Stats:** +100 XP today (also completes quests), build a 7-day streak
 - **Daily quests:** start today over (today's XP, lessons, reviews, quests and rewards back to 0), next quest set (switch today's quests without paying rewards twice)

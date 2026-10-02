@@ -102,6 +102,10 @@ struct DeveloperMenuView: View {
                         toast("Completed \(lessons.count) lessons")
                     }
                     Button("Complete all lessons") { pendingAction = .completeAllLessons }
+                    Button("Pass checkpoints of completed units") {
+                        let count = DebugActions.passUnlockedCheckpoints(of: course, in: modelContext)
+                        toast("\(count) checkpoint(s) passed")
+                    }
                     Button("Reset course progress", role: .destructive) {
                         LessonCompletionService.resetProgress(of: course, in: modelContext)
                         toast("Course progress reset")

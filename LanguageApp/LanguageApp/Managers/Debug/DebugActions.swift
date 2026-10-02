@@ -126,4 +126,17 @@ enum DebugActions {
         ProgressService.allActivities(in: context).forEach { context.delete($0) }
         try? context.save()
     }
+
+    /// Passes the checkpoint of every unit whose lessons are all completed (opens the next units).
+    @discardableResult
+    static func passUnlockedCheckpoints(of course: Course, in context: ModelContext, now: Date = .now) -> Int {
+        let units = course.sortedUnits.filter { $0.allLessonsCompleted && !$0.checkpointPassed }
+        for unit in units {
+            unit.checkpointPassed = true
+            unit.checkpointPassedAt = now
+            unit.checkpointBestAccuracy = max(unit.checkpointBestAccuracy, 1)
+        }
+        try? context.save()
+        return units.count
+    }
 }
