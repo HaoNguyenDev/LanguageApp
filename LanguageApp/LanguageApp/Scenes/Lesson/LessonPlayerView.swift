@@ -96,6 +96,8 @@ struct LessonPlayerView: View {
     @ViewBuilder
     private var exerciseContent: some View {
         switch viewModel.current {
+        case .tip(let text):
+            LessonTipView(text: text)
         case .introduce(let item):
             IntroduceWordView(item: item)
         case .chooseMeaning(let item, let options):
@@ -155,7 +157,8 @@ struct LessonPlayerView: View {
                 .transition(.move(edge: .bottom))
         case .answering:
             Group {
-                if case .introduce = viewModel.current {
+                if viewModel.current?.isGraded == false {
+                    // Tip and new-word cards
                     Button("continue".localized()) { viewModel.next() }
                         .filled(theme.primaryColor)
                 } else if case .matchPairs = viewModel.current {
@@ -228,6 +231,7 @@ struct LessonPlayerView: View {
     private var debugAnswerHint: String? {
         guard let current = viewModel.current else { return nil }
         switch current {
+        case .tip: return "tip"
         case .introduce(let item): return "intro · \(item.term)"
         case .chooseMeaning(let item, _): return "chooseMeaning → \(item.meaning)"
         case .chooseTerm: return "chooseTerm → \(correctAnswerText ?? "")"

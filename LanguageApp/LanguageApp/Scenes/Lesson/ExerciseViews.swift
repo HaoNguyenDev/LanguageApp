@@ -7,6 +7,47 @@
 
 import SwiftUI
 
+// MARK: - Lesson tip
+
+/// Lesson tip: a short rule of the language (e.g. how numbers are built), one point per line.
+struct LessonTipView: View {
+    @Environment(UserSettings.self) private var userSettings
+    let text: String
+
+    private var lines: [String] {
+        text.split(separator: "\n").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
+    }
+
+    var body: some View {
+        let theme = userSettings.theme
+        VStack(alignment: .leading, spacing: 20) {
+            Label("lesson_tip".localized(), systemImage: "lightbulb.fill")
+                .font(mainFont.bold(15))
+                .foregroundStyle(theme.primaryColor)
+                .padding(.horizontal, 12)
+                .frame(height: 30)
+                .background(theme.primaryColor.opacity(0.12), in: Capsule())
+
+            VStack(alignment: .leading, spacing: 14) {
+                ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                    HStack(alignment: .firstTextBaseline, spacing: 10) {
+                        Circle()
+                            .fill(theme.primaryColor)
+                            .frame(width: 7, height: 7)
+                            .alignmentGuide(.firstTextBaseline) { $0[.bottom] + 2 }
+                        Text(line)
+                            .setFont(.medium, size: 17, color: theme.textColor)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+            .padding(24)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(theme.cardBgColor, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        }
+    }
+}
+
 // MARK: - Introduce a new word
 
 struct IntroduceWordView: View {

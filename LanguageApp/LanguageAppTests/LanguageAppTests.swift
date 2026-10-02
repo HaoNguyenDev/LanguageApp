@@ -237,6 +237,22 @@ final class ExerciseGeneratorTests: XCTestCase {
         XCTAssertEqual(exercises.suffix(6).filter { if case .typeListening = $0 { return true } else { return false } }.count, 6)
     }
 
+    func testTipComesFirstAndIsNotGraded() {
+        let items = (1...6).map(item)
+        var rng = SeededGenerator(seed: 7)
+        let exercises = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [],
+                                                       tip: "13–19 = number + -teen", using: &rng)
+        XCTAssertEqual(exercises.first, .tip("13–19 = number + -teen"))
+        XCTAssertFalse(exercises[0].isGraded)
+        XCTAssertNil(exercises[0].studyItem)
+        XCTAssertEqual(exercises.filter { if case .tip = $0 { return true } else { return false } }.count, 1)
+
+        var rng2 = SeededGenerator(seed: 7)
+        let withoutTip = ExerciseGenerator().makeLesson(items: items, distractorPool: [], newWordIds: [],
+                                                        tip: "", using: &rng2)
+        XCTAssertEqual(withoutTip.count, exercises.count - 1, "An empty tip adds no card")
+    }
+
     func testSeededGeneratorIsDeterministic() {
         let items = (1...5).map(item)
         var a = SeededGenerator(seed: 1)
@@ -393,6 +409,18 @@ final class LessonSessionViewModelTests: XCTestCase {
         vm.next()
         XCTAssertEqual(vm.phase, .finished)
         XCTAssertEqual(vm.accuracy, 1)
+    }
+
+    func testTipCardIsSkippedWithContinue() {
+        let vm = LessonSessionViewModel(lessonTitle: "t", exercises: [.tip("rule"), choice()])
+        XCTAssertFalse(vm.canCheck)
+        vm.next()
+        XCTAssertEqual(vm.currentIndex, 1)
+        vm.select("a")
+        XCTAssertTrue(vm.check())
+        vm.next()
+        XCTAssertEqual(vm.phase, .finished)
+        XCTAssertEqual(vm.accuracy, 1, "The tip card is not graded")
     }
 
     func testTypingAnswerFlow() {
@@ -570,6 +598,14 @@ final class ContentImporterTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(tokens.count, 2, item.remoteId)
             XCTAssertEqual(tokens.joined(), example, item.remoteId)
         }
+
+        // Number lessons explain how numbers are built with a tip (Korean: native vs Sino-Korean).
+        let korean = try XCTUnwrap(courses.first { $0.remoteId == "ko" })
+        let numbers = try XCTUnwrap(korean.orderedLessons.first { $0.remoteId == "ko-u2-l1" })
+        XCTAssertFalse(try XCTUnwrap(numbers.tip).en.isEmpty)
+        XCTAssertNotNil(numbers.tip?.vi)
+        XCTAssertEqual(numbers.sortedItems.count, 21, "0–10 plus 11, 15, 20, 21, 45, 99, 100, 300, 1,000, 10,000")
+        XCTAssertNil(korean.orderedLessons.first { $0.remoteId == "ko-u2-l2" }?.tip, "Food & drink has no tip")
 
         // Vietnamese is spaced by syllable: multi-syllable words must stay in one chunk.
         let vietnamese = try XCTUnwrap(courses.first { $0.remoteId == "vi" })

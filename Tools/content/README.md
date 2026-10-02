@@ -35,7 +35,7 @@ Then build the app and commit the spreadsheet change together with the generated
 
 ## Spreadsheet format
 
-Four tabs (names must match). Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko`, `_es` exist once per language. Row order defines display order. A column named `note` is ignored everywhere.
+Four tabs (names must match), plus an optional `tips` tab. Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko`, `_es` exist once per language. Row order defines display order. A column named `note` is ignored everywhere.
 
 ### `courses`
 
@@ -81,6 +81,18 @@ Four tabs (names must match). Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko
 
 Example: for the Japanese course with the app in Vietnamese, the word shows `term_ja` + `reading_ja`, its meaning is `meaning_vi` (or `term_vi`), the example is `example_ja` and its translation is `example_vi`.
 
+### `tips` – optional, one row per lesson + course
+
+A rule of the language being learned (e.g. how numbers are built), shown on a card before the lesson's first question. Written in every UI language, because the learner reads it in the app language.
+
+| Column | Example | Notes |
+|---|---|---|
+| `lesson_id` | `u2-l3` | Must exist in `lessons` |
+| `course_id` | `en` | The course (language being learned) the tip is for |
+| `text_xx` | `13–19 = number + -teen …` | Tip in UI language xx. `text_en` is required (fallback); one point per line (Alt+Enter) |
+
+A lesson without a row for a course has no tip in that course.
+
 ## Checks
 
 **Errors** (nothing is written):
@@ -93,6 +105,7 @@ Example: for the Japanese course with the app in Vietnamese, the word shows `ter
 - `tokens_zh` / `tokens_ja` missing for an example, chunks that don't rebuild the example, empty chunks
 - `icon` that doesn't look like an SF Symbol name, `xp` not a positive number
 - A UI language without a course row
+- `tips`: unknown lesson or course, duplicate lesson + course, empty `text_en`
 
 **Warnings** (files are still written):
 
@@ -103,6 +116,7 @@ Example: for the Japanese course with the app in Vietnamese, the word shows `ter
 - A course that isn't listed in `ContentImporter.bundledCourseFiles`
 - Examples that don't contain the term as written (normal for conjugated verbs / adjectives; fill-in-the-blank skips them)
 - `tokens_xx` with a single chunk
+- `tips` row with some `text_xx` empty (English is shown instead)
 
 ## Tips
 

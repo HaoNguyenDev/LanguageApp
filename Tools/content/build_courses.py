@@ -2,7 +2,8 @@
 """
 Build LinguaPath course JSON files from the course-content spreadsheet.
 
-The spreadsheet (Google Sheets or .xlsx) has four tabs: courses, units, lessons, words.
+The spreadsheet (Google Sheets or .xlsx) has four tabs: courses, units, lessons, words, plus an
+optional `tips` tab (a rule explained on a card before a lesson, per course).
 One row in `words` = one concept, with the word / reading / meaning / example in all six
 languages. Every course (vi, en, zh, ja, ko, es) is generated from the same rows.
 
@@ -309,6 +310,8 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
         lessons[lid] = lesson
         units[r["unit_id"]]["lessons"].append(lesson)
 
+    tips = build_tips(sheets, lessons, set(courses), report)
+
     # Words
     seen_ids: dict[str, int] = {}
     examples_without_term: dict[str, list[str]] = defaultdict(list)
@@ -408,7 +411,10 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
             unit_json = {"id": f"{cid}-{uid}", "title": unit["title"], "lessons": []}
             for lesson in unit["lessons"]:
                 lesson_json = {"id": f"{cid}-{lesson['id']}", "title": lesson["title"],
-                               "icon": lesson["icon"], "xp": lesson["xp"], "items": []}
+                               "icon": lesson["icon"], "xp": lesson["xp"]}
+                if (lesson["id"], cid) in tips:
+                    lesson_json["tip"] = tips[(lesson["id"], cid)]
+                lesson_json["items"] = []
                 for w in lesson["words"]:
                     item = {"id": f"{cid}-{w['id']}", "term": w["term"][cid],
                             "meaning": {l: w["meaning"][l] for l in JSON_LANG_ORDER}}
@@ -423,6 +429,40 @@ def build(sheets: dict[str, list[list[str]]], report: Report) -> dict[str, dict]
             data["units"].append(unit_json)
         output[cid] = data
     return output
+
+
+def build_tips(sheets: dict[str, list[list[str]]], lessons: dict[str, dict], course_ids: set[str],
+               report: Report) -> dict[tuple[str, str], dict[str, str]]:
+    """Optional `tips` tab → {(lesson_id, course_id): {ui_lang: text}}.
+    A tip explains a rule of the language being learned (e.g. how numbers are built), written in
+    every UI language. It is shown on a card before the lesson's first question."""
+    tips: dict[tuple[str, str], dict[str, str]] = {}
+    if "tips" not in sheets:
+        return tips
+    records = tab_records(sheets, "tips", report)
+    columns = ["lesson_id", "course_id"] + [f"text_{l}" for l in LANGS]
+    if not records or not require_columns("tips", records, columns, report):
+        return tips
+    for row, r in records:
+        where = f"tips!row {row}"
+        lid, cid = r["lesson_id"], r["course_id"]
+        if lid not in lessons:
+            report.error(where, f"lesson_id '{lid}' does not exist in the lessons tab")
+            continue
+        if cid not in course_ids:
+            report.error(where, f"course_id '{cid}' does not exist in the courses tab")
+            continue
+        if (lid, cid) in tips:
+            report.error(where, f"duplicate tip for lesson '{lid}' in course '{cid}'")
+            continue
+        if not r["text_en"]:
+            report.error(where, "text_en is empty (required – it is the fallback for other languages)")
+            continue
+        missing = [l for l in LANGS if not r[f"text_{l}"]]
+        if missing:
+            report.warn(where, f"text_{', text_'.join(missing)} empty – English is shown instead")
+        tips[(lid, cid)] = {l: r[f"text_{l}"] for l in JSON_LANG_ORDER if r[f"text_{l}"]}
+    return tips
 
 
 def group_words(example: str, phrases: set[str], max_words: int = 5) -> list[str]:
@@ -530,7 +570,8 @@ def main() -> int:
     for cid, data in output.items():
         lessons = sum(len(u["lessons"]) for u in data["units"])
         words = sum(len(l["items"]) for u in data["units"] for l in u["lessons"])
-        print(f"  course_{cid}.json  {len(data['units'])} units · {lessons} lessons · {words} words  ({notes[cid]})")
+        tips = sum(1 for u in data["units"] for l in u["lessons"] if "tip" in l)
+        print(f"  course_{cid}.json  {len(data['units'])} units · {lessons} lessons · {words} words · {tips} tips  ({notes[cid]})")
 
     if args.check:
         print("\n--check: no files written.")
