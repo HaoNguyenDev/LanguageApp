@@ -137,12 +137,7 @@ struct FlashcardView: View {
                 Text(item.meaning.text)
                     .setFont(.bold, size: 26, color: theme.primaryColor, alignment: .center)
                 if let example = item.example {
-                    Text(example)
-                        .setFont(.medium, size: 16, color: theme.textColor, alignment: .center)
-                    if let exampleMeaning = item.exampleMeaning?.text {
-                        Text(exampleMeaning)
-                            .setFont(.regular, size: 14, color: theme.secondaryTextColor, alignment: .center)
-                    }
+                    ExampleSentenceView(example: example, meaning: item.exampleMeaning?.text, locale: speechLocale)
                 }
                 Spacer()
             }
