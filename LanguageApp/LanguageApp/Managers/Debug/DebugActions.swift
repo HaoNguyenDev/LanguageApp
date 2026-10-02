@@ -64,4 +64,18 @@ enum DebugActions {
         }
         try? context.save()
     }
+
+    /// A 7-day streak that ended the day before yesterday: yesterday is missed (and today has no activity),
+    /// so a streak freeze can save it.
+    static func buildStreakMissingYesterday(in context: ModelContext, now: Date = .now, calendar: Calendar = .current) {
+        let recentKeys = [0, 1].compactMap { offset in
+            calendar.date(byAdding: .day, value: -offset, to: now).map { ProgressService.dayKey(for: $0, calendar: calendar) }
+        }
+        ProgressService.allActivities(in: context)
+            .filter { recentKeys.contains($0.dayKey) }
+            .forEach { context.delete($0) }
+        try? context.save()
+        guard let dayBeforeYesterday = calendar.date(byAdding: .day, value: -2, to: now) else { return }
+        buildStreak(days: 7, in: context, now: dayBeforeYesterday, calendar: calendar)
+    }
 }

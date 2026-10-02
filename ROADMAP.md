@@ -4,7 +4,7 @@ iOS language-learning app (SwiftUI + SwiftData, iOS 17+) for **Vietnamese, Engli
 
 **Direction:** make the app complete and worth using every day *before* publishing. App Store work is grouped into the release milestone (v1.0.0).
 
-_Last updated: 2026-10-02_
+_Last updated: 2026-10-03_
 
 ## Overview
 
@@ -14,7 +14,7 @@ _Last updated: 2026-10-02_
 | **0.9** | Stabilize | ✅ Done | `fix/first-build`, `fix/translation-review` |
 | **0.10** | Content | ✅ Done | `feature/more-units`, `feature/more-words` |
 | **0.11** | New exercise types | ✅ Done | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
-| **0.12** | Engagement | 🟡 Next | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
+| **0.12** | Engagement | 🟡 In progress | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
 | **0.13** | Polish | ⚪ Planned | `feature/native-audio`, `feature/accessibility` |
 | **1.0.0** | Release on the App Store | ⚪ Planned | `release/1.0.0` |
 | **1.1.0** | Sync & accounts | ⚪ Planned | `feature/icloud-sync`, `feature/sign-in-with-apple` |
@@ -95,11 +95,11 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Practice mistakes – a lesson built from the learner's weakest / most-missed words
 - [x] Exercise mix tuned by difficulty (new lesson vs. replay)
 
-## ⚪ v0.12 – Engagement
+## 🟡 v0.12 – Engagement
 
 **Goal:** reasons to come back every day.
 
-- [ ] Streak freeze – protect the streak for a missed day (earned with XP, unlimited for Plus)
+- [x] Streak freeze – protect the streak for a missed day (50 XP each, hold up to 2; Plus always fully equipped), streak sheet with the last 7 days
 - [ ] Daily quests – e.g. "Finish 2 lessons", "Review 20 cards", with XP rewards
 - [ ] Unit checkpoint – a short test at the end of each unit
 - [ ] Smart notifications – streak at risk, cards due, reminder at the learner's usual time

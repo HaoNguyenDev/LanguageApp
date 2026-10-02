@@ -35,6 +35,8 @@ protocol Theme {
     var wrongBgColor: Color { get }
     var xpColor: Color { get }
     var streakColor: Color { get }
+    /// Streak freeze (snowflake).
+    var freezeColor: Color { get }
     var heartColor: Color { get }
     var cardBgColor: Color { get }
     var borderColor: Color { get }

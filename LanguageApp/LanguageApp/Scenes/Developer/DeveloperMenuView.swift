@@ -106,6 +106,32 @@ struct DeveloperMenuView: View {
             }
 
             Section {
+                Button("Give 2 streak freezes") {
+                    gamification.debugSetStreakFreezes(GamificationManager.maxStreakFreezes)
+                    toast("Streak freezes: \(GamificationManager.maxStreakFreezes)")
+                }
+                Button("Remove streak freezes") {
+                    gamification.debugSetStreakFreezes(0)
+                    toast("Streak freezes: 0")
+                }
+                Button("7-day streak, missed yesterday") {
+                    DebugActions.buildStreakMissingYesterday(in: modelContext)
+                    gamification.streakLostAfterDayKey = nil
+                    toast("Yesterday missed – apply freezes or reopen the app")
+                }
+                Button("Apply streak freezes now") {
+                    let days = StreakFreezeService.applyIfNeeded(in: modelContext,
+                                                                 gamification: gamification,
+                                                                 isPremium: premium.isPremium)
+                    toast(days > 0 ? "Frozen \(days) day(s)" : "Nothing frozen")
+                }
+            } header: {
+                Text("Streak freeze")
+            } footer: {
+                Text("Owned: \(gamification.streakFreezes) · XP spent: \(gamification.spentXP)")
+            }
+
+            Section {
                 Button("Show onboarding on next launch") {
                     userSettings.hasCompletedOnboarding = false
                     toast("Restart the app to see onboarding")
