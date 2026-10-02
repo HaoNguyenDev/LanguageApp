@@ -107,6 +107,8 @@ final class Lesson {
     var title: LocalizedText = LocalizedText.empty
     var icon: String = "star.fill"
     var xpReward: Int = 10
+    /// Rule of the language explained on a card before the first question (e.g. how numbers are built).
+    var tip: LocalizedText?
 
     // Progress
     var isCompleted: Bool = false

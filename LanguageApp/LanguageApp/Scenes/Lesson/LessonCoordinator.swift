@@ -71,6 +71,7 @@ struct LessonCoordinator: View {
         let exercises = generator.makeLesson(items: items,
                                                        distractorPool: pool,
                                                        newWordIds: newIds,
+                                                       tip: found.tip?.text,
                                                        using: &rng)
         let vm = LessonSessionViewModel(lessonTitle: found.title.text, exercises: exercises)
         let hearts = gamification

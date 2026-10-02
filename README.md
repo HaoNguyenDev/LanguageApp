@@ -112,12 +112,12 @@ LanguageApp/
 
 ## Course content
 
-Each course currently has 10 units, 39 lessons and 235 words (1,410 in total), content `version` 4:
+Each course currently has 10 units, 38 lessons and 283 words (1,698 in total), content `version` 8 (zh / ja: 7):
 
 | Unit | Lessons |
 |---|---|
 | 1 Basics 1 | Greetings · Essentials · Questions |
-| 2 Everyday life | Numbers · Food & drink · Numbers 2 · Meals |
+| 2 Everyday life | Numbers (0–10, then tens, hundreds, thousands) · Food & drink · Meals |
 | 3 People & family | Family · People · Describing people · About me |
 | 4 Time | Today & tomorrow · Days of the week · Hours, days, months · Daily routine |
 | 5 Shopping | At the shop · Clothes · Colors · Paying |
@@ -127,9 +127,11 @@ Each course currently has 10 units, 39 lessons and 235 words (1,410 in total), c
 | 9 Weather & nature | Weather · Seasons · Nature · Animals |
 | 10 Health | Body · Face · Feeling sick · Emergencies |
 
-Most lessons have 6 words. **Every word has an example sentence** in all six languages, stored with `exampleTokens` (the sentence split into chunks – phrases for Chinese / Japanese, words elsewhere) for the upcoming sentence-builder exercise.
+Lessons have 7–8 words (Numbers: 21), 24–35 words per unit. **Every word has an example sentence** in all six languages, stored with `exampleTokens` (the sentence split into chunks – phrases for Chinese / Japanese, words elsewhere) for the sentence-builder and fill-in-the-blank exercises.
 
 Readings: IPA (English), Pinyin (Chinese), kana + Romaji (Japanese), Romanization (Korean); none for Spanish and Vietnamese.
+
+**Lesson tips:** a lesson can start with a tip card that explains a rule of the language being learned, in the app language. The Numbers lesson uses one: how 0–10 are said and how bigger numbers are built in each language (English -teen / -ty, Vietnamese mốt / lăm / tư, Chinese 两 and 万, Japanese よん / なな and さんびゃく, Korean native vs Sino-Korean numbers, Spanish dieci- / veinti- / y).
 
 Content is edited in the **Google Sheet "LinguaPath – Course Content"** (one row per word, all six languages side by side) and converted with the content tool:
 

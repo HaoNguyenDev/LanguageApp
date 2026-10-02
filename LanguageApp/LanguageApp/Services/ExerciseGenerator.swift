@@ -47,6 +47,8 @@ struct ChoiceOption: Identifiable, Hashable {
 }
 
 enum Exercise: Identifiable, Hashable {
+    /// Lesson tip: a rule of the language, shown before the first question (not graded).
+    case tip(String)
     /// New word card (not graded).
     case introduce(StudyItem)
     /// Show term → pick meaning.
@@ -68,6 +70,7 @@ enum Exercise: Identifiable, Hashable {
 
     var id: String {
         switch self {
+        case .tip: return "tip"
         case .introduce(let item): return "intro-\(item.id)"
         case .chooseMeaning(let item, _): return "meaning-\(item.id)"
         case .chooseTerm(let item, _): return "term-\(item.id)"
@@ -89,8 +92,10 @@ enum Exercise: Identifiable, Hashable {
     }
 
     var isGraded: Bool {
-        if case .introduce = self { return false }
-        return true
+        switch self {
+        case .tip, .introduce: return false
+        default: return true
+        }
     }
 
     /// Correct option id for choice exercises.
@@ -108,7 +113,7 @@ enum Exercise: Identifiable, Hashable {
         case .introduce(let item), .chooseMeaning(let item, _), .chooseTerm(let item, _), .listen(let item, _),
              .typeTerm(let item), .typeListening(let item), .buildSentence(let item, _), .fillBlank(let item, _, _, _):
             return item
-        case .matchPairs:
+        case .tip, .matchPairs:
             return nil
         }
     }
@@ -144,13 +149,20 @@ struct ExerciseGenerator {
     ///   - distractorPool: other words of the course, used as wrong options.
     ///   - introduceNewWords: add an intro card before the first question of each unseen word.
     ///   - newWordIds: ids of words the learner hasn't met yet.
+    ///   - tip: the lesson's tip in the UI language, shown on a card before the first question.
     func makeLesson(items: [StudyItem],
                     distractorPool: [StudyItem],
                     newWordIds: Set<String>,
+                    tip: String? = nil,
                     using rng: inout some RandomNumberGenerator) -> [Exercise] {
         guard !items.isEmpty else { return [] }
         let pool = uniquePool(items + distractorPool)
         var exercises: [Exercise] = []
+
+        // The lesson's tip (a rule of the language) comes before everything else.
+        if let tip, !tip.isEmpty {
+            exercises.append(.tip(tip))
+        }
 
         // Pass 1: meet each word (intro if new) + an easy recognition question.
         for item in items {

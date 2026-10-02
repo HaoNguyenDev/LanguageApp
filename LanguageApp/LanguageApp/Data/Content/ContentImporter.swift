@@ -127,6 +127,7 @@ struct ContentImporter {
             lesson.title = lessonDTO.title
             lesson.icon = lessonDTO.icon ?? "star.fill"
             lesson.xpReward = lessonDTO.xp ?? 10
+            lesson.tip = lessonDTO.tip
 
             for (itemIndex, itemDTO) in lessonDTO.items.enumerated() {
                 let item: VocabItem

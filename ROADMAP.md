@@ -4,7 +4,7 @@ iOS language-learning app (SwiftUI + SwiftData, iOS 17+) for **Vietnamese, Engli
 
 **Direction:** make the app complete and worth using every day *before* publishing. App Store work is grouped into the release milestone (v1.0.0).
 
-_Last updated: 2026-10-01_
+_Last updated: 2026-10-02_
 
 ## Overview
 
@@ -12,9 +12,9 @@ _Last updated: 2026-10-01_
 |---|---|---|---|
 | **0.8** | MVP foundation | ✅ Done | `feature/app-scaffold`, `feature/content-tooling` (merged) |
 | **0.9** | Stabilize | ✅ Done | `fix/first-build`, `fix/translation-review` |
-| **0.10** | Content | 🟡 In progress | `feature/more-units` |
+| **0.10** | Content | ✅ Done | `feature/more-units`, `feature/more-words` |
 | **0.11** | New exercise types | ✅ Done | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
-| **0.12** | Engagement | ⚪ Planned | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
+| **0.12** | Engagement | 🟡 Next | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
 | **0.13** | Polish | ⚪ Planned | `feature/native-audio`, `feature/accessibility` |
 | **1.0.0** | Release on the App Store | ⚪ Planned | `release/1.0.0` |
 | **1.1.0** | Sync & accounts | ⚪ Planned | `feature/icloud-sync`, `feature/sign-in-with-apple` |
@@ -60,16 +60,18 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Developer switches: unlock all lessons, unlimited hearts, force Free / Plus, force question type, skip intro / match, short lessons, show answers
 - [x] Developer actions: complete unit / all lessons, make words due, mark words weak, add XP, build streak, replay onboarding
 
-## 🟡 v0.10 – Content (in progress)
+## ✅ v0.10 – Content (done)
 
 **Goal:** enough content to learn for weeks, not minutes.
 
 - [x] Plan the curriculum: 10 units per course (greetings, family, numbers & time, food, shopping, travel & directions, work, hobbies, weather, health)
 - [x] Units 3–10 added, 3–4 lessons per unit (39 lessons, 235 words per course)
-- [ ] ~20–30 words per unit, 4–8 words per lesson (all edited in the Google Sheet) – currently 18–25 per unit
+- [x] ~20–30 words per unit, 4–8 words per lesson – 41 new words (ids 0236–0276): 24–28 per unit, 7–8 per lesson, 276 words per course
 - [x] Example sentence for every word (all 6 languages), split into chunks (`tokens_xx`, required for zh / ja) for the sentence builder
-- [ ] Review readings (Pinyin, kana/Romaji, Romanization, IPA) and meanings per language
-- [ ] Keep word ids stable; run `build_courses.py --check` before every commit
+- [x] Automated reading check: Pinyin (pypinyin), kana / Romaji (pykakasi), Korean Revised Romanization (korean-romanizer), IPA present for every English word – all differences reviewed, one fix (할인 `halin` → `harin`)
+- [x] Meanings and example sentences → native-speaker review in v1.0.0
+- [x] Numbers rebuilt as one lesson: all of 0–10, then 11, 15, 20, 21, 45, 99, 100, 300, 1,000, 10,000 (new ids 0277, 0280, 0283, 0286–0288, 0290), with a **lesson tip** explaining how numbers are said and built in that language (new optional `tips` tab → tip card before the lesson)
+- [x] Word ids kept stable (new words appended); `build_courses.py --check` passes with no errors
 
 ## ✅ v0.11 – New exercise types (done)
 

@@ -29,6 +29,8 @@ struct LessonDTO: Decodable {
     let title: LocalizedText
     let icon: String?
     let xp: Int?
+    /// Optional rule explained before the lesson (e.g. how numbers are built), in every UI language.
+    let tip: LocalizedText?
     let items: [VocabItemDTO]
 }
 

@@ -75,6 +75,7 @@
         "loading_message": "잠시 시간이 걸릴 수 있어요. 기다려 주셔서 감사합니다.",
         "maintenance_message": "더 나은 경험을 위해 점검 중입니다. 잠시 후 다시 확인해 주세요.",
         "more_units_coming": "곧 더 많은 유닛이 추가됩니다!",
+        "lesson_tip": "팁",
         "new_word": "새 단어",
         "new_words_learned": "새 단어 %ld개를 배웠어요",
         "next_heart_in": "다음 하트까지",
