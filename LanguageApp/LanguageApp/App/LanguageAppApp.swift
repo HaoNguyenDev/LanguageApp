@@ -17,6 +17,9 @@ struct LanguageAppApp: App {
     @State private var gamification = GamificationManager()
     @State private var premiumManager = PremiumManager()
     @State private var speechService = SpeechService()
+    /// Streak freezes are applied only once the Plus entitlement is known.
+    @State private var isPremiumReady = false
+    @Environment(\.scenePhase) private var scenePhase
 
     private let modelContainer: ModelContainer
 
@@ -42,8 +45,24 @@ struct LanguageAppApp: App {
                     await ContentImporter(context: modelContainer.mainContext).importBundledCoursesInSteps()
                     appState.isContentReady = true
                     await premiumManager.start()
+                    isPremiumReady = true
+                    applyStreakFreezes()
+                }
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .active { applyStreakFreezes() }
                 }
         }
         .modelContainer(modelContainer)
+    }
+
+    /// Covers missed days with streak freezes and tells the learner.
+    private func applyStreakFreezes() {
+        guard appState.isContentReady, isPremiumReady else { return }
+        let days = StreakFreezeService.applyIfNeeded(in: modelContainer.mainContext,
+                                                     gamification: gamification,
+                                                     isPremium: premiumManager.isPremium)
+        guard days > 0 else { return }
+        appState.showToast(item: UserMessageItem(title: "streak_freeze_used_title".localized(),
+                                                 message: "streak_freeze_used_message".localized()))
     }
 }

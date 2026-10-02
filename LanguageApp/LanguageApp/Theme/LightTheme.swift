@@ -30,6 +30,7 @@ struct LightTheme: Theme {
     let wrongBgColor = Color(hex: "#FEE2E2")
     let xpColor = Color(hex: "#F59E0B")
     let streakColor = Color(hex: "#F97316")
+    let freezeColor = Color(hex: "#0EA5E9")
     let heartColor = Color(hex: "#F43F5E")
     let cardBgColor = Color(hex: "#F3F4F8")
     let borderColor = Color(hex: "#E5E7EB")

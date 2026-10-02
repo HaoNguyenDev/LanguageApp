@@ -15,6 +15,7 @@ extension Router {
         case review(courseId: String, practice: Bool)
         case practiceWeakWords(courseId: String)
         case paywall
+        case streak
 
         var id: String {
             switch self {
@@ -22,6 +23,7 @@ extension Router {
             case .review(let courseId, let practice): return "review-\(courseId)-\(practice)"
             case .practiceWeakWords(let courseId): return "practice-\(courseId)"
             case .paywall: return "paywall"
+            case .streak: return "streak"
             }
         }
     }
@@ -125,6 +127,8 @@ extension AppCoordinator {
         switch routable {
         case Router.Study.paywall:
             PaywallCoordinator(navRouter: rootRouter)
+        case Router.Study.streak:
+            StreakCoordinator(navRouter: rootRouter)
         default:
             Text("OOPS!\nThis route is not implemented AppCoordinator showSheet function yet.")
         }

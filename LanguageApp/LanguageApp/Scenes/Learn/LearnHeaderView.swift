@@ -17,6 +17,7 @@ struct LearnHeaderView: View {
     let course: Course?
     var onChangeCourse: VoidResult?
     var onTapHearts: VoidResult?
+    var onTapStreak: VoidResult?
 
     var body: some View {
         let theme = userSettings.theme
@@ -44,9 +45,14 @@ struct LearnHeaderView: View {
 
             Spacer(minLength: 4)
 
-            StatPill(systemImage: "flame.fill",
-                     value: "\(ProgressService.streak(from: activities))",
-                     color: theme.streakColor)
+            Button {
+                onTapStreak?()
+            } label: {
+                StatPill(systemImage: "flame.fill",
+                         value: "\(ProgressService.streak(from: activities))",
+                         color: theme.streakColor)
+            }
+            .buttonStyle(.plain)
             StatPill(systemImage: "bolt.fill",
                      value: "\(ProgressService.totalXP(from: activities))",
                      color: theme.xpColor)

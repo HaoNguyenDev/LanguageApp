@@ -29,6 +29,7 @@ struct PaywallView: View {
     private let benefits: [(icon: String, key: String)] = [
         ("heart.fill", "plus_benefit_hearts"),
         ("rectangle.stack.fill", "plus_benefit_reviews"),
+        ("snowflake", "plus_benefit_streak_freeze"),
         ("sparkles", "plus_benefit_early_access")
     ]
 

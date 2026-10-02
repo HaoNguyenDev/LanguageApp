@@ -31,6 +31,9 @@ struct LearnCoordinator: View {
             },
             onOpenPaywall: {
                 navRouter.showSheet(RouterView(routable: Router.Study.paywall))
+            },
+            onOpenStreak: {
+                navRouter.showSheet(RouterView(routable: Router.Study.streak))
             }
         )
         .toolbar(.hidden, for: .navigationBar)

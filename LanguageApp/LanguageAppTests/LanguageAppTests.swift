@@ -528,6 +528,21 @@ final class ProgressServiceTests: XCTestCase {
         XCTAssertEqual(ProgressService.streak(activeDayKeys: keys, today: today, calendar: calendar), 0)
     }
 
+    func testFrozenDayKeepsStreakWithoutAddingToIt() {
+        let today = Date(timeIntervalSince1970: 1_800_000_000)
+        let active: Set<String> = [key(0, from: today), key(2, from: today), key(3, from: today)]
+        let frozen: Set<String> = [key(1, from: today)]
+        XCTAssertEqual(ProgressService.streak(activeDayKeys: active, frozenDayKeys: frozen, today: today, calendar: calendar), 3)
+        XCTAssertEqual(ProgressService.streak(activeDayKeys: active, today: today, calendar: calendar), 1)
+    }
+
+    func testFrozenYesterdayKeepsStreakUntilEndOfToday() {
+        let today = Date(timeIntervalSince1970: 1_800_000_000)
+        let active: Set<String> = [key(2, from: today), key(3, from: today)]
+        let frozen: Set<String> = [key(1, from: today)]
+        XCTAssertEqual(ProgressService.streak(activeDayKeys: active, frozenDayKeys: frozen, today: today, calendar: calendar), 2)
+    }
+
     func testPerfectBonus() {
         XCTAssertEqual(ProgressService.lessonXP(base: 10, accuracy: 1), 15)
         XCTAssertEqual(ProgressService.lessonXP(base: 10, accuracy: 0.8), 10)
@@ -666,5 +681,150 @@ final class ContentImporterTests: XCTestCase {
         let lessons = (json["units"] as? [[String: Any]] ?? []).flatMap { $0["lessons"] as? [[String: Any]] ?? [] }
         let words = lessons.reduce(0) { $0 + (($1["items"] as? [Any])?.count ?? 0) }
         return (lessons.count, words)
+    }
+}
+
+@MainActor
+final class StreakFreezeTests: XCTestCase {
+    private let suiteName = "StreakFreezeTests"
+    private var today: Date { Date(timeIntervalSince1970: 1_800_000_000) }
+    private var calendar: Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.timeZone = TimeZone(identifier: "Asia/Ho_Chi_Minh")!
+        return c
+    }
+
+    private func day(_ daysAgo: Int) -> Date {
+        calendar.date(byAdding: .day, value: -daysAgo, to: calendar.startOfDay(for: today))!
+    }
+
+    private func key(_ daysAgo: Int) -> String {
+        ProgressService.dayKey(for: day(daysAgo), calendar: calendar)
+    }
+
+    private func makeGamification() throws -> GamificationManager {
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        defaults.removePersistentDomain(forName: suiteName)
+        return GamificationManager(defaults: defaults)
+    }
+
+    override func tearDown() {
+        UserDefaults(suiteName: suiteName)?.removePersistentDomain(forName: suiteName)
+        super.tearDown()
+    }
+
+    // MARK: Gap
+
+    func testNoGapWhenYesterdayWasActive() {
+        XCTAssertNil(StreakFreezeService.gap(activeDayKeys: [key(1), key(2)], frozenDayKeys: [], today: today, calendar: calendar))
+    }
+
+    func testNoGapWithoutAnyStreak() {
+        XCTAssertNil(StreakFreezeService.gap(activeDayKeys: [], frozenDayKeys: [], today: today, calendar: calendar))
+    }
+
+    func testGapListsMissedDaysOldestFirst() throws {
+        let gap = try XCTUnwrap(StreakFreezeService.gap(activeDayKeys: [key(0), key(3)], frozenDayKeys: [],
+                                                        today: today, calendar: calendar))
+        XCTAssertEqual(gap.lastKeptDayKey, key(3))
+        XCTAssertEqual(gap.missedDays, [day(2), day(1)])
+    }
+
+    func testFrozenDayCountsAsKept() throws {
+        let gap = try XCTUnwrap(StreakFreezeService.gap(activeDayKeys: [key(3)], frozenDayKeys: [key(2)],
+                                                        today: today, calendar: calendar))
+        XCTAssertEqual(gap.lastKeptDayKey, key(2))
+        XCTAssertEqual(gap.missedDays, [day(1)])
+    }
+
+    func testCanCover() {
+        let oneDay = StreakFreezeService.Gap(lastKeptDayKey: "k", missedDays: [day(1)])
+        let threeDays = StreakFreezeService.Gap(lastKeptDayKey: "k", missedDays: [day(3), day(2), day(1)])
+        XCTAssertTrue(StreakFreezeService.canCover(oneDay, availableFreezes: 1, lostAfterDayKey: nil))
+        XCTAssertFalse(StreakFreezeService.canCover(oneDay, availableFreezes: 0, lostAfterDayKey: nil))
+        XCTAssertFalse(StreakFreezeService.canCover(oneDay, availableFreezes: 2, lostAfterDayKey: "k"), "A lost streak stays lost")
+        XCTAssertFalse(StreakFreezeService.canCover(threeDays, availableFreezes: 99, lostAfterDayKey: nil),
+                       "Gaps longer than maxStreakFreezes are never covered")
+    }
+
+    // MARK: Buying
+
+    func testBuyStreakFreezeSpendsXP() throws {
+        let gamification = try makeGamification()
+        XCTAssertEqual(gamification.buyStreakFreeze(totalXP: 40), .notEnoughXP)
+        XCTAssertEqual(gamification.buyStreakFreeze(totalXP: 120), .bought)
+        XCTAssertEqual(gamification.streakFreezes, 1)
+        XCTAssertEqual(gamification.xpBalance(totalXP: 120), 70)
+        XCTAssertEqual(gamification.buyStreakFreeze(totalXP: 120), .bought)
+        XCTAssertEqual(gamification.buyStreakFreeze(totalXP: 1_000), .alreadyFull)
+        XCTAssertEqual(gamification.xpBalance(totalXP: 120), 20)
+        XCTAssertEqual(GamificationManager(defaults: try XCTUnwrap(UserDefaults(suiteName: suiteName))).streakFreezes, 2,
+                       "Freezes persist")
+    }
+
+    func testPlusIsAlwaysFullyEquipped() throws {
+        let gamification = try makeGamification()
+        XCTAssertEqual(gamification.availableStreakFreezes(isPremium: true), GamificationManager.maxStreakFreezes)
+        gamification.useStreakFreezes(1, isPremium: true)
+        XCTAssertEqual(gamification.streakFreezes, 0)
+    }
+
+    // MARK: Applying
+
+    private func insertActivity(_ daysAgo: Int, xp: Int = 10, in context: ModelContext) {
+        let activity = DailyActivity(dayKey: key(daysAgo), date: day(daysAgo))
+        activity.xp = xp
+        context.insert(activity)
+    }
+
+    func testApplyFreezesMissedDayAndKeepsStreak() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        [2, 3, 4].forEach { insertActivity($0, in: context) }
+        let gamification = try makeGamification()
+        gamification.debugSetStreakFreezes(2)
+
+        let frozen = StreakFreezeService.applyIfNeeded(in: context, gamification: gamification, isPremium: false,
+                                                       now: today, calendar: calendar)
+        XCTAssertEqual(frozen, 1)
+        XCTAssertEqual(gamification.streakFreezes, 1)
+        let activities = ProgressService.allActivities(in: context)
+        XCTAssertEqual(ProgressService.frozenDayKeys(from: activities), [key(1)])
+        XCTAssertEqual(ProgressService.streak(from: activities, today: today, calendar: calendar), 3)
+
+        // Running again changes nothing.
+        XCTAssertEqual(StreakFreezeService.applyIfNeeded(in: context, gamification: gamification, isPremium: false,
+                                                         now: today, calendar: calendar), 0)
+        XCTAssertEqual(gamification.streakFreezes, 1)
+    }
+
+    func testStreakLostWhenNotEnoughFreezes() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        [3, 4].forEach { insertActivity($0, in: context) }
+        let gamification = try makeGamification()
+        gamification.debugSetStreakFreezes(1)
+
+        XCTAssertEqual(StreakFreezeService.applyIfNeeded(in: context, gamification: gamification, isPremium: false,
+                                                         now: today, calendar: calendar), 0)
+        XCTAssertEqual(gamification.streakFreezes, 1, "Freezes are kept when they can't save the streak")
+        XCTAssertEqual(gamification.streakLostAfterDayKey, key(3))
+
+        // Buying more freezes afterwards doesn't bring the lost streak back.
+        XCTAssertEqual(gamification.buyStreakFreeze(totalXP: 1_000), .bought)
+        XCTAssertEqual(StreakFreezeService.applyIfNeeded(in: context, gamification: gamification, isPremium: false,
+                                                         now: today, calendar: calendar), 0)
+    }
+
+    func testPlusFreezesWithoutUsingInventory() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        [3, 4].forEach { insertActivity($0, in: context) }
+        let gamification = try makeGamification()
+
+        XCTAssertEqual(StreakFreezeService.applyIfNeeded(in: context, gamification: gamification, isPremium: true,
+                                                         now: today, calendar: calendar), 2)
+        XCTAssertEqual(gamification.streakFreezes, 0)
+        XCTAssertEqual(ProgressService.streak(from: ProgressService.allActivities(in: context), today: today, calendar: calendar), 2)
     }
 }

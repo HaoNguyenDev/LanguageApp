@@ -3,6 +3,7 @@
 //  LanguageApp
 //
 //  XP, streak, daily goal and lesson completion.
+//  Streak freezes are applied in `StreakFreezeService`.
 //
 
 import Foundation
@@ -20,18 +21,25 @@ enum ProgressService {
     // MARK: - Pure calculations (unit tested)
 
     /// Consecutive active days ending today (or yesterday, if today has no activity yet).
-    static func streak(activeDayKeys: Set<String>, today: Date = .now, calendar: Calendar = .current) -> Int {
+    /// Frozen days (covered by a streak freeze) keep the chain alive but don't add to it.
+    static func streak(activeDayKeys: Set<String>,
+                       frozenDayKeys: Set<String> = [],
+                       today: Date = .now,
+                       calendar: Calendar = .current) -> Int {
+        let keptDayKeys = activeDayKeys.union(frozenDayKeys)
         var day = calendar.startOfDay(for: today)
-        if !activeDayKeys.contains(dayKey(for: day, calendar: calendar)) {
+        if !keptDayKeys.contains(dayKey(for: day, calendar: calendar)) {
             guard let yesterday = calendar.date(byAdding: .day, value: -1, to: day),
-                  activeDayKeys.contains(dayKey(for: yesterday, calendar: calendar)) else {
+                  keptDayKeys.contains(dayKey(for: yesterday, calendar: calendar)) else {
                 return 0
             }
             day = yesterday
         }
         var count = 0
-        while activeDayKeys.contains(dayKey(for: day, calendar: calendar)) {
-            count += 1
+        while true {
+            let key = dayKey(for: day, calendar: calendar)
+            guard keptDayKeys.contains(key) else { break }
+            if activeDayKeys.contains(key) { count += 1 }
             guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
             day = previous
         }
@@ -39,7 +47,20 @@ enum ProgressService {
     }
 
     static func streak(from activities: [DailyActivity], today: Date = .now, calendar: Calendar = .current) -> Int {
-        streak(activeDayKeys: Set(activities.filter { $0.xp > 0 }.map(\.dayKey)), today: today, calendar: calendar)
+        streak(activeDayKeys: activeDayKeys(from: activities),
+               frozenDayKeys: frozenDayKeys(from: activities),
+               today: today,
+               calendar: calendar)
+    }
+
+    /// Days with XP.
+    static func activeDayKeys(from activities: [DailyActivity]) -> Set<String> {
+        Set(activities.filter { $0.xp > 0 }.map(\.dayKey))
+    }
+
+    /// Missed days covered by a streak freeze.
+    static func frozenDayKeys(from activities: [DailyActivity]) -> Set<String> {
+        Set(activities.filter(\.streakFreezeUsed).map(\.dayKey))
     }
 
     static func xp(on date: Date, from activities: [DailyActivity], calendar: Calendar = .current) -> Int {

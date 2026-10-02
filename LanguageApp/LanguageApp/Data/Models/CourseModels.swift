@@ -220,7 +220,7 @@ enum WordStrength: Int {
     var bars: Int { rawValue }
 }
 
-/// One row per calendar day with activity – used for streaks, daily goal & weekly chart.
+/// One row per calendar day with activity (or a streak freeze) – used for streaks, daily goal & weekly chart.
 @Model
 final class DailyActivity {
     /// "yyyy-MM-dd" in the user's calendar.
@@ -229,6 +229,8 @@ final class DailyActivity {
     var xp: Int = 0
     var lessonsCompleted: Int = 0
     var reviewsDone: Int = 0
+    /// A missed day covered by a streak freeze: keeps the streak alive without adding to it.
+    var streakFreezeUsed: Bool = false
 
     init(dayKey: String, date: Date) {
         self.dayKey = dayKey

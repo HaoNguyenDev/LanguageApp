@@ -16,6 +16,7 @@ struct LearnView: View {
     var onLockedLesson: VoidResult?
     var onChangeCourse: VoidResult?
     var onOpenPaywall: VoidResult?
+    var onOpenStreak: VoidResult?
 
     private var course: Course? {
         courses.first { $0.remoteId == userSettings.selectedCourseId } ?? courses.first
@@ -25,7 +26,8 @@ struct LearnView: View {
         VStack(spacing: 0) {
             LearnHeaderView(course: course,
                             onChangeCourse: onChangeCourse,
-                            onTapHearts: onOpenPaywall)
+                            onTapHearts: onOpenPaywall,
+                            onTapStreak: onOpenStreak)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 8)
 
