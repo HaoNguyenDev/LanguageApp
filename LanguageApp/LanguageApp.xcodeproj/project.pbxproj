@@ -38,6 +38,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				LinguaPath.storekit,
 			);
 			target = DA9B83F1306BA13A00FE0827 /* LanguageApp */;
 		};
