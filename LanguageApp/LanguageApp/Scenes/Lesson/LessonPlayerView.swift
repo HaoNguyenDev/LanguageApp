@@ -109,7 +109,8 @@ struct LessonPlayerView: View {
             ChoiceExerciseView(instruction: "exercise_choose_term".localized(),
                                prompt: .meaning(item.meaning),
                                options: options,
-                               viewModel: viewModel)
+                               viewModel: viewModel,
+                               optionSpeechLocale: speechLocale)
         case .listen(let item, let options):
             ChoiceExerciseView(instruction: "exercise_listen".localized(),
                                prompt: .audio(item),
@@ -131,7 +132,8 @@ struct LessonPlayerView: View {
             ChoiceExerciseView(instruction: "exercise_fill_blank".localized(),
                                prompt: .sentence(before: before, after: after, meaning: item.exampleMeaning),
                                options: options,
-                               viewModel: viewModel)
+                               viewModel: viewModel,
+                               optionSpeechLocale: speechLocale)
         case .matchPairs(let items):
             MatchPairsView(items: items) { mistakes in
                 viewModel.completeMatch(mistakes: mistakes)

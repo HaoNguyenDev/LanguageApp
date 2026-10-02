@@ -106,6 +106,9 @@ struct ChoiceExerciseView: View {
     let prompt: Prompt
     let options: [ChoiceOption]
     @Bindable var viewModel: LessonSessionViewModel
+    /// When set, each option gets a speaker button that reads it in this locale (options are words of
+    /// the language being learned, e.g. "Select the correct word"). nil → no speaker buttons.
+    var optionSpeechLocale: String? = nil
 
     var body: some View {
         let theme = userSettings.theme
@@ -118,24 +121,30 @@ struct ChoiceExerciseView: View {
 
             VStack(spacing: 12) {
                 ForEach(options) { option in
-                    Button {
-                        FeedbackService.tap()
-                        viewModel.select(option.id)
-                    } label: {
-                        VStack(spacing: 2) {
-                            Text(option.text)
-                                .font(mainFont.bold(18))
-                                .multilineTextAlignment(.center)
-                            if let subtitle = option.subtitle, !subtitle.isEmpty, showsSubtitles {
-                                Text(subtitle)
-                                    .font(mainFont.regular(13))
-                                    .opacity(0.75)
+                    HStack(spacing: 10) {
+                        Button {
+                            FeedbackService.tap()
+                            viewModel.select(option.id)
+                        } label: {
+                            VStack(spacing: 2) {
+                                Text(option.text)
+                                    .font(mainFont.bold(18))
+                                    .multilineTextAlignment(.center)
+                                if let subtitle = option.subtitle, !subtitle.isEmpty, showsSubtitles {
+                                    Text(subtitle)
+                                        .font(mainFont.regular(13))
+                                        .opacity(0.75)
+                                }
                             }
+                            .padding(.vertical, 8)
                         }
-                        .padding(.vertical, 8)
+                        .buttonStyle(OptionButtonStyle(state: state(for: option)))
+                        .disabled(viewModel.phase != .answering)
+
+                        if let locale = optionSpeechLocale {
+                            SpeakerButton(text: option.text, locale: locale, size: 44)
+                        }
                     }
-                    .buttonStyle(OptionButtonStyle(state: state(for: option)))
-                    .disabled(viewModel.phase != .answering)
                 }
             }
         }
