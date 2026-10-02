@@ -80,14 +80,7 @@ struct IntroduceWordView: View {
                 Text(item.meaning)
                     .setFont(.semibold, size: 24, color: theme.primaryColor, alignment: .center)
                 if let example = item.example {
-                    VStack(spacing: 4) {
-                        Text(example)
-                            .setFont(.medium, size: 16, color: theme.textColor, alignment: .center)
-                        if let exampleMeaning = item.exampleMeaning {
-                            Text(exampleMeaning)
-                                .setFont(.regular, size: 14, color: theme.secondaryTextColor, alignment: .center)
-                        }
-                    }
+                    ExampleSentenceView(example: example, meaning: item.exampleMeaning, locale: item.speechLocale)
                 }
             }
             .padding(24)

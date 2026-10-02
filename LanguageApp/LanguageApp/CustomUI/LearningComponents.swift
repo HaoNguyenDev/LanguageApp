@@ -81,6 +81,30 @@ struct SpeakerButton: View {
     }
 }
 
+/// Example sentence with its translation and buttons to hear the whole sentence (normal / slow).
+struct ExampleSentenceView: View {
+    @Environment(UserSettings.self) private var userSettings
+    let example: String
+    let meaning: String?
+    let locale: String
+
+    var body: some View {
+        let theme = userSettings.theme
+        VStack(spacing: 8) {
+            Text(example)
+                .setFont(.medium, size: 16, color: theme.textColor, alignment: .center)
+            HStack(spacing: 10) {
+                SpeakerButton(text: example, locale: locale, size: 34)
+                SpeakerButton(text: example, locale: locale, size: 34, slow: true)
+            }
+            if let meaning, !meaning.isEmpty {
+                Text(meaning)
+                    .setFont(.regular, size: 14, color: theme.secondaryTextColor, alignment: .center)
+            }
+        }
+    }
+}
+
 /// Rounded card container used by lists & stats.
 struct CardContainer<Content: View>: View {
     @Environment(UserSettings.self) private var userSettings
