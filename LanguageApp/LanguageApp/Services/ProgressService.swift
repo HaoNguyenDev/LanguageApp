@@ -92,6 +92,9 @@ enum ProgressService {
     static func record(xp: Int, lessons: Int = 0, reviews: Int = 0, perfect: Int = 0,
                        in context: ModelContext, now: Date = .now) {
         let activity = Self.activity(on: now, in: context)
+        if activity.firstActiveAt == nil, xp > 0 || lessons > 0 || reviews > 0 {
+            activity.firstActiveAt = now
+        }
         activity.xp += xp
         activity.lessonsCompleted += lessons
         activity.reviewsDone += reviews

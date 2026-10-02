@@ -1102,3 +1102,102 @@ final class UnitCheckpointTests: XCTestCase {
     }
 }
 
+
+@MainActor
+final class NotificationPlannerTests: XCTestCase {
+    private var calendar: Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.timeZone = TimeZone(identifier: "Asia/Ho_Chi_Minh")!
+        return c
+    }
+
+    /// Today at hh:mm (Asia/Ho_Chi_Minh).
+    private func today(_ hour: Int, _ minute: Int = 0) -> Date {
+        let base = Date(timeIntervalSince1970: 1_800_000_000)
+        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: base)!
+    }
+
+    private func input(now: Date, streak: Int = 0, studiedToday: Bool = false, due: [Date] = []) -> NotificationPlanner.Input {
+        NotificationPlanner.Input(now: now, calendar: calendar, reminderHour: 19, reminderMinute: 30,
+                                  streak: streak, studiedToday: studiedToday, dueDates: due)
+    }
+
+    func testOneReminderPerDayAhead() {
+        let plan = NotificationPlanner.plan(input(now: today(8)))
+        XCTAssertEqual(plan.count, NotificationPlanner.daysAhead)
+        XCTAssertTrue(plan.allSatisfy { $0.kind == .reminder })
+        XCTAssertEqual(plan.first?.date, today(19, 30))
+        XCTAssertEqual(Set(plan.map(\.id)).count, plan.count, "Ids are unique")
+    }
+
+    func testNoReminderTodayAfterStudying() {
+        let plan = NotificationPlanner.plan(input(now: today(8), studiedToday: true))
+        XCTAssertFalse(plan.contains { calendar.isDate($0.date, inSameDayAs: today(8)) })
+    }
+
+    func testPastReminderTimeIsSkipped() {
+        let plan = NotificationPlanner.plan(input(now: today(20)))
+        XCTAssertFalse(plan.contains { $0.kind == .reminder && calendar.isDate($0.date, inSameDayAs: today(20)) })
+    }
+
+    func testStreakAtRiskTonight() throws {
+        let plan = NotificationPlanner.plan(input(now: today(8), streak: 5))
+        let risk = try XCTUnwrap(plan.first { $0.kind == .streakAtRisk(5) })
+        XCTAssertEqual(risk.date, today(NotificationPlanner.streakRiskHour))
+        XCTAssertTrue(plan.contains { $0.date == today(19, 30) }, "19:30 is over an hour before 21:00 → both")
+    }
+
+    func testReminderTooCloseToStreakWarningIsDropped() {
+        var late = input(now: today(8), streak: 5)
+        late.reminderHour = 20
+        late.reminderMinute = 30
+        let todays = NotificationPlanner.plan(late).filter { calendar.isDate($0.date, inSameDayAs: today(8)) }
+        XCTAssertEqual(todays.map(\.kind), [.streakAtRisk(5)])
+    }
+
+    func testStudiedTodayWarnsTomorrowOnly() {
+        let plan = NotificationPlanner.plan(input(now: today(8), streak: 6, studiedToday: true))
+        let risks = plan.filter { if case .streakAtRisk = $0.kind { return true } else { return false } }
+        XCTAssertEqual(risks.count, 1)
+        XCTAssertEqual(risks.first?.kind, .streakAtRisk(6))
+        XCTAssertEqual(risks.first?.date, calendar.date(byAdding: .day, value: 1, to: today(21)))
+    }
+
+    func testDueCardsChangeTheReminder() {
+        let due = Array(repeating: today(10), count: 6) + [today(23)]
+        let plan = NotificationPlanner.plan(input(now: today(8), due: due))
+        XCTAssertEqual(plan.first?.kind, .dueCards(6), "Only cards due by 19:30 count")
+        XCTAssertEqual(plan[1].kind, .dueCards(7))
+    }
+
+    func testUsualStudyTime() {
+        let now = today(22)
+        let times = [-1, -2, -3, -4].map { calendar.date(byAdding: .day, value: $0, to: today(20, 40))! }
+            + [calendar.date(byAdding: .day, value: -5, to: today(7, 10))!]
+        let usual = NotificationPlanner.usualStudyTime(firstActiveTimes: times, now: now, calendar: calendar)
+        XCTAssertEqual(usual?.hour, 20)
+        XCTAssertEqual(usual?.minute, 30, "Median 20:40 rounded down to 15 minutes")
+
+        XCTAssertNil(NotificationPlanner.usualStudyTime(firstActiveTimes: Array(times.prefix(2)), now: now, calendar: calendar),
+                     "Needs a few days of history")
+        let old = times.map { calendar.date(byAdding: .day, value: -30, to: $0)! }
+        XCTAssertNil(NotificationPlanner.usualStudyTime(firstActiveTimes: old, now: now, calendar: calendar))
+    }
+
+    func testUsualStudyTimeStaysInTheWindow() {
+        let now = today(22)
+        let late = [-1, -2, -3].map { calendar.date(byAdding: .day, value: $0, to: today(23, 50))! }
+        let usual = NotificationPlanner.usualStudyTime(firstActiveTimes: late, now: now, calendar: calendar)
+        XCTAssertEqual(usual?.hour, NotificationPlanner.latestHour)
+        XCTAssertEqual(usual?.minute, 0)
+    }
+
+    func testRecordStoresFirstActivityTime() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        let morning = Date(timeIntervalSince1970: 1_800_000_000)
+        ProgressService.record(xp: 10, in: context, now: morning)
+        ProgressService.record(xp: 10, in: context, now: morning.addingTimeInterval(3_600))
+        XCTAssertEqual(ProgressService.activity(on: morning, in: context).firstActiveAt, morning)
+    }
+}

@@ -18,6 +18,7 @@ struct DeveloperMenuView: View {
     @Query(sort: \Course.order) private var courses: [Course]
 
     @State private var pendingAction: ConfirmAction?
+    @State private var plannedNotifications: [String] = []
 
     /// Destructive developer actions that ask for confirmation first.
     private enum ConfirmAction: Identifiable {
@@ -180,6 +181,34 @@ struct DeveloperMenuView: View {
             } footer: {
                 Text("Owned: \(gamification.streakFreezes) · XP spent: \(gamification.spentXP)")
             }
+
+            Section {
+                Button("Send one of each notification in 5 s") {
+                    Task {
+                        guard await NotificationManager.requestAuthorization() else {
+                            toast("Notifications are not allowed")
+                            return
+                        }
+                        NotificationManager.debugSendSamples()
+                        toast("Go to the home screen to see them")
+                    }
+                }
+                Button("Re-plan notifications now") {
+                    NotificationManager.reschedule(in: modelContext, settings: userSettings)
+                    Task { plannedNotifications = await NotificationManager.debugPendingSummary() }
+                }
+                ForEach(plannedNotifications, id: \.self) { line in
+                    Text(line)
+                        .font(.system(size: 11, design: .monospaced))
+                }
+            } header: {
+                Text("Notifications")
+            } footer: {
+                Text(userSettings.reminderEnabled
+                     ? "\(plannedNotifications.count) planned. Reminders are re-planned when the app becomes active or goes to the background."
+                     : "Daily reminder is off in Settings – nothing is planned.")
+            }
+            .task { plannedNotifications = await NotificationManager.debugPendingSummary() }
 
             Section {
                 Button("Reset all courses", role: .destructive) { pendingAction = .resetAllCourses }
