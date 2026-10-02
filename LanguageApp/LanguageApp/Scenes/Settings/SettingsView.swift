@@ -27,6 +27,7 @@ struct SettingsView: View {
     @Environment(AppState.self) private var appState
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Course.order) private var courses: [Course]
+    @Query private var activities: [DailyActivity]
 
     var onChangeCourse: VoidResult?
     var onOpenDeveloperMenu: VoidResult?
@@ -73,21 +74,36 @@ struct SettingsView: View {
                               isOn: Binding(get: { userSettings.reminderEnabled },
                                             set: { updateReminder(enabled: $0) }))
                     if userSettings.reminderEnabled {
-                        HStack {
-                            Image(systemName: "clock.fill")
-                                .frame(width: 28)
-                                .foregroundStyle(theme.primaryColor)
-                            Text("reminder_time".localized())
-                                .setFont(.semibold, size: 16, color: theme.textColor)
-                            Spacer()
-                            DatePicker("", selection: $settings.reminderTime, displayedComponents: .hourAndMinute)
-                                .labelsHidden()
-                        }
-                        .padding(.horizontal, 16)
-                        .frame(height: 56)
-                        .onChange(of: userSettings.reminderTime) { _, _ in
-                            NotificationManager.scheduleDailyReminder(hour: userSettings.reminderHour,
-                                                                      minute: userSettings.reminderMinute)
+                        toggleRow(icon: "sparkles", title: "smart_reminder_time".localized(),
+                                  isOn: $settings.smartReminderTime)
+                            .onChange(of: userSettings.smartReminderTime) { _, _ in rescheduleNotifications() }
+                        if let usual = usualTime {
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                    .frame(width: 28)
+                                    .foregroundStyle(theme.primaryColor)
+                                Text("reminder_usual_time".localized())
+                                    .setFont(.semibold, size: 16, color: theme.textColor)
+                                Spacer()
+                                Text(usual, format: .dateTime.hour().minute())
+                                    .setFont(.semibold, size: 16, color: theme.secondaryTextColor)
+                            }
+                            .padding(.horizontal, 16)
+                            .frame(height: 56)
+                        } else {
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                    .frame(width: 28)
+                                    .foregroundStyle(theme.primaryColor)
+                                Text("reminder_time".localized())
+                                    .setFont(.semibold, size: 16, color: theme.textColor)
+                                Spacer()
+                                DatePicker("", selection: $settings.reminderTime, displayedComponents: .hourAndMinute)
+                                    .labelsHidden()
+                            }
+                            .padding(.horizontal, 16)
+                            .frame(height: 56)
+                            .onChange(of: userSettings.reminderTime) { _, _ in rescheduleNotifications() }
                         }
                     }
                 }
@@ -221,10 +237,8 @@ struct SettingsView: View {
     private func applyLanguage(_ code: LanguageCode) {
         LanguageManager.shared.setLanguage(language: code.getLanguage())
         userSettings.languageCode = code.rawValue
-        if userSettings.reminderEnabled {
-            NotificationManager.scheduleDailyReminder(hour: userSettings.reminderHour,
-                                                      minute: userSettings.reminderMinute)
-        }
+        // Notification texts are in the UI language.
+        rescheduleNotifications()
     }
 
     // MARK: - Reminder
@@ -235,16 +249,28 @@ struct SettingsView: View {
                 let granted = await NotificationManager.requestAuthorization()
                 userSettings.reminderEnabled = granted
                 if granted {
-                    NotificationManager.scheduleDailyReminder(hour: userSettings.reminderHour,
-                                                              minute: userSettings.reminderMinute)
+                    rescheduleNotifications()
                 } else {
                     appState.showToast(item: UserMessageItem(message: "notification_denied".localized()))
                 }
             }
         } else {
             userSettings.reminderEnabled = false
-            NotificationManager.cancelDailyReminder()
+            NotificationManager.cancelAll()
         }
+    }
+
+    private func rescheduleNotifications() {
+        NotificationManager.reschedule(in: modelContext, settings: userSettings)
+    }
+
+    /// The learner's usual study time while smart timing is on and known (shown instead of the time picker).
+    private var usualTime: Date? {
+        guard userSettings.smartReminderTime,
+              let usual = NotificationPlanner.usualStudyTime(firstActiveTimes: activities.compactMap(\.firstActiveAt)) else {
+            return nil
+        }
+        return Calendar.current.date(bySettingHour: usual.hour, minute: usual.minute, second: 0, of: .now)
     }
 
     // MARK: - Row builders

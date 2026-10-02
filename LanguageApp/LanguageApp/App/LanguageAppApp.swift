@@ -48,11 +48,21 @@ struct LanguageAppApp: App {
                     await premiumManager.start()
                     isPremiumReady = true
                     applyStreakFreezes()
+                    NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
                 }
                 .onChange(of: scenePhase) { _, phase in
-                    guard phase == .active, appState.isContentReady else { return }
-                    DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
-                    applyStreakFreezes()
+                    guard appState.isContentReady else { return }
+                    switch phase {
+                    case .active:
+                        DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
+                        applyStreakFreezes()
+                        NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
+                    case .background:
+                        // After studying: today gets no more reminders, tomorrow's streak warning is planned.
+                        NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
+                    default:
+                        break
+                    }
                 }
         }
         .modelContainer(modelContainer)

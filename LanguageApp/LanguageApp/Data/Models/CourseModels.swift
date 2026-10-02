@@ -264,6 +264,8 @@ final class DailyActivity {
     var reviewsDone: Int = 0
     /// A missed day covered by a streak freeze: keeps the streak alive without adding to it.
     var streakFreezeUsed: Bool = false
+    /// When the learner first studied that day (drives the "usual time" of smart reminders).
+    var firstActiveAt: Date?
     /// Lessons (or practice sessions) finished without a mistake.
     var perfectLessons: Int = 0
     /// Daily quests picked for this day (`DailyQuest.Kind` raw values), fixed once generated.

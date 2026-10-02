@@ -23,6 +23,7 @@ extension UserSettings {
         static let reminderEnabled = "reminderEnabled"
         static let reminderHour = "reminderHour"
         static let reminderMinute = "reminderMinute"
+        static let smartReminderTime = "smartReminderTime"
     }
 }
 
@@ -93,6 +94,11 @@ extension UserSettings {
         didSet { defaults.set(reminderMinute, forKey: Keys.reminderMinute) }
     }
 
+    /// Remind at the time the learner usually studies (falls back to `reminderHour:reminderMinute`).
+    var smartReminderTime: Bool {
+        didSet { defaults.set(smartReminderTime, forKey: Keys.smartReminderTime) }
+    }
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
 
@@ -113,6 +119,7 @@ extension UserSettings {
         self.reminderEnabled = defaults.bool(forKey: Keys.reminderEnabled)
         self.reminderHour = defaults.object(forKey: Keys.reminderHour) as? Int ?? 20
         self.reminderMinute = defaults.object(forKey: Keys.reminderMinute) as? Int ?? 0
+        self.smartReminderTime = defaults.object(forKey: Keys.smartReminderTime) as? Bool ?? true
 
         themeSet = LightTheme()
         updateTheme(colorSchemeOption)
