@@ -241,6 +241,8 @@
         "unit_complete_message": "%@ – done! The next unit is unlocked.",
         "unit_complete_title": "Unit %ld complete!",
         "unit_number": "Unit %ld",
+        "scroll_to_top": "Back to top",
+        "scroll_to_latest_unit": "Back to unit %ld, where you got to",
         "update": "Update",
         "update_the_app_now": "Update now to get the newest lessons and improvements.",
         "upgrade_to_plus": "Upgrade to Plus",

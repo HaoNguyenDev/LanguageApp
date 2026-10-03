@@ -241,6 +241,8 @@
         "unit_complete_message": "%@ – 完成！下一单元已解锁。",
         "unit_complete_title": "第 %ld 单元完成！",
         "unit_number": "第 %ld 单元",
+        "scroll_to_top": "回到顶部",
+        "scroll_to_latest_unit": "回到第 %ld 单元（你学到的位置）",
         "update": "更新",
         "update_the_app_now": "立即更新以获取最新课程和改进。",
         "upgrade_to_plus": "升级 Plus",

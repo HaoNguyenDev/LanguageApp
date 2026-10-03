@@ -241,6 +241,8 @@
         "unit_complete_message": "%@ – 完了！次のユニットが解放されました。",
         "unit_complete_title": "ユニット%ldクリア！",
         "unit_number": "ユニット %ld",
+        "scroll_to_top": "トップへ戻る",
+        "scroll_to_latest_unit": "学習したところ（ユニット %ld）へ戻る",
         "update": "アップデート",
         "update_the_app_now": "最新のレッスンと改善のために今すぐアップデートしてください。",
         "upgrade_to_plus": "Plusにアップグレード",
