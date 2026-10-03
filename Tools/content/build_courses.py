@@ -152,7 +152,15 @@ def read_xlsx(data: bytes) -> dict[str, list[list[str]]]:
     return sheets
 
 
+def sheet_id_from(value: str) -> str:
+    """Accepts the sheet id or the whole sheet URL (…/spreadsheets/d/<id>/edit?…)."""
+    value = value.strip()
+    match = re.search(r"/spreadsheets/d/([A-Za-z0-9_-]+)", value)
+    return match.group(1) if match else value
+
+
 def download_google_sheet(sheet_id: str) -> bytes:
+    sheet_id = sheet_id_from(sheet_id)
     url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=xlsx"
     request = urllib.request.Request(url, headers={"User-Agent": "LinguaPath-content-builder"})
     try:
@@ -544,7 +552,7 @@ def check_importer_list(course_ids: list[str], report: Report) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build LinguaPath course JSON from the content spreadsheet.")
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--sheet-id", help="Google Sheet id (the part between /d/ and /edit in the URL)")
+    source.add_argument("--sheet-id", help="Google Sheet id (the part between /d/ and /edit in the URL) or the whole URL")
     source.add_argument("--xlsx", type=Path, help="path to a downloaded .xlsx file")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT, help=f"output folder (default: {DEFAULT_OUT})")
     parser.add_argument("--check", action="store_true", help="validate only, don't write files")

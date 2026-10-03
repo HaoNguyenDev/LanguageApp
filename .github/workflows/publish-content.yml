@@ -36,10 +36,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Check out the content repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.CONTENT_REPO }}
           token: ${{ secrets.CONTENT_REPO_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
           OUT="published/v1/$CHANNEL"
           mkdir -p "$OUT"
           # First publish: start from the content bundled in the app, so versions only go up.
-          cp -n LanguageApp/LanguageApp/Resources/Content/course_*.json "$OUT"/ || true
+          cp --update=none LanguageApp/LanguageApp/Resources/Content/course_*.json "$OUT"/
           python3 Tools/content/build_courses.py --sheet-id "$SHEET_ID" --out "$OUT"
 
       - name: Promote staging to production
