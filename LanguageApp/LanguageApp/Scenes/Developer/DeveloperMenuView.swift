@@ -19,6 +19,7 @@ struct DeveloperMenuView: View {
 
     @State private var pendingAction: ConfirmAction?
     @State private var plannedNotifications: [String] = []
+    @State private var notificationSettings: [String] = []
     @State private var contentStatus: String?
     @State private var isCheckingContent = false
 
@@ -206,19 +207,34 @@ struct DeveloperMenuView: View {
             }
 
             Section {
-                Button("Send one of each notification in 5 s") {
+                Button("Send one of each notification in 10 s") {
                     Task {
                         guard await NotificationManager.requestAuthorization() else {
                             toast("Notifications are not allowed")
                             return
                         }
                         NotificationManager.debugSendSamples()
-                        toast("Go to the home screen to see them")
+                        toast("Lock the phone now – they arrive in 10–20 s")
+                    }
+                }
+                Button("Send a word reminder in 10 s") {
+                    Task {
+                        guard await NotificationManager.requestAuthorization() else {
+                            toast("Notifications are not allowed")
+                            return
+                        }
+                        toast(NotificationManager.sendWordReminderSample(in: modelContext, settings: userSettings)
+                              ? "Lock the phone now – it arrives in 10 s"
+                              : "No words yet – finish a lesson first")
                     }
                 }
                 Button("Re-plan notifications now") {
                     NotificationManager.reschedule(in: modelContext, settings: userSettings)
                     Task { plannedNotifications = await NotificationManager.debugPendingSummary() }
+                }
+                ForEach(notificationSettings, id: \.self) { line in
+                    Text(line)
+                        .font(.system(size: 11, weight: .semibold, design: .monospaced))
                 }
                 ForEach(plannedNotifications, id: \.self) { line in
                     Text(line)
@@ -227,11 +243,14 @@ struct DeveloperMenuView: View {
             } header: {
                 Text("Notifications")
             } footer: {
-                Text(userSettings.reminderEnabled
+                Text(userSettings.reminderEnabled || userSettings.wordRemindersEnabled
                      ? "\(plannedNotifications.count) planned. Reminders are re-planned when the app becomes active or goes to the background."
-                     : "Daily reminder is off in Settings – nothing is planned.")
+                     : "Daily reminder and word reminders are off in Settings – nothing is planned.")
             }
-            .task { plannedNotifications = await NotificationManager.debugPendingSummary() }
+            .task {
+                notificationSettings = await NotificationManager.debugSettingsSummary()
+                plannedNotifications = await NotificationManager.debugPendingSummary()
+            }
 
             Section {
                 Button("Reset all courses", role: .destructive) { pendingAction = .resetAllCourses }

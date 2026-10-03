@@ -1418,3 +1418,107 @@ final class RemoteContentTests: XCTestCase {
         XCTAssertTrue(RemoteContentService.pendingFiles(in: directory).isEmpty)
     }
 }
+
+@MainActor
+final class WordReminderTests: XCTestCase {
+    private var calendar: Calendar {
+        var c = Calendar(identifier: .gregorian)
+        c.timeZone = TimeZone(identifier: "Asia/Ho_Chi_Minh")!
+        return c
+    }
+
+    private func today(_ hour: Int, _ minute: Int = 0) -> Date {
+        calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Date(timeIntervalSince1970: 1_800_000_000))!
+    }
+
+    private func word(_ i: Int, hard: Bool = false) -> ReminderWord {
+        ReminderWord(id: "w\(i)", term: "term\(i)", reading: nil, meaning: "meaning\(i)", isHard: hard)
+    }
+
+    func testFireDatesFollowTheInterval() {
+        let dates = WordReminderPlanner.fireDates(now: today(9), intervalMinutes: 20, count: 3, calendar: calendar)
+        XCTAssertEqual(dates, [today(9, 20), today(9, 40), today(10)])
+    }
+
+    func testNoRemindersAtNight() {
+        let dates = WordReminderPlanner.fireDates(now: today(21, 0), intervalMinutes: 30, count: 3, calendar: calendar)
+        let tomorrow8 = calendar.date(byAdding: .day, value: 1, to: today(8))!
+        XCTAssertEqual(dates, [today(21, 30), tomorrow8, tomorrow8.addingTimeInterval(30 * 60)])
+        for date in WordReminderPlanner.fireDates(now: today(9), intervalMinutes: 15, count: 64, calendar: calendar) {
+            let hour = calendar.component(.hour, from: date)
+            XCTAssertTrue(hour >= 8 && hour < 22, "\(date)")
+        }
+    }
+
+    func testAfterMidnightStartsAtEightTheSameMorning() {
+        let dates = WordReminderPlanner.fireDates(now: today(1), intervalMinutes: 60, count: 1, calendar: calendar)
+        XCTAssertEqual(dates, [today(8)])
+    }
+
+    func testWordsRotateThroughThePool() {
+        let pool = (0..<5).map { word($0) }
+        let first = WordReminderPlanner.words(at: today(9), intervalMinutes: 20, pool: pool, count: 2)
+        let next = WordReminderPlanner.words(at: today(9, 20), intervalMinutes: 20, pool: pool, count: 2)
+        XCTAssertEqual(first.count, 2)
+        XCTAssertNotEqual(first, next, "The next reminder shows other words")
+        // Same time → same words, so re-planning doesn't restart the rotation.
+        XCTAssertEqual(first, WordReminderPlanner.words(at: today(9), intervalMinutes: 20, pool: pool, count: 2))
+        XCTAssertEqual(WordReminderPlanner.words(at: today(9), intervalMinutes: 20, pool: pool, count: 9), pool)
+        XCTAssertTrue(WordReminderPlanner.words(at: today(9), intervalMinutes: 20, pool: [], count: 3).isEmpty)
+    }
+
+    func testPlanHonoursTheLimit() {
+        let pool = (0..<4).map { word($0) }
+        let plan = WordReminderPlanner.plan(now: today(9), intervalMinutes: 15, wordsPerNotification: 3,
+                                            pool: pool, maxCount: 50, calendar: calendar)
+        XCTAssertEqual(plan.count, 50)
+        XCTAssertEqual(Set(plan.map(\.id)).count, 50)
+        XCTAssertTrue(plan.allSatisfy { $0.words.count == 3 })
+        XCTAssertTrue(WordReminderPlanner.plan(now: today(9), intervalMinutes: 15, wordsPerNotification: 3,
+                                               pool: [], maxCount: 50, calendar: calendar).isEmpty)
+    }
+
+    func testBodyMarksHardWords() {
+        let words = [ReminderWord(id: "a", term: "こんにちは", reading: "konnichiwa", meaning: "xin chào", isHard: false),
+                     ReminderWord(id: "b", term: "ありがとう", reading: nil, meaning: "cảm ơn", isHard: true)]
+        XCTAssertEqual(WordReminderPlanner.body(for: words), "こんにちは (konnichiwa) – xin chào\n🔁 ありがとう – cảm ơn")
+    }
+
+    func testPoolHasTheLatestLessonAndHardWords() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ContentImporter(context: context).importBundledCourses()
+        let japanese = try XCTUnwrap(try context.fetch(FetchDescriptor<Course>()).first { $0.remoteId == "ja" })
+        let lessons = japanese.orderedLessons
+        lessons[0].isCompleted = true
+        lessons[0].completedAt = today(8)
+        lessons[1].isCompleted = true
+        lessons[1].completedAt = today(9)
+        let hard = lessons[0].sortedItems[0]
+        hard.lastReviewGrade = ReviewGrade.hard.rawValue
+        hard.lastReviewedAt = today(10)
+        lessons[0].sortedItems[1].lastReviewGrade = ReviewGrade.good.rawValue
+        try context.save()
+
+        let pool = WordReminderPlanner.pool(courseId: "ja", in: context)
+        let latestIds = lessons[1].sortedItems.map(\.remoteId)
+        XCTAssertEqual(Array(pool.prefix(latestIds.count)).map(\.id), latestIds, "Latest lesson first")
+        XCTAssertEqual(pool.last?.id, hard.remoteId)
+        XCTAssertEqual(pool.last?.isHard, true)
+        XCTAssertEqual(pool.count, latestIds.count + 1, "Good words of older lessons are not included")
+        XCTAssertTrue(WordReminderPlanner.pool(courseId: "ko", in: context).isEmpty, "Other courses are separate")
+    }
+
+    func testReviewRemembersTheLastGrade() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let item = VocabItem(remoteId: "w", courseId: "en")
+        container.mainContext.insert(item)
+        item.srsState = SRSScheduler().introduce(now: today(8))
+        let vm = ReviewSessionViewModel(items: [item])
+        vm.flip()
+        vm.grade(.again)
+        XCTAssertEqual(item.lastReviewGrade, ReviewGrade.again.rawValue)
+        item.resetProgress()
+        XCTAssertEqual(item.lastReviewGrade, -1)
+    }
+}

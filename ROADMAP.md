@@ -72,6 +72,10 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] iOS 26 glass tab bar (material fallback on iOS 17–18)
 - [x] Fixes: course picker navigation, Swift 6 concurrency warnings, launch hang while importing content
 
+## ✅ Word reminders (done, Oct 2026)
+
+- [x] Optional notifications every 15–120 min with 1–5 words: latest lesson + words graded Again / Hard, 08:00–22:00, quiet
+
 ## ✅ v0.10 – Content (done)
 
 **Goal:** enough content to learn for weeks, not minutes.
