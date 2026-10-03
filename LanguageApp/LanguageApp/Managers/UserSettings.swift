@@ -24,6 +24,7 @@ extension UserSettings {
         static let reminderHour = "reminderHour"
         static let reminderMinute = "reminderMinute"
         static let smartReminderTime = "smartReminderTime"
+        static let hasSeenReviewGuide = "hasSeenReviewGuide"
     }
 }
 
@@ -94,6 +95,11 @@ extension UserSettings {
         didSet { defaults.set(reminderMinute, forKey: Keys.reminderMinute) }
     }
 
+    /// The "How reviews work" guide is shown automatically before the first review session.
+    var hasSeenReviewGuide: Bool {
+        didSet { defaults.set(hasSeenReviewGuide, forKey: Keys.hasSeenReviewGuide) }
+    }
+
     /// Remind at the time the learner usually studies (falls back to `reminderHour:reminderMinute`).
     var smartReminderTime: Bool {
         didSet { defaults.set(smartReminderTime, forKey: Keys.smartReminderTime) }
@@ -120,6 +126,7 @@ extension UserSettings {
         self.reminderHour = defaults.object(forKey: Keys.reminderHour) as? Int ?? 20
         self.reminderMinute = defaults.object(forKey: Keys.reminderMinute) as? Int ?? 0
         self.smartReminderTime = defaults.object(forKey: Keys.smartReminderTime) as? Bool ?? true
+        self.hasSeenReviewGuide = defaults.bool(forKey: Keys.hasSeenReviewGuide)
 
         themeSet = LightTheme()
         updateTheme(colorSchemeOption)

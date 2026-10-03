@@ -58,10 +58,61 @@ final class SRSSchedulerTests: XCTestCase {
         XCTAssertLessThan(preview[.good]!, preview[.easy]!)
     }
 
+    /// A word just learned in a lesson (first review): every button shows a different time.
+    func testFirstReviewButtonLabels() {
+        let state = scheduler.introduce(now: now)
+        let labels = scheduler.preview(state, now: now).mapValues { SRSScheduler.shortLabel(for: $0) }
+        XCTAssertEqual(labels[.again], "10m")
+        XCTAssertEqual(labels[.hard], "1d")
+        XCTAssertEqual(labels[.good], "3d")
+        XCTAssertEqual(labels[.easy], "5d")
+    }
+
+    /// Again < Hard ≤ Good < Easy for every kind of card (new, relearning, young, mature,
+    /// low / high ease), and Easy is always at least `easyBonusDays` later than Good.
+    func testGradeOrderingForManyStates() {
+        let states: [SRSState] = [
+            SRSState(reps: 0, interval: 0, ease: 2.5, lapses: 1, due: now),     // relearning after Again
+            scheduler.introduce(now: now),                                       // first review
+            SRSState(reps: 1, interval: 1, ease: 1.3, lapses: 2, due: now),     // hard word
+            SRSState(reps: 2, interval: 3, ease: 2.5, lapses: 0, due: now),
+            SRSState(reps: 4, interval: 20, ease: 2.8, lapses: 0, due: now),
+            SRSState(reps: 6, interval: 90, ease: 1.3, lapses: 3, due: now)
+        ]
+        for state in states {
+            let preview = scheduler.preview(state, now: now)
+            let again = preview[.again]!, hard = preview[.hard]!, good = preview[.good]!, easy = preview[.easy]!
+            XCTAssertLessThan(again, hard, "\(state)")
+            XCTAssertLessThanOrEqual(hard, good, "\(state)")
+            XCTAssertLessThan(good, easy, "\(state)")
+            XCTAssertGreaterThanOrEqual(easy - good, scheduler.easyBonusDays * day - 0.1 * day, "\(state)")
+            XCTAssertNotEqual(SRSScheduler.shortLabel(for: good), SRSScheduler.shortLabel(for: easy),
+                              "Good and Easy must not show the same time: \(state)")
+        }
+    }
+
+    func testIntervalsNeverExceedTheMaximum() {
+        let mature = SRSState(reps: 10, interval: 300, ease: 3, lapses: 0, due: now)
+        for grade in ReviewGrade.allCases {
+            XCTAssertLessThanOrEqual(scheduler.schedule(mature, grade: grade, now: now).interval,
+                                     scheduler.maximumIntervalDays)
+        }
+    }
+
+    func testEasyRaisesEaseAndHardLowersIt() {
+        let state = SRSState(reps: 2, interval: 3, ease: 2.5, lapses: 0, due: now)
+        XCTAssertEqual(scheduler.schedule(state, grade: .easy, now: now).ease, 2.65, accuracy: 0.0001)
+        XCTAssertEqual(scheduler.schedule(state, grade: .hard, now: now).ease, 2.35, accuracy: 0.0001)
+        XCTAssertEqual(scheduler.schedule(state, grade: .good, now: now).ease, 2.5, accuracy: 0.0001)
+    }
+
     func testShortLabels() {
         XCTAssertEqual(SRSScheduler.shortLabel(for: 600), "10m")
         XCTAssertEqual(SRSScheduler.shortLabel(for: day), "1d")
         XCTAssertEqual(SRSScheduler.shortLabel(for: 60 * day), "2mo")
+        XCTAssertEqual(SRSScheduler.shortLabel(for: 56 * day), "1.9mo")
+        XCTAssertEqual(SRSScheduler.shortLabel(for: 365 * day), "1y")
+        XCTAssertEqual(SRSScheduler.shortLabel(for: 438 * day), "1.2y")
     }
 }
 

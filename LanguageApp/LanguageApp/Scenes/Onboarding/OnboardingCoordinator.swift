@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OnboardingCoordinator: View {
     @Environment(UserSettings.self) private var userSettings

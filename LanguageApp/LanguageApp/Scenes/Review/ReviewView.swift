@@ -34,7 +34,10 @@ struct ReviewView: View {
 
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                ScreenTitle(title: "review_title".localized())
+                HStack {
+                    ScreenTitle(title: "review_title".localized())
+                    ReviewGuideButton()
+                }
 
                 // Hero card
                 VStack(spacing: 14) {

@@ -220,6 +220,10 @@ struct DeveloperMenuView: View {
             }
 
             Section {
+                Button("Show the review guide again") {
+                    userSettings.hasSeenReviewGuide = false
+                    toast("Shown before the next review session")
+                }
                 Button("Show onboarding on next launch") {
                     userSettings.hasCompletedOnboarding = false
                     toast("Restart the app to see onboarding")

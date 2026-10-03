@@ -14,6 +14,8 @@ struct ReviewSessionView: View {
     @Environment(UserSettings.self) private var userSettings
     @Environment(SpeechService.self) private var speech
 
+    @State private var showGuide = false
+
     private var theme: Theme { userSettings.theme }
 
     var body: some View {
@@ -28,6 +30,7 @@ struct ReviewSessionView: View {
                 Text("\(viewModel.reviewedCount)")
                     .setFont(.bold, size: 16, color: theme.secondaryTextColor)
                     .monospacedDigit()
+                ReviewGuideButton()
             }
             .padding(.horizontal, 20)
             .padding(.top, 8)
@@ -49,6 +52,13 @@ struct ReviewSessionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .setDefaultBackground()
         .animation(.easeInOut(duration: 0.25), value: viewModel.index)
+        .onAppear {
+            // First review session ever: explain how it works before the first card.
+            if !userSettings.hasSeenReviewGuide { showGuide = true }
+        }
+        .sheet(isPresented: $showGuide, onDismiss: { userSettings.hasSeenReviewGuide = true }) {
+            ReviewGuideView(onClose: { showGuide = false })
+        }
         .onChange(of: viewModel.index, initial: true) { _, _ in
             if userSettings.autoPlayAudio, let item = viewModel.current {
                 speech.speak(item.term, locale: speechLocale)
@@ -74,7 +84,7 @@ struct ReviewSessionView: View {
                                 .opacity(0.85)
                         }
                     }
-                    .buttonStyle(FilledButtonStyle(color: color(for: grade), height: 56))
+                    .buttonStyle(FilledButtonStyle(color: grade.color(theme), height: 56))
                 }
             }
         } else {
@@ -87,14 +97,6 @@ struct ReviewSessionView: View {
         withAnimation(.spring(response: 0.45, dampingFraction: 0.8)) { viewModel.flip() }
     }
 
-    private func color(for grade: ReviewGrade) -> Color {
-        switch grade {
-        case .again: return theme.wrongColor
-        case .hard: return theme.streakColor
-        case .good: return theme.correctColor
-        case .easy: return Color(hex: "#0EA5E9")
-        }
-    }
 }
 
 // MARK: - Flashcard
