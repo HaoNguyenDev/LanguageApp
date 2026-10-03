@@ -8,7 +8,8 @@
 #   production  → every user
 #   promote     → copies what is on staging to production (exactly what you tested)
 #
-# Setup (once): see Tools/content/README.md – repo variable CONTENT_SHEET_ID, secret CONTENT_REPO_TOKEN.
+# Setup (once): see Tools/content/README.md – repo variables CONTENT_SHEET_ID (+ optional MESSAGES_SHEET_ID),
+# secret CONTENT_REPO_TOKEN.
 name: Publish content
 
 on:
@@ -58,6 +59,17 @@ jobs:
           cp --update=none LanguageApp/LanguageApp/Resources/Content/course_*.json "$OUT"/
           python3 Tools/content/build_courses.py --sheet-id "$SHEET_ID" --out "$OUT"
 
+      - name: Build the app messages
+        if: inputs.target != 'promote' && vars.MESSAGES_SHEET_ID != ''
+        env:
+          SHEET_ID: ${{ vars.MESSAGES_SHEET_ID }}
+          CHANNEL: ${{ inputs.target }}
+        run: |
+          OUT="published/v1/$CHANNEL"
+          # First publish: start from the messages bundled in the app, so the version only goes up.
+          cp --update=none LanguageApp/LanguageApp/Resources/Content/messages.json "$OUT"/ 2>/dev/null || true
+          python3 Tools/content/build_messages.py --sheet-id "$SHEET_ID" --out "$OUT"
+
       - name: Promote staging to production
         if: inputs.target == 'promote'
         run: |
@@ -73,6 +85,7 @@ jobs:
                   sys.exit(f"::error::{old.name}: staging is older than production – publish to staging first")
           PY
           cp published/v1/staging/course_*.json published/v1/production/
+          cp published/v1/staging/messages.json published/v1/production/ 2>/dev/null || true
 
       - name: Write manifest
         env:
@@ -90,7 +103,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           # manifest.json always changes (generatedAt) – publish only when a course file changed.
-          if git diff --cached --quiet -- "v1/$CHANNEL/course_*.json" && git ls-files --error-unmatch "v1/$CHANNEL/manifest.json" >/dev/null 2>&1; then
+          if git diff --cached --quiet -- "v1/$CHANNEL/course_*.json" "v1/$CHANNEL/messages.json" && git ls-files --error-unmatch "v1/$CHANNEL/manifest.json" >/dev/null 2>&1; then
             echo "No content change on $CHANNEL – nothing published."
             exit 0
           fi

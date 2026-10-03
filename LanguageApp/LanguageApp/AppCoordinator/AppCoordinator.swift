@@ -175,6 +175,7 @@ extension AppCoordinator {
                 UserMessageView(message: message) { _ in
                     appState.userMessageState.hide()
                 }
+                .id(message.id)
             }
         }
     }

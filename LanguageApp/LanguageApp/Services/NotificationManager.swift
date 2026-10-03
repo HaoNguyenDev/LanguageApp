@@ -153,7 +153,9 @@ enum NotificationManager {
     /// Quiet (no sound) and grouped, so frequent reminders don't get in the way.
     private static func wordContent(_ words: [ReminderWord], courseName: String) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = "word_reminder_title".localizedFormat(courseName)
+        // The body is always the words; the sheet can only change the title.
+        content.title = MessageCatalog.text("word_reminder", values: ["course": courseName])?.title
+            ?? "word_reminder_title".localizedFormat(courseName)
         content.body = WordReminderPlanner.body(for: words)
         content.threadIdentifier = "word-reminders"
         content.sound = nil
@@ -272,16 +274,25 @@ enum NotificationManager {
 
     private static func content(for kind: NotificationPlanner.Kind) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
+        // Texts from the "App Messages" sheet when published, else the built-in strings.
+        let remote: (title: String, body: String?)?
         switch kind {
         case .reminder:
+            remote = MessageCatalog.text("reminder")
             content.title = "reminder_title".localized()
             content.body = "reminder_body".localized()
         case .dueCards(let count):
+            remote = MessageCatalog.text("review_due", values: ["count": "\(count)"])
             content.title = "reminder_review_title".localized()
             content.body = "reminder_review_body".localizedFormat(count)
         case .streakAtRisk(let days):
+            remote = MessageCatalog.text("streak_risk", values: ["days": "\(days)"])
             content.title = "streak_risk_title".localized()
             content.body = "streak_risk_body".localizedFormat(days)
+        }
+        if let remote, let body = remote.body, !remote.title.isEmpty, !body.isEmpty {
+            content.title = remote.title
+            content.body = body
         }
         content.sound = .default
         return content

@@ -83,6 +83,9 @@ import Observation
     /// Shows the question type and the correct answer above each exercise.
     var showAnswers: Bool { didSet { defaults.set(showAnswers, forKey: Keys.showAnswers) } }
     /// Remote content channel: staging to try a sheet change before publishing it to everyone.
+    /// Developer builds start on staging (where every sheet change lands first); the choice is
+    /// saved in UserDefaults and kept across launches. Release builds always read production.
+    static let defaultContentChannel: ContentChannel = .staging
     var contentChannel: ContentChannel { didSet { defaults.set(contentChannel.rawValue, forKey: Keys.contentChannel) } }
 
     init(defaults: UserDefaults = .standard) {
@@ -95,7 +98,7 @@ import Observation
         shortLessons = defaults.bool(forKey: Keys.shortLessons)
         skipMatchPairs = defaults.bool(forKey: Keys.skipMatchPairs)
         showAnswers = defaults.bool(forKey: Keys.showAnswers)
-        contentChannel = ContentChannel(rawValue: defaults.string(forKey: Keys.contentChannel) ?? "") ?? .production
+        contentChannel = ContentChannel(rawValue: defaults.string(forKey: Keys.contentChannel) ?? "") ?? Self.defaultContentChannel
     }
 
     func resetAll() {
@@ -107,7 +110,7 @@ import Observation
         shortLessons = false
         skipMatchPairs = false
         showAnswers = false
-        contentChannel = .production
+        contentChannel = Self.defaultContentChannel
     }
 
     // MARK: Effective values – always "off" outside Debug builds. App code reads only these.
@@ -137,6 +140,6 @@ import Observation
     var activeCount: Int {
         guard on else { return 0 }
         return [unlockAllLessons, unlimitedHearts, premiumOverride != .none, questionKind != .mixed,
-                skipIntroCards, shortLessons, skipMatchPairs, showAnswers, contentChannel != .production].filter { $0 }.count
+                skipIntroCards, shortLessons, skipMatchPairs, showAnswers, contentChannel != Self.defaultContentChannel].filter { $0 }.count
     }
 }

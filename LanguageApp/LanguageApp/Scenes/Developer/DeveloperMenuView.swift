@@ -189,6 +189,11 @@ struct DeveloperMenuView: View {
                 Picker("Channel", selection: $debug.contentChannel) {
                     ForEach(ContentChannel.allCases) { Text($0.rawValue.capitalized).tag($0) }
                 }
+                // A new channel is checked right away (no need to restart the app).
+                .onChange(of: debug.contentChannel) { _, _ in
+                    contentStatus = nil
+                    checkContentNow()
+                }
                 Button(isCheckingContent ? "Checking…" : "Check for content updates now") {
                     checkContentNow()
                 }
@@ -200,10 +205,15 @@ struct DeveloperMenuView: View {
                 ForEach(courses) { course in
                     LabeledContent(course.remoteId, value: "v\(course.contentVersion)")
                 }
+                Text(MessageCatalog.summary)
+                    .font(.system(size: 11, design: .monospaced))
+                Button("Show a welcome-back toast") {
+                    appState.showToast(item: MessageCatalog.welcomeToast(in: modelContext, settings: userSettings))
+                }
             } header: {
                 Text("Remote content")
             } footer: {
-                Text("Staging shows a sheet change on this device before it is published to everyone. Downloads are applied right away here (the developer menu isn't a lesson).\n\(RemoteContentService.manifestURL(channel: debug.contentChannel).absoluteString)")
+                Text("Staging (default in developer builds, remembered across launches) shows a sheet change on this device before it is published to everyone. Downloads are applied right away here (the developer menu isn't a lesson). Welcome / notification texts come from the App Messages sheet.\n\(RemoteContentService.manifestURL(channel: debug.contentChannel).absoluteString)")
             }
 
             Section {

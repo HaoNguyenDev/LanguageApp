@@ -46,8 +46,11 @@ import Lottie
 
 // MARK: - UserMessageState for Toast
 extension UserMessageState {
+    /// Toasts are queued (e.g. at launch: content update + achievement) and shown one after another.
+    /// The same text isn't queued twice, and the queue is kept short.
     func showToast(item: UserMessageItem) {
-        guard toastMessages.isEmpty else { return }
+        guard !toastMessages.contains(where: { $0.title == item.title && $0.message == item.message }),
+              toastMessages.count < 3 else { return }
         toastMessages.append(item)
     }
     
