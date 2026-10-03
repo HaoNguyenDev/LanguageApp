@@ -241,6 +241,8 @@
         "unit_complete_message": "%@ – đã xong! Unit tiếp theo đã được mở.",
         "unit_complete_title": "Hoàn thành Unit %ld!",
         "unit_number": "Chương %ld",
+        "scroll_to_top": "Lên đầu trang",
+        "scroll_to_latest_unit": "Quay lại unit %ld, nơi bạn đã học tới",
         "update": "Cập nhật",
         "update_the_app_now": "Cập nhật ngay để có bài học và tính năng mới nhất.",
         "upgrade_to_plus": "Nâng cấp Plus",

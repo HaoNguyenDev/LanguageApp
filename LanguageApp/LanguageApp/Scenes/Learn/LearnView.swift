@@ -20,6 +20,16 @@ struct LearnView: View {
     var onOpenPaywall: VoidResult?
     var onOpenStreak: VoidResult?
 
+    /// Id of the section at the top of the screen (quests card, a unit, "coming soon"), kept by
+    /// `scrollPosition` – changes only when another section reaches the top, not on every frame.
+    @State private var topSectionId: String?
+    /// Units whose header is on screen (pinned at the top or scrolling by) – the unit button stays
+    /// hidden while its unit's header can be seen.
+    @State private var unitsWithVisibleHeader: Set<String> = []
+
+    static let questsId = "learn-quests"
+    static let comingSoonId = "learn-coming-soon"
+
     private var course: Course? {
         courses.first { $0.remoteId == userSettings.selectedCourseId } ?? courses.first
     }
@@ -34,28 +44,48 @@ struct LearnView: View {
                 .padding(.vertical, 8)
 
             if let course {
-                ScrollViewReader { proxy in
-                    ScrollView(showsIndicators: false) {
-                        LazyVStack(spacing: 28) {
-                            DailyQuestsCard()
-                            ForEach(Array(course.sortedUnits.enumerated()), id: \.element.remoteId) { unitIndex, unit in
-                                UnitSectionView(unit: unit,
-                                                unitIndex: unitIndex,
-                                                course: course,
-                                                onTapLesson: handleTap,
-                                                onTapCheckpoint: handleCheckpointTap)
-                            }
-                            comingSoon
+                // All scrolling goes through `topSectionId` (scrollPosition), never a
+                // ScrollViewReader: a proxy scroll doesn't update the binding, which left the
+                // buttons reading a stale position (↑ shown at the top, unit button pointing up).
+                ScrollView(showsIndicators: false) {
+                    // Unit headers stick to the top while their unit is on screen.
+                    LazyVStack(spacing: 28, pinnedViews: [.sectionHeaders]) {
+                        DailyQuestsCard()
+                            .id(Self.questsId)
+                        ForEach(Array(course.sortedUnits.enumerated()), id: \.element.remoteId) { unitIndex, unit in
+                            UnitSectionView(unit: unit,
+                                            unitIndex: unitIndex,
+                                            course: course,
+                                            onTapLesson: handleTap,
+                                            onTapCheckpoint: handleCheckpointTap,
+                                            onHeaderVisibilityChange: { isVisible in
+                                                if isVisible {
+                                                    unitsWithVisibleHeader.insert(unit.remoteId)
+                                                    } else {
+                                                        unitsWithVisibleHeader.remove(unit.remoteId)
+                                                    }
+                                                })
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.top, 8)
+                        comingSoon
+                            .id(Self.comingSoonId)
                     }
-                    .tabBarSafeArea()
-                    .onAppear {
-                        if let current = course.currentLesson {
-                            proxy.scrollTo(current.remoteId, anchor: .center)
-                        }
-                    }
+                    .scrollTargetLayout()
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                }
+                .scrollPosition(id: $topSectionId, anchor: .top)
+                .onChange(of: topSectionId) { _, top in
+                    pruneHeaderVisibility(top: top, unitIds: course.sortedUnits.map(\.remoteId))
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    scrollButtons(course: course)
+                }
+                .tabBarSafeArea()
+                .onAppear {
+                    // Open on the unit being learned (Unit 1 → stay at the top with the quests).
+                    guard topSectionId == nil, let unit = course.currentLesson?.unit,
+                          unit.remoteId != course.sortedUnits.first?.remoteId else { return }
+                    Task { topSectionId = unit.remoteId }
                 }
             } else {
                 Spacer()
@@ -65,6 +95,101 @@ struct LearnView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .setDefaultBackground()
+    }
+
+    // MARK: - Scroll buttons
+
+    /// Floating buttons above the tab bar: back to the top, and to the unit of the furthest completed lesson.
+    private func scrollButtons(course: Course) -> some View {
+        let theme = userSettings.theme
+        let units = course.sortedUnits
+        let latestUnit = course.furthestCompletedUnit
+        let unitNumber = latestUnit.flatMap { unit in units.firstIndex { $0.remoteId == unit.remoteId } }
+        let visibility = Self.scrollButtonVisibility(topSectionId: topSectionId,
+                                                     unitIds: units.map(\.remoteId),
+                                                     targetUnitIndex: unitNumber,
+                                                     targetHeaderOnScreen: latestUnit.map { unitsWithVisibleHeader.contains($0.remoteId) } ?? false)
+        let showsTop = visibility.top
+        return VStack(alignment: .trailing, spacing: 10) {
+            if showsTop {
+                Button {
+                    FeedbackService.tap()
+                    withAnimation(.easeInOut(duration: 0.4)) { topSectionId = Self.questsId }
+                } label: {
+                    Image(systemName: "arrow.up")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundStyle(theme.textOnSubviewColor)
+                        .frame(width: 48, height: 48)
+                        .background(theme.subviewBgColor, in: .circle)
+                        .shadow(color: .black.opacity(0.2), radius: 6, y: 3)
+                }
+                .accessibilityLabel("scroll_to_top".localized())
+                .transition(.scale.combined(with: .opacity))
+            }
+            if let direction = visibility.unit, let latestUnit, let unitNumber {
+                Button {
+                    FeedbackService.tap()
+                    withAnimation(.easeInOut(duration: 0.4)) { topSectionId = latestUnit.remoteId }
+                } label: {
+                    // The arrow tells where the unit is: below (after ↑) or above (scrolled past it).
+                    Label("unit_number".localizedFormat(unitNumber + 1),
+                          systemImage: direction == .down ? "arrow.down" : "arrow.up")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 16)
+                        .frame(height: 48)
+                        .background(theme.primaryColor, in: .capsule)
+                        .shadow(color: .black.opacity(0.2), radius: 6, y: 3)
+                }
+                .accessibilityLabel("scroll_to_latest_unit".localizedFormat(unitNumber + 1))
+                .transition(.scale.combined(with: .opacity))
+            }
+        }
+        .padding(.trailing, 16)
+        // Above the tab bar (80 pt, see `tabBarSafeArea`).
+        .padding(.bottom, 92)
+        .animation(.spring(duration: 0.3), value: visibility)
+    }
+
+    /// A fast scroll can skip the "went off screen" report of a header. Headers can only be on
+    /// screen from the unit at the top to a couple of units below it, so anything else is dropped.
+    private func pruneHeaderVisibility(top: String?, unitIds: [String]) {
+        let topIndex = top.flatMap { unitIds.firstIndex(of: $0) } ?? (top == Self.comingSoonId ? unitIds.count : -1)
+        let kept = unitsWithVisibleHeader.filter { id in
+            guard let index = unitIds.firstIndex(of: id) else { return false }
+            return index >= topIndex && index <= topIndex + 2
+        }
+        if kept != unitsWithVisibleHeader { unitsWithVisibleHeader = kept }
+    }
+
+    /// Which floating buttons to show for the section at the top of the screen.
+    /// - top: from Unit 2 on (hidden on the quests card and in Unit 1).
+    /// - unit: hidden while the header of the unit of the furthest completed lesson is on screen
+    ///   (pinned at the top because the learner is in it, or scrolling by); otherwise `.up` when
+    ///   scrolled past it, `.down` when above it (e.g. after ↑).
+    static func scrollButtonVisibility(topSectionId: String?, unitIds: [String], targetUnitIndex: Int?,
+                                       targetHeaderOnScreen: Bool = false) -> ScrollButtonVisibility {
+        let topIndex: Int? = topSectionId == comingSoonId ? unitIds.count : topSectionId.flatMap { unitIds.firstIndex(of: $0) }
+        // Never while the learner is at the top or in Unit 1 (the top is right there).
+        let showsTop = (topIndex ?? 0) >= 1
+        guard let targetUnitIndex else { return ScrollButtonVisibility(top: showsTop, unit: nil) }
+        // Quests card / not scrolled yet = above every unit.
+        let position = topIndex ?? -1
+        // Past the unit its header can't be on screen (only the current unit's header is pinned),
+        // so a visibility report that a fast scroll left behind is ignored there.
+        if targetHeaderOnScreen && position <= targetUnitIndex {
+            return ScrollButtonVisibility(top: showsTop, unit: nil)
+        }
+        let unit: ScrollButtonVisibility.Direction? = position > targetUnitIndex ? .up
+            : position < targetUnitIndex ? .down : nil
+        return ScrollButtonVisibility(top: showsTop, unit: unit)
+    }
+
+    struct ScrollButtonVisibility: Equatable {
+        enum Direction { case up, down }
+        let top: Bool
+        /// nil = hidden (the learner is in that unit).
+        let unit: Direction?
     }
 
     private func handleTap(_ lesson: Lesson) {
@@ -107,6 +232,8 @@ private struct UnitSectionView: View {
     let course: Course
     var onTapLesson: (Lesson) -> Void
     var onTapCheckpoint: (CourseUnit) -> Void
+    /// The unit header came on / went off screen.
+    var onHeaderVisibilityChange: (Bool) -> Void = { _ in }
 
     /// Horizontal offsets that create the winding path.
     private static let offsets: [CGFloat] = [0, 44, 70, 44, 0, -44, -70, -44]
@@ -118,8 +245,27 @@ private struct UnitSectionView: View {
     }
 
     var body: some View {
+        // A section of the pinned LazyVStack: the header sticks while the unit scrolls under it.
+        Section {
+            lessonPath
+        } header: {
+            pinnedHeader
+                .onVisibleOnScreen(onHeaderVisibilityChange)
+        }
+    }
+
+    /// Opaque band behind the header so the path doesn't show around it while pinned.
+    private var pinnedHeader: some View {
+        header
+            .padding(.vertical, 6)
+            .background {
+                userSettings.theme.bgColor
+                    .padding(.horizontal, -20) // the stack's side padding
+            }
+    }
+
+    private var lessonPath: some View {
         VStack(spacing: 20) {
-            header
             ForEach(Array(unit.sortedLessons.enumerated()), id: \.element.remoteId) { index, lesson in
                 let state = nodeState(for: lesson)
                 LessonNodeView(lesson: lesson, state: state, color: unitColor)
@@ -222,11 +368,21 @@ struct LessonNodeView: View {
     var body: some View {
         let theme = userSettings.theme
         VStack(spacing: 8) {
-            Image(systemName: iconName)
+            // Always the lesson's own icon: dimmed until it's reached, a green tick once done
+            // (like the passed checkpoint).
+            Image(systemName: lesson.icon)
                 .font(.system(size: 24, weight: .semibold))
-                .foregroundStyle(state == .locked ? theme.secondaryTextColor : .white)
+                .foregroundStyle(iconColor)
                 .frame(width: 64, height: 64)
                 .background(fillColor, in: Circle())
+                .overlay(alignment: .bottomTrailing) {
+                    if state == .completed {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.white, theme.correctColor)
+                            .offset(x: 4, y: 4)
+                    }
+                }
             Text(lesson.title.text)
                 .setFont(state == .current ? .bold : .semibold, size: 13,
                          color: state == .locked ? theme.secondaryTextColor : theme.textColor,
@@ -247,12 +403,9 @@ struct LessonNodeView: View {
         }
     }
 
-    private var iconName: String {
-        switch state {
-        case .completed: return "checkmark"
-        case .current: return lesson.icon
-        case .locked: return "lock.fill"
-        }
+    /// Locked: the unit color, faded, on the grey circle – recognizable but clearly not reached yet.
+    private var iconColor: Color {
+        state == .locked ? color.opacity(0.45) : .white
     }
 }
 
@@ -262,4 +415,19 @@ struct LessonNodeView: View {
         .environment(GamificationManager())
         .environment(PremiumManager())
         .modelContainer(PersistenceController.preview)
+}
+
+private extension View {
+    /// Reports when the view comes on / goes off screen inside a scroll view. iOS 18 measures the
+    /// visible part (10 % is enough); iOS 17 falls back to the lazy stack loading / unloading it,
+    /// which happens a little before it actually scrolls into view.
+    @ViewBuilder
+    func onVisibleOnScreen(_ action: @escaping (Bool) -> Void) -> some View {
+        if #available(iOS 18.0, *) {
+            onScrollVisibilityChange(threshold: 0.1, action)
+        } else {
+            onAppear { action(true) }
+                .onDisappear { action(false) }
+        }
+    }
 }

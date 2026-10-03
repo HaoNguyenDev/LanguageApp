@@ -241,6 +241,8 @@
         "unit_complete_message": "%@: ¡terminada! La siguiente unidad está desbloqueada.",
         "unit_complete_title": "¡Unidad %ld completada!",
         "unit_number": "Unidad %ld",
+        "scroll_to_top": "Volver arriba",
+        "scroll_to_latest_unit": "Volver a la unidad %ld, hasta donde llegaste",
         "update": "Actualizar",
         "update_the_app_now": "Actualiza ahora para obtener las lecciones y mejoras más recientes.",
         "upgrade_to_plus": "Hazte Plus",

@@ -1056,6 +1056,52 @@ final class UnitCheckpointTests: XCTestCase {
         return course
     }
 
+    func testFurthestCompletedUnit() {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let course = makeCourse(in: container.mainContext)
+        let first = course.sortedUnits[0], second = course.sortedUnits[1]
+        XCTAssertNil(course.furthestCompletedUnit, "Nothing done yet")
+
+        first.sortedLessons[0].isCompleted = true
+        XCTAssertEqual(course.furthestCompletedUnit?.remoteId, "u0")
+
+        // Furthest along the path wins, whatever the completion dates.
+        second.sortedLessons[0].isCompleted = true
+        second.sortedLessons[0].completedAt = now
+        first.sortedLessons[1].isCompleted = true
+        first.sortedLessons[1].completedAt = now.addingTimeInterval(500)
+        XCTAssertEqual(course.furthestCompletedUnit?.remoteId, "u1")
+    }
+
+    func testScrollButtonsVisibility() {
+        let units = ["u0", "u1", "u2", "u3", "u4"]
+        func visibility(_ top: String?, target: Int?) -> LearnView.ScrollButtonVisibility {
+            LearnView.scrollButtonVisibility(topSectionId: top, unitIds: units, targetUnitIndex: target)
+        }
+        // Above the furthest unit (after ↑, or an earlier unit) → unit button pointing down.
+        XCTAssertEqual(visibility(nil, target: 3), .init(top: false, unit: .down))
+        XCTAssertEqual(visibility(LearnView.questsId, target: 0), .init(top: false, unit: .down))
+        XCTAssertEqual(visibility("u1", target: 3), .init(top: true, unit: .down))
+        // In it (its header is the sticky one) → hidden; only there.
+        XCTAssertEqual(visibility("u3", target: 3), .init(top: true, unit: nil))
+        // Back to top never shows in Unit 1.
+        XCTAssertEqual(visibility("u0", target: 3), .init(top: false, unit: .down))
+        XCTAssertEqual(visibility("u0", target: 0), .init(top: false, unit: nil))
+        // Scrolled past it → pointing up.
+        XCTAssertEqual(visibility("u4", target: 3), .init(top: true, unit: .up))
+        XCTAssertEqual(visibility(LearnView.comingSoonId, target: 4), .init(top: true, unit: .up))
+        // Nothing completed yet → only the top button.
+        XCTAssertEqual(visibility("u4", target: nil), .init(top: true, unit: nil))
+        // Its header still on screen (scrolling by below the previous unit) → hidden.
+        XCTAssertEqual(LearnView.scrollButtonVisibility(topSectionId: "u2", unitIds: units, targetUnitIndex: 3,
+                                                        targetHeaderOnScreen: true),
+                       .init(top: true, unit: nil))
+        // A stale "header on screen" left by a fast scroll is ignored once past the unit.
+        XCTAssertEqual(LearnView.scrollButtonVisibility(topSectionId: "u4", unitIds: units, targetUnitIndex: 3,
+                                                        targetHeaderOnScreen: true),
+                       .init(top: true, unit: .up))
+    }
+
     func testNextUnitWaitsForTheCheckpoint() {
         let container = PersistenceController.makeContainer(inMemory: true)
         let course = makeCourse(in: container.mainContext)

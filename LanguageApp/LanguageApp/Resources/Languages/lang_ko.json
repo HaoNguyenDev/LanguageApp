@@ -241,6 +241,8 @@
         "unit_complete_message": "%@ – 완료! 다음 유닛이 열렸어요.",
         "unit_complete_title": "유닛 %ld 완료!",
         "unit_number": "유닛 %ld",
+        "scroll_to_top": "맨 위로",
+        "scroll_to_latest_unit": "학습한 곳(유닛 %ld)으로 돌아가기",
         "update": "업데이트",
         "update_the_app_now": "최신 레슨과 개선 사항을 위해 지금 업데이트하세요.",
         "upgrade_to_plus": "Plus로 업그레이드",

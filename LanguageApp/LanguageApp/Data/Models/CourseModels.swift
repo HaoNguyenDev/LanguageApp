@@ -89,6 +89,12 @@ final class Course {
     var currentLesson: Lesson? {
         orderedLessons.first { !$0.isCompleted }
     }
+
+    /// The unit of the completed lesson furthest along the path (where the learner got to).
+    /// nil before the first lesson.
+    var furthestCompletedUnit: CourseUnit? {
+        orderedLessons.last(where: \.isCompleted)?.unit
+    }
 }
 
 @Model
