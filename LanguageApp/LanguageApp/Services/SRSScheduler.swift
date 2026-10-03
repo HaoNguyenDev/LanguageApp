@@ -41,7 +41,19 @@ struct SRSScheduler {
     /// Delay before a lapsed card is shown again.
     var relearnDelay: TimeInterval = 10 * 60
 
+    /// Easy is at least this many days later than Good.
+    var easyBonusDays: Double = 2
+
     private static let day: TimeInterval = 24 * 60 * 60
+
+    /// Interval in days after a "Good" answer.
+    private func goodInterval(_ state: SRSState) -> Double {
+        switch state.reps {
+        case 0: return 1
+        case 1: return max(3, state.interval * state.ease)
+        default: return max(state.interval + 1, state.interval * state.ease)
+        }
+    }
 
     /// State for a word the learner has just met in a lesson: first review tomorrow.
     func introduce(now: Date = .now) -> SRSState {
@@ -65,17 +77,15 @@ struct SRSScheduler {
             next.interval = state.reps == 0 ? 1 : max(1, state.interval * 1.2)
 
         case .good:
-            switch state.reps {
-            case 0: next.interval = 1
-            case 1: next.interval = max(3, state.interval * state.ease)
-            default: next.interval = max(state.interval + 1, state.interval * state.ease)
-            }
+            next.interval = goodInterval(state)
 
         case .easy:
             next.ease = state.ease + 0.15
             switch state.reps {
             case 0: next.interval = 4
-            default: next.interval = max(state.interval + 2, state.interval * state.ease * 1.3)
+            // Always clearly later than Good (at least 2 more days), so the two buttons never
+            // show the same time – e.g. a word just learned: Good 3d, Easy 5d.
+            default: next.interval = max(goodInterval(state) + easyBonusDays, state.interval * state.ease * 1.3)
             }
         }
 
@@ -95,7 +105,8 @@ struct SRSScheduler {
         return result
     }
 
-    /// Short human label: "10m", "1d", "3d", "2mo", "1y".
+    /// Short human label: "10m", "1d", "3d", "1.9mo", "2mo", "1.2y".
+    /// Months and years keep one decimal so close intervals (Good / Easy) don't look the same.
     static func shortLabel(for interval: TimeInterval) -> String {
         let minutes = interval / 60
         if minutes < 60 { return "\(max(1, Int(minutes.rounded())))m" }
@@ -103,7 +114,13 @@ struct SRSScheduler {
         if hours < 24 { return "\(Int(hours.rounded()))h" }
         let days = hours / 24
         if days < 30 { return "\(Int(days.rounded()))d" }
-        if days < 365 { return "\(Int((days / 30).rounded()))mo" }
-        return "\(Int((days / 365).rounded()))y"
+        if days < 365 { return "\(oneDecimal(days / 30))mo" }
+        return "\(oneDecimal(days / 365))y"
+    }
+
+    /// 1.86 → "1.9", 2.0 → "2".
+    private static func oneDecimal(_ value: Double) -> String {
+        let rounded = (value * 10).rounded() / 10
+        return rounded == rounded.rounded() ? "\(Int(rounded))" : String(format: "%.1f", rounded)
     }
 }
