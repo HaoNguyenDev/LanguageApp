@@ -35,12 +35,22 @@ def build_manifest(folder: Path, min_app_version: str) -> dict:
             "sha256": hashlib.sha256(data).hexdigest(),
         })
     entries.sort(key=lambda e: (ORDER.index(e["id"]) if e["id"] in ORDER else len(ORDER), e["id"]))
-    return {
+    manifest = {
         "schema": SCHEMA,
         "minAppVersion": min_app_version,
         "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "courses": entries,
     }
+    # Welcome toasts + notification texts (build_messages.py) – optional.
+    messages = folder / "messages.json"
+    if messages.exists():
+        data = messages.read_bytes()
+        manifest["messages"] = {
+            "version": int(json.loads(data)["version"]),
+            "file": messages.name,
+            "sha256": hashlib.sha256(data).hexdigest(),
+        }
+    return manifest
 
 
 def main() -> int:
@@ -54,7 +64,7 @@ def main() -> int:
         print(f"❌ no course_*.json in {args.dir}")
         return 1
     (args.dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    for entry in manifest["courses"]:
+    for entry in manifest["courses"] + ([manifest["messages"]] if "messages" in manifest else []):
         print(f"  {entry['file']}  v{entry['version']}  {entry['sha256'][:12]}…")
     print(f"✅ manifest.json written to {args.dir}")
     return 0

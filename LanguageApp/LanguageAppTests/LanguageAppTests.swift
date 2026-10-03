@@ -1328,7 +1328,7 @@ final class RemoteContentTests: XCTestCase {
     }
 
     private func manifest(_ courses: [ContentManifest.Entry], schema: Int = 1, minApp: String = "1.0") -> ContentManifest {
-        ContentManifest(schema: schema, minAppVersion: minApp, courses: courses)
+        ContentManifest(schema: schema, minAppVersion: minApp, courses: courses, messages: nil)
     }
 
     func testOnlyNewerCoursesAreDownloaded() {
@@ -1520,5 +1520,166 @@ final class WordReminderTests: XCTestCase {
         XCTAssertEqual(item.lastReviewGrade, ReviewGrade.again.rawValue)
         item.resetProgress()
         XCTAssertEqual(item.lastReviewGrade, -1)
+    }
+}
+
+@MainActor
+final class ContentUpdateMessageTests: XCTestCase {
+    typealias Counts = RemoteContentService.ContentCounts
+
+    /// Built-in texts (no sheet messages), so the result doesn't depend on what was downloaded.
+    private func message(courseName: String, before: Counts, after: Counts) -> String {
+        RemoteContentService.updateToast(courseName: courseName, before: before, after: after, in: .empty).message
+    }
+
+    func testSheetTextReplacesTheBuiltInOne() {
+        let messages = AppMessages(version: 3, welcome: [], texts: [
+            .init(id: "t1", key: "content_new_units", title: LocalizedText(en: "Fresh!"),
+                  body: LocalizedText(en: "{course}: +{units} units, +{words} words"))
+        ])
+        let toast = RemoteContentService.updateToast(courseName: "Japanese",
+                                                     before: Counts(units: 11, lessons: 40, words: 293),
+                                                     after: Counts(units: 12, lessons: 42, words: 303),
+                                                     in: messages)
+        XCTAssertEqual(toast.title, "Fresh!")
+        XCTAssertEqual(toast.message, "Japanese: +1 units, +10 words")
+    }
+
+    func testNewUnitMentionsUnitsAndWords() {
+        let message = message(courseName: "Japanese",
+                                                         before: Counts(units: 11, lessons: 40, words: 293),
+                                                         after: Counts(units: 12, lessons: 42, words: 303))
+        XCTAssertEqual(message, "content_updated_new_units".localizedFormat("Japanese", 1, 10))
+        XCTAssertTrue(message.contains("10"), message)
+    }
+
+    func testNewWordsOnly() {
+        let message = message(courseName: "Japanese",
+                                                         before: Counts(units: 12, lessons: 42, words: 303),
+                                                         after: Counts(units: 12, lessons: 42, words: 306))
+        XCTAssertEqual(message, "content_updated_new_words".localizedFormat("Japanese", 3))
+    }
+
+    func testTextFixesUseTheGeneralMessage() {
+        let same = Counts(units: 12, lessons: 42, words: 303)
+        XCTAssertEqual(message(courseName: "Japanese", before: same, after: same),
+                       "content_updated_message".localized())
+        XCTAssertEqual(message(courseName: "Japanese", before: same,
+                                                          after: Counts(units: 12, lessons: 42, words: 300)),
+                       "content_updated_message".localized(), "Removed words aren't announced as new")
+    }
+
+    func testToastsAreQueuedWithoutDuplicates() {
+        let state = UserMessageState()
+        state.showToast(item: UserMessageItem(title: "A", message: "1"))
+        state.showToast(item: UserMessageItem(title: "B", message: "2"))
+        state.showToast(item: UserMessageItem(title: "A", message: "1"))
+        XCTAssertEqual(state.toastMessages.map(\.title), ["A", "B"])
+        state.hide()
+        XCTAssertEqual(state.toastMessages.first?.title, "B")
+    }
+}
+
+@MainActor
+final class MessageCatalogTests: XCTestCase {
+    private func welcome(_ id: String, when: String, minDaysAway: Int = 0, weight: Int = 1) -> AppMessages.Welcome {
+        AppMessages.Welcome(id: id, when: when, minDaysAway: minDaysAway, weight: weight,
+                            title: LocalizedText(en: id), message: LocalizedText(en: id))
+    }
+
+    func testConditions() {
+        let streak = WelcomeContext(streak: 5, daysSinceStudy: 1, studiedToday: false, hour: 8)
+        XCTAssertTrue(MessageCatalog.matches(welcome("a", when: "any"), streak))
+        XCTAssertTrue(MessageCatalog.matches(welcome("s", when: "streak"), streak))
+        XCTAssertFalse(MessageCatalog.matches(welcome("n", when: "no_streak"), streak))
+        XCTAssertTrue(MessageCatalog.matches(welcome("m", when: "morning"), streak))
+        XCTAssertFalse(MessageCatalog.matches(welcome("e", when: "evening"), streak))
+        XCTAssertFalse(MessageCatalog.matches(welcome("t", when: "studied_today"), streak))
+        XCTAssertFalse(MessageCatalog.matches(welcome("x", when: "unknown"), streak))
+
+        let away = WelcomeContext(streak: 0, daysSinceStudy: 4, studiedToday: false, hour: 20)
+        XCTAssertTrue(MessageCatalog.matches(welcome("w", when: "away", minDaysAway: 3), away))
+        XCTAssertFalse(MessageCatalog.matches(welcome("w", when: "away", minDaysAway: 7), away))
+        XCTAssertFalse(MessageCatalog.matches(welcome("w", when: "away"), WelcomeContext(daysSinceStudy: nil)),
+                       "Never studied isn't 'away'")
+    }
+
+    func testPickAvoidsTheLastOneAndRespectsConditions() {
+        let list = [welcome("a", when: "any"), welcome("b", when: "any"), welcome("s", when: "streak")]
+        var rng = SystemRandomNumberGenerator()
+        for _ in 0..<50 {
+            let picked = MessageCatalog.pickWelcome(list, context: WelcomeContext(streak: 0), lastId: "a", using: &rng)
+            XCTAssertEqual(picked?.id, "b")
+        }
+        // Only one candidate → shown again even if it was the last one.
+        let only = MessageCatalog.pickWelcome([welcome("a", when: "any")], context: WelcomeContext(), lastId: "a", using: &rng)
+        XCTAssertEqual(only?.id, "a")
+        XCTAssertNil(MessageCatalog.pickWelcome([welcome("s", when: "streak")], context: WelcomeContext(), lastId: nil, using: &rng))
+    }
+
+    func testWeights() {
+        let list = [welcome("heavy", when: "any", weight: 9), welcome("light", when: "any", weight: 1)]
+        var rng = SystemRandomNumberGenerator()
+        let heavy = (0..<2000).filter { _ in
+            MessageCatalog.pickWelcome(list, context: WelcomeContext(), lastId: nil, using: &rng)?.id == "heavy"
+        }.count
+        XCTAssertGreaterThan(heavy, 1600)
+        XCTAssertLessThan(heavy, 1950)
+    }
+
+    func testPlaceholders() {
+        XCTAssertEqual(MessageCatalog.fill("Hi, {name}! {streak} days", ["name": "Hao", "streak": "5"]), "Hi, Hao! 5 days")
+        XCTAssertEqual(MessageCatalog.fill("Hi, {name}!", ["name": ""]), "Hi!")
+        XCTAssertEqual(MessageCatalog.fill("Chào {name}!", [:]), "Chào!")
+        XCTAssertEqual(MessageCatalog.fill("おかえりなさい、{name}さん！", [:]), "おかえりなさい！")
+        XCTAssertEqual(MessageCatalog.fill("{name}님, 반가워요", [:]), "반가워요", "No dangling comma at the start")
+    }
+
+    func testWelcomeFallsBackToBuiltInText() {
+        let defaults = UserDefaults(suiteName: "MessageCatalogTests")!
+        defaults.removePersistentDomain(forName: "MessageCatalogTests")
+        let result = MessageCatalog.welcome(context: WelcomeContext(), values: [:], in: .empty, defaults: defaults)
+        XCTAssertEqual(result.title, "welcome_back_title".localized())
+        XCTAssertEqual(result.message, "welcome_back_message".localized())
+    }
+
+    func testDecodesPublishedFile() throws {
+        let json = """
+        {"version": 2,
+         "welcome": [{"id": "w01", "when": "any", "minDaysAway": 0, "weight": 1,
+                      "title": {"en": "Welcome back!", "vi": "Chào mừng trở lại!"},
+                      "message": {"en": "Let's go"}}],
+         "texts": [{"id": "t05", "key": "word_reminder", "title": {"en": "Words · {course}"}}]}
+        """
+        let messages = try JSONDecoder().decode(AppMessages.self, from: Data(json.utf8))
+        XCTAssertEqual(messages.version, 2)
+        XCTAssertEqual(messages.welcome.first?.title.vi, "Chào mừng trở lại!")
+        XCTAssertNil(messages.texts.first?.body)
+        XCTAssertEqual(MessageCatalog.text("word_reminder", values: ["course": "Japanese"], in: messages)?.title,
+                       "Words · Japanese")
+        XCTAssertNil(MessageCatalog.text("reminder", in: messages))
+    }
+
+    func testReadableToastStaysLongEnough() {
+        XCTAssertNil(UserMessageItem(title: "A", message: "B").duration, "Other toasts keep the default 3 s")
+        XCTAssertEqual(UserMessageItem(title: "Hi", message: "Go").readable().duration, 5, "At least 5 s")
+        let medium = UserMessageItem(title: "Welcome back!",
+                                     message: "Great to see you again. A few minutes today keeps your progress going.").readable()
+        XCTAssertEqual(medium.duration ?? 0, 2.5 + 84.0 / 15, accuracy: 0.01)
+        XCTAssertEqual(UserMessageItem(title: "T", message: String(repeating: "a", count: 400)).readable().duration, 10,
+                       "At most 10 s")
+    }
+
+    func testWelcomeContextFromActivity() {
+        let calendar = Calendar(identifier: .gregorian)
+        let now = calendar.date(from: DateComponents(year: 2026, month: 10, day: 10, hour: 9))!
+        let day = calendar.date(byAdding: .day, value: -4, to: now)!
+        let old = DailyActivity(dayKey: ProgressService.dayKey(for: day, calendar: calendar), date: day)
+        old.xp = 20
+        let context = MessageCatalog.welcomeContext(activities: [old], now: now, calendar: calendar)
+        XCTAssertEqual(context.daysSinceStudy, 4)
+        XCTAssertFalse(context.studiedToday)
+        XCTAssertEqual(context.hour, 9)
+        XCTAssertNil(MessageCatalog.welcomeContext(activities: [], now: now, calendar: calendar).daysSinceStudy)
     }
 }

@@ -39,13 +39,22 @@ struct ContentManifest: Decodable, Equatable {
     /// Oldest app version that understands this content ("1.0").
     let minAppVersion: String
     let courses: [Entry]
+    /// Welcome toasts + notification texts (messages.json, from the "App Messages" sheet). Optional.
+    let messages: MessagesEntry?
+
+    struct MessagesEntry: Decodable, Equatable {
+        let version: Int
+        let file: String
+        let sha256: String
+    }
 }
 
 enum RemoteContentService {
     static let baseURL = URL(string: "https://haonguyendev.github.io/LanguageApp-content/v1/")!
     static let supportedSchema = 1
-    /// Minimum time between two automatic checks.
-    static let checkInterval: TimeInterval = 6 * 60 * 60
+    /// Minimum time between two checks when the app comes back to the foreground
+    /// (a cold launch always checks).
+    static let checkInterval: TimeInterval = 30 * 60
 
     private enum Keys {
         static let lastCheck = "remoteContent.lastCheck"
@@ -161,6 +170,7 @@ enum RemoteContentService {
             guard manifest.schema == supportedSchema, isVersion(appVersion, atLeast: manifest.minAppVersion) else {
                 return .unsupported
             }
+            await downloadMessages(manifest.messages, channel: channel, session: session)
             let entries = coursesToDownload(manifest, installed: known, appVersion: appVersion)
             guard !entries.isEmpty else { return .upToDate }
 
@@ -181,6 +191,25 @@ enum RemoteContentService {
         } catch {
             Logger.shared.error("Remote content check failed: \(error)")
             return .failed(error.localizedDescription)
+        }
+    }
+
+    /// Newer messages.json → checked and used right away (it doesn't touch SwiftData).
+    /// A failure only keeps the texts the app already has.
+    private static func downloadMessages(_ entry: ContentManifest.MessagesEntry?, channel: ContentChannel,
+                                         session: URLSession) async {
+        guard let entry, entry.version > MessageCatalog.installedVersion else { return }
+        do {
+            let url = baseURL.appendingPathComponent(channel.rawValue).appendingPathComponent(entry.file)
+            let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 15)
+            let (data, response) = try await session.data(for: request)
+            guard (response as? HTTPURLResponse)?.statusCode == 200, sha256(data) == entry.sha256.lowercased() else {
+                Logger.shared.error("Remote content: \(entry.file) failed the check, skipped")
+                return
+            }
+            try MessageCatalog.install(data)
+        } catch {
+            Logger.shared.error("Remote messages failed: \(error)")
         }
     }
 
@@ -237,5 +266,48 @@ enum RemoteContentService {
 
     static func resetSchedule(defaults: UserDefaults = .standard) {
         defaults.removeObject(forKey: Keys.lastCheck)
+    }
+
+    // MARK: - What changed (toast)
+
+    struct ContentCounts: Equatable {
+        var units = 0
+        var lessons = 0
+        var words = 0
+    }
+
+    static func counts(of course: Course?) -> ContentCounts {
+        guard let course else { return ContentCounts() }
+        return ContentCounts(units: course.sortedUnits.count,
+                             lessons: course.orderedLessons.count,
+                             words: course.allItems.count)
+    }
+
+    /// Title + message of the content-update toast. A text from the "App Messages" sheet
+    /// (title → toast title, body → toast message) when published, else the built-in strings.
+    static func updateToast(courseName: String?, before: ContentCounts, after: ContentCounts,
+                            in messages: AppMessages = MessageCatalog.current) -> (title: String, message: String) {
+        let units = max(0, after.units - before.units)
+        let words = max(0, after.words - before.words)
+        let key: String
+        let values: [String: String]
+        let fallback: String
+        if let courseName, units > 0 {
+            key = "content_new_units"
+            values = ["course": courseName, "units": "\(units)", "words": "\(words)"]
+            fallback = "content_updated_new_units".localizedFormat(courseName, units, words)
+        } else if let courseName, words > 0 {
+            key = "content_new_words"
+            values = ["course": courseName, "words": "\(words)"]
+            fallback = "content_updated_new_words".localizedFormat(courseName, words)
+        } else {
+            key = "content_updated"
+            values = [:]
+            fallback = "content_updated_message".localized()
+        }
+        if let remote = MessageCatalog.text(key, values: values, in: messages), let body = remote.body, !body.isEmpty {
+            return (remote.title, body)
+        }
+        return ("content_updated_title".localized(), fallback)
     }
 }
