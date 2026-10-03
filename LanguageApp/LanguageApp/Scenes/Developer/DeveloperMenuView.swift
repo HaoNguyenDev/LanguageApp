@@ -242,6 +242,14 @@ struct DeveloperMenuView: View {
                     NotificationManager.reschedule(in: modelContext, settings: userSettings)
                     Task { plannedNotifications = await NotificationManager.debugPendingSummary() }
                 }
+                Button("Update the word widget now") {
+                    WordWidgetService.update(in: modelContext, settings: userSettings)
+                    WordWidgetService.reload()
+                    let data = WordWidgetData.load()
+                    toast(data == nil
+                          ? "Widget data not saved – check the App Group capability"
+                          : "Widget: \(data?.words.count ?? 0) words, every \(data?.intervalMinutes ?? 0) min")
+                }
                 ForEach(notificationSettings, id: \.self) { line in
                     Text(line)
                         .font(.system(size: 11, weight: .semibold, design: .monospaced))

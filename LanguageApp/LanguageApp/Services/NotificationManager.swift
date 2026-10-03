@@ -86,6 +86,8 @@ enum NotificationManager {
             ? wordReminderRequests(in: context, settings: settings, maxCount: maxPending - smart.count, now: now)
             : []
         let requests = smart + words
+        // The home-screen widget shows the same words as the word reminders.
+        WordWidgetService.update(in: context, settings: settings, now: now)
         let previous = rescheduleTask
         rescheduleTask = Task {
             await previous?.value

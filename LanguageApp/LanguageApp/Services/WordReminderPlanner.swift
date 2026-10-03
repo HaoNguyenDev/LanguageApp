@@ -19,6 +19,8 @@ struct ReminderWord: Equatable {
     let meaning: String
     /// Last graded Again / Hard in a review.
     let isHard: Bool
+    /// `WordWidgetData.Difficulty` raw value: 0 normal, 1 Hard, 2 Again.
+    var level: Int = 0
 }
 
 enum WordReminderPlanner {
@@ -64,11 +66,8 @@ enum WordReminderPlanner {
     /// The words shown at `date`: a window that moves through the pool with the clock, so the
     /// rotation continues where it was even after the notifications are re-planned.
     static func words(at date: Date, intervalMinutes: Int, pool: [ReminderWord], count: Int) -> [ReminderWord] {
-        guard !pool.isEmpty, count > 0 else { return [] }
-        if count >= pool.count { return pool }
-        let slot = Int(date.timeIntervalSince1970 / TimeInterval(max(intervalMinutes, 1) * 60))
-        let start = (slot * count) % pool.count
-        return (0..<count).map { pool[(start + $0) % pool.count] }
+        // Shared with the widget, so both show the same words at the same time.
+        WordWidgetData.words(slot: WordWidgetData.slot(at: date, intervalMinutes: intervalMinutes), pool: pool, count: count)
     }
 
     static func plan(now: Date, intervalMinutes: Int, wordsPerNotification: Int, pool: [ReminderWord],
@@ -116,8 +115,11 @@ enum WordReminderPlanner {
         var seen = Set<String>()
         var result: [ReminderWord] = []
         for item in latestLessonWords + hardWords where seen.insert(item.remoteId).inserted {
+            let isHard = hardIds.contains(item.remoteId)
+            let level: WordWidgetData.Difficulty = !isHard ? .normal
+                : item.lastReviewGrade == ReviewGrade.again.rawValue ? .again : .hard
             result.append(ReminderWord(id: item.remoteId, term: item.term, reading: item.reading,
-                                       meaning: item.meaning.text, isHard: hardIds.contains(item.remoteId)))
+                                       meaning: item.meaning.text, isHard: isHard, level: level.rawValue))
         }
         return result
     }

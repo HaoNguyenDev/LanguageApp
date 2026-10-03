@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA9B8601306BA13C00FE0827 /* LanguageAppWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DA9B8600306BA13C00FE0827 /* LanguageAppWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DA9B8422306BA13C00FE0827 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DA9B8421306BA13C00FE0827 /* Lottie */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +26,34 @@
 			remoteGlobalIDString = DA9B83F1306BA13A00FE0827;
 			remoteInfo = LanguageApp;
 		};
+		DA9B8603306BA13C00FE0827 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA9B83EA306BA13A00FE0827 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA9B8608306BA13C00FE0827;
+			remoteInfo = LanguageAppWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA9B8602306BA13C00FE0827 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DA9B8601306BA13C00FE0827 /* LanguageAppWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DA9B83F2306BA13A00FE0827 /* LanguageApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LanguageApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9B8401306BA13C00FE0827 /* LanguageAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LanguageAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9B840B306BA13C00FE0827 /* LanguageAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LanguageAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA9B8600306BA13C00FE0827 /* LanguageAppWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LanguageAppWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -38,9 +61,18 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				LanguageApp.entitlements,
 				LinguaPath.storekit,
 			);
 			target = DA9B83F1306BA13A00FE0827 /* LanguageApp */;
+		};
+		DA9B8605306BA13C00FE0827 /* Exceptions for "LanguageAppWidget" folder in "LanguageAppWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				LanguageAppWidget.entitlements,
+			);
+			target = DA9B8608306BA13C00FE0827 /* LanguageAppWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -61,6 +93,19 @@
 		DA9B840E306BA13C00FE0827 /* LanguageAppUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = LanguageAppUITests;
+			sourceTree = "<group>";
+		};
+		DA9B8606306BA13C00FE0827 /* LanguageAppWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DA9B8605306BA13C00FE0827 /* Exceptions for "LanguageAppWidget" folder in "LanguageAppWidgetExtension" target */,
+			);
+			path = LanguageAppWidget;
+			sourceTree = "<group>";
+		};
+		DA9B8607306BA13C00FE0827 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -88,6 +133,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA9B860A306BA13C00FE0827 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,6 +149,8 @@
 				DA9B83F4306BA13A00FE0827 /* LanguageApp */,
 				DA9B8404306BA13C00FE0827 /* LanguageAppTests */,
 				DA9B840E306BA13C00FE0827 /* LanguageAppUITests */,
+				DA9B8606306BA13C00FE0827 /* LanguageAppWidget */,
+				DA9B8607306BA13C00FE0827 /* Shared */,
 				DA9B83F3306BA13A00FE0827 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +161,7 @@
 				DA9B83F2306BA13A00FE0827 /* LanguageApp.app */,
 				DA9B8401306BA13C00FE0827 /* LanguageAppTests.xctest */,
 				DA9B840B306BA13C00FE0827 /* LanguageAppUITests.xctest */,
+				DA9B8600306BA13C00FE0827 /* LanguageAppWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -121,13 +176,16 @@
 				DA9B83EE306BA13A00FE0827 /* Sources */,
 				DA9B83EF306BA13A00FE0827 /* Frameworks */,
 				DA9B83F0306BA13A00FE0827 /* Resources */,
+				DA9B8602306BA13C00FE0827 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DA9B8604306BA13C00FE0827 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DA9B83F4306BA13A00FE0827 /* LanguageApp */,
+				DA9B8607306BA13C00FE0827 /* Shared */,
 			);
 			name = LanguageApp;
 			packageProductDependencies = (
@@ -183,6 +241,29 @@
 			productReference = DA9B840B306BA13C00FE0827 /* LanguageAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DA9B8608306BA13C00FE0827 /* LanguageAppWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA9B860E306BA13C00FE0827 /* Build configuration list for PBXNativeTarget "LanguageAppWidgetExtension" */;
+			buildPhases = (
+				DA9B8609306BA13C00FE0827 /* Sources */,
+				DA9B860A306BA13C00FE0827 /* Frameworks */,
+				DA9B860B306BA13C00FE0827 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DA9B8606306BA13C00FE0827 /* LanguageAppWidget */,
+				DA9B8607306BA13C00FE0827 /* Shared */,
+			);
+			name = LanguageAppWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = LanguageAppWidgetExtension;
+			productReference = DA9B8600306BA13C00FE0827 /* LanguageAppWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -203,6 +284,9 @@
 					DA9B840A306BA13C00FE0827 = {
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = DA9B83F1306BA13A00FE0827;
+					};
+					DA9B8608306BA13C00FE0827 = {
+						CreatedOnToolsVersion = 26.3;
 					};
 				};
 			};
@@ -226,6 +310,7 @@
 				DA9B83F1306BA13A00FE0827 /* LanguageApp */,
 				DA9B8400306BA13C00FE0827 /* LanguageAppTests */,
 				DA9B840A306BA13C00FE0827 /* LanguageAppUITests */,
+				DA9B8608306BA13C00FE0827 /* LanguageAppWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -246,6 +331,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DA9B8409306BA13C00FE0827 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA9B860B306BA13C00FE0827 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -276,6 +368,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA9B8609306BA13C00FE0827 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -288,6 +387,11 @@
 			isa = PBXTargetDependency;
 			target = DA9B83F1306BA13A00FE0827 /* LanguageApp */;
 			targetProxy = DA9B840C306BA13C00FE0827 /* PBXContainerItemProxy */;
+		};
+		DA9B8604306BA13C00FE0827 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA9B8608306BA13C00FE0827 /* LanguageAppWidgetExtension */;
+			targetProxy = DA9B8603306BA13C00FE0827 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -419,6 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LanguageApp/LanguageApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 958VLT7HQ2;
@@ -452,6 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LanguageApp/LanguageApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 958VLT7HQ2;
@@ -562,6 +668,64 @@
 			};
 			name = Release;
 		};
+		DA9B860C306BA13C00FE0827 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LanguageAppWidget/LanguageAppWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 958VLT7HQ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguageAppWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "LinguaPath Dev";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haonguyen.apps.LanguageApp.WordWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DA9B860D306BA13C00FE0827 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = LanguageAppWidget/LanguageAppWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 958VLT7HQ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LanguageAppWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "LinguaPath";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haonguyen.apps.LanguageApp.WordWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -597,6 +761,15 @@
 			buildConfigurations = (
 				DA9B841C306BA13C00FE0827 /* Debug */,
 				DA9B841D306BA13C00FE0827 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA9B860E306BA13C00FE0827 /* Build configuration list for PBXNativeTarget "LanguageAppWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA9B860C306BA13C00FE0827 /* Debug */,
+				DA9B860D306BA13C00FE0827 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
