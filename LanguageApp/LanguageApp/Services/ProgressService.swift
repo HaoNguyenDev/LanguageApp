@@ -129,6 +129,8 @@ struct LessonResult: Hashable {
     var completedQuests: [DailyQuest] = []
     /// Set for a unit checkpoint (pass / fail).
     var checkpoint: CheckpointOutcome?
+    /// Achievements unlocked by this lesson.
+    var newAchievements: [Achievement] = []
 }
 
 enum LessonCompletionService {
@@ -170,7 +172,8 @@ enum LessonCompletionService {
                             streak: ProgressService.streak(from: activities, today: now),
                             isPerfect: isPerfect,
                             reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP,
-                            completedQuests: quests)
+                            completedQuests: quests,
+                            newAchievements: AchievementService.checkNew(in: context, now: now))
     }
 
     /// Resets lessons + SRS of a course (keeps XP history).

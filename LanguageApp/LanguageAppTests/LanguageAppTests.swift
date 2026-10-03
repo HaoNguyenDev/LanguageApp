@@ -1201,3 +1201,71 @@ final class NotificationPlannerTests: XCTestCase {
         XCTAssertEqual(ProgressService.activity(on: morning, in: context).firstActiveAt, morning)
     }
 }
+
+@MainActor
+final class AchievementTests: XCTestCase {
+    private let suiteName = "AchievementTests"
+
+    override func tearDown() {
+        UserDefaults(suiteName: suiteName)?.removePersistentDomain(forName: suiteName)
+        super.tearDown()
+    }
+
+    func testLongestStreakKeepsTheBestChain() {
+        let active: Set<String> = ["2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04",
+                                   "2026-09-10", "2026-09-11"]
+        XCTAssertEqual(AchievementService.longestStreak(activeDayKeys: active, frozenDayKeys: []), 4)
+    }
+
+    func testFrozenDayBridgesTheChainWithoutCounting() {
+        let active: Set<String> = ["2026-09-01", "2026-09-02", "2026-09-04"]
+        XCTAssertEqual(AchievementService.longestStreak(activeDayKeys: active, frozenDayKeys: ["2026-09-03"]), 3)
+        XCTAssertEqual(AchievementService.longestStreak(activeDayKeys: active, frozenDayKeys: []), 2)
+        XCTAssertEqual(AchievementService.longestStreak(activeDayKeys: [], frozenDayKeys: []), 0)
+    }
+
+    func testChainAcrossMonthEnd() {
+        XCTAssertEqual(AchievementService.longestStreak(activeDayKeys: ["2026-09-30", "2026-10-01"], frozenDayKeys: []), 2)
+    }
+
+    func testNewlyReachedSkipsUnlockedOnes() {
+        let stats = AchievementStats(bestStreak: 7, lessonsCompleted: 1)
+        let ids = Set(AchievementService.newlyReached(stats, unlockedIds: ["streak3"]).map(\.id))
+        XCTAssertEqual(ids, ["first_lesson", "streak7"])
+    }
+
+    func testProgress() throws {
+        let words = try XCTUnwrap(Achievement.all.first { $0.id == "words50" })
+        let progress = words.progress(AchievementStats(wordsLearned: 20))
+        XCTAssertEqual(progress.value, 20)
+        XCTAssertEqual(progress.target, 50)
+        XCTAssertEqual(Set(Achievement.all.map(\.id)).count, Achievement.all.count, "Ids are unique")
+    }
+
+    func testQuestDaysCountOnlyFullyClaimedDays() {
+        _ = PersistenceController.makeContainer(inMemory: true)
+        let done = DailyActivity(dayKey: "2026-09-01", date: .now)
+        done.questKinds = ["earn_xp", "complete_lessons", "perfect_lesson"]
+        done.claimedQuests = ["complete_lessons", "earn_xp", "perfect_lesson"]
+        let partial = DailyActivity(dayKey: "2026-09-02", date: .now)
+        partial.questKinds = ["earn_xp", "complete_lessons", "perfect_lesson"]
+        partial.claimedQuests = ["earn_xp"]
+        let stats = AchievementService.stats(activities: [done, partial], wordsLearned: 0, lessonsCompleted: 0,
+                                             perfectLessonsFromHistory: 0, checkpointsPassed: 0)
+        XCTAssertEqual(stats.questDaysCompleted, 1)
+    }
+
+    func testCheckNewUnlocksOnceAndKeepsIt() throws {
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        defaults.removePersistentDomain(forName: suiteName)
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ProgressService.record(xp: 600, lessons: 1, perfect: 1, in: context)
+        try context.save()
+
+        let first = AchievementService.checkNew(in: context, defaults: defaults)
+        XCTAssertTrue(Set(first.map(\.id)).isSuperset(of: ["perfect", "xp500"]))
+        XCTAssertTrue(AchievementService.checkNew(in: context, defaults: defaults).isEmpty, "Unlocked only once")
+        XCTAssertNotNil(AchievementService.unlockedDates(defaults: defaults)["xp500"])
+    }
+}

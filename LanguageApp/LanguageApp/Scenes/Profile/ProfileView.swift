@@ -26,7 +26,6 @@ struct ProfileStats {
     let todayXP: Int
     let wordsLearned: Int
     let lessonsCompleted: Int
-    let hasPerfectLesson: Bool
 }
 
 struct ProfileView: View {
@@ -35,6 +34,7 @@ struct ProfileView: View {
     @Query private var activities: [DailyActivity]
     @Query(filter: #Predicate<VocabItem> { $0.srsDue != nil }) private var learnedItems: [VocabItem]
     @Query(filter: #Predicate<Lesson> { $0.isCompleted }) private var completedLessons: [Lesson]
+    @Query(filter: #Predicate<CourseUnit> { $0.checkpointPassed }) private var passedUnits: [CourseUnit]
 
     var onOpenPaywall: VoidResult?
 
@@ -46,8 +46,15 @@ struct ProfileView: View {
                      totalXP: ProgressService.totalXP(from: activities),
                      todayXP: ProgressService.xp(on: .now, from: activities),
                      wordsLearned: learnedItems.count,
-                     lessonsCompleted: completedLessons.count,
-                     hasPerfectLesson: completedLessons.contains { $0.bestAccuracy >= 0.999 })
+                     lessonsCompleted: completedLessons.count)
+    }
+
+    private var achievementStats: AchievementStats {
+        AchievementService.stats(activities: activities,
+                                 wordsLearned: learnedItems.count,
+                                 lessonsCompleted: completedLessons.count,
+                                 perfectLessonsFromHistory: completedLessons.filter { $0.bestAccuracy >= 0.999 }.count,
+                                 checkpointsPassed: passedUnits.count)
     }
 
     var body: some View {
@@ -59,7 +66,7 @@ struct ProfileView: View {
                 dailyGoalCard(stats: stats)
                 statsGrid(stats: stats)
                 weeklyChart
-                achievements(stats: stats)
+                achievements(stats: achievementStats)
                 if !premium.isPremium {
                     Button {
                         onOpenPaywall?()
@@ -213,54 +220,79 @@ struct ProfileView: View {
         }
     }
 
-    private func achievements(stats: ProfileStats) -> some View {
+    private func achievements(stats: AchievementStats) -> some View {
         let theme = userSettings.theme
+        let unlockedIds = Set(AchievementService.unlockedDates().keys)
+        let isUnlocked: (Achievement) -> Bool = { unlockedIds.contains($0.id) || $0.isUnlocked(stats) }
+        let unlockedCount = Achievement.all.filter(isUnlocked).count
+        let ratio: (Achievement) -> Double = { achievement in
+            let p = achievement.progress(stats)
+            return Double(p.value) / Double(max(p.target, 1))
+        }
+        // Unlocked first, then the ones closest to being reached.
+        let sorted = Achievement.all.sorted { a, b in
+            let ua = isUnlocked(a), ub = isUnlocked(b)
+            if ua != ub { return ua }
+            return ratio(a) > ratio(b)
+        }
         return VStack(alignment: .leading, spacing: 12) {
-            Text("achievements".localized())
-                .setFont(.bold, size: 20, color: theme.textColor)
-            ForEach(Achievement.all) { achievement in
-                let unlocked = achievement.isUnlocked(stats)
-                HStack(spacing: 14) {
-                    Image(systemName: achievement.icon)
-                        .font(.system(size: 22, weight: .bold))
-                        .foregroundStyle(unlocked ? .white : theme.secondaryTextColor)
-                        .frame(width: 48, height: 48)
-                        .background(unlocked ? theme.xpColor : theme.lockedColor.opacity(0.5),
-                                    in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(achievement.titleKey.localized())
-                            .setFont(.bold, size: 16, color: theme.textColor)
-                        Text(achievement.descriptionKey.localized())
-                            .setFont(.regular, size: 13, color: theme.secondaryTextColor)
-                    }
-                    Spacer()
-                    if unlocked {
-                        Image(systemName: "checkmark.circle.fill").foregroundStyle(theme.correctColor)
-                    }
-                }
-                .opacity(unlocked ? 1 : 0.7)
+            HStack {
+                Text("achievements".localized())
+                    .setFont(.bold, size: 20, color: theme.textColor)
+                Spacer()
+                Text("\(unlockedCount)/\(Achievement.all.count)")
+                    .setFont(.bold, size: 15, color: theme.secondaryTextColor)
+            }
+            ForEach(sorted) { achievement in
+                AchievementRow(achievement: achievement,
+                               unlocked: isUnlocked(achievement),
+                               progress: achievement.progress(stats))
             }
         }
     }
 }
 
-// MARK: - Achievements
+// MARK: - Achievement row
 
-struct Achievement: Identifiable {
-    let id: String
-    let icon: String
-    let titleKey: String
-    let descriptionKey: String
-    let isUnlocked: (ProfileStats) -> Bool
+struct AchievementRow: View {
+    @Environment(UserSettings.self) private var userSettings
+    let achievement: Achievement
+    let unlocked: Bool
+    let progress: (value: Int, target: Int)
 
-    static let all: [Achievement] = [
-        Achievement(id: "first_lesson", icon: "flag.checkered", titleKey: "ach_first_lesson", descriptionKey: "ach_first_lesson_desc") { $0.lessonsCompleted >= 1 },
-        Achievement(id: "perfect", icon: "star.fill", titleKey: "ach_perfect", descriptionKey: "ach_perfect_desc") { $0.hasPerfectLesson },
-        Achievement(id: "streak3", icon: "flame.fill", titleKey: "ach_streak_3", descriptionKey: "ach_streak_3_desc") { $0.streak >= 3 },
-        Achievement(id: "streak7", icon: "flame.circle.fill", titleKey: "ach_streak_7", descriptionKey: "ach_streak_7_desc") { $0.streak >= 7 },
-        Achievement(id: "words50", icon: "character.book.closed.fill", titleKey: "ach_words_50", descriptionKey: "ach_words_50_desc") { $0.wordsLearned >= 50 },
-        Achievement(id: "xp500", icon: "bolt.circle.fill", titleKey: "ach_xp_500", descriptionKey: "ach_xp_500_desc") { $0.totalXP >= 500 }
-    ]
+    var body: some View {
+        let theme = userSettings.theme
+        HStack(spacing: 14) {
+            Image(systemName: achievement.icon)
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(unlocked ? .white : theme.secondaryTextColor)
+                .frame(width: 48, height: 48)
+                .background(unlocked ? theme.xpColor : theme.lockedColor.opacity(0.5),
+                            in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            VStack(alignment: .leading, spacing: 4) {
+                Text(achievement.titleKey.localized())
+                    .setFont(.bold, size: 16, color: theme.textColor)
+                Text(achievement.descriptionKey.localized())
+                    .setFont(.regular, size: 13, color: theme.secondaryTextColor)
+                if !unlocked {
+                    HStack(spacing: 8) {
+                        LessonProgressBar(progress: Double(min(progress.value, progress.target)) / Double(progress.target),
+                                          height: 8,
+                                          color: theme.xpColor)
+                        Text("\(min(progress.value, progress.target))/\(progress.target)")
+                            .setFont(.semibold, size: 11, color: theme.secondaryTextColor)
+                            .monospacedDigit()
+                    }
+                }
+            }
+            Spacer()
+            if unlocked {
+                Image(systemName: "checkmark.circle.fill").foregroundStyle(theme.correctColor)
+            }
+        }
+        .opacity(unlocked ? 1 : 0.75)
+        .accessibilityElement(children: .combine)
+    }
 }
 
 #Preview {

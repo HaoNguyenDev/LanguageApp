@@ -14,8 +14,8 @@ _Last updated: 2026-10-03_
 | **0.9** | Stabilize | ✅ Done | `fix/first-build`, `fix/translation-review` |
 | **0.10** | Content | ✅ Done | `feature/more-units`, `feature/more-words` |
 | **0.11** | New exercise types | ✅ Done | `feature/sentence-builder`, `feature/typing-exercise`, `feature/fill-in-blank`, `feature/practice-mistakes` |
-| **0.12** | Engagement | 🟡 In progress | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
-| **0.13** | Polish | ⚪ Planned | `feature/native-audio`, `feature/accessibility` |
+| **0.12** | Engagement | ✅ Done | `feature/streak-freeze`, `feature/daily-quests`, `feature/unit-checkpoint`, `feature/smart-notifications` |
+| **0.13** | Polish | 🟡 Next | `feature/native-audio`, `feature/accessibility` |
 | **1.0.0** | Release on the App Store | ⚪ Planned | `release/1.0.0` |
 | **1.1.0** | Sync & accounts | ⚪ Planned | `feature/icloud-sync`, `feature/sign-in-with-apple` |
 | **1.2.0** | Remote content | ⚪ Planned | `feature/remote-content` |
@@ -95,7 +95,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Practice mistakes – a lesson built from the learner's weakest / most-missed words
 - [x] Exercise mix tuned by difficulty (new lesson vs. replay)
 
-## 🟡 v0.12 – Engagement
+## ✅ v0.12 – Engagement (done)
 
 **Goal:** reasons to come back every day.
 
@@ -103,7 +103,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [x] Daily quests – 3 a day (earn the daily goal + two of: complete 2 lessons, review 15 cards, perfect lesson) with automatic XP rewards
 - [x] Unit checkpoint – a short test at the end of each unit (10 words, ≥ 80 % to pass, unlocks the next unit)
 - [x] Smart notifications – streak at risk (21:00), cards due, reminder at the learner's usual time (planned 7 days ahead, re-planned when the app opens / closes)
-- [ ] More achievements and a celebration when a unit is completed
+- [x] More achievements (15, kept once unlocked, with progress) and a celebration (confetti) when a unit is completed
 
 ## ⚪ v0.13 – Polish
 

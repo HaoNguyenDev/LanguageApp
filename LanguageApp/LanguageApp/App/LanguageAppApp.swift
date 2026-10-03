@@ -48,6 +48,7 @@ struct LanguageAppApp: App {
                     await premiumManager.start()
                     isPremiumReady = true
                     applyStreakFreezes()
+                    checkAchievements()
                     NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
                 }
                 .onChange(of: scenePhase) { _, phase in
@@ -56,6 +57,7 @@ struct LanguageAppApp: App {
                     case .active:
                         DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
                         applyStreakFreezes()
+                        checkAchievements()
                         NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
                     case .background:
                         // After studying: today gets no more reminders, tomorrow's streak warning is planned.
@@ -66,6 +68,14 @@ struct LanguageAppApp: App {
                 }
         }
         .modelContainer(modelContainer)
+    }
+
+    /// Unlocks achievements reached outside lessons (e.g. after an update that adds new ones).
+    private func checkAchievements() {
+        guard appState.isContentReady else { return }
+        let new = AchievementService.checkNew(in: modelContainer.mainContext)
+        guard !new.isEmpty else { return }
+        appState.showToast(item: AchievementService.toastItem(for: new))
     }
 
     /// Covers missed days with streak freezes and tells the learner.

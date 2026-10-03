@@ -37,7 +37,7 @@ struct DeveloperMenuView: View {
             switch self {
             case .completeAllLessons: return "Every lesson is marked completed and its words go into review."
             case .resetAllCourses: return "Lessons and review progress of all 6 courses go back to the start. XP, streak and quests are kept."
-            case .resetEverything: return "All courses, XP, streak, daily activity, quests, streak freezes and hearts are reset – like a fresh install. Settings and onboarding are kept."
+            case .resetEverything: return "All courses, XP, streak, daily activity, quests, achievements, streak freezes and hearts are reset – like a fresh install. Settings and onboarding are kept."
             }
         }
 
@@ -273,6 +273,7 @@ struct DeveloperMenuView: View {
         case .resetEverything:
             DebugActions.resetEverything(in: modelContext)
             gamification.debugResetAll()
+            AchievementService.resetAll()
             DailyQuestService.ensureTodayQuests(in: modelContext)
             toast("Everything reset")
         }
