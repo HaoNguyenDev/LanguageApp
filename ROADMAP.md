@@ -18,7 +18,7 @@ _Last updated: 2026-10-03_
 | **0.13** | Polish | 🟡 Next | `feature/native-audio`, `feature/accessibility` |
 | **1.0.0** | Release on the App Store | ⚪ Planned | `release/1.0.0` |
 | **1.1.0** | Sync & accounts | ⚪ Planned | `feature/icloud-sync`, `feature/sign-in-with-apple` |
-| **1.2.0** | Remote content | ⚪ Planned | `feature/remote-content` |
+| **1.2.0** | Remote content | ✅ Done early | `feature/remote-content` |
 | **2.x** | Social, skills & platforms | ⚪ Idea | `feature/leaderboard`, `feature/speaking`, `feature/writing`, `feature/widgets`, `feature/ai-conversation` |
 
 Legend: ✅ done · 🟡 in progress / next · ⚪ planned
@@ -134,7 +134,7 @@ Legend: ✅ done · 🟡 in progress / next · ⚪ planned
 - [ ] Sync `DailyActivity`, hearts and settings
 
 ### v1.2.0 – Remote content
-- [ ] `feature/remote-content` – download courses from a server/CDN via `ContentImporter.importCourse(from:)`, update content without an App Store release
+- [x] `feature/remote-content` – done early (Oct 2026): Google Sheet → *Publish content* workflow → GitHub Pages (`LanguageApp-content`, staging / production) → app downloads newer courses on launch and imports them keeping progress
 
 ### v2.x – Social, skills & platforms
 - [ ] `feature/leaderboard` – weekly leagues (requires accounts + backend), friends, sharing achievements

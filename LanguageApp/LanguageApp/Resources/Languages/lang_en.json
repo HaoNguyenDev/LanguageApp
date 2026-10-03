@@ -55,6 +55,8 @@
         "choose_course": "Choose a language",
         "choose_theme": "Choose Theme",
         "close": "Close",
+        "content_updated_message": "Lessons have been updated – your progress is kept.",
+        "content_updated_title": "New content!",
         "continue": "Continue",
         "continue_anyway": "Continue anyway",
         "correct_answer": "Correct answer:",

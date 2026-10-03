@@ -55,6 +55,8 @@
         "choose_course": "选择语言",
         "choose_theme": "选择主题",
         "close": "关闭",
+        "content_updated_message": "课程已更新，你的学习进度会保留。",
+        "content_updated_title": "内容已更新！",
         "continue": "继续",
         "continue_anyway": "仍然继续",
         "correct_answer": "正确答案：",

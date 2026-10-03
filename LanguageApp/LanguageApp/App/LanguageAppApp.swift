@@ -43,6 +43,8 @@ struct LanguageAppApp: App {
                 .task {
                     Logger.shared.info("UI language: \(userSettings.languageCode ?? "")")
                     await ContentImporter(context: modelContainer.mainContext).importBundledCoursesInSteps()
+                    // Content downloaded during the last session is applied while the splash is shown.
+                    applyRemoteContent(announce: false)
                     appState.isContentReady = true
                     DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
                     await premiumManager.start()
@@ -50,6 +52,10 @@ struct LanguageAppApp: App {
                     applyStreakFreezes()
                     checkAchievements()
                     NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
+                    await checkRemoteContent()
+                }
+                .onChange(of: appState.isStudying) { _, isStudying in
+                    if !isStudying { applyRemoteContent(announce: true) }
                 }
                 .onChange(of: scenePhase) { _, phase in
                     guard appState.isContentReady else { return }
@@ -59,6 +65,7 @@ struct LanguageAppApp: App {
                         applyStreakFreezes()
                         checkAchievements()
                         NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
+                        Task { await checkRemoteContent() }
                     case .background:
                         // After studying: today gets no more reminders, tomorrow's streak warning is planned.
                         NotificationManager.reschedule(in: modelContainer.mainContext, settings: userSettings)
@@ -68,6 +75,26 @@ struct LanguageAppApp: App {
                 }
         }
         .modelContainer(modelContainer)
+    }
+
+    /// Downloads newer course content (throttled), then applies it unless a lesson is open.
+    private func checkRemoteContent() async {
+        let result = await RemoteContentService.checkForUpdates(
+            installed: RemoteContentService.installedVersions(in: modelContainer.mainContext),
+            channel: DebugSettings.shared.effectiveContentChannel)
+        if case .downloaded = result { applyRemoteContent(announce: true) }
+    }
+
+    /// Imports downloaded course files (keeps progress). Waits while a lesson / review is open.
+    private func applyRemoteContent(announce: Bool) {
+        guard !appState.isStudying else { return }
+        let updated = RemoteContentService.applyPending(in: modelContainer.mainContext)
+        guard !updated.isEmpty else { return }
+        DailyQuestService.ensureTodayQuests(in: modelContainer.mainContext)
+        if announce {
+            appState.showToast(item: UserMessageItem(title: "content_updated_title".localized(),
+                                                     message: "content_updated_message".localized()))
+        }
     }
 
     /// Unlocks achievements reached outside lessons (e.g. after an update that adds new ones).

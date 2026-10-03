@@ -19,6 +19,8 @@ struct DeveloperMenuView: View {
 
     @State private var pendingAction: ConfirmAction?
     @State private var plannedNotifications: [String] = []
+    @State private var contentStatus: String?
+    @State private var isCheckingContent = false
 
     /// Destructive developer actions that ask for confirmation first.
     private enum ConfirmAction: Identifiable {
@@ -183,6 +185,27 @@ struct DeveloperMenuView: View {
             }
 
             Section {
+                Picker("Channel", selection: $debug.contentChannel) {
+                    ForEach(ContentChannel.allCases) { Text($0.rawValue.capitalized).tag($0) }
+                }
+                Button(isCheckingContent ? "Checking…" : "Check for content updates now") {
+                    checkContentNow()
+                }
+                .disabled(isCheckingContent)
+                if let status = contentStatus ?? RemoteContentService.lastResultDescription() {
+                    Text(status)
+                        .font(.system(size: 11, design: .monospaced))
+                }
+                ForEach(courses) { course in
+                    LabeledContent(course.remoteId, value: "v\(course.contentVersion)")
+                }
+            } header: {
+                Text("Remote content")
+            } footer: {
+                Text("Staging shows a sheet change on this device before it is published to everyone. Downloads are applied right away here (the developer menu isn't a lesson).\n\(RemoteContentService.manifestURL(channel: debug.contentChannel).absoluteString)")
+            }
+
+            Section {
                 Button("Send one of each notification in 5 s") {
                     Task {
                         guard await NotificationManager.requestAuthorization() else {
@@ -262,6 +285,24 @@ struct DeveloperMenuView: View {
             Button("Cancel", role: .cancel) {}
         } message: { action in
             Text(action.message)
+        }
+    }
+
+    private func checkContentNow() {
+        isCheckingContent = true
+        Task {
+            let result = await RemoteContentService.checkForUpdates(
+                installed: RemoteContentService.installedVersions(in: modelContext),
+                channel: DebugSettings.shared.contentChannel,
+                force: true)
+            let updated = RemoteContentService.applyPending(in: modelContext)
+            contentStatus = RemoteContentService.lastResultDescription()
+            isCheckingContent = false
+            switch result {
+            case .failed(let reason): toast("Content check failed: \(reason)")
+            case .unsupported: toast("Content needs a newer app version")
+            default: toast(updated.isEmpty ? "Content is up to date" : "Updated: \(updated.joined(separator: ", "))")
+            }
         }
     }
 

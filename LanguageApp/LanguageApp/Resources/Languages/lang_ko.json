@@ -55,6 +55,8 @@
         "choose_course": "언어 선택",
         "choose_theme": "테마 선택",
         "close": "닫기",
+        "content_updated_message": "레슨이 업데이트됐어요. 진행 상황은 그대로 유지돼요.",
+        "content_updated_title": "새 콘텐츠!",
         "continue": "계속",
         "continue_anyway": "그래도 계속",
         "correct_answer": "정답:",
