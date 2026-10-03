@@ -1320,3 +1320,101 @@ final class AchievementTests: XCTestCase {
         XCTAssertNotNil(AchievementService.unlockedDates(defaults: defaults)["xp500"])
     }
 }
+
+@MainActor
+final class RemoteContentTests: XCTestCase {
+    private func entry(_ id: String, _ version: Int, sha: String = "") -> ContentManifest.Entry {
+        ContentManifest.Entry(id: id, version: version, file: "course_\(id).json", sha256: sha)
+    }
+
+    private func manifest(_ courses: [ContentManifest.Entry], schema: Int = 1, minApp: String = "1.0") -> ContentManifest {
+        ContentManifest(schema: schema, minAppVersion: minApp, courses: courses)
+    }
+
+    func testOnlyNewerCoursesAreDownloaded() {
+        let m = manifest([entry("en", 9), entry("ja", 7), entry("fr", 1)])
+        let ids = RemoteContentService.coursesToDownload(m, installed: ["en": 8, "ja": 7], appVersion: "1.0").map(\.id)
+        XCTAssertEqual(ids, ["en", "fr"], "ja is up to date; a new course is downloaded too")
+    }
+
+    func testContentForANewerAppIsIgnored() {
+        let m = manifest([entry("en", 9)], minApp: "1.2")
+        XCTAssertTrue(RemoteContentService.coursesToDownload(m, installed: [:], appVersion: "1.1.9").isEmpty)
+        XCTAssertEqual(RemoteContentService.coursesToDownload(m, installed: [:], appVersion: "1.2").count, 1)
+        XCTAssertTrue(RemoteContentService.coursesToDownload(manifest([entry("en", 9)], schema: 2),
+                                                             installed: [:], appVersion: "9.0").isEmpty)
+    }
+
+    func testVersionComparison() {
+        XCTAssertTrue(RemoteContentService.isVersion("1.10", atLeast: "1.9"))
+        XCTAssertTrue(RemoteContentService.isVersion("1.0", atLeast: "1"))
+        XCTAssertTrue(RemoteContentService.isVersion("2.0.1", atLeast: "2.0"))
+        XCTAssertFalse(RemoteContentService.isVersion("1.2", atLeast: "1.10"))
+    }
+
+    func testManifestDecodes() throws {
+        let json = """
+        {"schema": 1, "minAppVersion": "1.0", "generatedAt": "2026-10-03T00:00:00Z",
+         "courses": [{"id": "en", "version": 9, "file": "course_en.json", "sha256": "abc"}]}
+        """
+        let m = try JSONDecoder().decode(ContentManifest.self, from: Data(json.utf8))
+        XCTAssertEqual(m.courses.first, entry("en", 9, sha: "abc"))
+        XCTAssertEqual(RemoteContentService.manifestURL(channel: .staging).absoluteString,
+                       "https://haonguyendev.github.io/LanguageApp-content/v1/staging/manifest.json")
+    }
+
+    /// Unit tests are hosted in the app, so the bundled course JSON is available.
+    private func bundledCourse(_ id: String) throws -> Data {
+        let url = try XCTUnwrap(Bundle.main.url(forResource: "course_\(id)", withExtension: "json"))
+        return try Data(contentsOf: url)
+    }
+
+    func testDownloadedFileMustMatchTheManifest() throws {
+        let data = try bundledCourse("ja")
+        let dto = try JSONDecoder().decode(CourseDTO.self, from: data)
+        let sha = RemoteContentService.sha256(data)
+        XCTAssertTrue(RemoteContentService.isValid(data, for: entry("ja", dto.version, sha: sha)))
+        XCTAssertFalse(RemoteContentService.isValid(data, for: entry("ja", dto.version, sha: String(repeating: "0", count: 64))),
+                       "Corrupt / partial download")
+        XCTAssertFalse(RemoteContentService.isValid(data, for: entry("ja", dto.version + 1, sha: sha)), "Version mismatch")
+        XCTAssertFalse(RemoteContentService.isValid(data, for: entry("ko", dto.version, sha: sha)), "Wrong course")
+    }
+
+    func testApplyPendingUpdatesTheCourseAndKeepsProgress() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ContentImporter(context: context).importBundledCourses()
+        let japanese = try XCTUnwrap(try context.fetch(FetchDescriptor<Course>()).first { $0.remoteId == "ja" })
+        let installedVersion = japanese.contentVersion
+        let firstLesson = try XCTUnwrap(japanese.orderedLessons.first)
+        firstLesson.isCompleted = true
+        try context.save()
+
+        // A newer version of the course waiting in the pending folder.
+        var json = try XCTUnwrap(JSONSerialization.jsonObject(with: try bundledCourse("ja")) as? [String: Any])
+        json["version"] = installedVersion + 1
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try JSONSerialization.data(withJSONObject: json).write(to: directory.appendingPathComponent("course_ja.json"))
+        XCTAssertEqual(RemoteContentService.pendingVersions(in: directory), ["ja": installedVersion + 1])
+
+        let updated = RemoteContentService.applyPending(in: context, directory: directory)
+        XCTAssertEqual(updated, ["ja"])
+        XCTAssertEqual(japanese.contentVersion, installedVersion + 1)
+        XCTAssertTrue(firstLesson.isCompleted, "Progress is kept")
+        XCTAssertTrue(RemoteContentService.pendingFiles(in: directory).isEmpty, "Applied files are removed")
+    }
+
+    func testOlderPendingFileIsIgnored() throws {
+        let container = PersistenceController.makeContainer(inMemory: true)
+        let context = container.mainContext
+        ContentImporter(context: context).importBundledCourses()
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        try bundledCourse("ko").write(to: directory.appendingPathComponent("course_ko.json"))
+        XCTAssertTrue(RemoteContentService.applyPending(in: context, directory: directory).isEmpty, "Same version → nothing to do")
+        XCTAssertTrue(RemoteContentService.pendingFiles(in: directory).isEmpty)
+    }
+}

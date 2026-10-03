@@ -1,0 +1,104 @@
+# Publish the course content spreadsheet to the app without an App Store release.
+#
+# Builds the course JSON from the Google Sheet (validated by build_courses.py – any error stops the
+# run, nothing is published), bumps the version of every course that changed, writes manifest.json
+# and pushes it to the public content repo served by GitHub Pages. Apps pick it up when they open.
+#
+#   staging     → only Debug builds with Developer ▸ Remote content ▸ Channel = Staging read it
+#   production  → every user
+#   promote     → copies what is on staging to production (exactly what you tested)
+#
+# Setup (once): see Tools/content/README.md – repo variable CONTENT_SHEET_ID, secret CONTENT_REPO_TOKEN.
+name: Publish content
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Where to publish
+        type: choice
+        options: [staging, production, promote]
+        default: staging
+      min_app_version:
+        description: Oldest app version that understands this content
+        default: "1.0"
+
+concurrency:
+  group: publish-content
+  cancel-in-progress: false
+
+env:
+  CONTENT_REPO: ${{ vars.CONTENT_REPO || 'HaoNguyenDev/LanguageApp-content' }}
+
+jobs:
+  publish:
+    name: Publish to ${{ inputs.target }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out the content repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CONTENT_REPO }}
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+          path: published
+
+      - name: Build from the Google Sheet
+        if: inputs.target != 'promote'
+        env:
+          SHEET_ID: ${{ vars.CONTENT_SHEET_ID }}
+          CHANNEL: ${{ inputs.target }}
+        run: |
+          test -n "$SHEET_ID" || { echo "::error::Set the repo variable CONTENT_SHEET_ID"; exit 1; }
+          OUT="published/v1/$CHANNEL"
+          mkdir -p "$OUT"
+          # First publish: start from the content bundled in the app, so versions only go up.
+          cp -n LanguageApp/LanguageApp/Resources/Content/course_*.json "$OUT"/ || true
+          python3 Tools/content/build_courses.py --sheet-id "$SHEET_ID" --out "$OUT"
+
+      - name: Promote staging to production
+        if: inputs.target == 'promote'
+        run: |
+          test -f published/v1/staging/manifest.json || { echo "::error::Nothing on staging yet"; exit 1; }
+          mkdir -p published/v1/production
+          # Never move production back to an older version (apps ignore lower versions anyway).
+          python3 - <<'PY'
+          import json, pathlib, sys
+          staging, production = pathlib.Path("published/v1/staging"), pathlib.Path("published/v1/production")
+          for old in production.glob("course_*.json"):
+              new = staging / old.name
+              if new.exists() and json.loads(new.read_text())["version"] < json.loads(old.read_text())["version"]:
+                  sys.exit(f"::error::{old.name}: staging is older than production – publish to staging first")
+          PY
+          cp published/v1/staging/course_*.json published/v1/production/
+
+      - name: Write manifest
+        env:
+          CHANNEL: ${{ inputs.target == 'promote' && 'production' || inputs.target }}
+        run: |
+          python3 Tools/content/make_manifest.py --dir "published/v1/$CHANNEL" --min-app-version "${{ inputs.min_app_version }}"
+          touch published/.nojekyll
+
+      - name: Push to the content repo
+        env:
+          CHANNEL: ${{ inputs.target == 'promote' && 'production' || inputs.target }}
+        run: |
+          cd published
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # manifest.json always changes (generatedAt) – publish only when a course file changed.
+          if git diff --cached --quiet -- "v1/$CHANNEL/course_*.json" && git ls-files --error-unmatch "v1/$CHANNEL/manifest.json" >/dev/null 2>&1; then
+            echo "No content change on $CHANNEL – nothing published."
+            exit 0
+          fi
+          git commit -m "content($CHANNEL): ${{ inputs.target }} from ${GITHUB_SHA::7}"
+          git push
+          {
+            echo "### Published to $CHANNEL"
+            echo '```json'
+            cat "v1/$CHANNEL/manifest.json"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

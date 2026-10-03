@@ -33,6 +33,8 @@ actor LoadingCounter {
     // MARK: - Loading
     /// Bundled courses are imported (the splash waits for this before showing Home / onboarding).
     var isContentReady = false
+    /// A lesson, review, practice or checkpoint is open (full screen). Content updates wait until it closes.
+    var isStudying = false
     var isShowLoading = false
     
     var isShowDrawingCoin = false

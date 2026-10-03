@@ -65,6 +65,7 @@ import Observation
         static let shortLessons = prefix + "shortLessons"
         static let skipMatchPairs = prefix + "skipMatchPairs"
         static let showAnswers = prefix + "showAnswers"
+        static let contentChannel = prefix + "contentChannel"
     }
 
     private let defaults: UserDefaults
@@ -81,6 +82,8 @@ import Observation
     var skipMatchPairs: Bool { didSet { defaults.set(skipMatchPairs, forKey: Keys.skipMatchPairs) } }
     /// Shows the question type and the correct answer above each exercise.
     var showAnswers: Bool { didSet { defaults.set(showAnswers, forKey: Keys.showAnswers) } }
+    /// Remote content channel: staging to try a sheet change before publishing it to everyone.
+    var contentChannel: ContentChannel { didSet { defaults.set(contentChannel.rawValue, forKey: Keys.contentChannel) } }
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -92,6 +95,7 @@ import Observation
         shortLessons = defaults.bool(forKey: Keys.shortLessons)
         skipMatchPairs = defaults.bool(forKey: Keys.skipMatchPairs)
         showAnswers = defaults.bool(forKey: Keys.showAnswers)
+        contentChannel = ContentChannel(rawValue: defaults.string(forKey: Keys.contentChannel) ?? "") ?? .production
     }
 
     func resetAll() {
@@ -103,6 +107,7 @@ import Observation
         shortLessons = false
         skipMatchPairs = false
         showAnswers = false
+        contentChannel = .production
     }
 
     // MARK: Effective values – always "off" outside Debug builds. App code reads only these.
@@ -125,11 +130,13 @@ import Observation
     var lessonWordLimit: Int? { on && shortLessons ? 3 : nil }
     var skipsMatchPairs: Bool { on && skipMatchPairs }
     var showsAnswers: Bool { on && showAnswers }
+    /// Release builds always read production content.
+    var effectiveContentChannel: ContentChannel { on ? contentChannel : .production }
 
     /// Number of switches that change behavior (shown as a badge in Settings).
     var activeCount: Int {
         guard on else { return 0 }
         return [unlockAllLessons, unlimitedHearts, premiumOverride != .none, questionKind != .mixed,
-                skipIntroCards, shortLessons, skipMatchPairs, showAnswers].filter { $0 }.count
+                skipIntroCards, shortLessons, skipMatchPairs, showAnswers, contentChannel != .production].filter { $0 }.count
     }
 }

@@ -55,6 +55,8 @@
         "choose_course": "言語を選ぶ",
         "choose_theme": "テーマを選ぶ",
         "close": "閉じる",
+        "content_updated_message": "レッスンが更新されました。進捗はそのまま残ります。",
+        "content_updated_title": "新しいコンテンツ！",
         "continue": "続ける",
         "continue_anyway": "このまま続ける",
         "correct_answer": "正解：",

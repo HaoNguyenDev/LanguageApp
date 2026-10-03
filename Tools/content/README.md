@@ -33,6 +33,41 @@ The script:
 
 Then build the app and commit the spreadsheet change together with the generated JSON.
 
+## Publishing to the app without a release
+
+Sheet changes can reach users **without building the app**. The *Publish content* GitHub workflow builds the JSON from the Google Sheet and pushes it to the public repo [`LanguageApp-content`](https://github.com/HaoNguyenDev/LanguageApp-content), served by GitHub Pages:
+
+```
+Google Sheet ──▶ Publish content (GitHub Actions) ──▶ LanguageApp-content (GitHub Pages)
+                 build_courses.py (validate, bump)        v1/staging/manifest.json + course_xx.json
+                 make_manifest.py (versions, sha256)       v1/production/…
+                                                                   │
+App, when it opens / comes back (at most every 6 h): manifest ─────┘ → download newer courses
+→ check sha256 / id / version → import when no lesson is open (progress is kept)
+```
+
+### Every time you change the sheet
+
+1. Edit the Google Sheet.
+2. GitHub ▸ **Actions ▸ Publish content ▸ Run workflow ▸ target = `staging`**. Validation errors stop the run and nothing is published (GitHub emails you).
+3. On your iPhone (Debug build): Settings ▸ Developer ▸ **Remote content ▸ Channel = Staging ▸ Check for content updates now**. Look at the new lessons.
+4. Run the workflow again with **target = `promote`**: production gets exactly the files you tested. Users get them the next time they open the app (GitHub Pages caches for ~10 minutes).
+
+`target = production` publishes straight from the sheet (skips the test). Keep word / lesson / unit ids stable: the importer deletes content that disappeared, together with its review progress.
+
+When the content needs a newer app (a new column the old app can't read), publish with **min_app_version** set to that version – older apps keep their content.
+
+### Setup (once)
+
+1. Create the **public** repo `HaoNguyenDev/LanguageApp-content` (with a README so `main` exists). Settings ▸ Pages ▸ *Deploy from a branch* ▸ `main` / `(root)`. Content will be at `https://haonguyendev.github.io/LanguageApp-content/v1/…`.
+2. Create a **fine-grained token**: repository access *only* `LanguageApp-content`, permission **Contents: Read and write**.
+3. In `LanguageApp` ▸ Settings ▸ Secrets and variables ▸ Actions:
+   - Secret `CONTENT_REPO_TOKEN` = the token
+   - Variable `CONTENT_SHEET_ID` = the sheet id (the sheet stays shared as *Anyone with the link – Viewer*)
+4. Run *Publish content* with `staging`, then `promote`.
+
+The bundled JSON in `Resources/Content` is still what a fresh install starts with (and works offline): refresh it with `build_courses.py` before each App Store release.
+
 ## Spreadsheet format
 
 Four tabs (names must match), plus an optional `tips` tab. Columns ending in `_vi`, `_en`, `_zh`, `_ja`, `_ko`, `_es` exist once per language. Row order defines display order. A column named `note` is ignored everywhere.

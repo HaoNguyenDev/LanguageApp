@@ -97,6 +97,9 @@ struct AppCoordinator: View {
                 .fullScreenCover(item: $rootRouter.fullScreenCover) { cover in
                     showFullScreen(routable: cover.routable)
                 }
+                .onChange(of: rootRouter.fullScreenCover?.id) { _, id in
+                    appState.isStudying = id != nil
+                }
             }
             if appState.isShowLoading {
                 loadingView
