@@ -25,6 +25,9 @@ extension UserSettings {
         static let reminderMinute = "reminderMinute"
         static let smartReminderTime = "smartReminderTime"
         static let hasSeenReviewGuide = "hasSeenReviewGuide"
+        static let wordRemindersEnabled = "wordRemindersEnabled"
+        static let wordReminderMinutes = "wordReminderMinutes"
+        static let wordsPerReminder = "wordsPerReminder"
     }
 }
 
@@ -95,6 +98,19 @@ extension UserSettings {
         didSet { defaults.set(reminderMinute, forKey: Keys.reminderMinute) }
     }
 
+    /// Word reminders: notifications with words of the latest lesson + words graded Again / Hard.
+    var wordRemindersEnabled: Bool {
+        didSet { defaults.set(wordRemindersEnabled, forKey: Keys.wordRemindersEnabled) }
+    }
+    /// Minutes between two word reminders (`WordReminderPlanner.intervalOptions`).
+    var wordReminderMinutes: Int {
+        didSet { defaults.set(wordReminderMinutes, forKey: Keys.wordReminderMinutes) }
+    }
+    /// Words shown in one reminder (`WordReminderPlanner.wordCountOptions`).
+    var wordsPerReminder: Int {
+        didSet { defaults.set(wordsPerReminder, forKey: Keys.wordsPerReminder) }
+    }
+
     /// The "How reviews work" guide is shown automatically before the first review session.
     var hasSeenReviewGuide: Bool {
         didSet { defaults.set(hasSeenReviewGuide, forKey: Keys.hasSeenReviewGuide) }
@@ -127,6 +143,9 @@ extension UserSettings {
         self.reminderMinute = defaults.object(forKey: Keys.reminderMinute) as? Int ?? 0
         self.smartReminderTime = defaults.object(forKey: Keys.smartReminderTime) as? Bool ?? true
         self.hasSeenReviewGuide = defaults.bool(forKey: Keys.hasSeenReviewGuide)
+        self.wordRemindersEnabled = defaults.bool(forKey: Keys.wordRemindersEnabled)
+        self.wordReminderMinutes = defaults.object(forKey: Keys.wordReminderMinutes) as? Int ?? 30
+        self.wordsPerReminder = defaults.object(forKey: Keys.wordsPerReminder) as? Int ?? 3
 
         themeSet = LightTheme()
         updateTheme(colorSchemeOption)

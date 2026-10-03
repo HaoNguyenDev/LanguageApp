@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct LanguageAppApp: App {
@@ -28,6 +29,7 @@ struct LanguageAppApp: App {
         // Bundled content is imported in `.task` below while the splash is shown
         // (the splash waits for `AppState.isContentReady`).
         modelContainer = PersistenceController.makeContainer()
+        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
     }
 
     var body: some Scene {

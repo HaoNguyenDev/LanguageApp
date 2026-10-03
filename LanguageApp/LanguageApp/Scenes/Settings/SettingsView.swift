@@ -36,6 +36,9 @@ struct SettingsView: View {
     @State private var showThemePicker = false
     @State private var showLanguagePicker = false
     @State private var showResetConfirm = false
+    @State private var notificationPermission: NotificationManager.Permission = .allowed
+    @State private var showPermissionAlert = false
+    @Environment(\.scenePhase) private var scenePhase
     /// UI language picked in the sheet that equals the language being learned; confirmed after the sheet closes.
     @State private var pendingLanguage: LanguageCode?
     @State private var showSameLanguageAlert = false
@@ -70,13 +73,20 @@ struct SettingsView: View {
                     }
                     toggleRow(icon: "speaker.wave.2.fill", title: "sound_effects".localized(), isOn: $settings.soundEnabled)
                     toggleRow(icon: "waveform", title: "auto_play_audio".localized(), isOn: $settings.autoPlayAudio)
+                    if notificationPermission == .denied,
+                       userSettings.reminderEnabled || userSettings.wordRemindersEnabled {
+                        NotificationPermissionBanner()
+                    }
                     toggleRow(icon: "bell.fill", title: "daily_reminder".localized(),
                               isOn: Binding(get: { userSettings.reminderEnabled },
                                             set: { updateReminder(enabled: $0) }))
                     if userSettings.reminderEnabled {
                         toggleRow(icon: "sparkles", title: "smart_reminder_time".localized(),
                                   isOn: $settings.smartReminderTime)
-                            .onChange(of: userSettings.smartReminderTime) { _, _ in rescheduleNotifications() }
+                            .onChange(of: userSettings.smartReminderTime) { _, _ in
+                                rescheduleNotifications()
+                                checkNotificationPermission()
+                            }
                         if let usual = usualTime {
                             HStack {
                                 Image(systemName: "clock.fill")
@@ -103,9 +113,16 @@ struct SettingsView: View {
                             }
                             .padding(.horizontal, 16)
                             .frame(height: 56)
-                            .onChange(of: userSettings.reminderTime) { _, _ in rescheduleNotifications() }
+                            .onChange(of: userSettings.reminderTime) { _, _ in
+                                rescheduleNotifications()
+                                checkNotificationPermission()
+                            }
                         }
                     }
+                    WordReminderSettingsView(onPermissionDenied: {
+                        notificationPermission = .denied
+                        showPermissionAlert = true
+                    })
                 }
 
                 section("section_app".localized()) {
@@ -150,6 +167,14 @@ struct SettingsView: View {
         .tabBarSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .setDefaultBackground()
+        .notificationPermissionAlert(isPresented: $showPermissionAlert)
+        .task { notificationPermission = await NotificationManager.permission() }
+        .onChange(of: scenePhase) { _, phase in
+            // Back from iOS Settings: hide the warning once notifications are allowed again.
+            if phase == .active {
+                Task { notificationPermission = await NotificationManager.permission() }
+            }
+        }
         .sheet(isPresented: $showThemePicker) {
             ThemeChangeView()
                 .presentationDetents([.height(410)])
@@ -246,17 +271,27 @@ struct SettingsView: View {
     private func updateReminder(enabled: Bool) {
         if enabled {
             Task {
-                let granted = await NotificationManager.requestAuthorization()
+                let granted = await NotificationManager.ensurePermission()
                 userSettings.reminderEnabled = granted
+                notificationPermission = granted ? .allowed : .denied
                 if granted {
                     rescheduleNotifications()
                 } else {
-                    appState.showToast(item: UserMessageItem(message: "notification_denied".localized()))
+                    showPermissionAlert = true
                 }
             }
         } else {
             userSettings.reminderEnabled = false
-            NotificationManager.cancelAll()
+            // Keeps word reminders if they are on.
+            rescheduleNotifications()
+        }
+    }
+
+    /// A reminder option changed: warn when notifications are turned off in iOS Settings.
+    private func checkNotificationPermission() {
+        Task {
+            notificationPermission = await NotificationManager.permission()
+            if notificationPermission == .denied { showPermissionAlert = true }
         }
     }
 

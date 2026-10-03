@@ -193,6 +193,10 @@ final class VocabItem {
     var mistakeCount: Int = 0
     var lastMistakeAt: Date?
 
+    /// Last grade in a review session (`ReviewGrade` raw value, -1 = never reviewed).
+    /// Words last graded Again / Hard are included in word reminders.
+    var lastReviewGrade: Int = -1
+
     init(remoteId: String, courseId: String) {
         self.remoteId = remoteId
         self.courseId = courseId
@@ -225,6 +229,7 @@ final class VocabItem {
         lastReviewedAt = nil
         mistakeCount = 0
         lastMistakeAt = nil
+        lastReviewGrade = -1
     }
 }
 

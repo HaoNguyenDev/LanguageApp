@@ -71,6 +71,7 @@ import Observation
         let date = now()
         item.srsState = scheduler.schedule(item.srsState, grade: grade, now: date)
         item.lastReviewedAt = date
+        item.lastReviewGrade = grade.rawValue
         reviewedCount += 1
         xpEarned += 1
 
