@@ -1683,3 +1683,83 @@ final class MessageCatalogTests: XCTestCase {
         XCTAssertNil(MessageCatalog.welcomeContext(activities: [], now: now, calendar: calendar).daysSinceStudy)
     }
 }
+
+@MainActor
+final class WordWidgetTests: XCTestCase {
+    private func word(_ id: String, hard: Bool = false) -> ReminderWord {
+        ReminderWord(id: id, term: "term\(id)", reading: nil, meaning: "meaning\(id)", isHard: hard)
+    }
+
+    func testWidgetShowsTheSameWordsAsTheReminders() {
+        let pool = (1...7).map { word("\($0)") }
+        let date = Date(timeIntervalSince1970: 1_800_000_000)
+        let reminder = WordReminderPlanner.words(at: date, intervalMinutes: 30, pool: pool, count: 2)
+        let widget = WordWidgetData.words(slot: WordWidgetData.slot(at: date, intervalMinutes: 30), pool: pool, count: 2)
+        XCTAssertEqual(reminder.map(\.id), widget.map(\.id))
+    }
+
+    func testRotationMovesOneStepPerSlot() {
+        let pool = ["a", "b", "c", "d", "e"]
+        XCTAssertEqual(WordWidgetData.words(slot: 0, pool: pool, count: 2), ["a", "b"])
+        XCTAssertEqual(WordWidgetData.words(slot: 1, pool: pool, count: 2), ["c", "d"])
+        XCTAssertEqual(WordWidgetData.words(slot: 2, pool: pool, count: 2), ["e", "a"])
+        XCTAssertEqual(WordWidgetData.words(slot: -1, pool: pool, count: 2), ["d", "e"], "Never crashes on negative slots")
+        XCTAssertEqual(WordWidgetData.words(slot: 3, pool: ["a"], count: 2), ["a"])
+        XCTAssertEqual(WordWidgetData.words(slot: 3, pool: [String](), count: 2), [])
+    }
+
+    func testSlotBoundaries() {
+        let start = WordWidgetData.startOfSlot(100, intervalMinutes: 15)
+        XCTAssertEqual(WordWidgetData.slot(at: start, intervalMinutes: 15), 100)
+        XCTAssertEqual(WordWidgetData.slot(at: start.addingTimeInterval(15 * 60 - 1), intervalMinutes: 15), 100)
+        XCTAssertEqual(WordWidgetData.slot(at: start.addingTimeInterval(15 * 60), intervalMinutes: 15), 101)
+    }
+
+    func testSnapshotKeepsTheDateWhenWordsDontChange() {
+        let texts = WordWidgetData.Texts.english
+        let old = Date(timeIntervalSince1970: 1_000)
+        let first = WordWidgetService.snapshot(courseName: "Japanese", pool: [word("1", hard: true)], intervalMinutes: 20,
+                                               texts: texts, now: old, previous: nil)
+        XCTAssertEqual(first.words.first?.isHard, true)
+        XCTAssertEqual(first.intervalMinutes, 20)
+        let same = WordWidgetService.snapshot(courseName: "Japanese", pool: [word("1", hard: true)], intervalMinutes: 20,
+                                              texts: texts, now: .now, previous: first)
+        XCTAssertEqual(same, first, "Nothing changed → no widget reload")
+        let changed = WordWidgetService.snapshot(courseName: "Japanese", pool: [word("2")], intervalMinutes: 20,
+                                                 texts: texts, now: .now, previous: first)
+        XCTAssertNotEqual(changed.updatedAt, old)
+    }
+
+    func testDifficultyLevels() throws {
+        typealias Word = WordWidgetData.Word
+        XCTAssertEqual(Word(id: "1", term: "a", reading: nil, meaning: "b", isHard: false).difficulty, .normal)
+        XCTAssertEqual(Word(id: "1", term: "a", reading: nil, meaning: "b", isHard: true, level: 1).difficulty, .hard)
+        XCTAssertEqual(Word(id: "1", term: "a", reading: nil, meaning: "b", isHard: true, level: 2).difficulty, .again)
+        XCTAssertTrue(WordWidgetData.Difficulty.again > .hard)
+        // Saved by the first widget build (no "level"): still readable, hard words stay hard.
+        let old = #"{"id":"1","term":"犬","meaning":"dog","isHard":true}"#
+        let decoded = try JSONDecoder().decode(Word.self, from: Data(old.utf8))
+        XCTAssertEqual(decoded.difficulty, .hard)
+    }
+
+    func testSnapshotCarriesTheLevel() {
+        let again = ReminderWord(id: "1", term: "犬", reading: "inu", meaning: "dog", isHard: true, level: 2)
+        let data = WordWidgetService.snapshot(courseName: "Japanese", pool: [again], intervalMinutes: 30,
+                                              texts: .english, now: .now, previous: nil)
+        XCTAssertEqual(data.words.first?.difficulty, .again)
+    }
+
+    func testSaveReportsChangesOnly() {
+        let defaults = UserDefaults(suiteName: "WordWidgetTests")!
+        defaults.removePersistentDomain(forName: "WordWidgetTests")
+        let data = WordWidgetData(courseName: "Japanese", intervalMinutes: 30,
+                                  words: [.init(id: "1", term: "犬", reading: "inu", meaning: "dog", isHard: false)],
+                                  texts: .english, updatedAt: Date(timeIntervalSince1970: 5))
+        XCTAssertTrue(data.save(to: defaults))
+        XCTAssertFalse(data.save(to: defaults))
+        XCTAssertEqual(WordWidgetData.load(from: defaults), data)
+        XCTAssertEqual(WordWidgetData.offset(in: defaults), 0)
+        WordWidgetData.advanceOffset(in: defaults)
+        XCTAssertEqual(WordWidgetData.offset(in: defaults), 1)
+    }
+}
