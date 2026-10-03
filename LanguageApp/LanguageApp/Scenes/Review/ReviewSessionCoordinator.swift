@@ -65,6 +65,10 @@ struct ReviewSessionCoordinator: View {
         if !quests.isEmpty {
             appState.showToast(item: DailyQuestService.toastItem(for: quests))
         }
+        let achievements = AchievementService.checkNew(in: modelContext)
+        if !achievements.isEmpty {
+            appState.showToast(item: AchievementService.toastItem(for: achievements))
+        }
     }
 
     private func close() {

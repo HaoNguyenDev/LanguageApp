@@ -89,7 +89,8 @@ enum PracticeService {
                             streak: ProgressService.streak(from: activities, today: now),
                             isPerfect: isPerfect,
                             reachedDailyGoal: xpBefore < dailyGoalXP && xpAfter >= dailyGoalXP,
-                            completedQuests: quests)
+                            completedQuests: quests,
+                            newAchievements: AchievementService.checkNew(in: context, now: now))
     }
 }
 

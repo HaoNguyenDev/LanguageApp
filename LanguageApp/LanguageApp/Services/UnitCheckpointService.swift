@@ -11,9 +11,13 @@ import SwiftData
 
 struct CheckpointOutcome: Hashable {
     let passed: Bool
-    /// True the first time this unit's checkpoint is passed (the next unit opens).
+    /// True the first time this unit's checkpoint is passed: the unit is complete (celebrated)
+    /// and the next unit opens.
     let unlockedNextUnit: Bool
     let requiredAccuracy: Double
+    /// 1-based position of the unit in its course, and its title (for the celebration).
+    var unitNumber = 0
+    var unitTitle = ""
 }
 
 enum UnitCheckpointService {
@@ -77,6 +81,7 @@ enum UnitCheckpointService {
 
         let activities = ProgressService.allActivities(in: context)
         let xpAfter = ProgressService.xp(on: now, from: activities)
+        let unitNumber = (unit.course?.sortedUnits.firstIndex { $0.remoteId == unit.remoteId } ?? 0) + 1
         return LessonResult(xpEarned: xp,
                             accuracy: accuracy,
                             newWords: 0,
@@ -86,6 +91,9 @@ enum UnitCheckpointService {
                             completedQuests: quests,
                             checkpoint: CheckpointOutcome(passed: passed,
                                                           unlockedNextUnit: unlockedNextUnit,
-                                                          requiredAccuracy: passAccuracy))
+                                                          requiredAccuracy: passAccuracy,
+                                                          unitNumber: unitNumber,
+                                                          unitTitle: unit.title.text),
+                            newAchievements: passed ? AchievementService.checkNew(in: context, now: now) : [])
     }
 }
