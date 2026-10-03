@@ -23,7 +23,7 @@ python3 Tools/content/build_courses.py --xlsx ~/Downloads/LinguaPath_Course_Cont
 python3 Tools/content/build_courses.py --sheet-id <SHEET_ID> --check
 ```
 
-`<SHEET_ID>` is the part of the URL between `/d/` and `/edit`.
+`<SHEET_ID>` is the part of the URL between `/d/` and `/edit` (the whole sheet URL works too).
 
 The script:
 
@@ -63,7 +63,7 @@ When the content needs a newer app (a new column the old app can't read), publis
 2. Create a **fine-grained token**: repository access *only* `LanguageApp-content`, permission **Contents: Read and write**.
 3. In `LanguageApp` ▸ Settings ▸ Secrets and variables ▸ Actions:
    - Secret `CONTENT_REPO_TOKEN` = the token
-   - Variable `CONTENT_SHEET_ID` = the sheet id (the sheet stays shared as *Anyone with the link – Viewer*)
+   - Variable `CONTENT_SHEET_ID` = the sheet id or URL (the sheet stays shared as *Anyone with the link – Viewer*)
 4. Run *Publish content* with `staging`, then `promote`.
 
 The bundled JSON in `Resources/Content` is still what a fresh install starts with (and works offline): refresh it with `build_courses.py` before each App Store release.
